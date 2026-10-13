@@ -1,0 +1,41 @@
+✔ a single slide does not start carousel behavior (1.569344ms)
+✔ desktop autoplay advances every six seconds and wraps to the first slide (0.592733ms)
+✔ hover, focus, and tab visibility pause and resume autoplay (0.286091ms)
+✔ indicator navigation updates every active state and restarts autoplay (0.200242ms)
+✔ mobile swipes in both directions and wraps from the first slide to the last (0.269616ms)
+✔ mobile swipe requires 50 horizontal pixels and ignores vertical gestures (0.921799ms)
+✔ reduced motion disables autoplay and transition locking (0.213031ms)
+✔ rapid interaction cannot overlap an active transition (0.257327ms)
+✔ desktop and reduced-motion changes update autoplay without duplicate timers (0.470619ms)
+✔ pointer cancellation, non-primary pointers and desktop gestures do not advance (0.252901ms)
+✔ disposal clears both timers and listeners and permits clean reinitialization (0.396137ms)
+✔ approved entrance keeps the six declared timings, easing, transforms and one shared start (1.934475ms)
+✔ reduced motion preserves fully visible server styling without animation calls (0.130747ms)
+✔ all publication/news/event records and current selections equal the fresh pinned PHP export (1.725339ms)
+✔ research filters strict true, sorts newest/slug ties, respects limits and does not mutate input (0.27847ms)
+✔ news uses strict featured ranking, raw ISO string order rather than instant order, and slug ties (0.175445ms)
+✔ upcoming events match injected-date PHP predicate/comparator at ongoing, end-day and past boundaries (0.293812ms)
+✔ UTC midnight, not Lagos calendar day, removes a past event; strict flags, start-only and slug ties hold (0.675908ms)
+✔ news labels preserve the record offset date and category title case (0.300924ms)
+✔ all event date, type, same-tab meeting URL and physical/hybrid/online location transforms equal PHP (0.340944ms)
+✔ three original news PNG hashes/dimensions and existing arrow match, with the fourth article reusing image two (1.218585ms)
+✔ research SSR preserves three exact publications, authors/year/area and external DOI controls (9.271649ms)
+✔ news SSR preserves featured + three compact cards, full-link labels, sr-only context, dates and image attributes (3.655457ms)
+✔ event SSR preserves card summaries/date ranges/locations and same-tab links, including meetings and empty selection (2.666387ms)
+✔ homepage is server-rendered in five-section source order and evaluated per request, with noindex retained (8.975151ms)
+✔ literal data and strict homepage selection match the pinned PHP repository, excluding the starter (1.955997ms)
+✔ server HTML contains the three exact cards, original images, safe external links and both source CTA variants (10.65025ms)
+✔ all monitoring PNGs retain pinned hashes, byte lengths and natural dimensions (1.992292ms)
+✔ root-relative normalization excludes external URLs and ignores fragments/queries (0.960086ms)
+✔ home is current only at root; nested routes activate without becoming current (0.322516ms)
+✔ About fragment links share current-page state as in Laravel (0.230377ms)
+✔ Products activates its Data & Products parent without activating the Data child (0.130948ms)
+✔ disabled entries are excluded recursively and utility paths retain exact current state (0.734066ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 574.598321
