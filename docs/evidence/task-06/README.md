@@ -6,6 +6,8 @@ All five original sections now render in Laravel order. Task 05 [PR #5](https://
 
 Branch `codex/task-06-complete-homepage` starts from latest main **`2adf6da50577e76b03c8e9d45bb06ead8220e76e`**, including Task 05 merge `6bb23ee37382b3431b0082414c56134741a72151`. Reference: read-only Laravel **`9872c4ed12aa48835eab71065c69b468424adb4a`**.
 
+Implementation/capture commit: **`245b6e0e361b2263798ad004b7b7041be9d2e9bb`**; subsequent task commits update documentation/publication only.
+
 Recreated the [isolated Git-archive renderer](../task-05/README.md#reference-and-reproduction) in `/tmp`, using existing vendor/build assets, isolated environment/cache/views/storage, `APP_NAME=NOSEE`, array sessions/cache and source **UTC** timezone. No legacy writes/install/build/test suite. The configured local renderer is the reference; live deployment configuration remains unverified.
 
 Final Next production build and existing Chromium **154.0.8037.57** / Playwright; DPR **1**, locale **en-GB**, timezone **Africa/Lagos**, light scheme, normal motion unless labeled reduced, no CPU/network throttling. Source export and captures are as of **2026-10-13 UTC**. Awaited fonts, all original images, entrance and navigation transitions. A pointer-selected first indicator holds slide 1 during long captures. Section crops use native Chromium document-coordinate capture beyond the viewport; no source DOM/style edits. Full pages at 390/1440px retain expanded navigation. Fractional section coordinates are preserved in measurements; PNG crops rasterize to integer pixels.
