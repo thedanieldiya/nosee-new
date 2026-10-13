@@ -76,4 +76,6 @@ Both hero originals and all three eager monitoring PNGs load on initial mobile e
 
 Remaining: three homepage sections, `/data` and other public routes, source no-JS nav blocker, full original-page baseline/live configuration and formal full-site review. Existing Task 03 newsletter exception and Task 04 approved entrance/color observations remain documented there. No admin/backend/membership or new reveal animation. No broad Laravel/E2E suite, new browser install, screen-reader/WCAG certification, Lighthouse, throttled audit or field/CWV evidence.
 
-[PROGRESS.md](../../PROGRESS.md) records commit/publication and any verified branch preview. No PR or merge. Stop for review; the one next bounded task after acceptance is the original **Research Outputs** section.
+`git push -u origin codex/task-05-home-monitoring` succeeded, publishing implementation `8e4edd856e5fffae08551f51405512cd69b1cb18` and ledger `be851a2f0d67a65a739ad26e787c6ed5daee409a`; local/remote heads matched. [Published branch](https://github.com/thedanieldiya/nosee-new/tree/codex/task-05-home-monitoring). **Preview URL unavailable from Codex:** post-push GitHub status/check-runs API requests returned Forbidden, so Vercel's actual branch URL/build status is unverified. The main production domain is not presented as this preview.
+
+[PROGRESS.md](../../PROGRESS.md) records review gates. No PR or merge. Stop for review; the one next bounded task after acceptance is the original **Research Outputs** section.
