@@ -43,6 +43,8 @@ ESLint 9.39.5 is pinned because the current Next React/import/accessibility plug
 - `/` is **NOSEE — Foundation Preview**, a temporary server-rendered review aid using in-page links. Its page metadata is `noindex, nofollow`; the root layout does not impose a site-wide indexing policy. Replace the specimen during reviewed P2 work.
 - No custom client JavaScript, navigation/footer, homepage sections, admin, database, auth, email or membership implementation is included. Next.js still supplies its framework runtime; server components do not imply a zero-byte framework bundle.
 
+**Public-site fidelity:** All public pages are a strict 1:1 migration of the original Laravel site's visible layout, content, assets and behavior. No editorial or design corrections without owner approval; see [PRD](docs/PRD.md) and [Task 03](docs/codex-tasks/03-public-shell.md). The admin dashboard is a later, separate project phase.
+
 ## Preview deployment
 
 The owner connected this repository to Vercel. Push the task branch to trigger that integration and review its **actual branch deployment URL** from Vercel/GitHub checks. `https://nosee-new.vercel.app` is the main/production domain and must not be presented as the task preview. Deployment status and any available preview URL are recorded in [PROGRESS.md](docs/PROGRESS.md); do not merge the foundation until the owner reviews it.
@@ -53,6 +55,7 @@ The owner connected this repository to Vercel. Push the task branch to trigger t
 - [Codex progress tracker](docs/PROGRESS.md) — live milestone and requirement statuses with evidence and blockers.
 - [Codex Task 01](docs/codex-tasks/01-discovery-and-baseline.md) — first task: audit the legacy source and produce a visual/migration baseline **without changing application code**.
 - [Codex Task 02](docs/codex-tasks/02-nextjs-foundation.md) — scaffold a lean Next.js application, port source fonts/tokens and first primitives, and review via a Vercel branch preview.
+- [Codex Task 03](docs/codex-tasks/03-public-shell.md) — strictly reproduce the original Laravel public navigation, footer, and responsive behavior; push a branch for Vercel preview without requiring a PR.
 
 ## Performance is a product requirement
 
