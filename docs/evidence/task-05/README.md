@@ -6,6 +6,8 @@ The original three-card monitoring section now follows the hero. Task 04 was mer
 
 Branch `codex/task-05-home-monitoring` starts from main **`a14c59fd5e7b018418fa7f49d3ba3bc04b5e0b13`**, including merged Task 04. Laravel source is pinned to **`9872c4ed12aa48835eab71065c69b468424adb4a`** and remains clean/read-only.
 
+Implementation/capture commit: **`8e4edd856e5fffae08551f51405512cd69b1cb18`**. Later task commits update documentation/publication only.
+
 Restored the [Task 03 isolated-renderer procedure](../task-03/README.md#reference-and-capture-conditions): Git archive in `/tmp`, existing `vendor` and `/workspace/cloud-setup/build` symlinks, separate environment/cache/views/storage, array sessions/cache and `APP_NAME=NOSEE`. Started Laravel with the existing activated PHP tools and `php artisan serve --no-reload`. No legacy install, rebuild, source edits or broad tests. This is a pinned local renderer, not verified live production; deployed configuration remains unknown.
 
 Target is the final local Next production build (`npm run build`, then `npm run start`). Existing Chromium **154.0.8037.57** / Playwright, DPR **1**, locale **en-GB**, timezone **Africa/Lagos**, light scheme, no network/CPU throttling. Fonts/original images and hero entrance were settled before measurement. Default motion unless labeled reduced.
