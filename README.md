@@ -11,7 +11,7 @@ This repository is separate from the [existing Laravel implementation](https://g
 - Public membership application form **without applicant login**. Applicants receive submission confirmations; admins are notified and can approve/reject applicants with email notifications.
 - Member records are private by default. Only deliberately published executive/researcher profiles appear on the public website.
 
-**Status:** Task 03's public shell is merged. Task 04 adds the original two-slide homepage hero/carousel for owner review, temporarily followed directly by the footer. The four remaining homepage sections and backend features are unimplemented. See [PROGRESS.md](docs/PROGRESS.md) and [Task 04 comparisons](docs/evidence/task-04/README.md).
+**Status:** Tasks 02–04 are merged; the owner confirms the current site runs locally. The homepage includes the navigation, original two-slide hero/carousel and footer. [Task 05](docs/codex-tasks/05-home-monitoring.md) is prepared to add the original monitoring section, but no Task 05 code is implemented yet. Research outputs, trending news, upcoming events and backend/admin features remain outstanding. See [PROGRESS.md](docs/PROGRESS.md) and [Task 04 comparisons](docs/evidence/task-04/README.md).
 
 ## Development
 
@@ -63,6 +63,7 @@ The owner connected this repository to Vercel. Push the task branch to trigger t
 - [Codex Task 02](docs/codex-tasks/02-nextjs-foundation.md) — scaffold a lean Next.js application, port source fonts/tokens and first primitives, and review via a Vercel branch preview.
 - [Codex Task 03](docs/codex-tasks/03-public-shell.md) — strictly reproduce the original Laravel public navigation, footer, and responsive behavior; push a branch for Vercel preview without requiring a PR.
 - [Codex Task 04](docs/codex-tasks/04-homepage-hero.md) — reproduce the two original homepage hero slides, images, overlays, carousel/autoplay/swipe, and entrance animations with pinned-source visual comparisons.
+- [Codex Task 05](docs/codex-tasks/05-home-monitoring.md) — reproduce the three source monitoring dashboard cards, exact images/data and responsive CTAs, with matched Laravel/Next screenshots and no creative changes.
 
 ## Performance is a product requirement
 
