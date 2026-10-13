@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { HomeHero } from "@/components/site/sections/HomeHero";
+import { HomeMonitoringDashboard } from "@/components/site/sections/HomeMonitoringDashboard";
 
 export const metadata: Metadata = {
   title: "NOSEE",
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  return <HomeHero />;
+  return <><HomeHero /><HomeMonitoringDashboard /></>;
 }

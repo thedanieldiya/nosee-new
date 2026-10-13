@@ -1,0 +1,83 @@
+{
+    "all": [
+        {
+            "slug": "average-f-region-observations",
+            "title": "Average F-Region Observations.",
+            "summary": "Average F-region observation coverage ingested into the GloTEC model.",
+            "provider": "National Weather Services",
+            "ownership": "external",
+            "source_url": "https://www.spaceweather.gov/products/glotec",
+            "image": "/media/monitoringDashboards/fRegionObservations.png",
+            "image_alt": "Global map showing average F-region observation coverage.",
+            "homepage_monitoring": true
+        },
+        {
+            "slug": "range-error-from-tec",
+            "title": "Range Error from TEC",
+            "summary": "Estimated GPS L1 range error derived from global total electron content.",
+            "provider": "National Weather Services",
+            "ownership": "external",
+            "source_url": "https://www.spaceweather.gov/products/glotec",
+            "image": "/media/monitoringDashboards/rangeError.png",
+            "image_alt": "Global map showing GPS L1 range error derived from total electron content.",
+            "homepage_monitoring": true
+        },
+        {
+            "slug": "starter-environmental-dataset",
+            "title": "Starter Environmental Dataset",
+            "summary": "Starter data record for local development.",
+            "provider": "NOSEE",
+            "ownership": "nosee",
+            "source_url": null,
+            "image": null,
+            "image_alt": null,
+            "homepage_monitoring": false
+        },
+        {
+            "slug": "tec-difference-from-30-day-median",
+            "title": "TEC Difference from 30-Day Median",
+            "summary": "Current global total electron content compared with its 30-day median.",
+            "provider": "National Weather Services",
+            "ownership": "external",
+            "source_url": "https://www.spaceweather.gov/products/glotec",
+            "image": "/media/monitoringDashboards/tecDifference.png",
+            "image_alt": "Global map showing total electron content difference from the 30-day median.",
+            "homepage_monitoring": true
+        }
+    ],
+    "monitoring": [
+        {
+            "slug": "average-f-region-observations",
+            "title": "Average F-Region Observations.",
+            "summary": "Average F-region observation coverage ingested into the GloTEC model.",
+            "provider": "National Weather Services",
+            "ownership": "external",
+            "source_url": "https://www.spaceweather.gov/products/glotec",
+            "image": "/media/monitoringDashboards/fRegionObservations.png",
+            "image_alt": "Global map showing average F-region observation coverage.",
+            "homepage_monitoring": true
+        },
+        {
+            "slug": "range-error-from-tec",
+            "title": "Range Error from TEC",
+            "summary": "Estimated GPS L1 range error derived from global total electron content.",
+            "provider": "National Weather Services",
+            "ownership": "external",
+            "source_url": "https://www.spaceweather.gov/products/glotec",
+            "image": "/media/monitoringDashboards/rangeError.png",
+            "image_alt": "Global map showing GPS L1 range error derived from total electron content.",
+            "homepage_monitoring": true
+        },
+        {
+            "slug": "tec-difference-from-30-day-median",
+            "title": "TEC Difference from 30-Day Median",
+            "summary": "Current global total electron content compared with its 30-day median.",
+            "provider": "National Weather Services",
+            "ownership": "external",
+            "source_url": "https://www.spaceweather.gov/products/glotec",
+            "image": "/media/monitoringDashboards/tecDifference.png",
+            "image_alt": "Global map showing total electron content difference from the 30-day median.",
+            "homepage_monitoring": true
+        }
+    ]
+}

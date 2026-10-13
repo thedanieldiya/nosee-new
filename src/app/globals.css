@@ -37,3 +37,23 @@
     outline-offset: 2px;
   }
 }
+
+@layer components {
+  .card-hover-lift {
+    @apply transition-all duration-250 motion-reduce:transition-none;
+  }
+
+  @media (min-width: 64rem) {
+    .card-hover-lift:hover,
+    .card-hover-lift:focus-within {
+      @apply -translate-y-1 shadow-lg shadow-black/10;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-hover-lift:hover,
+    .card-hover-lift:focus-within {
+      @apply translate-y-0;
+    }
+  }
+}

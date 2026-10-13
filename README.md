@@ -11,7 +11,7 @@ This repository is separate from the [existing Laravel implementation](https://g
 - Public membership application form **without applicant login**. Applicants receive submission confirmations; admins are notified and can approve/reject applicants with email notifications.
 - Member records are private by default. Only deliberately published executive/researcher profiles appear on the public website.
 
-**Status:** Tasks 02–04 are merged; the owner confirms the current site runs locally. The homepage includes the navigation, original two-slide hero/carousel and footer. [Task 05](docs/codex-tasks/05-home-monitoring.md) is prepared to add the original monitoring section, but no Task 05 code is implemented yet. Research outputs, trending news, upcoming events and backend/admin features remain outstanding. See [PROGRESS.md](docs/PROGRESS.md) and [Task 04 comparisons](docs/evidence/task-04/README.md).
+**Status:** Tasks 02–04 are merged; the owner confirms the merged site runs locally. Task 05 adds the original three-card monitoring section directly after the hero for review. Research outputs, trending news, upcoming events and backend/admin features remain outstanding. See [PROGRESS.md](docs/PROGRESS.md) and [Task 05 comparisons](docs/evidence/task-05/README.md).
 
 ## Development
 
@@ -29,6 +29,7 @@ npm run typecheck
 npm run lint
 node --test tests/navigation.test.mjs
 node --test tests/hero-carousel.test.mjs tests/hero-entrance.test.mjs
+node --test tests/monitoring.test.mjs
 npm run build
 npm run start
 ```
@@ -40,10 +41,11 @@ ESLint 9.39.5 is pinned because the current Next React/import/accessibility plug
 ## Foundation scope
 
 - `src/styles/tokens.css` is the single source for the legacy semantic palette and font-family tokens; `src/app/globals.css` imports those tokens and establishes base/focus styles. Tailwind's 640/768/1024/1280px breakpoints are unchanged.
-- `src/components/site/ui/Container.tsx`, `ButtonLink.tsx`, and `ArrowRight.tsx` are server components. The container preserves the 90rem width and source gutters; links preserve 36/44/48px sizes, fill/stroke/text styles, and disabled semantics. Native footer buttons share the same source classes. Copied media comprises the source arrow, white logo, five social SVGs and two unmodified hero images.
+- `src/components/site/ui/Container.tsx`, `ButtonLink.tsx`, and `ArrowRight.tsx` are server components. The container preserves the 90rem width and source gutters; links preserve 36/44/48px sizes, fill/stroke/text styles, and disabled semantics. Native footer buttons share the same source classes. Copied media comprises the source arrow, white logo, five social SVGs, two hero images and three monitoring PNGs, all unmodified.
 - Fonts are self-hosted from the same `@fontsource` 5.2.8 families as the legacy project, with Latin subsets and `font-display: swap`. Local faces include Ubuntu Sans 500/600/700 and IBM Plex Sans 400/500/600 plus 400 italic. No font is preloaded or fetched from Google at build time.
-- `/` has the source title **NOSEE** and server-rendered hero. Its page metadata remains `noindex, nofollow` until the complete homepage passes review; the root layout does not impose a site-wide indexing policy. The foundation specimen has been removed.
+- `/` has the source title **NOSEE**, server-rendered hero and monitoring section, then the shared footer temporarily. Its page metadata remains `noindex, nofollow` until the complete homepage passes review; the root layout does not impose a site-wide indexing policy. The foundation specimen has been removed.
 - Navigation/footer/hero markup and literal `src/lib/content/` records are server-rendered. Small client controllers handle scroll/drawer behavior, the task-approved newsletter error response and homepage-only carousel/entrance. The owner approved enabling the declared six-stage entrance because the pinned Laravel renderer plays no entrance animation. Native Web Animations adds no dependency. No admin, database, auth, email or membership implementation is included. Next.js still supplies its framework runtime.
+- Monitoring uses two server components and the exact source CSS for desktop hover/focus lift. Literal data preserves sorted source order and strict homepage selection, excluding the starter dataset. Its reveal hooks remain, but no reveal is activated because the pinned renderer plays none; the hero approval does not authorize changing this. The three 600×338 eager PNGs total 603,892 bytes. These are static source screenshots and links, not live data feeds.
 
 The public layout keeps the source offset variables isolated from future admin routes. The hero starts at the top underneath the overlaid source header, without specimen padding. Internal-page migration should apply the source `pt-[var(--expanded-navbar-offset)]` rule to its main content. The shell geometry is unchanged. Unimplemented source destinations, including both hero CTA paths and `/login`, are retained and currently lead to 404 pages.
 
