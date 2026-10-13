@@ -1,0 +1,50 @@
+[
+  {
+    "path": "/media/about/earth-from-space.png",
+    "bytes": 394947,
+    "width": 468,
+    "height": 430,
+    "sourceSha256": "ddc765dee8a91bf6ded3160df7c5fa1582ce4c8ef579b3842e5ec2c3e03dbba9",
+    "targetSha256": "ddc765dee8a91bf6ded3160df7c5fa1582ce4c8ef579b3842e5ec2c3e03dbba9"
+  },
+  {
+    "path": "/media/about/earth-space-environment-mobile.png",
+    "bytes": 149280,
+    "width": 370,
+    "height": 260,
+    "sourceSha256": "ea3c2109e3430125a54c3b2fcd610d8578e1293167cca0120b3e4cf0199ec00e",
+    "targetSha256": "ea3c2109e3430125a54c3b2fcd610d8578e1293167cca0120b3e4cf0199ec00e"
+  },
+  {
+    "path": "/media/about/earth-space-environment-tablet.png",
+    "bytes": 279329,
+    "width": 591,
+    "height": 360,
+    "sourceSha256": "12f0ec9928e47effad9af7b8b30035519f063c01babc4b116bb12dd36ca186c4",
+    "targetSha256": "12f0ec9928e47effad9af7b8b30035519f063c01babc4b116bb12dd36ca186c4"
+  },
+  {
+    "path": "/media/about/earth-space-environment.png",
+    "bytes": 458044,
+    "width": 864,
+    "height": 400,
+    "sourceSha256": "b9d0251459be10abd8e31ebc27fe1e2c58a18d0e657be17efe4bd28dbf9000c2",
+    "targetSha256": "b9d0251459be10abd8e31ebc27fe1e2c58a18d0e657be17efe4bd28dbf9000c2"
+  },
+  {
+    "path": "/media/about/solar-observation-tablet.png",
+    "bytes": 93620,
+    "width": 296,
+    "height": 320,
+    "sourceSha256": "725de2179931a5607040cb903ccb81292d9a8feb0f7c548892389194cd4c5343",
+    "targetSha256": "725de2179931a5607040cb903ccb81292d9a8feb0f7c548892389194cd4c5343"
+  },
+  {
+    "path": "/media/about/solar-observation.png",
+    "bytes": 106358,
+    "width": 416,
+    "height": 330,
+    "sourceSha256": "bc398c1fa18f209edf74a0890b2f97c27affa9dad03ef4eca7d3391f35b97cfe",
+    "targetSha256": "bc398c1fa18f209edf74a0890b2f97c27affa9dad03ef4eca7d3391f35b97cfe"
+  }
+]

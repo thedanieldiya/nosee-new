@@ -1,0 +1,113 @@
+{
+  "capturedAt": "2026-10-13T22:59:24.125Z",
+  "rows": [
+    {
+      "kind": "reference",
+      "javaScript": true,
+      "run": 0,
+      "top": 127,
+      "documentY": 3386,
+      "scrollY": 3259,
+      "navBottom": 72
+    },
+    {
+      "kind": "reference",
+      "javaScript": true,
+      "run": 1,
+      "top": 128,
+      "documentY": 3386,
+      "scrollY": 3258,
+      "navBottom": 72
+    },
+    {
+      "kind": "reference",
+      "javaScript": true,
+      "run": 2,
+      "top": 128,
+      "documentY": 3386,
+      "scrollY": 3258,
+      "navBottom": 72
+    },
+    {
+      "kind": "target",
+      "javaScript": true,
+      "run": 0,
+      "top": 128,
+      "documentY": 3386,
+      "scrollY": 3258,
+      "navBottom": 72
+    },
+    {
+      "kind": "target",
+      "javaScript": true,
+      "run": 1,
+      "top": 128,
+      "documentY": 3386,
+      "scrollY": 3258,
+      "navBottom": 72
+    },
+    {
+      "kind": "target",
+      "javaScript": true,
+      "run": 2,
+      "top": 128,
+      "documentY": 3386,
+      "scrollY": 3258,
+      "navBottom": 72
+    },
+    {
+      "kind": "reference",
+      "javaScript": false,
+      "run": 0,
+      "top": 127,
+      "documentY": 3386,
+      "scrollY": 3259,
+      "navBottom": 264
+    },
+    {
+      "kind": "reference",
+      "javaScript": false,
+      "run": 1,
+      "top": 128,
+      "documentY": 3386,
+      "scrollY": 3258,
+      "navBottom": 264
+    },
+    {
+      "kind": "reference",
+      "javaScript": false,
+      "run": 2,
+      "top": 127,
+      "documentY": 3386,
+      "scrollY": 3259,
+      "navBottom": 264
+    },
+    {
+      "kind": "target",
+      "javaScript": false,
+      "run": 0,
+      "top": 127,
+      "documentY": 3386,
+      "scrollY": 3259,
+      "navBottom": 264
+    },
+    {
+      "kind": "target",
+      "javaScript": false,
+      "run": 1,
+      "top": 127,
+      "documentY": 3386,
+      "scrollY": 3259,
+      "navBottom": 264
+    },
+    {
+      "kind": "target",
+      "javaScript": false,
+      "run": 2,
+      "top": 128,
+      "documentY": 3386,
+      "scrollY": 3258,
+      "navBottom": 264
+    }
+  ]
+}

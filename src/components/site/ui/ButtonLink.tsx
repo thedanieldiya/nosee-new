@@ -6,6 +6,12 @@ const sizes = {
   lg: "h-12 px-5 text-base",
 };
 
+const iconOnlySizes = {
+  sm: "h-9 w-9 p-0 text-sm",
+  base: "h-11 w-11 p-0 text-base",
+  lg: "h-12 w-12 p-0 text-base",
+};
+
 const styles = {
   primary: {
     fill: "border border-transparent bg-brand text-inverse hover:bg-brand/90 active:bg-brand/80",
@@ -30,16 +36,17 @@ type ButtonLinkProps = Omit<ComponentPropsWithoutRef<"a">, "href" | "aria-disabl
   intent?: keyof typeof styles;
   variant?: keyof typeof styles.primary;
   disabled?: boolean;
+  iconOnly?: boolean;
 };
 
 export function buttonClasses({
-  size = "base", intent = "primary", variant = "fill", disabled = false, className = "",
-}: Pick<ButtonLinkProps, "size" | "intent" | "variant" | "disabled" | "className"> = {}) {
+  size = "base", intent = "primary", variant = "fill", disabled = false, iconOnly = false, className = "",
+}: Pick<ButtonLinkProps, "size" | "intent" | "variant" | "disabled" | "iconOnly" | "className"> = {}) {
   return [
     "inline-flex shrink-0 items-center justify-center gap-2 rounded-[2px] font-medium transition-colors",
     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
     "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
-    sizes[size], styles[intent][variant],
+    iconOnly ? iconOnlySizes[size] : sizes[size], styles[intent][variant],
     disabled ? "pointer-events-none cursor-not-allowed opacity-50" : "",
     className,
   ].filter(Boolean).join(" ");
@@ -47,7 +54,7 @@ export function buttonClasses({
 
 export function ButtonLink({
   children, href, size = "base", intent = "primary", variant = "fill",
-  disabled = false, className = "", tabIndex, ...props
+  disabled = false, iconOnly = false, className = "", tabIndex, ...props
 }: ButtonLinkProps) {
   return (
     <a
@@ -55,7 +62,7 @@ export function ButtonLink({
       href={disabled ? undefined : href}
       aria-disabled={disabled || undefined}
       tabIndex={disabled ? -1 : tabIndex}
-      className={buttonClasses({ size, intent, variant, disabled, className })}
+      className={buttonClasses({ size, intent, variant, disabled, iconOnly, className })}
     >
       {children}
     </a>
