@@ -1,0 +1,16 @@
+@theme {
+  --color-brand: #13853d;
+  --color-accent: #1e4ec4;
+  --color-primary: #171717;
+  --color-secondary: #5c5c5c;
+  --color-tertiary: #a3a3a3;
+  --color-disabled: #d1d1d1;
+  --color-inverse: #ffffff;
+  --color-default: #ffffff;
+  --color-surface: #f7f7f7;
+  --color-line-soft: rgb(0 0 0 / 0.05);
+  --color-line-mild: rgb(0 0 0 / 0.1);
+  --color-line-strong: rgb(0 0 0 / 0.2);
+  --font-heading: "Ubuntu Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+}
