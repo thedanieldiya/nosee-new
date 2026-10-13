@@ -1,0 +1,3208 @@
+{
+  "date": "2026-10-13T16:55:18.689Z",
+  "referenceRevision": "9872c4ed12aa48835eab71065c69b468424adb4a",
+  "viewportChecks": [
+    {
+      "width": 390,
+      "height": 844,
+      "reference": {
+        "initial": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 750
+          },
+          "navHeight": 219.359375,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 16,
+            "y": 279,
+            "width": 358,
+            "height": 352
+          },
+          "title": {
+            "text": "International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+            "x": 16,
+            "y": 327,
+            "width": 358,
+            "height": 128,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "28px",
+            "fontWeight": "600",
+            "lineHeight": "32px"
+          },
+          "eyebrow": {
+            "text": "Scientific Meeting",
+            "x": 16,
+            "y": 279,
+            "width": 140.21875,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the International Colloquium on Equatorial and Low-Latitude Ionosphere (ICELLI2026) to explore the latest research and developments in this exciting field.",
+            "x": 16,
+            "y": 467,
+            "width": 358,
+            "height": 96,
+            "fontSize": "16px",
+            "lineHeight": "24px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/icelli2026",
+            "x": 16,
+            "y": 583,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 126.28125,
+            "y": 597,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields. Credit: NASA's Scientific Visualization Studio",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "display": "none",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-1.png",
+            "alt": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields.",
+            "width": 968,
+            "height": 750,
+            "priority": "high",
+            "loading": null,
+            "natural": [
+              1440,
+              850
+            ],
+            "x": -289,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 16,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 36,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "false",
+              "inert": false
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "true",
+              "inert": true
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 6027.75,
+            "width": 390,
+            "height": 1360.5625
+          }
+        },
+        "second": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 750
+          },
+          "navHeight": 219.359375,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 16,
+            "y": 279,
+            "width": 358,
+            "height": 352
+          },
+          "title": {
+            "text": "Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+            "x": 16,
+            "y": 327,
+            "width": 358,
+            "height": 128,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "28px",
+            "fontWeight": "600",
+            "lineHeight": "32px"
+          },
+          "eyebrow": {
+            "text": "Conference",
+            "x": 16,
+            "y": 279,
+            "width": 95.59375,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the Annual general meeting of the Network of Space-Earth Environmentalists (NOSEE) to explore the latest research and developments in this exciting field.",
+            "x": 16,
+            "y": 467,
+            "width": 358,
+            "height": 96,
+            "fontSize": "16px",
+            "lineHeight": "24px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/nosee-annual-general-meeting",
+            "x": 16,
+            "y": 583,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 126.28125,
+            "y": 597,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "A photo of clouds, taken from above. Credit:Photo by Sanni Sahi on Unsplash",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "display": "none",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-2.jpg",
+            "alt": "A photo of clouds, taken from above.",
+            "width": 968,
+            "height": 750,
+            "priority": null,
+            "loading": "lazy",
+            "natural": [
+              3892,
+              2457
+            ],
+            "x": -289,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 16,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 36,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "true",
+              "inert": true
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "false",
+              "inert": false
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 6027.75,
+            "width": 390,
+            "height": 1360.5625
+          }
+        }
+      },
+      "initialTargetTransfers": {
+        "totals": {
+          "js": 138486,
+          "css": 7891,
+          "fonts": 63832,
+          "images": 2786886
+        },
+        "heroes": [
+          {
+            "url": "/media/home/hero-1.png",
+            "encodedBytes": 1269779
+          },
+          {
+            "url": "/media/home/hero-2.jpg",
+            "encodedBytes": 1496169
+          }
+        ]
+      },
+      "target": {
+        "initial": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 750
+          },
+          "navHeight": 219.359375,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 16,
+            "y": 279,
+            "width": 358,
+            "height": 352
+          },
+          "title": {
+            "text": "International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+            "x": 16,
+            "y": 327,
+            "width": 358,
+            "height": 128,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "28px",
+            "fontWeight": "600",
+            "lineHeight": "32px"
+          },
+          "eyebrow": {
+            "text": "Scientific Meeting",
+            "x": 16,
+            "y": 279,
+            "width": 140.21875,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the International Colloquium on Equatorial and Low-Latitude Ionosphere (ICELLI2026) to explore the latest research and developments in this exciting field.",
+            "x": 16,
+            "y": 467,
+            "width": 358,
+            "height": 96,
+            "fontSize": "16px",
+            "lineHeight": "24px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/icelli2026",
+            "x": 16,
+            "y": 583,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 126.28125,
+            "y": 597,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields. Credit: NASA's Scientific Visualization Studio",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "display": "none",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-1.png",
+            "alt": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields.",
+            "width": 968,
+            "height": 750,
+            "priority": "high",
+            "loading": null,
+            "natural": [
+              1440,
+              850
+            ],
+            "x": -289,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 16,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 36,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "false",
+              "inert": false
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "true",
+              "inert": true
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 750,
+            "width": 390,
+            "height": 1360.5625
+          }
+        },
+        "second": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 750
+          },
+          "navHeight": 219.359375,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 16,
+            "y": 279,
+            "width": 358,
+            "height": 352
+          },
+          "title": {
+            "text": "Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+            "x": 16,
+            "y": 327,
+            "width": 358,
+            "height": 128,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "28px",
+            "fontWeight": "600",
+            "lineHeight": "32px"
+          },
+          "eyebrow": {
+            "text": "Conference",
+            "x": 16,
+            "y": 279,
+            "width": 95.59375,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the Annual general meeting of the Network of Space-Earth Environmentalists (NOSEE) to explore the latest research and developments in this exciting field.",
+            "x": 16,
+            "y": 467,
+            "width": 358,
+            "height": 96,
+            "fontSize": "16px",
+            "lineHeight": "24px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/nosee-annual-general-meeting",
+            "x": 16,
+            "y": 583,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 126.28125,
+            "y": 597,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "A photo of clouds, taken from above. Credit:Photo by Sanni Sahi on Unsplash",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "display": "none",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-2.jpg",
+            "alt": "A photo of clouds, taken from above.",
+            "width": 968,
+            "height": 750,
+            "priority": null,
+            "loading": "lazy",
+            "natural": [
+              3892,
+              2457
+            ],
+            "x": -289,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 16,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 36,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "true",
+              "inert": true
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "false",
+              "inert": false
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 750,
+            "width": 390,
+            "height": 1360.5625
+          }
+        }
+      }
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "reference": {
+        "initial": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 750
+          },
+          "navHeight": 264,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 16,
+            "y": 323,
+            "width": 736,
+            "height": 264
+          },
+          "title": {
+            "text": "International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+            "x": 16,
+            "y": 371,
+            "width": 736,
+            "height": 64,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "28px",
+            "fontWeight": "600",
+            "lineHeight": "32px"
+          },
+          "eyebrow": {
+            "text": "Scientific Meeting",
+            "x": 16,
+            "y": 323,
+            "width": 140.21875,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the International Colloquium on Equatorial and Low-Latitude Ionosphere (ICELLI2026) to explore the latest research and developments in this exciting field.",
+            "x": 16,
+            "y": 447,
+            "width": 525,
+            "height": 72,
+            "fontSize": "16px",
+            "lineHeight": "24px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/icelli2026",
+            "x": 16,
+            "y": 539,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 126.28125,
+            "y": 553,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields. Credit: NASA's Scientific Visualization Studio",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "display": "none",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-1.png",
+            "alt": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields.",
+            "width": 968,
+            "height": 750,
+            "priority": "high",
+            "loading": null,
+            "natural": [
+              1440,
+              850
+            ],
+            "x": -100,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 24,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 44,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "false",
+              "inert": false
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "true",
+              "inert": true
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 6526.625,
+            "width": 768,
+            "height": 1332.5625
+          }
+        },
+        "second": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 750
+          },
+          "navHeight": 264,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 16,
+            "y": 323,
+            "width": 736,
+            "height": 264
+          },
+          "title": {
+            "text": "Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+            "x": 16,
+            "y": 371,
+            "width": 736,
+            "height": 64,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "28px",
+            "fontWeight": "600",
+            "lineHeight": "32px"
+          },
+          "eyebrow": {
+            "text": "Conference",
+            "x": 16,
+            "y": 323,
+            "width": 95.59375,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the Annual general meeting of the Network of Space-Earth Environmentalists (NOSEE) to explore the latest research and developments in this exciting field.",
+            "x": 16,
+            "y": 447,
+            "width": 525,
+            "height": 72,
+            "fontSize": "16px",
+            "lineHeight": "24px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/nosee-annual-general-meeting",
+            "x": 16,
+            "y": 539,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 126.28125,
+            "y": 553,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "A photo of clouds, taken from above. Credit:Photo by Sanni Sahi on Unsplash",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "display": "none",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-2.jpg",
+            "alt": "A photo of clouds, taken from above.",
+            "width": 968,
+            "height": 750,
+            "priority": null,
+            "loading": "lazy",
+            "natural": [
+              3892,
+              2457
+            ],
+            "x": -100,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 24,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 44,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "true",
+              "inert": true
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "false",
+              "inert": false
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 6526.625,
+            "width": 768,
+            "height": 1332.5625
+          }
+        }
+      },
+      "initialTargetTransfers": {
+        "totals": {
+          "js": 138486,
+          "css": 7891,
+          "fonts": 63832,
+          "images": 2786886
+        },
+        "heroes": [
+          {
+            "url": "/media/home/hero-1.png",
+            "encodedBytes": 1269779
+          },
+          {
+            "url": "/media/home/hero-2.jpg",
+            "encodedBytes": 1496169
+          }
+        ]
+      },
+      "target": {
+        "initial": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 750
+          },
+          "navHeight": 264,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 16,
+            "y": 323,
+            "width": 736,
+            "height": 264
+          },
+          "title": {
+            "text": "International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+            "x": 16,
+            "y": 371,
+            "width": 736,
+            "height": 64,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "28px",
+            "fontWeight": "600",
+            "lineHeight": "32px"
+          },
+          "eyebrow": {
+            "text": "Scientific Meeting",
+            "x": 16,
+            "y": 323,
+            "width": 140.21875,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the International Colloquium on Equatorial and Low-Latitude Ionosphere (ICELLI2026) to explore the latest research and developments in this exciting field.",
+            "x": 16,
+            "y": 447,
+            "width": 525,
+            "height": 72,
+            "fontSize": "16px",
+            "lineHeight": "24px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/icelli2026",
+            "x": 16,
+            "y": 539,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 126.28125,
+            "y": 553,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields. Credit: NASA's Scientific Visualization Studio",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "display": "none",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-1.png",
+            "alt": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields.",
+            "width": 968,
+            "height": 750,
+            "priority": "high",
+            "loading": null,
+            "natural": [
+              1440,
+              850
+            ],
+            "x": -100,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 24,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 44,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "false",
+              "inert": false
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "true",
+              "inert": true
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 750,
+            "width": 768,
+            "height": 1332.5625
+          }
+        },
+        "second": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 750
+          },
+          "navHeight": 264,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 16,
+            "y": 323,
+            "width": 736,
+            "height": 264
+          },
+          "title": {
+            "text": "Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+            "x": 16,
+            "y": 371,
+            "width": 736,
+            "height": 64,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "28px",
+            "fontWeight": "600",
+            "lineHeight": "32px"
+          },
+          "eyebrow": {
+            "text": "Conference",
+            "x": 16,
+            "y": 323,
+            "width": 95.59375,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the Annual general meeting of the Network of Space-Earth Environmentalists (NOSEE) to explore the latest research and developments in this exciting field.",
+            "x": 16,
+            "y": 447,
+            "width": 525,
+            "height": 72,
+            "fontSize": "16px",
+            "lineHeight": "24px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/nosee-annual-general-meeting",
+            "x": 16,
+            "y": 539,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 126.28125,
+            "y": 553,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "A photo of clouds, taken from above. Credit:Photo by Sanni Sahi on Unsplash",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "display": "none",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-2.jpg",
+            "alt": "A photo of clouds, taken from above.",
+            "width": 968,
+            "height": 750,
+            "priority": null,
+            "loading": "lazy",
+            "natural": [
+              3892,
+              2457
+            ],
+            "x": -100,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 24,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 44,
+              "y": 722,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "true",
+              "inert": true
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "false",
+              "inert": false
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 750,
+            "width": 768,
+            "height": 1332.5625
+          }
+        }
+      }
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "reference": {
+        "initial": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 1024,
+            "height": 850
+          },
+          "navHeight": 140,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 120,
+            "y": 263,
+            "width": 852,
+            "height": 404
+          },
+          "title": {
+            "text": "International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+            "x": 120,
+            "y": 295,
+            "width": 852,
+            "height": 192,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "56px",
+            "fontWeight": "600",
+            "lineHeight": "64px"
+          },
+          "eyebrow": {
+            "text": "Scientific Meeting",
+            "x": 120,
+            "y": 263,
+            "width": 140.21875,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the International Colloquium on Equatorial and Low-Latitude Ionosphere (ICELLI2026) to explore the latest research and developments in this exciting field.",
+            "x": 120,
+            "y": 503,
+            "width": 525,
+            "height": 84,
+            "fontSize": "20px",
+            "lineHeight": "28px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/icelli2026",
+            "x": 120,
+            "y": 619,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 230.28125,
+            "y": 633,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields. Credit: NASA's Scientific Visualization Studio",
+            "x": 610,
+            "y": 703,
+            "width": 294,
+            "height": 72,
+            "display": "block",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-1.png",
+            "alt": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields.",
+            "width": 1024,
+            "height": 850,
+            "priority": "high",
+            "loading": null,
+            "natural": [
+              1440,
+              850
+            ],
+            "x": 0,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 120,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 140,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "false",
+              "inert": false
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "true",
+              "inert": true
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 4955.875,
+            "width": 1024,
+            "height": 592.5625
+          }
+        },
+        "second": {
+          "hero": {
+            "x": 0,
+            "y": -428,
+            "width": 1024,
+            "height": 850
+          },
+          "navHeight": 104,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 120,
+            "y": -165,
+            "width": 852,
+            "height": 404
+          },
+          "title": {
+            "text": "Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+            "x": 120,
+            "y": -133,
+            "width": 852,
+            "height": 192,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "56px",
+            "fontWeight": "600",
+            "lineHeight": "64px"
+          },
+          "eyebrow": {
+            "text": "Conference",
+            "x": 120,
+            "y": -165,
+            "width": 95.59375,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the Annual general meeting of the Network of Space-Earth Environmentalists (NOSEE) to explore the latest research and developments in this exciting field.",
+            "x": 120,
+            "y": 75,
+            "width": 525,
+            "height": 84,
+            "fontSize": "20px",
+            "lineHeight": "28px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/nosee-annual-general-meeting",
+            "x": 120,
+            "y": 191,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 230.28125,
+            "y": 205,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "A photo of clouds, taken from above. Credit:Photo by Sanni Sahi on Unsplash",
+            "x": 610,
+            "y": 311,
+            "width": 294,
+            "height": 36,
+            "display": "block",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-2.jpg",
+            "alt": "A photo of clouds, taken from above.",
+            "width": 1024,
+            "height": 850,
+            "priority": null,
+            "loading": "lazy",
+            "natural": [
+              3892,
+              2457
+            ],
+            "x": 0,
+            "y": -428,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 120,
+              "y": 378,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 140,
+              "y": 378,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "true",
+              "inert": true
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "false",
+              "inert": false
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 4527.875,
+            "width": 1024,
+            "height": 592.5625
+          }
+        }
+      },
+      "initialTargetTransfers": {
+        "totals": {
+          "js": 138486,
+          "css": 7891,
+          "fonts": 97860,
+          "images": 2786886
+        },
+        "heroes": [
+          {
+            "url": "/media/home/hero-1.png",
+            "encodedBytes": 1269779
+          },
+          {
+            "url": "/media/home/hero-2.jpg",
+            "encodedBytes": 1496169
+          }
+        ]
+      },
+      "target": {
+        "initial": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 1024,
+            "height": 850
+          },
+          "navHeight": 140,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 120,
+            "y": 263,
+            "width": 852,
+            "height": 404
+          },
+          "title": {
+            "text": "International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+            "x": 120,
+            "y": 295,
+            "width": 852,
+            "height": 192,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "56px",
+            "fontWeight": "600",
+            "lineHeight": "64px"
+          },
+          "eyebrow": {
+            "text": "Scientific Meeting",
+            "x": 120,
+            "y": 263,
+            "width": 140.21875,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the International Colloquium on Equatorial and Low-Latitude Ionosphere (ICELLI2026) to explore the latest research and developments in this exciting field.",
+            "x": 120,
+            "y": 503,
+            "width": 525,
+            "height": 84,
+            "fontSize": "20px",
+            "lineHeight": "28px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/icelli2026",
+            "x": 120,
+            "y": 619,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 230.28125,
+            "y": 633,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields. Credit: NASA's Scientific Visualization Studio",
+            "x": 610,
+            "y": 703,
+            "width": 294,
+            "height": 72,
+            "display": "block",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-1.png",
+            "alt": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields.",
+            "width": 1024,
+            "height": 850,
+            "priority": "high",
+            "loading": null,
+            "natural": [
+              1440,
+              850
+            ],
+            "x": 0,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 120,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 140,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "false",
+              "inert": false
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "true",
+              "inert": true
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 850,
+            "width": 1024,
+            "height": 592.5625
+          }
+        },
+        "second": {
+          "hero": {
+            "x": 0,
+            "y": -428,
+            "width": 1024,
+            "height": 850
+          },
+          "navHeight": 104,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 120,
+            "y": -165,
+            "width": 852,
+            "height": 404
+          },
+          "title": {
+            "text": "Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+            "x": 120,
+            "y": -133,
+            "width": 852,
+            "height": 192,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "56px",
+            "fontWeight": "600",
+            "lineHeight": "64px"
+          },
+          "eyebrow": {
+            "text": "Conference",
+            "x": 120,
+            "y": -165,
+            "width": 95.59375,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the Annual general meeting of the Network of Space-Earth Environmentalists (NOSEE) to explore the latest research and developments in this exciting field.",
+            "x": 120,
+            "y": 75,
+            "width": 525,
+            "height": 84,
+            "fontSize": "20px",
+            "lineHeight": "28px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/nosee-annual-general-meeting",
+            "x": 120,
+            "y": 191,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 230.28125,
+            "y": 205,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "A photo of clouds, taken from above. Credit:Photo by Sanni Sahi on Unsplash",
+            "x": 610,
+            "y": 311,
+            "width": 294,
+            "height": 36,
+            "display": "block",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-2.jpg",
+            "alt": "A photo of clouds, taken from above.",
+            "width": 1024,
+            "height": 850,
+            "priority": null,
+            "loading": "lazy",
+            "natural": [
+              3892,
+              2457
+            ],
+            "x": 0,
+            "y": -428,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 120,
+              "y": 378,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 140,
+              "y": 378,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "true",
+              "inert": true
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "false",
+              "inert": false
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 422,
+            "width": 1024,
+            "height": 592.5625
+          }
+        }
+      }
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "reference": {
+        "initial": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 850
+          },
+          "navHeight": 164,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 120,
+            "y": 263,
+            "width": 852,
+            "height": 404
+          },
+          "title": {
+            "text": "International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+            "x": 120,
+            "y": 295,
+            "width": 852,
+            "height": 192,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "56px",
+            "fontWeight": "600",
+            "lineHeight": "64px"
+          },
+          "eyebrow": {
+            "text": "Scientific Meeting",
+            "x": 120,
+            "y": 263,
+            "width": 140.21875,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the International Colloquium on Equatorial and Low-Latitude Ionosphere (ICELLI2026) to explore the latest research and developments in this exciting field.",
+            "x": 120,
+            "y": 503,
+            "width": 525,
+            "height": 84,
+            "fontSize": "20px",
+            "lineHeight": "28px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/icelli2026",
+            "x": 120,
+            "y": 619,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 230.28125,
+            "y": 633,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields. Credit: NASA's Scientific Visualization Studio",
+            "x": 866,
+            "y": 703,
+            "width": 294,
+            "height": 72,
+            "display": "block",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-1.png",
+            "alt": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields.",
+            "width": 1280,
+            "height": 850,
+            "priority": "high",
+            "loading": null,
+            "natural": [
+              1440,
+              850
+            ],
+            "x": 0,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 120,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 140,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "false",
+              "inert": false
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "true",
+              "inert": true
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 3517.875,
+            "width": 1280,
+            "height": 540.5625
+          }
+        },
+        "second": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 850
+          },
+          "navHeight": 164,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 120,
+            "y": 263,
+            "width": 852,
+            "height": 404
+          },
+          "title": {
+            "text": "Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+            "x": 120,
+            "y": 295,
+            "width": 852,
+            "height": 192,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "56px",
+            "fontWeight": "600",
+            "lineHeight": "64px"
+          },
+          "eyebrow": {
+            "text": "Conference",
+            "x": 120,
+            "y": 263,
+            "width": 95.59375,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the Annual general meeting of the Network of Space-Earth Environmentalists (NOSEE) to explore the latest research and developments in this exciting field.",
+            "x": 120,
+            "y": 503,
+            "width": 525,
+            "height": 84,
+            "fontSize": "20px",
+            "lineHeight": "28px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/nosee-annual-general-meeting",
+            "x": 120,
+            "y": 619,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 230.28125,
+            "y": 633,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "A photo of clouds, taken from above. Credit:Photo by Sanni Sahi on Unsplash",
+            "x": 866,
+            "y": 739,
+            "width": 294,
+            "height": 36,
+            "display": "block",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-2.jpg",
+            "alt": "A photo of clouds, taken from above.",
+            "width": 1280,
+            "height": 850,
+            "priority": null,
+            "loading": "lazy",
+            "natural": [
+              3892,
+              2457
+            ],
+            "x": 0,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 120,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 140,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "true",
+              "inert": true
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "false",
+              "inert": false
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 3517.875,
+            "width": 1280,
+            "height": 540.5625
+          }
+        }
+      },
+      "initialTargetTransfers": {
+        "totals": {
+          "js": 138486,
+          "css": 7891,
+          "fonts": 97860,
+          "images": 2786886
+        },
+        "heroes": [
+          {
+            "url": "/media/home/hero-1.png",
+            "encodedBytes": 1269779
+          },
+          {
+            "url": "/media/home/hero-2.jpg",
+            "encodedBytes": 1496169
+          }
+        ]
+      },
+      "target": {
+        "initial": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 850
+          },
+          "navHeight": 164,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 120,
+            "y": 263,
+            "width": 852,
+            "height": 404
+          },
+          "title": {
+            "text": "International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+            "x": 120,
+            "y": 295,
+            "width": 852,
+            "height": 192,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "56px",
+            "fontWeight": "600",
+            "lineHeight": "64px"
+          },
+          "eyebrow": {
+            "text": "Scientific Meeting",
+            "x": 120,
+            "y": 263,
+            "width": 140.21875,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the International Colloquium on Equatorial and Low-Latitude Ionosphere (ICELLI2026) to explore the latest research and developments in this exciting field.",
+            "x": 120,
+            "y": 503,
+            "width": 525,
+            "height": 84,
+            "fontSize": "20px",
+            "lineHeight": "28px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/icelli2026",
+            "x": 120,
+            "y": 619,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 230.28125,
+            "y": 633,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields. Credit: NASA's Scientific Visualization Studio",
+            "x": 866,
+            "y": 703,
+            "width": 294,
+            "height": 72,
+            "display": "block",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-1.png",
+            "alt": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields.",
+            "width": 1280,
+            "height": 850,
+            "priority": "high",
+            "loading": null,
+            "natural": [
+              1440,
+              850
+            ],
+            "x": 0,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 120,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 140,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "false",
+              "inert": false
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "true",
+              "inert": true
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 850,
+            "width": 1280,
+            "height": 540.5625
+          }
+        },
+        "second": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 850
+          },
+          "navHeight": 164,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 120,
+            "y": 263,
+            "width": 852,
+            "height": 404
+          },
+          "title": {
+            "text": "Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+            "x": 120,
+            "y": 295,
+            "width": 852,
+            "height": 192,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "56px",
+            "fontWeight": "600",
+            "lineHeight": "64px"
+          },
+          "eyebrow": {
+            "text": "Conference",
+            "x": 120,
+            "y": 263,
+            "width": 95.59375,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the Annual general meeting of the Network of Space-Earth Environmentalists (NOSEE) to explore the latest research and developments in this exciting field.",
+            "x": 120,
+            "y": 503,
+            "width": 525,
+            "height": 84,
+            "fontSize": "20px",
+            "lineHeight": "28px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/nosee-annual-general-meeting",
+            "x": 120,
+            "y": 619,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 230.28125,
+            "y": 633,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "A photo of clouds, taken from above. Credit:Photo by Sanni Sahi on Unsplash",
+            "x": 866,
+            "y": 739,
+            "width": 294,
+            "height": 36,
+            "display": "block",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-2.jpg",
+            "alt": "A photo of clouds, taken from above.",
+            "width": 1280,
+            "height": 850,
+            "priority": null,
+            "loading": "lazy",
+            "natural": [
+              3892,
+              2457
+            ],
+            "x": 0,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 120,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 140,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "true",
+              "inert": true
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "false",
+              "inert": false
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 850,
+            "width": 1280,
+            "height": 540.5625
+          }
+        }
+      }
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "reference": {
+        "initial": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 850
+          },
+          "navHeight": 164,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 120,
+            "y": 263,
+            "width": 852,
+            "height": 404
+          },
+          "title": {
+            "text": "International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+            "x": 120,
+            "y": 295,
+            "width": 852,
+            "height": 192,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "56px",
+            "fontWeight": "600",
+            "lineHeight": "64px"
+          },
+          "eyebrow": {
+            "text": "Scientific Meeting",
+            "x": 120,
+            "y": 263,
+            "width": 140.21875,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the International Colloquium on Equatorial and Low-Latitude Ionosphere (ICELLI2026) to explore the latest research and developments in this exciting field.",
+            "x": 120,
+            "y": 503,
+            "width": 525,
+            "height": 84,
+            "fontSize": "20px",
+            "lineHeight": "28px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/icelli2026",
+            "x": 120,
+            "y": 619,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 230.28125,
+            "y": 633,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields. Credit: NASA's Scientific Visualization Studio",
+            "x": 1026,
+            "y": 703,
+            "width": 294,
+            "height": 72,
+            "display": "block",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-1.png",
+            "alt": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields.",
+            "width": 1440,
+            "height": 850,
+            "priority": "high",
+            "loading": null,
+            "natural": [
+              1440,
+              850
+            ],
+            "x": 0,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 120,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 140,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "false",
+              "inert": false
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "true",
+              "inert": true
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 3595.875,
+            "width": 1440,
+            "height": 540.5625
+          }
+        },
+        "second": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 850
+          },
+          "navHeight": 164,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 120,
+            "y": 263,
+            "width": 852,
+            "height": 404
+          },
+          "title": {
+            "text": "Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+            "x": 120,
+            "y": 295,
+            "width": 852,
+            "height": 192,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "56px",
+            "fontWeight": "600",
+            "lineHeight": "64px"
+          },
+          "eyebrow": {
+            "text": "Conference",
+            "x": 120,
+            "y": 263,
+            "width": 95.59375,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the Annual general meeting of the Network of Space-Earth Environmentalists (NOSEE) to explore the latest research and developments in this exciting field.",
+            "x": 120,
+            "y": 503,
+            "width": 525,
+            "height": 84,
+            "fontSize": "20px",
+            "lineHeight": "28px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/nosee-annual-general-meeting",
+            "x": 120,
+            "y": 619,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 230.28125,
+            "y": 633,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "A photo of clouds, taken from above. Credit:Photo by Sanni Sahi on Unsplash",
+            "x": 1026,
+            "y": 739,
+            "width": 294,
+            "height": 36,
+            "display": "block",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-2.jpg",
+            "alt": "A photo of clouds, taken from above.",
+            "width": 1440,
+            "height": 850,
+            "priority": null,
+            "loading": "lazy",
+            "natural": [
+              3892,
+              2457
+            ],
+            "x": 0,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 120,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 140,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "true",
+              "inert": true
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "false",
+              "inert": false
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 3595.875,
+            "width": 1440,
+            "height": 540.5625
+          }
+        }
+      },
+      "initialTargetTransfers": {
+        "totals": {
+          "js": 138486,
+          "css": 7891,
+          "fonts": 97860,
+          "images": 2786886
+        },
+        "heroes": [
+          {
+            "url": "/media/home/hero-1.png",
+            "encodedBytes": 1269779
+          },
+          {
+            "url": "/media/home/hero-2.jpg",
+            "encodedBytes": 1496169
+          }
+        ]
+      },
+      "target": {
+        "initial": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 850
+          },
+          "navHeight": 164,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 120,
+            "y": 263,
+            "width": 852,
+            "height": 404
+          },
+          "title": {
+            "text": "International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+            "x": 120,
+            "y": 295,
+            "width": 852,
+            "height": 192,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "56px",
+            "fontWeight": "600",
+            "lineHeight": "64px"
+          },
+          "eyebrow": {
+            "text": "Scientific Meeting",
+            "x": 120,
+            "y": 263,
+            "width": 140.21875,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the International Colloquium on Equatorial and Low-Latitude Ionosphere (ICELLI2026) to explore the latest research and developments in this exciting field.",
+            "x": 120,
+            "y": 503,
+            "width": 525,
+            "height": 84,
+            "fontSize": "20px",
+            "lineHeight": "28px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/icelli2026",
+            "x": 120,
+            "y": 619,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 230.28125,
+            "y": 633,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields. Credit: NASA's Scientific Visualization Studio",
+            "x": 1026,
+            "y": 703,
+            "width": 294,
+            "height": 72,
+            "display": "block",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-1.png",
+            "alt": "Visualization illustrating the Fountain Effect of ions in the near-Earth electric and magnetic fields.",
+            "width": 1440,
+            "height": 850,
+            "priority": "high",
+            "loading": null,
+            "natural": [
+              1440,
+              850
+            ],
+            "x": 0,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 120,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 140,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "false",
+              "inert": false
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "true",
+              "inert": true
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 850,
+            "width": 1440,
+            "height": 540.5625
+          }
+        },
+        "second": {
+          "hero": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 850
+          },
+          "navHeight": 164,
+          "overlay": {
+            "backgroundColor": "oklab(0 0 0 / 0.75)"
+          },
+          "textBlock": {
+            "x": 120,
+            "y": 263,
+            "width": 852,
+            "height": 404
+          },
+          "title": {
+            "text": "Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+            "x": 120,
+            "y": 295,
+            "width": 852,
+            "height": 192,
+            "fontFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+            "fontSize": "56px",
+            "fontWeight": "600",
+            "lineHeight": "64px"
+          },
+          "eyebrow": {
+            "text": "Conference",
+            "x": 120,
+            "y": 263,
+            "width": 95.59375,
+            "height": 28,
+            "backgroundColor": "oklab(0.999994 0.0000455678 0.0000200868 / 0.4)",
+            "color": "rgb(23, 23, 23)",
+            "fontSize": "12px",
+            "lineHeight": "16px",
+            "borderRadius": "2px"
+          },
+          "summary": {
+            "text": "Join us for the Annual general meeting of the Network of Space-Earth Environmentalists (NOSEE) to explore the latest research and developments in this exciting field.",
+            "x": 120,
+            "y": 503,
+            "width": 525,
+            "height": 84,
+            "fontSize": "20px",
+            "lineHeight": "28px"
+          },
+          "cta": {
+            "text": "Read",
+            "href": "/events/nosee-annual-general-meeting",
+            "x": 120,
+            "y": 619,
+            "width": 151.28125,
+            "height": 48,
+            "columnGap": "40px",
+            "paddingLeft": "24px",
+            "paddingRight": "24px",
+            "letterSpacing": "0.96px",
+            "backgroundColor": "rgb(19, 133, 61)",
+            "borderRadius": "2px"
+          },
+          "arrow": {
+            "x": 230.28125,
+            "y": 633,
+            "width": 16,
+            "height": 16
+          },
+          "credit": {
+            "text": "A photo of clouds, taken from above. Credit:Photo by Sanni Sahi on Unsplash",
+            "x": 1026,
+            "y": 739,
+            "width": 294,
+            "height": 36,
+            "display": "block",
+            "fontSize": "14px",
+            "lineHeight": "18px",
+            "textAlign": "right"
+          },
+          "image": {
+            "src": "/media/home/hero-2.jpg",
+            "alt": "A photo of clouds, taken from above.",
+            "width": 1440,
+            "height": 850,
+            "priority": null,
+            "loading": "lazy",
+            "natural": [
+              3892,
+              2457
+            ],
+            "x": 0,
+            "y": 0,
+            "objectFit": "cover",
+            "objectPosition": "50% 50%"
+          },
+          "indicators": [
+            {
+              "x": 120,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "false",
+              "label": "Show slide 1: International Colloquim on Equatorial and Low-Latitude Ionosphere / ICELLI2026",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderRadius": "3.35544e+07px"
+            },
+            {
+              "x": 140,
+              "y": 806,
+              "width": 12,
+              "height": 12,
+              "current": "true",
+              "label": "Show slide 2: Annual General Meeting of the Network of Space-Earth Environmentalists (NOSEE)",
+              "borderWidth": "1px",
+              "borderColor": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "3.35544e+07px"
+            }
+          ],
+          "states": [
+            {
+              "id": "icelli2026",
+              "hidden": "true",
+              "inert": true
+            },
+            {
+              "id": "nosee-annual-general-meetings",
+              "hidden": "false",
+              "inert": false
+            }
+          ],
+          "overflow": false,
+          "footer": {
+            "x": 0,
+            "y": 850,
+            "width": 1440,
+            "height": 540.5625
+          }
+        }
+      }
+    }
+  ],
+  "captures": [
+    "reference-slide-1-390.png",
+    "reference-slide-2-390.png",
+    "reference-swipe-back-390.png",
+    "target-slide-1-390.png",
+    "target-slide-2-390.png",
+    "target-swipe-back-390.png",
+    "reference-slide-1-768.png",
+    "reference-slide-2-768.png",
+    "target-slide-1-768.png",
+    "target-slide-2-768.png",
+    "reference-slide-1-1440.png",
+    "reference-slide-2-1440.png",
+    "reference-hover-paused-1440.png",
+    "reference-compact-1440.png",
+    "target-slide-1-1440.png",
+    "target-slide-2-1440.png",
+    "target-hover-paused-1440.png",
+    "target-compact-1440.png",
+    "reference-reduced-focus-390.png",
+    "target-reduced-focus-390.png"
+  ],
+  "animationCalls": {
+    "reference": [],
+    "target": [
+      {
+        "attributes": [
+          "data-hero-entrance-visual"
+        ],
+        "frames": {
+          "opacity": [
+            0,
+            1
+          ],
+          "transform": [
+            "scale(1.02)",
+            "scale(1)"
+          ]
+        },
+        "options": {
+          "duration": 650,
+          "delay": 0,
+          "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "fill": "both"
+        }
+      },
+      {
+        "attributes": [
+          "data-hero-entrance-eyebrow"
+        ],
+        "frames": {
+          "opacity": [
+            0,
+            1
+          ],
+          "transform": [
+            "translateY(12px)",
+            "translateY(0px)"
+          ]
+        },
+        "options": {
+          "duration": 400,
+          "delay": 180,
+          "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "fill": "both"
+        }
+      },
+      {
+        "attributes": [
+          "data-hero-entrance-title"
+        ],
+        "frames": {
+          "opacity": [
+            0,
+            1
+          ],
+          "transform": [
+            "translateY(20px)",
+            "translateY(0px)"
+          ]
+        },
+        "options": {
+          "duration": 600,
+          "delay": 320,
+          "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "fill": "both"
+        }
+      },
+      {
+        "attributes": [
+          "data-hero-entrance-summary"
+        ],
+        "frames": {
+          "opacity": [
+            0,
+            1
+          ],
+          "transform": [
+            "translateY(16px)",
+            "translateY(0px)"
+          ]
+        },
+        "options": {
+          "duration": 500,
+          "delay": 480,
+          "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "fill": "both"
+        }
+      },
+      {
+        "attributes": [
+          "data-hero-entrance-cta"
+        ],
+        "frames": {
+          "opacity": [
+            0,
+            1
+          ],
+          "transform": [
+            "translateY(12px)",
+            "translateY(0px)"
+          ]
+        },
+        "options": {
+          "duration": 450,
+          "delay": 640,
+          "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "fill": "both"
+        }
+      },
+      {
+        "attributes": [
+          "data-hero-entrance-credit"
+        ],
+        "frames": {
+          "opacity": [
+            0,
+            1
+          ]
+        },
+        "options": {
+          "duration": 400,
+          "delay": 820,
+          "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "fill": "both"
+        }
+      },
+      {
+        "attributes": [
+          "data-hero-entrance-indicators"
+        ],
+        "frames": {
+          "opacity": [
+            0,
+            1
+          ]
+        },
+        "options": {
+          "duration": 400,
+          "delay": 820,
+          "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "fill": "both"
+        }
+      }
+    ]
+  },
+  "noJavaScript": [
+    {
+      "kind": "reference",
+      "state": [
+        {
+          "hidden": "false",
+          "inert": false,
+          "opacity": "1"
+        },
+        {
+          "hidden": "true",
+          "inert": true,
+          "opacity": "0"
+        }
+      ]
+    },
+    {
+      "kind": "target",
+      "state": [
+        {
+          "hidden": "false",
+          "inert": false,
+          "opacity": "1"
+        },
+        {
+          "hidden": "true",
+          "inert": true,
+          "opacity": "0"
+        }
+      ]
+    }
+  ],
+  "behaviors": [
+    {
+      "kind": "reference",
+      "reducedMotion": true,
+      "rapidSelection": true,
+      "ctaFocus": {
+        "outline": "rgb(30, 78, 196)",
+        "width": "2px"
+      }
+    },
+    {
+      "kind": "target",
+      "reducedMotion": true,
+      "rapidSelection": true,
+      "ctaFocus": {
+        "outline": "rgb(30, 78, 196)",
+        "width": "2px"
+      }
+    }
+  ],
+  "browser": "154.0.8037.57",
+  "finalBuildRecheck": {
+    "date": "2026-10-13T17:05:52.501Z",
+    "matchedWidths": [
+      390,
+      768,
+      1024,
+      1280,
+      1440
+    ],
+    "animationEndRestoresOriginalStyles": true,
+    "summarySelector": "[data-hero-content-slide][aria-hidden=\"false\"] h1 + p",
+    "summaryRecheckDate": "2026-10-13T17:29:59.728Z"
+  }
+}
