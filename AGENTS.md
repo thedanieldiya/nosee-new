@@ -2,6 +2,14 @@
 
 Build the NOSEE Next.js replacement in this repository. Legacy reference: https://github.com/thedanieldiya/nosee. Do not change the legacy repository unless specifically requested.
 
+## Canonical requirements and progress
+
+- Read [docs/PRD.md](docs/PRD.md) and [docs/PROGRESS.md](docs/PROGRESS.md) **before each scoped Codex task**. The PRD defines scope and acceptance conditions; PROGRESS.md is the evidence ledger to update after each task.
+- Begin the migration with [Codex Task 01](docs/codex-tasks/01-discovery-and-baseline.md): read-only legacy discovery and visual-baseline documentation only. Do not scaffold during Task 01.
+- Keep `thedanieldiya/nosee` read-only. All new work goes in `thedanieldiya/nosee-new`, preferably in a dedicated branch/PR.
+- Mark phases `In review` until required visual evidence and owner approval exist. Do not mark tests or visual checks successful if they were skipped or unavailable.
+- Each Codex task must remain narrow: change one coherent feature, run the minimum relevant checks, update PROGRESS.md with evidence, then stop for owner review.
+
 ## Agent guidance
 
 Read `.agents/skills/ponytail/SKILL.md` for every coding task. Use other skills only when the task matches:
