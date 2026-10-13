@@ -11,7 +11,7 @@ This repository is separate from the [existing Laravel implementation](https://g
 - Public membership application form **without applicant login**. Applicants receive submission confirmations; admins are notified and can approve/reject applicants with email notifications.
 - Member records are private by default. Only deliberately published executive/researcher profiles appear on the public website.
 
-**Status:** Tasks 02–05 have been merged. The owner previously verified that the Next.js homepage renders locally; Task 05 monitoring comparisons report eight pixel-identical paired crops. The homepage currently has the hero and monitoring dashboard; [Task 06](docs/codex-tasks/06-complete-homepage.md) is prepared to add the remaining Research Outputs, Trending News and Upcoming Events sections as one quality-gated increment. Admin/backend features remain future phases. See [PROGRESS.md](docs/PROGRESS.md) and [Task 05 comparisons](docs/evidence/task-05/README.md).
+**Status:** Tasks 02–05 are merged. Task 06 completes all five original homepage sections for review: hero → monitoring → research outputs → trending news → upcoming events, then the shared footer. [Task 06 evidence](docs/evidence/task-06/README.md) contains 22 pixel-identical screenshot pairs, independent section checks and full-page comparisons. Owner approval, fixture publication, secondary routes and performance work remain open; no production-readiness claim. See [PROGRESS.md](docs/PROGRESS.md).
 
 ## Development
 
@@ -30,6 +30,7 @@ npm run lint
 node --test tests/navigation.test.mjs
 node --test tests/hero-carousel.test.mjs tests/hero-entrance.test.mjs
 node --test tests/monitoring.test.mjs
+node --test tests/homepage-content.test.mjs tests/homepage-sections.test.mjs
 npm run build
 npm run start
 ```
@@ -41,11 +42,12 @@ ESLint 9.39.5 is pinned because the current Next React/import/accessibility plug
 ## Foundation scope
 
 - `src/styles/tokens.css` is the single source for the legacy semantic palette and font-family tokens; `src/app/globals.css` imports those tokens and establishes base/focus styles. Tailwind's 640/768/1024/1280px breakpoints are unchanged.
-- `src/components/site/ui/Container.tsx`, `ButtonLink.tsx`, and `ArrowRight.tsx` are server components. The container preserves the 90rem width and source gutters; links preserve 36/44/48px sizes, fill/stroke/text styles, and disabled semantics. Native footer buttons share the same source classes. Copied media comprises the source arrow, white logo, five social SVGs, two hero images and three monitoring PNGs, all unmodified.
+- `src/components/site/ui/Container.tsx`, `ButtonLink.tsx`, and `ArrowRight.tsx` are server components. The container preserves the 90rem width and source gutters; links preserve 36/44/48px sizes, fill/stroke/text styles, and disabled semantics. Native footer buttons share the same source classes. Copied media comprises the source arrow, white logo, five social SVGs, two hero images, three monitoring PNGs and three news PNGs, all unmodified.
 - Fonts are self-hosted from the same `@fontsource` 5.2.8 families as the legacy project, with Latin subsets and `font-display: swap`. Local faces include Ubuntu Sans 500/600/700 and IBM Plex Sans 400/500/600 plus 400 italic. No font is preloaded or fetched from Google at build time.
-- `/` has the source title **NOSEE**, server-rendered hero and monitoring section, then the shared footer temporarily. Its page metadata remains `noindex, nofollow` until the complete homepage passes review; the root layout does not impose a site-wide indexing policy. The foundation specimen has been removed.
+- `/` has the source title **NOSEE** and all five server-rendered sections. It renders per request so UTC event selection cannot freeze at build time. Its page metadata remains `noindex, nofollow` pending owner review and approval of development fixtures; the root layout does not impose a site-wide indexing policy.
 - Navigation/footer/hero markup and literal `src/lib/content/` records are server-rendered. Small client controllers handle scroll/drawer behavior, the task-approved newsletter error response and homepage-only carousel/entrance. The owner approved enabling the declared six-stage entrance because the pinned Laravel renderer plays no entrance animation. Native Web Animations adds no dependency. No admin, database, auth, email or membership implementation is included. Next.js still supplies its framework runtime.
 - Monitoring uses two server components and the exact source CSS for desktop hover/focus lift. Literal data preserves sorted source order and strict homepage selection, excluding the starter dataset. Its reveal hooks remain, but no reveal is activated because the pinned renderer plays none; the hero approval does not authorize changing this. The three 600×338 eager PNGs total 603,892 bytes. These are static source screenshots and links, not live data feeds.
+- Research/news/events use three server sections and three source card types, with literal records and source-equivalent selectors. Research sorts featured publications newest-first; news ranks strict featured first then raw ISO strings; events select featured records through their end day in **UTC**, sorted by start/slug. Original dates, DOI fixtures, duplicate news image, responsive CTAs and source URLs remain. No new section reveals are activated. Three eager news PNGs add 547,673 bytes; all initial image bodies total about 3.94MB locally. Performance targets remain unachieved.
 
 The public layout keeps the source offset variables isolated from future admin routes. The hero starts at the top underneath the overlaid source header, without specimen padding. Internal-page migration should apply the source `pt-[var(--expanded-navbar-offset)]` rule to its main content. The shell geometry is unchanged. Unimplemented source destinations, including both hero CTA paths and `/login`, are retained and currently lead to 404 pages.
 

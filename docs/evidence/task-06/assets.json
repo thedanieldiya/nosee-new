@@ -1,0 +1,35 @@
+[
+  {
+    "path": "public/media/trending/trending1.png",
+    "bytes": 285633,
+    "dimensions": [
+      642,
+      642
+    ],
+    "sha256": "f036e6a55e9dd551f6213b45d8a1c05111112a4f570ea51d966f30500bd6a4e0"
+  },
+  {
+    "path": "public/media/trending/trending2.png",
+    "bytes": 174097,
+    "dimensions": [
+      310,
+      309
+    ],
+    "sha256": "4f04e69c12e83d328e3e29f7580a1510e6d1f6f14cebe5aa119928f5de006999"
+  },
+  {
+    "path": "public/media/trending/trending3.png",
+    "bytes": 87943,
+    "dimensions": [
+      310,
+      309
+    ],
+    "sha256": "2bb62d326a8e7c59bd7ab17ad8425c433f10651022dc7414eafc9016c26063f9"
+  },
+  {
+    "path": "public/media/icons/arrow-right.svg",
+    "bytes": 217,
+    "dimensions": null,
+    "sha256": "b43d668b77b7302167f0ff2baeb72a06a44b06e0acd40aab65840192255397f5"
+  }
+]
