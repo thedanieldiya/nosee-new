@@ -1,6 +1,6 @@
 # NOSEE — Next.js Migration and Administration PRD
 
-**Version:** 1.0 · **Date:** 13 October 2026 · **Status:** Approved direction, implementation not started  
+**Version:** 1.1 · **Date:** 13 October 2026 · **Status:** Active migration requirements; strict 1:1 public-site parity reaffirmed by owner  
 **Product:** Network of Space–Earth Environmentalists (NOSEE) website  
 **Delivery:** Codex Cloud, in small reviewable tasks  
 **Destination:** https://github.com/thedanieldiya/nosee-new  
@@ -26,6 +26,16 @@ Success is **not** achieved by a simple framework swap. It requires:
 6. Safe migrations, validated content, accessible interfaces, clear progress evidence, and code that the owner can maintain.
 
 **Do not:** change the legacy repository; rebuild everything in one unchecked task; silently redesign the public site; turn public applicants into user accounts; expose applicants' private details; assume development fixtures are approved organisational information.
+
+### Owner decision (13 October 2026): strict 1:1 public-site replica
+
+For the **existing Laravel public website**, the migration is a **literal, one-to-one technical port**, not a design exercise. Treat the actual Laravel **implementation** as authoritative for visible UI and behavior. Preserve original **layout geometry, exact text/copy, spelling and typos, visual hierarchy, section/card order, source content records (including clearly identified fixtures), assets, images/crops, colors, fonts/weights, dimensions, breakpoints, responsive text variants, links/URLs, controls and interactions**. Do **not** exercise creative liberty or silently "improve" or normalize any public-facing details. In particular, **do not automatically fix source `NSEE` versus `NOSEE` labels or source placeholder URLs/biographies** during parity tasks. Record these as proposed content corrections requiring separate explicit owner approval. Preserving a fixture in a preview does not mean it is verified material or approved for public publication.
+
+Use the implemented Laravel version as the technical source of truth when an older PRD, sketch, or test assertion conflicts with it, unless the owner explicitly selects a different version. Once reference screenshots can be obtained, compare the actual rendered source and Next.js output at equal viewports; **do not claim pixel parity when reference images are missing**. For functionality never actually implemented in Laravel, plan and review it as **new scope**, not a 1:1 migration.
+
+**Narrow correctness/safety exception:** Do not recreate behavior that falsely claims a successful external action or leaks data. The existing newsletter endpoint logs rather than subscribing visitors. Preserve its **at-rest appearance, text and structure exactly** until real integration is approved, but do not send a false success confirmation. Document any unavoidable accessibility/security/operational deviation and obtain owner approval; do not use this exception as permission for a visual redesign.
+
+**Delivery workflow:** Codex completes one bounded task on a separate branch, pushes it to GitHub so Vercel can generate a **branch preview**, and stops for owner review. **Creating a PR is optional and is not a required Codex step.** Never merge or push unfinished code to `main` without the owner's decision.
 
 ## 2. Audiences and principal journeys
 
@@ -231,7 +241,7 @@ AGENTS.md
 
 ## 9. Delivery phases, gates and evidence
 
-**Rule:** One narrow Codex task/PR per cohesive increment. All tasks reference this PRD and update PROGRESS.md. No implementation can self-mark a milestone completed if its visual acceptance requires owner review.
+**Rule:** One narrow Codex task/branch per cohesive increment, pushed for owner inspection through a Vercel branch preview; a PR is optional and not created automatically. All tasks reference this PRD and update PROGRESS.md. No implementation can self-mark a milestone completed if its visual acceptance requires owner review.
 
 | Phase | Codex deliverable | Exit gate |
 | --- | --- | --- |
@@ -288,6 +298,6 @@ Codex must maintain [PROGRESS.md](PROGRESS.md) as a concise, persistent ledger, 
 
 ## 12. Scope approval and changes
 
-The owner requested a **near-perfect port of the existing PHP website to Next.js**, a proper Next.js folder structure, a reusable public design system, and a branded shadcn admin. Those decisions are fixed unless changed explicitly. Every additional planned feature must be prioritized after parity and identified as new work, not falsely described as a migration of already implemented code.
+The owner required a **strict 1:1 port of the existing PHP public website to Next.js, with no creative or editorial changes**, plus a proper Next.js folder structure, a source-extracted public design system, and a branded shadcn admin **as later, new functionality**. Those decisions are fixed unless changed explicitly. Every additional planned feature must be prioritized after parity and identified as new work, not falsely described as a migration of already implemented code.
 
 **Before beginning:** Run [Codex Task 01](codex-tasks/01-discovery-and-baseline.md). Use its output to refine the migration sequence without changing the established visual-fidelity and low-bandwidth goals. The new PRD starts at version 1.0; the progress ledger starts with all implementation phases not started.
