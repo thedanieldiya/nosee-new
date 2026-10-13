@@ -11,7 +11,7 @@ This repository is separate from the [existing Laravel implementation](https://g
 - Public membership application form **without applicant login**. Applicants receive submission confirmations; admins are notified and can approve/reject applicants with email notifications.
 - Member records are private by default. Only deliberately published executive/researcher profiles appear on the public website.
 
-**Status:** Task 02 provides the Next.js foundation and a temporary, non-indexed component specimen. The public website and backend features have not been migrated. See [PROGRESS.md](docs/PROGRESS.md) for checks and review gates.
+**Status:** Task 03 adds the source navigation/footer around the temporary, non-indexed foundation specimen. Homepage sections and backend features have not been migrated. See [PROGRESS.md](docs/PROGRESS.md) for checks and review gates.
 
 ## Development
 
@@ -27,6 +27,7 @@ For validation and a local production server:
 ```bash
 npm run typecheck
 npm run lint
+node --test tests/navigation.test.mjs
 npm run build
 npm run start
 ```
@@ -38,10 +39,14 @@ ESLint 9.39.5 is pinned because the current Next React/import/accessibility plug
 ## Foundation scope
 
 - `src/styles/tokens.css` is the single source for the legacy semantic palette and font-family tokens; `src/app/globals.css` imports those tokens and establishes base/focus styles. Tailwind's 640/768/1024/1280px breakpoints are unchanged.
-- `src/components/site/ui/Container.tsx`, `ButtonLink.tsx`, and `ArrowRight.tsx` are server components. The container preserves the 90rem width and source gutters; links preserve 36/44/48px sizes, fill/stroke/text styles, and disabled semantics. The exact source SVG is the only copied media asset.
-- Fonts are self-hosted from the same `@fontsource` 5.2.8 families as the legacy project, with Latin subsets and `font-display: swap`. This specimen needs Ubuntu Sans 500/600 and IBM Plex Sans 400/500 plus 400 italic; import other legacy weights when a later page actually needs them. No font is preloaded or fetched from Google at build time.
+- `src/components/site/ui/Container.tsx`, `ButtonLink.tsx`, and `ArrowRight.tsx` are server components. The container preserves the 90rem width and source gutters; links preserve 36/44/48px sizes, fill/stroke/text styles, and disabled semantics. Native footer buttons share the same source classes. Copied media is limited to the source arrow, white logo and five social SVGs.
+- Fonts are self-hosted from the same `@fontsource` 5.2.8 families as the legacy project, with Latin subsets and `font-display: swap`. The specimen uses Ubuntu Sans 500/600 and IBM Plex Sans 400/500 plus 400 italic; Task 03 adds Ubuntu Sans 700 and IBM Plex Sans 600 for the source navigation weights. No font is preloaded or fetched from Google at build time.
 - `/` is **NOSEE — Foundation Preview**, a temporary server-rendered review aid using in-page links. Its page metadata is `noindex, nofollow`; the root layout does not impose a site-wide indexing policy. Replace the specimen during reviewed P2 work.
-- No custom client JavaScript, navigation/footer, homepage sections, admin, database, auth, email or membership implementation is included. Next.js still supplies its framework runtime; server components do not imply a zero-byte framework bundle.
+- Navigation/footer markup and literal `src/lib/content/` records are server-rendered. Small client controllers handle the source scroll/drawer behavior and the task-approved newsletter error response. No new dependency, homepage section, admin, database, auth, email or membership implementation is included. Next.js still supplies its framework runtime.
+
+The public layout keeps the source offset variables isolated from future admin routes. `/` alone adds `data-foundation-preview-offset` padding to keep the temporary specimen below the overlaid source header; remove that preview wrapper when migrating the real hero. Internal-page migration should apply the source `pt-[var(--expanded-navbar-offset)]` rule to its main content. The shell geometry is unchanged. Unimplemented source destinations, including `/login`, are retained and currently lead to 404 pages.
+
+The newsletter keeps its source text/form/closed dialog, but a valid JavaScript-enabled submission shows the existing error without transmitting email or opening the false-success dialog. Its native no-JS POST remains unimplemented. The source no-JS navigation fallback is broken by CSS layer precedence; its rules and the source close-icon behavior are retained under the owner's no-corrections instruction. [Task 03 reference/target captures and exceptions](docs/evidence/task-03/README.md) describe the checks, blocked accessibility gate and proposed correction requiring approval.
 
 **Public-site fidelity:** All public pages are a strict 1:1 migration of the original Laravel site's visible layout, content, assets and behavior. No editorial or design corrections without owner approval; see [PRD](docs/PRD.md) and [Task 03](docs/codex-tasks/03-public-shell.md). The admin dashboard is a later, separate project phase.
 

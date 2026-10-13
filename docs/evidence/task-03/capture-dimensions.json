@@ -1,0 +1,35 @@
+[
+  {
+    "width": 390,
+    "referenceSize": [
+      390,
+      1362
+    ],
+    "targetSize": [
+      390,
+      1361
+    ]
+  },
+  {
+    "width": 768,
+    "referenceSize": [
+      768,
+      1334
+    ],
+    "targetSize": [
+      768,
+      1333
+    ]
+  },
+  {
+    "width": 1440,
+    "referenceSize": [
+      1440,
+      542
+    ],
+    "targetSize": [
+      1440,
+      541
+    ]
+  }
+]

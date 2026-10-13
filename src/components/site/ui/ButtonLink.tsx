@@ -32,6 +32,19 @@ type ButtonLinkProps = Omit<ComponentPropsWithoutRef<"a">, "href" | "aria-disabl
   disabled?: boolean;
 };
 
+export function buttonClasses({
+  size = "base", intent = "primary", variant = "fill", disabled = false, className = "",
+}: Pick<ButtonLinkProps, "size" | "intent" | "variant" | "disabled" | "className"> = {}) {
+  return [
+    "inline-flex shrink-0 items-center justify-center gap-2 rounded-[2px] font-medium transition-colors",
+    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+    "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+    sizes[size], styles[intent][variant],
+    disabled ? "pointer-events-none cursor-not-allowed opacity-50" : "",
+    className,
+  ].filter(Boolean).join(" ");
+}
+
 export function ButtonLink({
   children, href, size = "base", intent = "primary", variant = "fill",
   disabled = false, className = "", tabIndex, ...props
@@ -42,13 +55,7 @@ export function ButtonLink({
       href={disabled ? undefined : href}
       aria-disabled={disabled || undefined}
       tabIndex={disabled ? -1 : tabIndex}
-      className={[
-        "inline-flex shrink-0 items-center justify-center gap-2 rounded-[2px] font-medium transition-colors",
-        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
-        sizes[size], styles[intent][variant],
-        disabled ? "pointer-events-none cursor-not-allowed opacity-50" : "",
-        className,
-      ].filter(Boolean).join(" ")}
+      className={buttonClasses({ size, intent, variant, disabled, className })}
     >
       {children}
     </a>

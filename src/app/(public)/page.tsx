@@ -22,6 +22,8 @@ const colors = [
 
 export default function FoundationPreview() {
   return (
+    // Preview-only spacing: keep the specimen below the unchanged overlaid source header.
+    <div className="pt-[var(--expanded-navbar-offset)]" data-foundation-preview-offset>
     <Container className="py-10 lg:py-16">
       <div className="max-w-3xl">
         <p className="text-sm font-medium tracking-[0.04em] text-brand uppercase">Temporary review page</p>
@@ -103,5 +105,6 @@ export default function FoundationPreview() {
         </div>
       </section>
     </Container>
+    </div>
   );
 }
