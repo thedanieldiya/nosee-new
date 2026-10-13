@@ -11,7 +11,13 @@ This repository is separate from the [existing Laravel implementation](https://g
 - Public membership application form **without applicant login**. Applicants receive submission confirmations; admins are notified and can approve/reject applicants with email notifications.
 - Member records are private by default. Only deliberately published executive/researcher profiles appear on the public website.
 
-**Status:** Engineering guidance and project-local agent skills are being set up. The Next.js application has **not** yet been scaffolded or implemented.
+**Status:** Project-local agent skills and migration requirements are ready. The Next.js application has **not** yet been scaffolded or implemented.
+
+## Delivery documents
+
+- [Migration and admin PRD](docs/PRD.md) — product requirements, route scope, acceptance conditions, design parity, backend/security and performance targets.
+- [Codex progress tracker](docs/PROGRESS.md) — live milestone and requirement statuses with evidence and blockers.
+- [Codex Task 01](docs/codex-tasks/01-discovery-and-baseline.md) — first task: audit the legacy source and produce a visual/migration baseline **without changing application code**.
 
 ## Performance is a product requirement
 
