@@ -11,7 +11,7 @@ This repository is separate from the [existing Laravel implementation](https://g
 - Public membership application form **without applicant login**. Applicants receive submission confirmations; admins are notified and can approve/reject applicants with email notifications.
 - Member records are private by default. Only deliberately published executive/researcher profiles appear on the public website.
 
-**Status:** Tasks 02–04 are merged; the owner confirms the merged site runs locally. Task 05 adds the original three-card monitoring section directly after the hero for review. Research outputs, trending news, upcoming events and backend/admin features remain outstanding. See [PROGRESS.md](docs/PROGRESS.md) and [Task 05 comparisons](docs/evidence/task-05/README.md).
+**Status:** Tasks 02–05 have been merged. The owner previously verified that the Next.js homepage renders locally; Task 05 monitoring comparisons report eight pixel-identical paired crops. The homepage currently has the hero and monitoring dashboard; [Task 06](docs/codex-tasks/06-complete-homepage.md) is prepared to add the remaining Research Outputs, Trending News and Upcoming Events sections as one quality-gated increment. Admin/backend features remain future phases. See [PROGRESS.md](docs/PROGRESS.md) and [Task 05 comparisons](docs/evidence/task-05/README.md).
 
 ## Development
 
@@ -66,6 +66,7 @@ The owner connected this repository to Vercel. Push the task branch to trigger t
 - [Codex Task 03](docs/codex-tasks/03-public-shell.md) — strictly reproduce the original Laravel public navigation, footer, and responsive behavior; push a branch for Vercel preview without requiring a PR.
 - [Codex Task 04](docs/codex-tasks/04-homepage-hero.md) — reproduce the two original homepage hero slides, images, overlays, carousel/autoplay/swipe, and entrance animations with pinned-source visual comparisons.
 - [Codex Task 05](docs/codex-tasks/05-home-monitoring.md) — reproduce the three source monitoring dashboard cards, exact images/data and responsive CTAs, with matched Laravel/Next screenshots and no creative changes.
+- [Codex Task 06](docs/codex-tasks/06-complete-homepage.md) — migrate the remaining three homepage sections together, with independent source data, responsive visual, behavior and full-page regression evidence. Faster delivery does not relax the 1:1 quality gate.
 
 ## Performance is a product requirement
 
