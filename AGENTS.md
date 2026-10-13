@@ -6,9 +6,17 @@ Build the NOSEE Next.js replacement in this repository. Legacy reference: https:
 
 - Read [docs/PRD.md](docs/PRD.md) and [docs/PROGRESS.md](docs/PROGRESS.md) **before each scoped Codex task**. The PRD defines scope and acceptance conditions; PROGRESS.md is the evidence ledger to update after each task.
 - Begin the migration with [Codex Task 01](docs/codex-tasks/01-discovery-and-baseline.md): read-only legacy discovery and visual-baseline documentation only. Do not scaffold during Task 01.
-- Keep `thedanieldiya/nosee` read-only. All new work goes in `thedanieldiya/nosee-new`, preferably in a dedicated branch/PR.
+- Keep `thedanieldiya/nosee` read-only. All new work goes in `thedanieldiya/nosee-new`, on a dedicated branch for Vercel preview; a PR is optional and must not be created automatically.
 - Mark phases `In review` until required visual evidence and owner approval exist. Do not mark tests or visual checks successful if they were skipped or unavailable.
 - Each Codex task must remain narrow: change one coherent feature, run the minimum relevant checks, update PROGRESS.md with evidence, then stop for owner review.
+
+## Strict 1:1 Laravel public-site replication (owner direction)
+
+**This is mandatory for all public-site migration tasks, not only Task 03.** Port the actual rendered Laravel site **literally** into Next.js: exact layout, content, colors, type, images, spacing, breakpoints, order, URLs, controls and implemented interactions. The public site is **not to be redesigned, simplified, corrected, rebranded or creatively improved** by the agent. Do not silently normalize source `NSEE` labels, typos, placeholder biographies, URLs or viewport-dependent wording. Record possible improvements in PROGRESS.md for separately approved future changes. The developer's source code is evidence when source screenshots cannot be captured; do not claim screenshot parity until it has been checked.
+
+Only narrowly necessary safety/accessibility/compatibility exceptions are permitted, and every deviation must be explicitly described for owner review. Do not replicate the legacy newsletter's false successful-subscription behavior without an actual working subscription provider; keep the visible source form intact.
+
+**Branch-only review is the default workflow:** create an isolated task branch, commit and push so Vercel builds its branch preview, report the real preview URL if confirmed, and stop for owner review. No automatic PR and no auto-merge. The later admin dashboard uses shadcn and is **not** subject to visual parity with the Laravel public site; it should share NOSEE brand foundations only.
 
 ## Agent guidance
 
