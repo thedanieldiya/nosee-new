@@ -18,6 +18,7 @@ This repository is separate from the [existing Laravel implementation](https://g
 - [Migration and admin PRD](docs/PRD.md) — product requirements, route scope, acceptance conditions, design parity, backend/security and performance targets.
 - [Codex progress tracker](docs/PROGRESS.md) — live milestone and requirement statuses with evidence and blockers.
 - [Codex Task 01](docs/codex-tasks/01-discovery-and-baseline.md) — first task: audit the legacy source and produce a visual/migration baseline **without changing application code**.
+- [Codex Task 02](docs/codex-tasks/02-nextjs-foundation.md) — scaffold a lean Next.js application, port source fonts/tokens and first primitives, and review via a Vercel branch preview.
 
 ## Performance is a product requirement
 
