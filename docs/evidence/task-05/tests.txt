@@ -1,0 +1,11 @@
+✔ literal data and strict homepage selection match the pinned PHP repository, excluding the starter (1.330585ms)
+✔ server HTML contains the three exact cards, original images, safe external links and both source CTA variants (7.414837ms)
+✔ all monitoring PNGs retain pinned hashes, byte lengths and natural dimensions (1.926408ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 366.381085

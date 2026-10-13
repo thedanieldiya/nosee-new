@@ -1,0 +1,90 @@
+[
+  {
+    "reference": "reference-focus-1440.png",
+    "target": "target-focus-1440.png",
+    "size": [
+      1440,
+      614
+    ],
+    "differentPixels": 0,
+    "totalPixels": 884160,
+    "maximumChannelDifference": 0
+  },
+  {
+    "reference": "reference-hover-1440.png",
+    "target": "target-hover-1440.png",
+    "size": [
+      1440,
+      614
+    ],
+    "differentPixels": 0,
+    "totalPixels": 884160,
+    "maximumChannelDifference": 0
+  },
+  {
+    "reference": "reference-reduced-hover-1440.png",
+    "target": "target-reduced-hover-1440.png",
+    "size": [
+      1440,
+      614
+    ],
+    "differentPixels": 0,
+    "totalPixels": 884160,
+    "maximumChannelDifference": 0
+  },
+  {
+    "reference": "reference-section-1024.png",
+    "target": "target-section-1024.png",
+    "size": [
+      1024,
+      556
+    ],
+    "differentPixels": 0,
+    "totalPixels": 569344,
+    "maximumChannelDifference": 0
+  },
+  {
+    "reference": "reference-section-1280.png",
+    "target": "target-section-1280.png",
+    "size": [
+      1280,
+      584
+    ],
+    "differentPixels": 0,
+    "totalPixels": 747520,
+    "maximumChannelDifference": 0
+  },
+  {
+    "reference": "reference-section-1440.png",
+    "target": "target-section-1440.png",
+    "size": [
+      1440,
+      614
+    ],
+    "differentPixels": 0,
+    "totalPixels": 884160,
+    "maximumChannelDifference": 0
+  },
+  {
+    "reference": "reference-section-390.png",
+    "target": "target-section-390.png",
+    "size": [
+      390,
+      1194
+    ],
+    "differentPixels": 0,
+    "totalPixels": 465660,
+    "maximumChannelDifference": 0
+  },
+  {
+    "reference": "reference-section-768.png",
+    "target": "target-section-768.png",
+    "size": [
+      768,
+      1781
+    ],
+    "differentPixels": 0,
+    "totalPixels": 1367808,
+    "maximumChannelDifference": 0
+  }
+]
