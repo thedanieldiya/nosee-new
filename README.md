@@ -11,7 +11,41 @@ This repository is separate from the [existing Laravel implementation](https://g
 - Public membership application form **without applicant login**. Applicants receive submission confirmations; admins are notified and can approve/reject applicants with email notifications.
 - Member records are private by default. Only deliberately published executive/researcher profiles appear on the public website.
 
-**Status:** Project-local agent skills and migration requirements are ready. The Next.js application has **not** yet been scaffolded or implemented.
+**Status:** Task 02 provides the Next.js foundation and a temporary, non-indexed component specimen. The public website and backend features have not been migrated. See [PROGRESS.md](docs/PROGRESS.md) for checks and review gates.
+
+## Development
+
+Use **Node.js 24.x** and npm. `.node-version` and `package.json` select the same major as the cloud environment (validated with Node 24.19.0); Vercel should use the package engine policy. Next.js 16.4.0 requires Node >=20.9.0, and React/React DOM 19.3.0 satisfy its published stable peer ranges. TypeScript is pinned to 5.9.3. Exact dependency versions are committed in `package-lock.json`.
+
+```bash
+npm ci
+npm run dev
+```
+
+For validation and a local production server:
+
+```bash
+npm run typecheck
+npm run lint
+npm run build
+npm run start
+```
+
+Typecheck generates Next's route types before running strict TypeScript. Lint uses the ESLint CLI with Next's flat configuration. Tailwind CSS 4.3.3 uses `@tailwindcss/postcss`; no static-export setting or custom server is needed. On hosts with an unwritable npm cache, use `npm --cache /workspace/.cache/npm ci` or another writable cache location.
+
+ESLint 9.39.5 is pinned because the current Next React/import/accessibility plugin peer ranges do not yet accept ESLint 10. The registry marks ESLint 9 deprecated; upgrade the lint stack together when those peers support the current major. No peer checks are bypassed.
+
+## Foundation scope
+
+- `src/styles/tokens.css` is the single source for the legacy semantic palette and font-family tokens; `src/app/globals.css` imports those tokens and establishes base/focus styles. Tailwind's 640/768/1024/1280px breakpoints are unchanged.
+- `src/components/site/ui/Container.tsx`, `ButtonLink.tsx`, and `ArrowRight.tsx` are server components. The container preserves the 90rem width and source gutters; links preserve 36/44/48px sizes, fill/stroke/text styles, and disabled semantics. The exact source SVG is the only copied media asset.
+- Fonts are self-hosted from the same `@fontsource` 5.2.8 families as the legacy project, with Latin subsets and `font-display: swap`. This specimen needs Ubuntu Sans 500/600 and IBM Plex Sans 400/500 plus 400 italic; import other legacy weights when a later page actually needs them. No font is preloaded or fetched from Google at build time.
+- `/` is **NOSEE — Foundation Preview**, a temporary server-rendered review aid using in-page links. Its page metadata is `noindex, nofollow`; the root layout does not impose a site-wide indexing policy. Replace the specimen during reviewed P2 work.
+- No custom client JavaScript, navigation/footer, homepage sections, admin, database, auth, email or membership implementation is included. Next.js still supplies its framework runtime; server components do not imply a zero-byte framework bundle.
+
+## Preview deployment
+
+The owner connected this repository to Vercel. Push the task branch to trigger that integration and review its **actual branch deployment URL** from Vercel/GitHub checks. `https://nosee-new.vercel.app` is the main/production domain and must not be presented as the task preview. Deployment status and any available preview URL are recorded in [PROGRESS.md](docs/PROGRESS.md); do not merge the foundation until the owner reviews it.
 
 ## Delivery documents
 

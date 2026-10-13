@@ -1,0 +1,634 @@
+{
+  "browser": "154.0.8037.57",
+  "date": "2026-10-13T14:51:01.040Z",
+  "viewportChecks": [
+    {
+      "width": 390,
+      "height": 844,
+      "padding": [
+        16,
+        16
+      ],
+      "containerWidth": 390,
+      "overflow": false,
+      "headingFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+      "bodyFamily": "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+      "bodyColor": "rgb(23, 23, 23)",
+      "tokens": {
+        "brand": "#13853d",
+        "accent": "#1e4ec4",
+        "primary": "#171717",
+        "secondary": "#5c5c5c",
+        "tertiary": "#a3a3a3",
+        "disabled": "#d1d1d1",
+        "inverse": "#fff",
+        "default": "#fff",
+        "surface": "#f7f7f7",
+        "line-soft": "#0000000d",
+        "line-mild": "#0000001a",
+        "line-strong": "#0003"
+      },
+      "controlHeights": [
+        36,
+        44,
+        48
+      ],
+      "controlRadius": "2px",
+      "disabled": {
+        "href": null,
+        "tabIndex": -1,
+        "aria": "true"
+      },
+      "arrow": {
+        "width": 16,
+        "height": 16,
+        "mask": "url(\"http://127.0.0.1:3000/media/icons/arrow-right.svg\")"
+      },
+      "variantCount": 9,
+      "brokenAnchors": [],
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "family": "Ubuntu Sans",
+          "weight": "500",
+          "style": "normal"
+        },
+        {
+          "family": "Ubuntu Sans",
+          "weight": "600",
+          "style": "normal"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "style": "normal"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "style": "normal"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "style": "italic"
+        }
+      ],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/2pgp8nd-z-76j.css",
+          "transferSize": 4505,
+          "encodedBodySize": 4205,
+          "decodedBodySize": 16475
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/3cfn99dbrcvvp.js",
+          "transferSize": 6242,
+          "encodedBodySize": 5942,
+          "decodedBodySize": 16898
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/3c4xol65z2da2.js",
+          "transferSize": 49906,
+          "encodedBodySize": 49606,
+          "decodedBodySize": 185233
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/3dmm3v_fq28gc.js",
+          "transferSize": 72269,
+          "encodedBodySize": 71969,
+          "decodedBodySize": 229820
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "transferSize": 4240,
+          "encodedBodySize": 3940,
+          "decodedBodySize": 10030
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/0umf92h1sb77c.js",
+          "transferSize": 3814,
+          "encodedBodySize": 3514,
+          "decodedBodySize": 13822
+        },
+        {
+          "name": "http://127.0.0.1:3000/media/icons/arrow-right.svg",
+          "transferSize": 517,
+          "encodedBodySize": 217,
+          "decodedBodySize": 217
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-400-normal.1xf5nwxyfigak.woff2",
+          "transferSize": 22888,
+          "encodedBodySize": 22588,
+          "decodedBodySize": 22588
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/media/ubuntu-sans-latin-600-normal.0ad5x9dev-3af.woff2",
+          "transferSize": 17360,
+          "encodedBodySize": 17060,
+          "decodedBodySize": 17060
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-500-normal.2i4a1iuj6lbvw.woff2",
+          "transferSize": 24484,
+          "encodedBodySize": 24184,
+          "decodedBodySize": 24184
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/media/ubuntu-sans-latin-500-normal.1yx1bprp0bjh7.woff2",
+          "transferSize": 17352,
+          "encodedBodySize": 17052,
+          "decodedBodySize": 17052
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-400-italic.1_8u9naxcgtyx.woff2",
+          "transferSize": 24656,
+          "encodedBodySize": 24356,
+          "decodedBodySize": 24356
+        },
+        {
+          "name": "http://127.0.0.1:3000/favicon.ico",
+          "transferSize": 309,
+          "encodedBodySize": 9,
+          "decodedBodySize": 9
+        }
+      ],
+      "focus": {
+        "text": "Typography ",
+        "outline": "rgb(30, 78, 196)",
+        "width": "2px",
+        "offset": "2px"
+      },
+      "requests": [
+        {
+          "url": "http://127.0.0.1:3000/",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/2pgp8nd-z-76j.css",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/media/icons/arrow-right.svg",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3cfn99dbrcvvp.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/0umf92h1sb77c.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3c4xol65z2da2.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3dmm3v_fq28gc.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-400-italic.1_8u9naxcgtyx.woff2",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/ubuntu-sans-latin-600-normal.0ad5x9dev-3af.woff2",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-500-normal.2i4a1iuj6lbvw.woff2",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-400-normal.1xf5nwxyfigak.woff2",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/ubuntu-sans-latin-500-normal.1yx1bprp0bjh7.woff2",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "padding": [
+        24,
+        24
+      ],
+      "containerWidth": 768,
+      "overflow": false,
+      "headingFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+      "bodyFamily": "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+      "bodyColor": "rgb(23, 23, 23)",
+      "tokens": {
+        "brand": "#13853d",
+        "accent": "#1e4ec4",
+        "primary": "#171717",
+        "secondary": "#5c5c5c",
+        "tertiary": "#a3a3a3",
+        "disabled": "#d1d1d1",
+        "inverse": "#fff",
+        "default": "#fff",
+        "surface": "#f7f7f7",
+        "line-soft": "#0000000d",
+        "line-mild": "#0000001a",
+        "line-strong": "#0003"
+      },
+      "controlHeights": [
+        36,
+        44,
+        48
+      ],
+      "controlRadius": "2px",
+      "disabled": {
+        "href": null,
+        "tabIndex": -1,
+        "aria": "true"
+      },
+      "arrow": {
+        "width": 16,
+        "height": 16,
+        "mask": "url(\"http://127.0.0.1:3000/media/icons/arrow-right.svg\")"
+      },
+      "variantCount": 9,
+      "brokenAnchors": [],
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "family": "Ubuntu Sans",
+          "weight": "500",
+          "style": "normal"
+        },
+        {
+          "family": "Ubuntu Sans",
+          "weight": "600",
+          "style": "normal"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "style": "normal"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "style": "normal"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "style": "italic"
+        }
+      ],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/2pgp8nd-z-76j.css",
+          "transferSize": 4505,
+          "encodedBodySize": 4205,
+          "decodedBodySize": 16475
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/3cfn99dbrcvvp.js",
+          "transferSize": 6242,
+          "encodedBodySize": 5942,
+          "decodedBodySize": 16898
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/3c4xol65z2da2.js",
+          "transferSize": 49906,
+          "encodedBodySize": 49606,
+          "decodedBodySize": 185233
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/0umf92h1sb77c.js",
+          "transferSize": 3814,
+          "encodedBodySize": 3514,
+          "decodedBodySize": 13822
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "transferSize": 4240,
+          "encodedBodySize": 3940,
+          "decodedBodySize": 10030
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/3dmm3v_fq28gc.js",
+          "transferSize": 72269,
+          "encodedBodySize": 71969,
+          "decodedBodySize": 229820
+        },
+        {
+          "name": "http://127.0.0.1:3000/media/icons/arrow-right.svg",
+          "transferSize": 517,
+          "encodedBodySize": 217,
+          "decodedBodySize": 217
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-400-normal.1xf5nwxyfigak.woff2",
+          "transferSize": 22888,
+          "encodedBodySize": 22588,
+          "decodedBodySize": 22588
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-500-normal.2i4a1iuj6lbvw.woff2",
+          "transferSize": 24484,
+          "encodedBodySize": 24184,
+          "decodedBodySize": 24184
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/media/ubuntu-sans-latin-600-normal.0ad5x9dev-3af.woff2",
+          "transferSize": 17360,
+          "encodedBodySize": 17060,
+          "decodedBodySize": 17060
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/media/ubuntu-sans-latin-500-normal.1yx1bprp0bjh7.woff2",
+          "transferSize": 17352,
+          "encodedBodySize": 17052,
+          "decodedBodySize": 17052
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-400-italic.1_8u9naxcgtyx.woff2",
+          "transferSize": 24656,
+          "encodedBodySize": 24356,
+          "decodedBodySize": 24356
+        }
+      ],
+      "focus": {
+        "text": "Typography ",
+        "outline": "rgb(30, 78, 196)",
+        "width": "2px",
+        "offset": "2px"
+      },
+      "requests": [
+        {
+          "url": "http://127.0.0.1:3000/",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/2pgp8nd-z-76j.css",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3cfn99dbrcvvp.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/media/icons/arrow-right.svg",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/0umf92h1sb77c.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3c4xol65z2da2.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3dmm3v_fq28gc.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-400-normal.1xf5nwxyfigak.woff2",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-500-normal.2i4a1iuj6lbvw.woff2",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/ubuntu-sans-latin-600-normal.0ad5x9dev-3af.woff2",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/ubuntu-sans-latin-500-normal.1yx1bprp0bjh7.woff2",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-400-italic.1_8u9naxcgtyx.woff2",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "padding": [
+        64,
+        64
+      ],
+      "containerWidth": 1440,
+      "overflow": false,
+      "headingFamily": "\"Ubuntu Sans\", ui-sans-serif, system-ui, sans-serif",
+      "bodyFamily": "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+      "bodyColor": "rgb(23, 23, 23)",
+      "tokens": {
+        "brand": "#13853d",
+        "accent": "#1e4ec4",
+        "primary": "#171717",
+        "secondary": "#5c5c5c",
+        "tertiary": "#a3a3a3",
+        "disabled": "#d1d1d1",
+        "inverse": "#fff",
+        "default": "#fff",
+        "surface": "#f7f7f7",
+        "line-soft": "#0000000d",
+        "line-mild": "#0000001a",
+        "line-strong": "#0003"
+      },
+      "controlHeights": [
+        36,
+        44,
+        48
+      ],
+      "controlRadius": "2px",
+      "disabled": {
+        "href": null,
+        "tabIndex": -1,
+        "aria": "true"
+      },
+      "arrow": {
+        "width": 16,
+        "height": 16,
+        "mask": "url(\"http://127.0.0.1:3000/media/icons/arrow-right.svg\")"
+      },
+      "variantCount": 9,
+      "brokenAnchors": [],
+      "robots": "noindex, nofollow",
+      "fonts": [
+        {
+          "family": "Ubuntu Sans",
+          "weight": "500",
+          "style": "normal"
+        },
+        {
+          "family": "Ubuntu Sans",
+          "weight": "600",
+          "style": "normal"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "style": "normal"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "500",
+          "style": "normal"
+        },
+        {
+          "family": "IBM Plex Sans",
+          "weight": "400",
+          "style": "italic"
+        }
+      ],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/2pgp8nd-z-76j.css",
+          "transferSize": 4505,
+          "encodedBodySize": 4205,
+          "decodedBodySize": 16475
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/3cfn99dbrcvvp.js",
+          "transferSize": 6242,
+          "encodedBodySize": 5942,
+          "decodedBodySize": 16898
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/3c4xol65z2da2.js",
+          "transferSize": 49906,
+          "encodedBodySize": 49606,
+          "decodedBodySize": 185233
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/3dmm3v_fq28gc.js",
+          "transferSize": 72269,
+          "encodedBodySize": 71969,
+          "decodedBodySize": 229820
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "transferSize": 4240,
+          "encodedBodySize": 3940,
+          "decodedBodySize": 10030
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/chunks/0umf92h1sb77c.js",
+          "transferSize": 3814,
+          "encodedBodySize": 3514,
+          "decodedBodySize": 13822
+        },
+        {
+          "name": "http://127.0.0.1:3000/media/icons/arrow-right.svg",
+          "transferSize": 517,
+          "encodedBodySize": 217,
+          "decodedBodySize": 217
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-400-normal.1xf5nwxyfigak.woff2",
+          "transferSize": 22888,
+          "encodedBodySize": 22588,
+          "decodedBodySize": 22588
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/media/ubuntu-sans-latin-600-normal.0ad5x9dev-3af.woff2",
+          "transferSize": 17360,
+          "encodedBodySize": 17060,
+          "decodedBodySize": 17060
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-500-normal.2i4a1iuj6lbvw.woff2",
+          "transferSize": 24484,
+          "encodedBodySize": 24184,
+          "decodedBodySize": 24184
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/media/ubuntu-sans-latin-500-normal.1yx1bprp0bjh7.woff2",
+          "transferSize": 17352,
+          "encodedBodySize": 17052,
+          "decodedBodySize": 17052
+        },
+        {
+          "name": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-400-italic.1_8u9naxcgtyx.woff2",
+          "transferSize": 24656,
+          "encodedBodySize": 24356,
+          "decodedBodySize": 24356
+        }
+      ],
+      "focus": {
+        "text": "Typography ",
+        "outline": "rgb(30, 78, 196)",
+        "width": "2px",
+        "offset": "2px"
+      },
+      "requests": [
+        {
+          "url": "http://127.0.0.1:3000/",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/2pgp8nd-z-76j.css",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/media/icons/arrow-right.svg",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3cfn99dbrcvvp.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/0umf92h1sb77c.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3c4xol65z2da2.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3dmm3v_fq28gc.js",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/ubuntu-sans-latin-600-normal.0ad5x9dev-3af.woff2",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-400-italic.1_8u9naxcgtyx.woff2",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-400-normal.1xf5nwxyfigak.woff2",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/ubuntu-sans-latin-500-normal.1yx1bprp0bjh7.woff2",
+          "status": 200
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/ibm-plex-sans-latin-500-normal.2i4a1iuj6lbvw.woff2",
+          "status": 200
+        }
+      ]
+    }
+  ],
+  "noJavaScript": true
+}
