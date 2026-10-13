@@ -1,0 +1,20 @@
+[
+  {
+    "path": "public/media/home/hero-1.png",
+    "bytes": 1269779,
+    "dimensions": [
+      1440,
+      850
+    ],
+    "sha256": "d6361f111314ed5d1df880dcec911a35519ca1cdd8fdfd15befa89a889b67044"
+  },
+  {
+    "path": "public/media/home/hero-2.jpg",
+    "bytes": 1496169,
+    "dimensions": [
+      3892,
+      2457
+    ],
+    "sha256": "c8dc3f346f69ae49b0c490098598d4c49168d02352c7876bc4e97346178bb0bf"
+  }
+]
