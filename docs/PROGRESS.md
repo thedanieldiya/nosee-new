@@ -66,14 +66,14 @@ This is the **evidence ledger**, not a replacement for the PRD. Agents must not 
 | Live versus source design discrepancies | Live comparison unverified; source conflicts documented | Owner chooses live/source/Figma authority and resolves hero autoplay/height, responsive copy and newsletter messaging; see [discrepancies](visual-baseline.md#6-discrepancies-requiring-review) |
 | Approved public content vs development placeholder records | Inventory complete; approval pending | Nine event, nine news and ten publication fixtures; About story/John Doe/seven leadership placeholders; starter research/data/product/outreach copy and NSEE/NOSEE differences listed in [migration map](migration-map.md#5-content-approval-and-source-discrepancies) |
 | Hosting, data provider, email domain and applicant data policy | Open | Resolve before backend implementation; do not block read-only P0 |
-| Task 01 PR creation | Branch published; GitHub API unavailable | `gh api repos/thedanieldiya/nosee-new --jq .full_name` returned Forbidden from `api.github.com`; Git push succeeded. [Review/create PR from the published branch](https://github.com/thedanieldiya/nosee-new/pull/new/codex/task-01-discovery-baseline). No PR was opened automatically; no token values requested or printed |
+| Task 01 PR creation | Branch published; GitHub API unavailable | Codex Cloud could not create the PR due to a GitHub API 403, but the connected GitHub account subsequently [opened PR #1](https://github.com/thedanieldiya/nosee-new/pull/1) for the published branch. Review is pending; no merge or owner approval has been recorded |
 
 ## Task history
 
 | Date | Task / PR | Evidence | Outcome |
 | --- | --- | --- | --- |
 | 2026-10-13 | PRD and progress tracker initialized | [PRD](PRD.md), [Task 01](codex-tasks/01-discovery-and-baseline.md) | Planning documents only; **no application code shipped** |
-| 2026-10-13 | Task 01 — `codex/task-01-discovery-baseline` | [Migration map](migration-map.md), [visual baseline](visual-baseline.md); audit commit `5c6e103292a18b4c5ffcaa9028790ad67c7efb37`; evidence/checks below | P0 **In review**; screenshots and owner acceptance outstanding; P1–P8 and all implementation requirements remain Not started |
+| 2026-10-13 | Task 01 — [`PR #1`](https://github.com/thedanieldiya/nosee-new/pull/1) (`codex/task-01-discovery-baseline`) | [Migration map](migration-map.md), [visual baseline](visual-baseline.md); audit commit `5c6e103292a18b4c5ffcaa9028790ad67c7efb37`; evidence/checks below | P0 **In review**; screenshots and owner acceptance outstanding; P1–P8 and all implementation requirements remain Not started |
 
 ## Task 01 evidence — 2026-10-13
 
@@ -83,7 +83,7 @@ This is the **evidence ledger**, not a replacement for the PRD. Agents must not 
 - **Visual evidence:** zero screenshots captured. Every requested 390/768/1440px page/state is explicitly `Not captured` with reproduction steps. The source PRD forbids hero autoplay while JS enables desktop autoplay; source hero height and test expectations differ. Newsletter UI promises delivery that the backend does not provide. Live/source visual differences are not asserted.
 - **Checks:** relative Markdown links/anchors and pinned source references checked; source counts/image headers/file sizes read; task diff checked for whitespace after removing new Markdown trailing spaces. No PRD criteria were changed. Legacy Git status checked before/after; no legacy changes. These checks validate documents, not application behavior.
 - **Skipped:** application scaffolding/code, dependency installation, tests/build/typecheck/lint, Playwright installation, server startup, Lighthouse, runtime page weights/request counts/CWV, production deployment. There is no destination application to test. Earlier onboarding results are not reported as Task 01 test runs.
-- **Remaining gates:** owner review of approach, visual truth/Figma authority, fixture/copy/branding approvals, autoplay/height and newsletter decisions; reachable pinned renderer for actual screenshots. Backend policy/provider choices remain later-phase decisions. GitHub API access prevented automatic PR creation; Git push published `codex/task-01-discovery-baseline`, and its committed documents are ready for review through the link above.
+- **Remaining gates:** owner review of approach, visual truth/Figma authority, fixture/copy/branding approvals, autoplay/height and newsletter decisions; reachable pinned renderer for actual screenshots. Backend policy/provider choices remain later-phase decisions. Codex Cloud could not create the PR, but [PR #1](https://github.com/thedanieldiya/nosee-new/pull/1) was subsequently opened using the connected GitHub account. Owner review remains outstanding.
 - **One recommended Task 02:** after owner review, bounded P1 foundation only — compatible Next.js App Router/TypeScript/Tailwind scaffold, local brand fonts/tokens, public Container/ButtonLink/ArrowRight primitives, then typecheck/lint/build and token review. No homepage sections, auth, CMS, membership or email work in that task. **Do not begin it automatically.**
 
 ## Codex update procedure (mandatory)
