@@ -5,7 +5,7 @@
 **Status:** P1 foundation In review on `codex/task-02-nextjs-foundation`; owner preview approval and P0 reference screenshots remain outstanding.
 **Writable destination:** `thedanieldiya/nosee-new`  
 **Read-only legacy source:** `thedanieldiya/nosee`  
-**Current task:** [Task 02 — Next.js foundation](codex-tasks/02-nextjs-foundation.md) (In review). Stop for owner review; P0 screenshots/visual authority remain In review.
+**Current task:** [Task 03 — strict 1:1 public shell](codex-tasks/03-public-shell.md) (instructions prepared; implementation not started). Task 02 was merged by the owner; P0 screenshots/visual authority remain unverified.
 
 This is the **evidence ledger**, not a replacement for the PRD. Agents must not change an item to Done without the evidence and approvals specified in [PRD section 9](PRD.md#9-delivery-phases-gates-and-evidence). Keep the checklist honest even if this means multiple tasks remain In review.
 
@@ -22,8 +22,8 @@ This is the **evidence ledger**, not a replacement for the PRD. Agents must not 
 | Phase | Goal | Status | Evidence / remaining gate |
 | --- | --- | --- | --- |
 | P0 | Audit Laravel source, map migration, establish visual baseline | In review | [PR #1 merged](https://github.com/thedanieldiya/nosee-new/pull/1); [migration map](migration-map.md) and [source-derived visual baseline](visual-baseline.md) accepted as planning documents. Original-site screenshots and visual truth decisions remain open; no visual-parity claim. P1 foundation authorized to proceed. |
-| P1 | Scaffold Next.js and port tokens/primitives | In review | [Foundation commit `5ebcf5d`](https://github.com/thedanieldiya/nosee-new/commit/5ebcf5d8483283f6715ff8867f2e1d0d7f5a0b53); clean install, strict typecheck, lint and production build passed. [Three-width screenshots and browser evidence](evidence/task-02/README.md). Branch-specific Vercel deployment and owner visual acceptance remain unverified. |
-| P2 | Homepage visual/behavior parity | Not started | Desktop/tablet/mobile screenshots and owner review |
+| P1 | Scaffold Next.js and port tokens/primitives | In review | [Task 02 PR #2 merged](https://github.com/thedanieldiya/nosee-new/pull/2); clean install, typecheck, lint, production build and [three-width destination screenshots](evidence/task-02/README.md). Vercel reported a successful main-branch deployment; owner proceeds to Task 03, but reference-source visual parity remains unverified. |
+| P2 | Homepage visual/behavior parity | Not started | [Task 03](codex-tasks/03-public-shell.md) prepared as the first public-shell increment. **Strict 1:1 Laravel layout/content/behavior** required. Subsequent hero and homepage section tasks still needed; no reference screenshots yet. |
 | P3 | About/events parity | Not started | Route/behavior checks, screenshots and review |
 | P4 | Complete approved public informational pages | Not started | Actual usable routes, links, content approvals |
 | P5 | Database, auth and shadcn dashboard foundation | Not started | Authorization, migration, visual theme review |
@@ -63,9 +63,9 @@ This is the **evidence ledger**, not a replacement for the PRD. Agents must not 
 | --- | --- | --- |
 | Codex's access to legacy Laravel code and writable destination | Verified | Task 02 is in `/workspace/nosee-new`, branch `codex/task-02-nextjs-foundation` from main `102331a4386be3f59f6be9bc32af223ba002d989`; legacy revision `9872c4ed12aa48835eab71065c69b468424adb4a` remains unchanged |
 | Baseline screenshots of actual public pages | Not captured; access blocked | Live `nosee.org` probe returned HTTP 403/CONNECT denial; local ports 8000/5173 had no server. Browser tooling exists. [Per-page/state matrix and reproduction steps](visual-baseline.md#5-screenshot-evidence-matrix-and-reproduction); no image/visual-parity claims |
-| Live versus source design discrepancies | Live comparison unverified; source conflicts documented | Owner chooses live/source/Figma authority and resolves hero autoplay/height, responsive copy and newsletter messaging; see [discrepancies](visual-baseline.md#6-discrepancies-requiring-review) |
+| Live versus source design discrepancies | Implemented Laravel source is authoritative for 1:1 migration; screenshots still missing | Owner explicitly prohibited creative or editorial changes. Preserve even source NSEE labels/typos/fixtures and implemented behaviors; document discrepancies without auto-correction. Capture and compare source/reference screenshots as available; see [visual baseline](visual-baseline.md). |
 | Approved public content vs development placeholder records | Inventory complete; approval pending | Nine event, nine news and ten publication fixtures; About story/John Doe/seven leadership placeholders; starter research/data/product/outreach copy and NSEE/NOSEE differences listed in [migration map](migration-map.md#5-content-approval-and-source-discrepancies) |
-| Vercel preview workflow | Owner configured hosting; branch preview unverified | Owner reports https://nosee-new.vercel.app for main/production and confirms Vercel will pick up the pushed task branch. Codex Cloud requests to `api.github.com` and `*.vercel.app` returned HTTP 403; no actual branch preview URL or remote build status is available. Local production build passed. Branch/PR publication result is recorded below. |
+| Vercel preview workflow | Enabled, branch URL per task | Owner reports https://nosee-new.vercel.app as production URL. GitHub verified successful Vercel status for merged Task 02 main commit `1c6e908`; for Task 03, Codex only needs to **push its new branch** and report the actual branch preview URL if available. No PR required. |
 | Hosting, data provider, email domain and applicant data policy | Open | Resolve before backend implementation; do not block read-only P0 |
 | Task 01 PR creation | Resolved; PR merged | Codex Cloud GitHub API initially returned 403. [PR #1](https://github.com/thedanieldiya/nosee-new/pull/1) was subsequently opened using the connected GitHub account and merged by the owner. Original-site screenshot baseline remains outstanding. |
 
@@ -77,6 +77,7 @@ This is the **evidence ledger**, not a replacement for the PRD. Agents must not 
 | 2026-10-13 | Task 01 — [`PR #1`](https://github.com/thedanieldiya/nosee-new/pull/1) (`codex/task-01-discovery-baseline`) | [Migration map](migration-map.md), [visual baseline](visual-baseline.md); audit commit `5c6e103292a18b4c5ffcaa9028790ad67c7efb37`; evidence/checks below | Merged by owner; documentary groundwork accepted. P0 **In review** for missing source screenshots/visual decisions; P1–P8 and all implementation requirements remain Not started |
 | 2026-10-13 | Task 02 instructions prepared (documentation only) | [Task 02](codex-tasks/02-nextjs-foundation.md); user-reported Vercel domain [nosee-new.vercel.app](https://nosee-new.vercel.app) | At preparation, Task 02 was **Not started**; implementation and review evidence follow below. |
 | 2026-10-13 | Task 02 — `codex/task-02-nextjs-foundation` | [Implementation commit `5ebcf5d`](https://github.com/thedanieldiya/nosee-new/commit/5ebcf5d8483283f6715ff8867f2e1d0d7f5a0b53), [screenshots and measured observations](evidence/task-02/README.md); checks below | P1 **In review**, CORE-01/CORE-02 **In progress**. Publication pending at this ledger update; Vercel preview URL/status and owner approval unverified. No homepage/backend work or merge. |
+| 2026-10-13 | Task 03 strict 1:1 public shell instructions prepared | [Task 03](codex-tasks/03-public-shell.md), [PRD v1.1](PRD.md), [AGENTS.md](../AGENTS.md) | **Not started.** Owner explicitly requires exact Laravel public appearance/content/interactions. Codex should push a branch only for a Vercel preview; no automatic PR or merge. |
 
 ## Task 01 evidence — 2026-10-13
 
