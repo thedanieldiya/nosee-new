@@ -2,7 +2,7 @@
 
 **Updated:** 2026-10-14  
 **Scope:** strict 1:1 port of the public pages/routes *actually implemented* in the pinned Laravel source. Not the future dashboard, CMS, membership/email, or unimplemented public pages.  
-**Current baseline:** destination `main` includes [merged PR #9](https://github.com/thedanieldiya/nosee-new/pull/9) (commit `aad5980`); the **original Laravel public frontend routes are all ported**. [Task 10](evidence/task-10/README.md) implemented on `codex/task-10-icons-final-public-review`, **In review**. MingCute/currentColor migration and full available local audit complete; [branch pushed](https://github.com/thedanieldiya/nosee-new/tree/codex/task-10-icons-final-public-review) (`83e05a0`). Preview URL/status unverified (HTTPS CONNECT 403); owner visual/content/accessibility/performance acceptance remains.
+**Current baseline:** [Task 10 PR #10 merged](https://github.com/thedanieldiya/nosee-new/pull/10) at `7326c06`; **all ten original Laravel frontend migration tasks are merged**. [Task 10 audit](evidence/task-10/README.md) reports 101 tests, 150 source/baseline comparisons with only approved icon differences, and remaining accessibility/performance/release gates. Public release/owner acceptance is **not** established by merging. [Proposed Task 11](codex-tasks/11-public-release-hardening.md) is a targeted high-priority remediation plan, **not authorised or implemented**.
 
 | Task | Scope | Delivery state |
 | --- | --- | --- |
@@ -15,9 +15,15 @@
 | 07 | Entire About page | [PR #7 merged](https://github.com/thedanieldiya/nosee-new/pull/7) |
 | 08 | Events listing, search and archive | [PR #8 merged](https://github.com/thedanieldiya/nosee-new/pull/8) |
 | 09 | Event details, meeting HTTP 302, source 404 | [PR #9 merged](https://github.com/thedanieldiya/nosee-new/pull/9) |
-| 10 | MingCute icon consistency + final existing-source frontend QA | **In review** — [MingCute/currentColor and final audit](evidence/task-10/README.md); 101 tests, 150 comparisons with only icon-frame RGB changes, 70 axe scans; owner review pending |
+| 10 | MingCute icon consistency + final existing-source frontend QA | [PR #10 merged](https://github.com/thedanieldiya/nosee-new/pull/10); [audit findings](evidence/task-10/README.md) remain open for owner release review |
 
-**Progress:** **9/10 tasks merged; Task 10 pushed for review**. This is **task-count progress, not percent engineering effort, acceptance or launch readiness**.
+**Progress:** **10/10 migration tasks merged**. This is **code-delivery progress only**, not publication, visual-signoff, accessibility, field-performance or production approval.
+
+## Proposed next milestone (requires separate owner approval)
+
+- [Task 11 — public-site critical accessibility and mobile-performance hardening](codex-tasks/11-public-release-hardening.md): proposed, **not running**. Task 10 measured mobile LCP ~15.084 s Lighthouse / 18.772 s direct throttling, 2.68:1 dark-footer secondary text, 4.14:1 Events meeting badge, accessible-name/focus and no-JS navigation defects. These require **explicitly authorised visible changes**, not silent Laravel-parity fixes. Keep strong cross-route/source regression evidence.
+- After an owner review of Task 11 fixes and manual assistive-technology/live checks, carry out the already-agreed **separate cleanup PR** removing all temporary `docs/evidence/` artifacts while preserving essential functional tests/docs and leaving Git history intact.
+- Continue with **approved future work**: new public pages (P4) and/or the locked [Admin Dashboard TRD](admin-dashboard-trd.md) (P5–P7), with implementation order set by owner. Neither is part of the completed ten-task port.
 
 ## Quality and release conditions
 
