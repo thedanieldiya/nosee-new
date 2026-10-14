@@ -11,7 +11,7 @@ This repository is separate from the [existing Laravel implementation](https://g
 - Public membership application form **without applicant login**. Applicants receive submission confirmations; admins are notified and can approve/reject applicants with email notifications.
 - Member records are private by default. Only deliberately published executive/researcher profiles appear on the public website.
 
-**Status:** Tasks 02–07 are merged. Task 08 implements source-faithful `/events` and `/events/archive` on its review branch, with native GET search, per-event timezone selection and exact cards/groups. [Evidence](docs/evidence/task-08/README.md) records 118 screenshots, 63 zero-RGB comparisons (including merged homepage/About baselines), 90 passing tests and production clock rollover. Task 09 event details/meeting redirects remain deferred. Editorial fixtures, indexing, retained source quirks/no-JS defects, performance and owner acceptance remain open. See [PROGRESS.md](docs/PROGRESS.md).
+**Status:** Tasks 01–08 of the [ten-task existing-Laravel frontend roadmap](docs/FRONTEND-TRACKER.md) have merged. [Task 08 PR #8](https://github.com/thedanieldiya/nosee-new/pull/8) added source-faithful Events listing/search/archive (63 reported pixel-identical comparisons, 90 tests). [Task 09](docs/codex-tasks/09-event-details-and-404.md) is **instructions ready only**, for event details, HTTP 302 meeting redirects and source 404. Task 10 covers final frontend review. Editorial fixtures, indexing, no-JS issues, performance and owner acceptance remain outstanding. Once the entire original PHP frontend port is accepted, a separate PR will remove **all temporary migration evidence** from the working tree while preserving necessary tests and docs. See [PROGRESS.md](docs/PROGRESS.md).
 
 ## Development
 
@@ -68,6 +68,7 @@ The owner connected this repository to Vercel. Push the task branch to trigger t
 ## Delivery documents
 
 - [Migration and admin PRD](docs/PRD.md) — product requirements, route scope, acceptance conditions, design parity, backend/security and performance targets.
+- [Concise frontend task tracker](docs/FRONTEND-TRACKER.md) — 10-task existing-source roadmap, eight merged and final evidence cleanup gate.
 - [Codex progress tracker](docs/PROGRESS.md) — live milestone and requirement statuses with evidence and blockers.
 - [Codex Task 01](docs/codex-tasks/01-discovery-and-baseline.md) — first task: audit the legacy source and produce a visual/migration baseline **without changing application code**.
 - [Codex Task 02](docs/codex-tasks/02-nextjs-foundation.md) — scaffold a lean Next.js application, port source fonts/tokens and first primitives, and review via a Vercel branch preview.
@@ -77,6 +78,7 @@ The owner connected this repository to Vercel. Push the task branch to trigger t
 - [Codex Task 06](docs/codex-tasks/06-complete-homepage.md) — migrate the remaining three homepage sections together, with independent source data, responsive visual, behavior and full-page regression evidence. Faster delivery does not relax the 1:1 quality gate.
 - [Codex Task 07](docs/codex-tasks/07-about-page.md) — recreate the complete About page, all viewport-specific images/copy and seven-person leadership carousel in one branch, with independent Laravel/Next section and interaction comparisons.
 - [Codex Task 08](docs/codex-tasks/08-events-listing-archive.md) — migrate exact Laravel Events listing, desktop GET search, featured/ongoing/upcoming states and archive in one branch, with per-event timezone/clock tests and independent source-target screenshots.
+- [Codex Task 09](docs/codex-tasks/09-event-details-and-404.md) — finish original event detail pages, exact meeting 302 redirects and shared 404; run full QA but keep committed evidence compact.
 
 ## Performance is a product requirement
 
