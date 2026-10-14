@@ -1,0 +1,107 @@
+{
+  "sourceRevision": "9872c4ed12aa48835eab71065c69b468424adb4a",
+  "icons": [
+    {
+      "name": "search.svg",
+      "bytes": 424,
+      "sha256": "d881908392d05bc5e6f5621eb938bf519fbc42f12ba19c1ac06a17fbfbfc3d83",
+      "reference": {
+        "status": 200,
+        "sha256": "d881908392d05bc5e6f5621eb938bf519fbc42f12ba19c1ac06a17fbfbfc3d83",
+        "decodedBytes": 424,
+        "contentEncoding": null
+      },
+      "target": {
+        "status": 200,
+        "sha256": "d881908392d05bc5e6f5621eb938bf519fbc42f12ba19c1ac06a17fbfbfc3d83",
+        "decodedBytes": 424,
+        "contentEncoding": null
+      }
+    },
+    {
+      "name": "arrow-up-right.svg",
+      "bytes": 319,
+      "sha256": "2118ef5cf2cbc8da84600ccf1232bd9f3ac0d6b5ccf61fc3fd2e1798da2d90bc",
+      "reference": {
+        "status": 200,
+        "sha256": "2118ef5cf2cbc8da84600ccf1232bd9f3ac0d6b5ccf61fc3fd2e1798da2d90bc",
+        "decodedBytes": 319,
+        "contentEncoding": null
+      },
+      "target": {
+        "status": 200,
+        "sha256": "2118ef5cf2cbc8da84600ccf1232bd9f3ac0d6b5ccf61fc3fd2e1798da2d90bc",
+        "decodedBytes": 319,
+        "contentEncoding": null
+      }
+    },
+    {
+      "name": "CalendarDots.svg",
+      "bytes": 1619,
+      "sha256": "f378a749949ee3baca15844b219fd031ddfb031b32cb64f0277c424a6684a0ac",
+      "reference": {
+        "status": 200,
+        "sha256": "f378a749949ee3baca15844b219fd031ddfb031b32cb64f0277c424a6684a0ac",
+        "decodedBytes": 1619,
+        "contentEncoding": null
+      },
+      "target": {
+        "status": 200,
+        "sha256": "f378a749949ee3baca15844b219fd031ddfb031b32cb64f0277c424a6684a0ac",
+        "decodedBytes": 1619,
+        "contentEncoding": "gzip"
+      }
+    },
+    {
+      "name": "Clock.svg",
+      "bytes": 570,
+      "sha256": "47a446f73bf837172a992614c01aab6a2fabef4477ac6a452cef94ebcf3ece4e",
+      "reference": {
+        "status": 200,
+        "sha256": "47a446f73bf837172a992614c01aab6a2fabef4477ac6a452cef94ebcf3ece4e",
+        "decodedBytes": 570,
+        "contentEncoding": null
+      },
+      "target": {
+        "status": 200,
+        "sha256": "47a446f73bf837172a992614c01aab6a2fabef4477ac6a452cef94ebcf3ece4e",
+        "decodedBytes": 570,
+        "contentEncoding": null
+      }
+    },
+    {
+      "name": "MapPin.svg",
+      "bytes": 1266,
+      "sha256": "e93b9a0428051386d04d00453d3d68bed6eda370e0d627bad04e09e3c6542c79",
+      "reference": {
+        "status": 200,
+        "sha256": "e93b9a0428051386d04d00453d3d68bed6eda370e0d627bad04e09e3c6542c79",
+        "decodedBytes": 1266,
+        "contentEncoding": null
+      },
+      "target": {
+        "status": 200,
+        "sha256": "e93b9a0428051386d04d00453d3d68bed6eda370e0d627bad04e09e3c6542c79",
+        "decodedBytes": 1266,
+        "contentEncoding": "gzip"
+      }
+    },
+    {
+      "name": "arrow-right.svg",
+      "bytes": 217,
+      "sha256": "b43d668b77b7302167f0ff2baeb72a06a44b06e0acd40aab65840192255397f5",
+      "reference": {
+        "status": 200,
+        "sha256": "b43d668b77b7302167f0ff2baeb72a06a44b06e0acd40aab65840192255397f5",
+        "decodedBytes": 217,
+        "contentEncoding": null
+      },
+      "target": {
+        "status": 200,
+        "sha256": "b43d668b77b7302167f0ff2baeb72a06a44b06e0acd40aab65840192255397f5",
+        "decodedBytes": 217,
+        "contentEncoding": null
+      }
+    }
+  ]
+}

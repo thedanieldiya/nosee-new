@@ -1,0 +1,15 @@
+{
+  "verifiedAtUtc": "2026-10-14T04:36:41.051198+00:00",
+  "branch": "codex/task-08-events-listing-archive",
+  "baseMain": "13d08a47cbdad14952f78f4ae24bdce8c70bb6fb",
+  "implementationCommit": "e4602da69a8dbd9721333520dd7a0417c75c4b61",
+  "implementationRemoteHeadAtCheck": "e4602da69a8dbd9721333520dd7a0417c75c4b61",
+  "pushed": true,
+  "branchUrl": "https://github.com/thedanieldiya/nosee-new/tree/codex/task-08-events-listing-archive",
+  "previewUrl": null,
+  "previewStatus": "unverified: read-only GitHub commit-status lookup returned Forbidden",
+  "pullRequestCreated": false,
+  "merged": false,
+  "task09Started": false,
+  "note": "Publication ledger follows implementation in a documentation commit; final branch SHA supplied in handoff."
+}
