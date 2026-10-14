@@ -11,7 +11,7 @@ This repository is separate from the [existing Laravel implementation](https://g
 - Public membership application form **without applicant login**. Applicants receive submission confirmations; admins are notified and can approve/reject applicants with email notifications.
 - Member records are private by default. Only deliberately published executive/researcher profiles appear on the public website.
 
-**Status:** Tasks 02–06 are merged. Task 07's complete original About page is **In review**: [44 pixel-identical source/target pairs, unchanged homepage comparisons and 50 passing focused tests](docs/evidence/task-07/README.md). Content/indexing, native fragment/no-JS behavior, performance and owner acceptance remain open. Events and admin/backend remain future tasks. See [PROGRESS.md](docs/PROGRESS.md).
+**Status:** Tasks 02–07 are merged; the Next.js frontend contains the complete source homepage and About page. Task 07 [About evidence](docs/evidence/task-07/README.md) reports 44 pixel-identical paired comparisons and 50 focused passing tests. [Task 08](docs/codex-tasks/08-events-listing-archive.md) is prepared for the original Events listing, GET search and archive, but **no Task 08 application code is implemented**. Task 09 will handle event details and meeting redirects. Editorial fixtures, indexing, native fragment/no-JS defects, performance and owner publication acceptance remain open. See [PROGRESS.md](docs/PROGRESS.md).
 
 ## Development
 
@@ -73,6 +73,7 @@ The owner connected this repository to Vercel. Push the task branch to trigger t
 - [Codex Task 05](docs/codex-tasks/05-home-monitoring.md) — reproduce the three source monitoring dashboard cards, exact images/data and responsive CTAs, with matched Laravel/Next screenshots and no creative changes.
 - [Codex Task 06](docs/codex-tasks/06-complete-homepage.md) — migrate the remaining three homepage sections together, with independent source data, responsive visual, behavior and full-page regression evidence. Faster delivery does not relax the 1:1 quality gate.
 - [Codex Task 07](docs/codex-tasks/07-about-page.md) — recreate the complete About page, all viewport-specific images/copy and seven-person leadership carousel in one branch, with independent Laravel/Next section and interaction comparisons.
+- [Codex Task 08](docs/codex-tasks/08-events-listing-archive.md) — migrate exact Laravel Events listing, desktop GET search, featured/ongoing/upcoming states and archive in one branch, with per-event timezone/clock tests and independent source-target screenshots.
 
 ## Performance is a product requirement
 
