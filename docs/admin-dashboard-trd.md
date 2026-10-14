@@ -1,6 +1,6 @@
 # NOSEE Admin Dashboard — TRD and Information Architecture
 
-**Version:** 1.0 · **Status:** Approved by owner, 14 October 2026  
+**Version:** 1.1 · **Status:** Approved information architecture; initial form field inventory added 14 October 2026  
 **Scope:** Authenticated administrative experience inside the existing Next.js application. **Specification only — no admin implementation is approved by this document.**  
 **Visual direction:** Shopify account-settings dashboard — quiet, clear, compact labels, restrained form panels and actions.  
 **Public-site constraint:** Original Laravel public-page parity remains separate; no changes to ongoing public migration are authorised here.
@@ -62,6 +62,34 @@ Core principles:
 **Settings → Administrators** — Super Admin directory, invitation/account status, access levels and scope assignments.
 
 **Settings → Activity log** — Super Admin only; track important admin changes, publishing/member decisions and actors/times.
+
+### 3.1 Forms and editors — initial field inventory
+
+The following are the **initial editable fields**, not a mandate to add every field to a single screen. Existing News, Events, Publications, Homepage, About and monitoring models inform this list; new membership/research/gallery fields are proposed for implementation review. **Directory/Overview pages are primarily lists, filters and actions, not editing forms.**
+
+| Page / form | Fields and controls |
+| --- | --- |
+| **Membership → Application review** | Submitted **first name, last name, email**, and any submitted phone, institution/affiliation, research interests or supporting statement (**read-only**, according to the approved public application form); decision **Approve / Reject** and an internal **review note/reason**. Submission date, current status and reviewer are system records. Show a possible-person match for authorised review/linking. |
+| **Membership → Create / Edit member** | First name, last name, email; optional phone, affiliation/institution, research area(s), membership status, join date and internal notes. Show group associations and an optional **linked Public profile** with a confirmation/unlink workflow; don't edit the public profile's fields here. |
+| **Research → Create / Edit group** | Group name, URL slug, short introduction, full description, objectives/focus areas (repeatable), cover image and alt text, visibility/publication status; **assigned Group Lead** (Super Admin only, selected from eligible accounts). Edited content updates the corresponding public group page. |
+| **Research → Group Members** | **Approved-member autocomplete only** (select an existing Member), group-specific member role/title and optional display order; remove membership association. No manually typed person, new-member form or unapproved applicant. Group Leads can edit all of these for **their assigned group only** and publish immediately. |
+| **Publishing → News editor** | Title, slug, category, excerpt/summary, article body (**rich text**), cover image and alt text, publication date, featured flag and Draft/Published status. |
+| **Publishing → Event editor** | Title, slug, event type, summary, body (**rich text**), image/alt, organiser, speakers (repeatable); timezone, start/end dates, single-/multi-day schedule and start/end times; optional itinerary days (date, time, title, description); location type (physical/online/hybrid), venue/address/city/country/platform; application deadline, registration URL, meeting-site URL (for meeting type), resources (label + URL), featured flag and status. Conditional sections only appear for applicable event types. |
+| **Publishing → Publication editor** | Title, slug, publication type, authors (repeatable), publication date, journal/conference/source, research area/group, DOI or external reference URL, featured flag and publication status. Don't invent or auto-verify scholarly metadata. |
+| **Website → Site content → Homepage** | **Hero slides:** eyebrow, title, summary, image, alt text, image credit, CTA label + URL and ordering. **Other sections:** editable section copy and visibility/featured-source controls where supported; select from existing Research Output, News, Event and Monitoring records rather than duplicating them. Preserve documented homepage selection logic unless separately changed. |
+| **Website → Site content → About** | **Introduction:** eyebrow/headline, desktop/tablet/mobile description variants, closing statements, responsive images/alt. **Mission:** title, responsive statements and objectives (number/title/description). **Quote:** quotation, attribution, image/alt. **Story:** heading, lead, body, image/alt. **Leadership:** section title/intro and ordered profiles managed below. **Collaborations:** CTA labels + destination URLs. |
+| **Website → About → Public profile** | Name, profile category (executive/researcher), role/title, optional affiliation/research interests, biography, portrait/alt, display order and publication status. Optional **linked Member** after permission-safe match review; profiles can exist without membership. |
+| **Website → Gallery → Album** | Album title, description, optional associated Event, optional event/album date, cover photo (chosen from album), album order and Draft/Published visibility. |
+| **Website → Gallery → Album photos** | Multiple-photo upload; each photo's caption, alt text, ordering and remove/replace actions. Group photos within the selected album rather than a global Media library. |
+| **Website → Privacy policy** | Page title, approved policy body (**rich text**), effective date and publication status. Keep version/last-update information in the system record. Legal approval is required before public publication. |
+| **Website → Contact** | Page heading and introduction, optional contact-page explanatory copy; the displayed email, phone and address **reference Shared content** rather than being maintained twice. Do not enable a contact submission form before its backend/recipient is implemented. |
+| **Website → Shared content** | Navigation groups/items (**label, URL, order and enabled state**); footer description and link groups; public contact email, phone and address; social-platform URLs, legal links, support link, copyright and newsletter display copy. Newsletter success must never be simulated without a working provider. |
+| **Website → Monitoring dashboard editor** | Title, slug, summary, provider, ownership/source type, external source URL, thumbnail/alt, homepage visibility/placement and publication status. Complex scientific plots, data processing and dashboard layouts remain **code/integration-managed**, not generic page-builder fields. |
+| **Settings → General** | Own first name, last name, email, profile photo and account-security/password controls. No organisation-wide settings. |
+| **Settings → Administrators** | Invite/modify administrator: first name, last name, email, access role (**Super Admin, Editor or Research Group Lead**), and assigned research group for a Lead. Invitation status and last login are read-only; revoke/deactivate is an explicit action. |
+| **Settings → Activity log** | **No edit form.** Super Admin can filter by date range, actor, action and affected record; details include timestamp, action, target and safe before/after summary where available. |
+
+**Shared form rules:** Validate required names/titles, unique slugs, URLs, dates and uploaded file formats/sizes on the server. Auto-generated record IDs, timestamps, audit actors and calculated event status are read-only. Use contextual image upload with alt text; rich text only for editorial body fields. Publishing and previews must respect role/scope authorization; replacing development fixtures requires approved real content. Final required/optional flags, precise validation and consent language are settled with each implementation, without reopening the approved navigation tree.
 
 ## 4. Identity, privacy, and media rules
 
