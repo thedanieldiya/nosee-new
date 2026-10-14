@@ -121,4 +121,4 @@ Resolved verification failures were rerun: initial test import order bypassed th
 
 **[90 tests](tests.txt): 40 new + 50 existing, zero failures/skips.** [Typecheck](typecheck.txt), [warning-free lint](lint.txt), [final production build](build.txt), HTTP/temporal/visual/interaction/regression checks and diff whitespace pass. `/events` and `/events/archive` are dynamic; `/about` stays static. No dependency/lockfile/shared page changes.
 
-Publication evidence will be recorded after the authorized push. A Vercel preview is reported only if verified; the main domain is not a branch preview. **Stop for owner visual review. Task 09 has not begun.**
+**Publication:** implementation/evidence **`e4602da69a8dbd9721333520dd7a0417c75c4b61`** was pushed to the [task branch](https://github.com/thedanieldiya/nosee-new/tree/codex/task-08-events-listing-archive); `git ls-remote` confirmed the same remote head. Read-only GitHub commit-status lookup returned **Forbidden**, so Vercel URL/build status is unverified. No guessed preview or main-domain substitute. This publication ledger follows in a documentation commit. **Stop for owner visual review. Task 09 has not begun.**
