@@ -41,6 +41,13 @@ Project rules take priority over imported agent suggestions. Never sacrifice cor
 - Admins maintain news, events, site content, monitoring links/cards, people, and applications.
 - Use server-side role checks and strict authorization on every protected server action/route.
 
+## Token-efficient verification and post-migration cleanup (owner direction, 2026-10-14)
+
+- **Do not reduce testing or source-to-target visual comparisons.** Run the full checks needed for correctness, temporal states, responsiveness, interactions and regressions; report measured outcomes, not guesses.
+- **Avoid wasteful model context and repository noise.** Read only relevant source/test ranges; do not repeatedly ingest prior raw evidence. Produce bulky PHP oracle output, per-element browser dumps, full screenshot sets, and build logs in temporary/CI artifact storage, **not as tracked Git files**. Commit a concise evidence summary, focused reusable tests, and a few representative source/target image pairs only if valuable for owner review. Explain any verification that could not be run; never fabricate success.
+- Treat `docs/evidence/` as **temporary migration QA material**. **Once every existing Laravel public route is ported, final parity reviewed, and the owner authorizes cleanup**, run a **separate scoped cleanup PR** that removes **all** tracked migration evidence files, screenshots, generated reports and disposable evidence harnesses. Before deletion move any genuinely essential reusable tests to `tests/`; retain functional code, source assets, required tests and concise evergreen docs (PRD, decisions, README, operations guidance). Do not rewrite Git history; deleting files from the current tree does not erase historical commits.
+- Future migration tasks must not preemptively remove historical evidence or impair existing checks. The cleanup is a final acceptance step, not part of implementing new routes.
+
 ## Performance: low-bandwidth-first
 
 - Public content should be server-rendered or statically prerendered where possible; ship minimal hydrated client components. Admin JavaScript must never enter public bundles.
