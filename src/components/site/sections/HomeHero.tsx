@@ -1,18 +1,22 @@
-/* eslint-disable @next/next/no-img-element -- Preserve the original files, frame and object-cover crops. */
 import { heroItems, type HeroItem } from "@/lib/content/homepage";
 import { Container } from "@/components/site/ui/Container";
 import { ButtonLink } from "@/components/site/ui/ButtonLink";
 import { ArrowRight } from "@/components/site/ui/ArrowRight";
 import { HeroController } from "./HeroController";
+import { ResponsiveImage } from "@/components/site/ui/ResponsiveImage";
+import { imageSourceSet } from "@/lib/content/public-images";
+
+const heroSizes = "(min-width: 1024px) 100vw, 968px";
 
 export function HomeHero({ items = heroItems }: { items?: readonly HeroItem[] }) {
   return <section className="relative h-[750px] touch-pan-y overflow-hidden bg-primary text-inverse lg:h-[850px]"
     role="region" aria-roledescription="carousel" aria-label="Featured homepage content"
     data-homepage-motion data-home-hero data-hero-carousel>
+    {items[0] && imageSourceSet(items[0].image, "avif") && <link rel="preload" as="image" type="image/avif" imageSrcSet={imageSourceSet(items[0].image, "avif")} imageSizes={heroSizes} fetchPriority="high" />}
     <div className="absolute inset-0" data-hero-entrance-visual>
       <div className="absolute inset-0 flex h-full transition-transform duration-[400ms] ease-in-out motion-reduce:transition-none" data-hero-track>
         {items.map((item, index) => <div key={item.id} className="relative h-full w-full shrink-0 overflow-hidden" aria-hidden={index !== 0} data-hero-image-slide>
-          <img src={item.image} alt={item.image_alt} width="1440" height="850" fetchPriority={index === 0 ? "high" : undefined} loading={index !== 0 ? "lazy" : undefined}
+          <ResponsiveImage src={item.image} sizes={heroSizes} alt={item.image_alt} width="1440" height="850" fetchPriority={index === 0 ? "high" : "low"} loading="eager"
             className="absolute top-0 left-1/2 h-full w-[968px] max-w-none -translate-x-1/2 object-cover object-center lg:inset-0 lg:w-full lg:translate-x-0" />
         </div>)}
       </div>

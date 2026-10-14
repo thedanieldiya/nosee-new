@@ -23,7 +23,7 @@ const externalProps = (url: string) => /^https?:\/\//.test(url) ? { target: "_bl
 export function SiteFooter() {
   const { description, link_groups, contact, social_links, legal_links, newsletter, support_url, copyright } = site.footer;
   const phoneHref = contact.phone.replace(/[^+\d]/g, "");
-  return <footer className="overflow-x-clip bg-primary font-body text-secondary" data-site-footer>
+  return <footer className="overflow-x-clip bg-primary font-body text-tertiary" data-site-footer>
     <Container className="py-16 lg:pt-24 lg:pb-8">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-8" data-footer-main>
         <section className="order-1 lg:col-span-3" aria-label="About NOSEE" data-footer-organisation>

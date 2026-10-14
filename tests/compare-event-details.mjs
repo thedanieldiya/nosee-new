@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { render } from "./helpers/render-site.mjs";
+import { approvedBadgeContrast } from "./helpers/public-hardening-exceptions.mjs";
 const { eventRecords } = await import("../src/lib/content/events.ts");
 const { findEvent } = await import("../src/lib/content/events-detail.ts");
 const { presentEvent } = await import("../src/lib/content/events-listing.ts");
@@ -15,10 +16,10 @@ assert.equal(php.status, 0, php.stderr);
 const oracle = JSON.parse(php.stdout);
 assert.deepEqual(eventRecords, oracle.records);
 for (const row of oracle.cases) {
-  for (const [slug, expected] of Object.entries(row.events)) assert.deepEqual(presentEvent(findEvent(slug), new Date(row.instant), true), expected);
+    for (const [slug, expected] of Object.entries(row.events)) assert.deepEqual(presentEvent(findEvent(slug), new Date(row.instant), true), approvedBadgeContrast(expected));
   assert.equal(row.missing, null);
 }
-assert.deepEqual(presentEvent(synthetic, new Date(instants[0]), true), oracle.synthetic);
+assert.deepEqual(presentEvent(synthetic, new Date(instants[0]), true), approvedBadgeContrast(oracle.synthetic));
 const html = render(EventDetail, { event: oracle.synthetic });
 for (const markup of [html, oracle.syntheticHtml]) {
   assert.ok(markup.includes('&lt;script&gt;'));

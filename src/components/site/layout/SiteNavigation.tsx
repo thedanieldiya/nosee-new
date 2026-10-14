@@ -8,6 +8,7 @@ import User3Regular from "@mingcute/react/core-regular/user-3";
 import MenuRegular from "@mingcute/react/core-regular/menu";
 import CloseRegular from "@mingcute/react/core-regular/close";
 import DownRegular from "@mingcute/react/core-regular/down";
+import { NoScriptNavigation } from "./NoScriptNavigation";
 
 function AccountIcon() {
   return <User3Regular size={28} className="size-7" aria-hidden="true" focusable="false" data-ui-icon="account" />;
@@ -75,7 +76,7 @@ export function SiteNavigation() {
             <span className="relative block size-8" aria-hidden="true" data-mobile-menu-open-icon>
               <MenuRegular size={32} className="size-8" aria-hidden="true" focusable="false" data-ui-icon="menu" />
             </span>
-            <span className="relative hidden size-8" aria-hidden="true" data-mobile-menu-close-icon>
+            <span className="relative size-8" aria-hidden="true" data-mobile-menu-close-icon hidden>
               <CloseRegular size={32} className="size-8" aria-hidden="true" focusable="false" data-ui-icon="close" />
             </span>
           </button>
@@ -118,8 +119,7 @@ export function SiteNavigation() {
           </nav>
         </Container>
       </div>
-      <noscript><style>{`[data-mobile-menu-button], [data-mobile-submenu-button] { display: none !important; }
-        [data-mobile-drawer][hidden], [data-mobile-submenu][hidden] { display: block !important; }`}</style></noscript>
+      <NoScriptNavigation primary={primary} utility={utility} />
     </header>
     <NavigationController />
   </>;

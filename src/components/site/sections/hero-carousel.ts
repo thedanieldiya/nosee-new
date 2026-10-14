@@ -2,7 +2,7 @@ const AUTOPLAY_DELAY = 6000;
 const TRANSITION_DURATION = 400;
 const SWIPE_THRESHOLD = 50;
 
-// Literal source carousel behavior, with disposal for React unmount/Strict Mode.
+// Source timings/controls; keep the current frame while a requested raster decodes.
 export function initializeHeroCarousel(carousel: HTMLElement, windowObject: Window = window, documentObject: Document = document) {
   const track = carousel.querySelector<HTMLElement>("[data-hero-track]")!;
   const imageSlides = [...carousel.querySelectorAll<HTMLElement>("[data-hero-image-slide]")];
@@ -16,6 +16,8 @@ export function initializeHeroCarousel(carousel: HTMLElement, windowObject: Wind
   let isTransitioning = false;
   let isHovered = false;
   let hasFocus = false;
+  let imageRequest = 0;
+  let disposed = false;
   let pointerStart: { x: number; y: number } | undefined;
   const removers: (() => void)[] = [];
   const on = (target: EventTarget, event: string, listener: EventListener) => {
@@ -57,12 +59,21 @@ export function initializeHeroCarousel(carousel: HTMLElement, windowObject: Wind
     }, AUTOPLAY_DELAY);
   };
   const showSlide = (requestedIndex: number, manual = false) => {
+    if (disposed) return false;
+    const request = ++imageRequest;
     const nextIndex = (requestedIndex + contentSlides.length) % contentSlides.length;
     if (nextIndex === currentIndex) {
       if (manual) scheduleAutoplay();
       return false;
     }
     if (isTransitioning) return false;
+    const image = imageSlides[nextIndex].querySelector<HTMLImageElement>("img");
+    if (image && (!image.complete || image.naturalWidth === 0)) {
+      void image.decode().then(() => {
+        if (!disposed && request === imageRequest && (manual || canAutoplay())) showSlide(requestedIndex, manual);
+      }, () => { /* Keep the visible frame if the requested asset fails. */ });
+      return false;
+    }
     currentIndex = nextIndex;
     updateSlides();
     if (!reducedMotionQuery.matches) {
@@ -73,6 +84,8 @@ export function initializeHeroCarousel(carousel: HTMLElement, windowObject: Wind
     return true;
   };
   const destroy = () => {
+    disposed = true;
+    imageRequest++;
     clearAutoplay();
     if (transitionTimer !== undefined) windowObject.clearTimeout(transitionTimer);
     removers.forEach((remove) => remove());

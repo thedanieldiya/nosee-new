@@ -4,7 +4,7 @@ import { eventCardValues } from "@/lib/content/homepage-selections";
 export function EventCard({ event }: { event: EventRecord }) {
   const values = eventCardValues(event);
   return <article className="card-hover-lift h-full w-full border border-line-soft bg-default" data-event-card>
-    <a href={values.href} aria-label={`View event: ${event.title}`}
+    <a href={values.href}
       className="flex h-full min-h-[420px] flex-col p-5 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent md:p-6 lg:min-h-[480px] lg:p-8">
       <header className="flex flex-col gap-4">
         <p className="font-body text-sm leading-5 font-medium tracking-[0.04em] text-secondary">{values.typeLabel}</p>

@@ -13,7 +13,7 @@ export function HomeTrendingNews({ articles = selectTrendingNews() }: { articles
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8" data-trending-news-compact-grid>
           {articles.slice(1).map(article => <div key={article.slug} data-reveal-item><TrendingNewsCard article={article} variant="compact" /></div>)}
           <div className="hidden aspect-square md:block" data-reveal-actions>
-            <a href="/news" aria-label="View all news"
+            <a href="/news"
               className="flex size-full items-center justify-center bg-brand/10 font-heading text-2xl font-medium text-brand transition-colors hover:bg-brand hover:text-inverse focus-visible:bg-brand focus-visible:text-inverse focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent" data-trending-news-view-more>VIEW MORE</a>
           </div>
         </div>

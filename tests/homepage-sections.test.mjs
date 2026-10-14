@@ -16,7 +16,7 @@ test("research SSR preserves three exact publications, authors/year/area and ext
   assert.equal([...html.matchAll(/<article[^>]*data-research-output-card\b/g)].length, 3);
   assert.equal([...html.matchAll(/href="\/publications"/g)].length, 2);
   source.publications.selected.forEach(record => {
-    for (const value of [record.title, record.authors.join(", "), `${record.publication_date.slice(0, 4)}, ${record.publication_source}`, record.research_area.replaceAll("-", " ").toUpperCase(), `href="https://doi.org/${record.doi}"`, `aria-label="Read publication: ${record.title}"`]) assert.ok(html.includes(value), value);
+    for (const value of [record.title, record.authors.join(", "), `${record.publication_date.slice(0, 4)}, ${record.publication_source}`, record.research_area.replaceAll("-", " ").toUpperCase(), `href="https://doi.org/${record.doi}"`, `aria-label="Read Here: ${record.title}"`]) assert.ok(html.includes(value), value);
   });
   assert.equal([...html.matchAll(/target="_blank" rel="noopener noreferrer"/g)].length, 3);
   assert.doesNotMatch(html, /<script/);
@@ -28,12 +28,13 @@ test("news SSR preserves featured + three compact cards, full-link labels, sr-on
   assert.equal([...html.matchAll(/data-variant="featured"/g)].length, 1);
   assert.equal([...html.matchAll(/data-variant="compact"/g)].length, 3);
   source.news.selected.forEach(record => {
-    for (const value of [`href="/news/${record.slug}"`, `aria-label="Read more: ${record.title}"`, record.excerpt, `alt="${record.image_alt}"`]) assert.ok(html.includes(value), value);
+    for (const value of [`href="/news/${record.slug}"`, record.title, record.excerpt, `alt="${record.image_alt}"`]) assert.ok(html.includes(value), value);
     assert.ok(html.toLowerCase().includes(`datetime="${record.published_at}"`.toLowerCase()));
   });
   assert.equal([...html.matchAll(/width="642" height="642"/g)].length, 4);
   assert.equal([...html.matchAll(/href="\/news"/g)].length, 2);
-  assert.doesNotMatch(html, /loading=|srcSet=|<script/);
+  assert.match(html, /loading="lazy" decoding="async"/);
+  assert.doesNotMatch(html, /aria-label="Read more:|<script/);
   assert.throws(() => render(TrendingNewsCard, { article: source.news.selected[0], variant: "unsupported" }), /Unsupported trending news card variant/);
 });
 
@@ -42,7 +43,7 @@ test("event SSR preserves card summaries/date ranges/locations and same-tab link
   assert.equal([...html.matchAll(/data-event-card/g)].length, 3);
   source.events.selected.forEach(event => {
     const expected = source.events.presentation.find(e => e.slug === event.slug);
-    for (const value of [event.title, event.summary, expected.dateLabel, expected.locationLabel, `href="${expected.href}"`, `aria-label="View event: ${event.title}"`]) assert.ok(html.includes(value), value);
+    for (const value of [event.title, event.summary, expected.dateLabel, expected.locationLabel, `href="${expected.href}"`]) assert.ok(html.includes(value), value);
   });
   assert.doesNotMatch(html, /target=|<button|<script/);
   const meeting = source.events.all.find(event => event.type === "meeting");
