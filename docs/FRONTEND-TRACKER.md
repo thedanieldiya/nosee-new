@@ -2,7 +2,7 @@
 
 **Updated:** 2026-10-14  
 **Scope:** strict 1:1 port of the public pages/routes *actually implemented* in the pinned Laravel source. Not the future dashboard, CMS, membership/email, or unimplemented public pages.  
-**Current baseline:** destination `main` includes [merged PR #9](https://github.com/thedanieldiya/nosee-new/pull/9) (commit `aad5980`); the **original Laravel public frontend routes are all ported**. [Task 10](evidence/task-10/README.md) implemented on `codex/task-10-icons-final-public-review`, **In review**. MingCute/currentColor migration and full available local audit complete; owner visual/content/accessibility/performance acceptance remains.
+**Current baseline:** destination `main` includes [merged PR #9](https://github.com/thedanieldiya/nosee-new/pull/9) (commit `aad5980`); the **original Laravel public frontend routes are all ported**. [Task 10](evidence/task-10/README.md) implemented on `codex/task-10-icons-final-public-review`, **In review**. MingCute/currentColor migration and full available local audit complete; [branch pushed](https://github.com/thedanieldiya/nosee-new/tree/codex/task-10-icons-final-public-review) (`83e05a0`). Preview URL/status unverified (HTTPS CONNECT 403); owner visual/content/accessibility/performance acceptance remains.
 
 | Task | Scope | Delivery state |
 | --- | --- | --- |
@@ -17,7 +17,7 @@
 | 09 | Event details, meeting HTTP 302, source 404 | [PR #9 merged](https://github.com/thedanieldiya/nosee-new/pull/9) |
 | 10 | MingCute icon consistency + final existing-source frontend QA | **In review** — [MingCute/currentColor and final audit](evidence/task-10/README.md); 101 tests, 150 comparisons with only icon-frame RGB changes, 70 axe scans; owner review pending |
 
-**Progress:** **9/10 tasks merged; Task 10 In review**. This is **task-count progress, not percent engineering effort, acceptance or launch readiness**.
+**Progress:** **9/10 tasks merged; Task 10 pushed for review**. This is **task-count progress, not percent engineering effort, acceptance or launch readiness**.
 
 ## Quality and release conditions
 
