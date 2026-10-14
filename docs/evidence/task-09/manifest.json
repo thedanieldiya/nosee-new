@@ -1,0 +1,100 @@
+{
+  "sourceRevision": "9872c4ed12aa48835eab71065c69b468424adb4a",
+  "baseMain": "3e62ce62e73c956c5f8dc5ad7e15919ca4196586",
+  "instant": "2026-10-14T12:00:00Z",
+  "browser": "Chromium 154.0.8037.57",
+  "conditions": {
+    "dpr": 1,
+    "locale": "en-GB",
+    "timezone": "Africa/Lagos",
+    "theme": "light",
+    "throttling": "none"
+  },
+  "widths": [
+    390,
+    768,
+    1024,
+    1280,
+    1440
+  ],
+  "executed": {
+    "sourceTargetPixelPairs": 52,
+    "changedPixels": 0,
+    "previousTargetPairs": 8,
+    "previousTargetChangedPixels": 0,
+    "phpCompleteDetailPresentations": 99,
+    "productionHttpComparisons": 34,
+    "nativeTests": 97,
+    "productionTargetHttpChecks": 35
+  },
+  "retainedPairs": [
+    {
+      "case": "training-full-390",
+      "changedRGBPixels": 0,
+      "reference": {
+        "file": "reference-training-full-390.png",
+        "sha256": "c83848d011831be5da8e1efe2b6853bf27add6384b1811f269a1d9071c0e71cb"
+      },
+      "target": {
+        "file": "target-training-full-390.png",
+        "sha256": "c83848d011831be5da8e1efe2b6853bf27add6384b1811f269a1d9071c0e71cb"
+      }
+    },
+    {
+      "case": "training-full-1440",
+      "changedRGBPixels": 0,
+      "reference": {
+        "file": "reference-training-full-1440.png",
+        "sha256": "10aacf259a96eb9f17b3aa75a71576ef35c30ca9fc3a02f505d2ac579859c9ce"
+      },
+      "target": {
+        "file": "target-training-full-1440.png",
+        "sha256": "10aacf259a96eb9f17b3aa75a71576ef35c30ca9fc3a02f505d2ac579859c9ce"
+      }
+    },
+    {
+      "case": "workshop-future-full-768",
+      "changedRGBPixels": 0,
+      "reference": {
+        "file": "reference-workshop-future-full-768.png",
+        "sha256": "a2619966dba0309a2d56b34c621d36df41c512b0c452f82d12fbe6edaf476385"
+      },
+      "target": {
+        "file": "target-workshop-future-full-768.png",
+        "sha256": "a2619966dba0309a2d56b34c621d36df41c512b0c452f82d12fbe6edaf476385"
+      }
+    },
+    {
+      "case": "single-past-full-390",
+      "changedRGBPixels": 0,
+      "reference": {
+        "file": "reference-single-past-full-390.png",
+        "sha256": "52b719c2b54cc6e5efe8be75a288c7a8cdf16876dce6b74f3785e4b0da810874"
+      },
+      "target": {
+        "file": "target-single-past-full-390.png",
+        "sha256": "52b719c2b54cc6e5efe8be75a288c7a8cdf16876dce6b74f3785e4b0da810874"
+      }
+    },
+    {
+      "case": "missing-public-full-1440",
+      "changedRGBPixels": 0,
+      "reference": {
+        "file": "reference-missing-public-full-1440.png",
+        "sha256": "f544020f9d43a382b2b775d1621d60d556caf11e0875ebedc47f10a65ac5d9f3"
+      },
+      "target": {
+        "file": "target-missing-public-full-1440.png",
+        "sha256": "f544020f9d43a382b2b775d1621d60d556caf11e0875ebedc47f10a65ac5d9f3"
+      }
+    }
+  ],
+  "documentedDeviations": [
+    {
+      "path": "/events/ICELLI2026",
+      "sourceStatus": 500,
+      "targetStatus": 404,
+      "reason": "Unknown-slug 404 required; no case normalization."
+    }
+  ]
+}

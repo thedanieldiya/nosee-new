@@ -2,7 +2,7 @@
 
 **Updated:** 2026-10-14  
 **Scope:** strict 1:1 port of the public pages/routes *actually implemented* in the pinned Laravel source. Not the future dashboard, CMS, membership/email, or unimplemented public pages.  
-**Current baseline:** destination `main` includes [merged PR #8](https://github.com/thedanieldiya/nosee-new/pull/8) (commit `5a15a55`); Task 09 instructions are ready; its application code is **not** implemented.
+**Current baseline:** destination `main` includes [merged PR #8](https://github.com/thedanieldiya/nosee-new/pull/8) (commit `5a15a55`); Task 09 is **In review** on `codex/task-09-event-details-404`.
 
 | Task | Scope | Delivery state |
 | --- | --- | --- |
@@ -14,7 +14,7 @@
 | 06 | Research, news and events homepage sections | [PR #6 merged](https://github.com/thedanieldiya/nosee-new/pull/6) |
 | 07 | Entire About page | [PR #7 merged](https://github.com/thedanieldiya/nosee-new/pull/7) |
 | 08 | Events listing, search and archive | [PR #8 merged](https://github.com/thedanieldiya/nosee-new/pull/8) |
-| 09 | Event details, meeting HTTP 302, source 404 | [Instructions ready](codex-tasks/09-event-details-and-404.md); code not started |
+| 09 | Event details, meeting HTTP 302, source 404 | [In review](evidence/task-09/README.md) on `codex/task-09-event-details-404` |
 | 10 | Final existing-source frontend QA and owner acceptance | Planned, not started |
 
 **Progress:** 8/10 tasks merged. This is **task-count progress, not percent engineering effort, acceptance or launch readiness**.
