@@ -15,7 +15,7 @@
 | 09 | Event details/meeting 302/shared 404 | [PR #9](https://github.com/thedanieldiya/nosee-new/pull/9) merged |
 | 10 | MingCute/currentColor and full public review | [PR #10](https://github.com/thedanieldiya/nosee-new/pull/10) merged |
 | 11 | Authorised accessibility/no-JS/responsive images | [PR #11](https://github.com/thedanieldiya/nosee-new/pull/11) merged |
-| 12 | Combined sanity checks/release register/complete artifact cleanup | **In review** on `codex/task-12-public-closeout-cleanup`; [verification/publication](PROGRESS.md#task-12-close-out) |
+| 12 | Combined sanity checks/release register/complete artifact cleanup | **In review**; implementation `f58639e` pushed to [review branch](https://github.com/thedanieldiya/nosee-new/tree/codex/task-12-public-closeout-cleanup), remote head verified; [verification/publication](PROGRESS.md#task-12-close-out) |
 
 Mobile normal-motion Lighthouse LCP **3.535s** is accepted for now; ≤2.5s remains a deferred target, not a passed criterion. No further performance work in Task 12. Historical migration artifacts/briefs are removed as explicitly authorised; source/code/tests and Git history remain.
 
