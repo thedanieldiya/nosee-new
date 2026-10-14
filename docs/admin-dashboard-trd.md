@@ -1,7 +1,7 @@
 # NOSEE Admin Dashboard — TRD and Information Architecture
 
 **Version:** 1.2 · **Status:** Approved information architecture; editorial scope and field workflows revised 14 October 2026  
-**Scope:** Authenticated administrative experience inside the existing Next.js application. **Specification only — no admin implementation is approved by this document.**  
+**Scope:** Authenticated administrative experience inside the existing Next.js application. **Documentation scope only — changes in this TRD do not by themselves implement admin features or change public pages.**  
 **Visual direction:** Shopify account-settings dashboard — quiet, clear, compact labels, restrained form panels and actions.  
 **Public-site constraint:** Original Laravel public-page parity remains separate; no changes to ongoing public migration are authorised here.
 
@@ -65,12 +65,12 @@ Core principles:
 
 ### 3.1 Forms and editors — initial field inventory
 
-The following are the **initial editable fields**, not a mandate to add every field to a single screen. Existing News, Events, Publications, Homepage, About and monitoring models inform this list; new membership/research/gallery fields are proposed for implementation review. **Directory/Overview pages are primarily lists, filters and actions, not editing forms.**
+The following are the **initial editable fields**, not a mandate to add every field to a single screen. Existing News, Events, Publications and Homepage hero models inform these fields; public About copy, Contact/shared content and Monitoring dashboards remain code-owned. New membership/research/gallery fields are proposed for implementation review. **Directory/Overview pages are primarily lists, filters and actions, not editing forms.**
 
 | Page / form | Fields and controls |
 | --- | --- |
 | **Membership → Application review** | Submitted **first name, last name, email**, and any submitted phone, institution/affiliation, research interests or supporting statement (**read-only**, according to the approved public application form); decision **Approve / Reject** and an internal **review note/reason**. Submission date, current status and reviewer are system records. Show a possible-person match for authorised review/linking. |
-| **Membership → Create / Edit member** | First name, last name, email; optional phone, affiliation/institution, research area(s), membership status, join date and internal notes. Show group associations and an optional **linked Public profile** with a confirmation/unlink workflow; don't edit the public profile's fields here. |
+| **Membership → Create / Edit member** | First name, last name, email; optional phone, affiliation/institution, research area(s), membership status, join date and internal notes. Show group associations and an optional **linked leadership PublicProfile record** with a confirmation/unlink workflow; don't edit its public fields here. |
 | **Research → Create / Edit group** | Group name, URL slug, short introduction, full description, objectives/focus areas (repeatable), cover image and alt text, visibility/publication status; **assigned Group Lead** (Super Admin only, selected from eligible accounts). Edited content updates the corresponding public group page. |
 | **Research → Group Members** | **Approved-member autocomplete only** (select an existing Member), group-specific member role/title and optional display order; remove membership association. No manually typed person, new-member form or unapproved applicant. Group Leads can edit all of these for **their assigned group only** and publish immediately. |
 | **Publishing → News editor** | Title, slug, category, excerpt/summary, article body (**rich text**), cover image and alt text, publication date, featured flag and Draft/Published status. |
