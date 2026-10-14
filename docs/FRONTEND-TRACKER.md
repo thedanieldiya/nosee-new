@@ -16,7 +16,7 @@
 | 08 | Events listing, search and archive | [PR #8 merged](https://github.com/thedanieldiya/nosee-new/pull/8) |
 | 09 | Event details, meeting HTTP 302, source 404 | [PR #9 merged](https://github.com/thedanieldiya/nosee-new/pull/9) |
 | 10 | MingCute icon consistency + final existing-source frontend QA | [PR #10 merged](https://github.com/thedanieldiya/nosee-new/pull/10); [audit findings](evidence/task-10/README.md) remain open for owner release review |
-| 11 | Owner-authorised post-port public hardening (A–D only) | **In review** — [evidence, limited exceptions and remaining gates](evidence/task-11/README.md); branch-only delivery |
+| 11 | Owner-authorised post-port public hardening (A–D only) | **In review** — [evidence, limited exceptions and remaining gates](evidence/task-11/README.md); implementation `17ff9c3` pushed to [review branch](https://github.com/thedanieldiya/nosee-new/tree/codex/task-11-public-hardening), remote head verified; actual Vercel preview/build unavailable (CONNECT 403) |
 
 **Progress:** **10/10 migration tasks merged**. This is **code-delivery progress only**, not publication, visual-signoff, accessibility, field-performance or production approval.
 
