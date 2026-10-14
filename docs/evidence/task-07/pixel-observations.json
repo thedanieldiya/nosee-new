@@ -1,0 +1,695 @@
+{
+  "comparison": "RGB pixel arrays; no masks, thresholds, registration or image edits",
+  "pairs": [
+    {
+      "reference": "reference-collaborations-1024.png",
+      "target": "target-collaborations-1024.png",
+      "referenceSize": [
+        960,
+        304
+      ],
+      "targetSize": [
+        960,
+        304
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-collaborations-1280.png",
+      "target": "target-collaborations-1280.png",
+      "referenceSize": [
+        1152,
+        326
+      ],
+      "targetSize": [
+        1152,
+        326
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-collaborations-1440.png",
+      "target": "target-collaborations-1440.png",
+      "referenceSize": [
+        1312,
+        278
+      ],
+      "targetSize": [
+        1312,
+        278
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-collaborations-390.png",
+      "target": "target-collaborations-390.png",
+      "referenceSize": [
+        358,
+        553
+      ],
+      "targetSize": [
+        358,
+        553
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-collaborations-768.png",
+      "target": "target-collaborations-768.png",
+      "referenceSize": [
+        720,
+        348
+      ],
+      "targetSize": [
+        720,
+        348
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-full-about-1440.png",
+      "target": "target-full-about-1440.png",
+      "referenceSize": [
+        1440,
+        4519
+      ],
+      "targetSize": [
+        1440,
+        4519
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-full-about-390.png",
+      "target": "target-full-about-390.png",
+      "referenceSize": [
+        390,
+        6514
+      ],
+      "targetSize": [
+        390,
+        6514
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-full-homepage-1440.png",
+      "target": "target-full-homepage-1440.png",
+      "referenceSize": [
+        1440,
+        4136
+      ],
+      "targetSize": [
+        1440,
+        4136
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-full-homepage-390.png",
+      "target": "target-full-homepage-390.png",
+      "referenceSize": [
+        390,
+        7388
+      ],
+      "targetSize": [
+        390,
+        7388
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-intro-1024.png",
+      "target": "target-intro-1024.png",
+      "referenceSize": [
+        960,
+        596
+      ],
+      "targetSize": [
+        960,
+        596
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-intro-1280.png",
+      "target": "target-intro-1280.png",
+      "referenceSize": [
+        1152,
+        693
+      ],
+      "targetSize": [
+        1152,
+        693
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-intro-1440.png",
+      "target": "target-intro-1440.png",
+      "referenceSize": [
+        1312,
+        656
+      ],
+      "targetSize": [
+        1312,
+        656
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-intro-390.png",
+      "target": "target-intro-390.png",
+      "referenceSize": [
+        358,
+        850
+      ],
+      "targetSize": [
+        358,
+        850
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-intro-768.png",
+      "target": "target-intro-768.png",
+      "referenceSize": [
+        720,
+        752
+      ],
+      "targetSize": [
+        720,
+        752
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-leadership-1024.png",
+      "target": "target-leadership-1024.png",
+      "referenceSize": [
+        960,
+        571
+      ],
+      "targetSize": [
+        960,
+        571
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-leadership-1280.png",
+      "target": "target-leadership-1280.png",
+      "referenceSize": [
+        1152,
+        639
+      ],
+      "targetSize": [
+        1152,
+        639
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-leadership-1440.png",
+      "target": "target-leadership-1440.png",
+      "referenceSize": [
+        1312,
+        692
+      ],
+      "targetSize": [
+        1312,
+        692
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-leadership-390.png",
+      "target": "target-leadership-390.png",
+      "referenceSize": [
+        358,
+        663
+      ],
+      "targetSize": [
+        358,
+        663
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-leadership-768.png",
+      "target": "target-leadership-768.png",
+      "referenceSize": [
+        720,
+        653
+      ],
+      "targetSize": [
+        720,
+        653
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-leadership-arrow-focus-1440.png",
+      "target": "target-leadership-arrow-focus-1440.png",
+      "referenceSize": [
+        1312,
+        692
+      ],
+      "targetSize": [
+        1312,
+        692
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-leadership-arrow-next-1440.png",
+      "target": "target-leadership-arrow-next-1440.png",
+      "referenceSize": [
+        1312,
+        692
+      ],
+      "targetSize": [
+        1312,
+        692
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-leadership-first-load-1440.png",
+      "target": "target-leadership-first-load-1440.png",
+      "referenceSize": [
+        1312,
+        693
+      ],
+      "targetSize": [
+        1312,
+        693
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-leadership-first-load-390.png",
+      "target": "target-leadership-first-load-390.png",
+      "referenceSize": [
+        358,
+        664
+      ],
+      "targetSize": [
+        358,
+        664
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-leadership-first-load-768.png",
+      "target": "target-leadership-first-load-768.png",
+      "referenceSize": [
+        720,
+        653
+      ],
+      "targetSize": [
+        720,
+        653
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-leadership-last-1440.png",
+      "target": "target-leadership-last-1440.png",
+      "referenceSize": [
+        1312,
+        692
+      ],
+      "targetSize": [
+        1312,
+        692
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-leadership-last-390.png",
+      "target": "target-leadership-last-390.png",
+      "referenceSize": [
+        358,
+        663
+      ],
+      "targetSize": [
+        358,
+        663
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-leadership-last-768.png",
+      "target": "target-leadership-last-768.png",
+      "referenceSize": [
+        720,
+        653
+      ],
+      "targetSize": [
+        720,
+        653
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-leadership-reduced-last-1440.png",
+      "target": "target-leadership-reduced-last-1440.png",
+      "referenceSize": [
+        1312,
+        692
+      ],
+      "targetSize": [
+        1312,
+        692
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-leadership-swipe-390.png",
+      "target": "target-leadership-swipe-390.png",
+      "referenceSize": [
+        358,
+        663
+      ],
+      "targetSize": [
+        358,
+        663
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-mission-1024.png",
+      "target": "target-mission-1024.png",
+      "referenceSize": [
+        960,
+        511
+      ],
+      "targetSize": [
+        960,
+        511
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-mission-1280.png",
+      "target": "target-mission-1280.png",
+      "referenceSize": [
+        1152,
+        461
+      ],
+      "targetSize": [
+        1152,
+        461
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-mission-1440.png",
+      "target": "target-mission-1440.png",
+      "referenceSize": [
+        1312,
+        437
+      ],
+      "targetSize": [
+        1312,
+        437
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-mission-390.png",
+      "target": "target-mission-390.png",
+      "referenceSize": [
+        358,
+        858
+      ],
+      "targetSize": [
+        358,
+        858
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-mission-768.png",
+      "target": "target-mission-768.png",
+      "referenceSize": [
+        720,
+        706
+      ],
+      "targetSize": [
+        720,
+        706
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-quote-1024.png",
+      "target": "target-quote-1024.png",
+      "referenceSize": [
+        960,
+        320
+      ],
+      "targetSize": [
+        960,
+        320
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-quote-1280.png",
+      "target": "target-quote-1280.png",
+      "referenceSize": [
+        1152,
+        330
+      ],
+      "targetSize": [
+        1152,
+        330
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-quote-1440.png",
+      "target": "target-quote-1440.png",
+      "referenceSize": [
+        1312,
+        330
+      ],
+      "targetSize": [
+        1312,
+        330
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-quote-390.png",
+      "target": "target-quote-390.png",
+      "referenceSize": [
+        358,
+        390
+      ],
+      "targetSize": [
+        358,
+        390
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-quote-768.png",
+      "target": "target-quote-768.png",
+      "referenceSize": [
+        720,
+        390
+      ],
+      "targetSize": [
+        720,
+        390
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-story-1024.png",
+      "target": "target-story-1024.png",
+      "referenceSize": [
+        960,
+        518
+      ],
+      "targetSize": [
+        960,
+        518
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-story-1280.png",
+      "target": "target-story-1280.png",
+      "referenceSize": [
+        1152,
+        588
+      ],
+      "targetSize": [
+        1152,
+        588
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-story-1440.png",
+      "target": "target-story-1440.png",
+      "referenceSize": [
+        1312,
+        588
+      ],
+      "targetSize": [
+        1312,
+        588
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-story-390.png",
+      "target": "target-story-390.png",
+      "referenceSize": [
+        358,
+        836
+      ],
+      "targetSize": [
+        358,
+        836
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "reference-story-768.png",
+      "target": "target-story-768.png",
+      "referenceSize": [
+        720,
+        682
+      ],
+      "targetSize": [
+        720,
+        682
+      ],
+      "differentPixels": 0,
+      "maximumChannelDifference": 0,
+      "boundingBox": null
+    },
+    {
+      "reference": "../task-06/target-full-homepage-390.png",
+      "target": "target-full-homepage-390.png",
+      "referenceSize": [
+        390,
+        7388
+      ],
+      "targetSize": [
+        390,
+        7388
+      ],
+      "baseline": "merged Task 06",
+      "differentPixels": 0,
+      "maximumChannelDifference": 0
+    },
+    {
+      "reference": "../task-06/target-full-homepage-1440.png",
+      "target": "target-full-homepage-1440.png",
+      "referenceSize": [
+        1440,
+        4136
+      ],
+      "targetSize": [
+        1440,
+        4136
+      ],
+      "baseline": "merged Task 06",
+      "differentPixels": 0,
+      "maximumChannelDifference": 0
+    }
+  ]
+}

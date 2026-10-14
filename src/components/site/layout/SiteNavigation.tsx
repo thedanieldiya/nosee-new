@@ -1,17 +1,9 @@
-/* eslint-disable @next/next/no-img-element, @next/next/no-html-link-for-pages -- Preserve source images and native navigation without prefetch. */
-import type { ComponentPropsWithoutRef } from "react";
-import { getNavigationState, type NavigationState } from "@/lib/content/navigation";
+/* eslint-disable @next/next/no-img-element -- Preserve source images and native navigation without prefetch. */
+import { getNavigationState } from "@/lib/content/navigation";
 import { Container } from "@/components/site/ui/Container";
 import { buttonClasses } from "@/components/site/ui/ButtonLink";
 import { NavigationController } from "./NavigationController";
-
-function NavigationLink({ item, className, activeClassName = "", ...props }: {
-  item: NavigationState; activeClassName?: string;
-} & ComponentPropsWithoutRef<"a">) {
-  return <a {...props} href={item.url} aria-current={item.current ? "page" : undefined}
-    data-navigation-url={item.url} data-navigation-parent={item.children ? "true" : undefined} data-navigation-active-classes={activeClassName}
-    className={`${className ?? ""} ${item.active ? activeClassName : ""}`}>{props.children}</a>;
-}
+import { NavigationLink, NavigationSubmenuButton } from "./NavigationLink";
 
 function AccountIcon() {
   return <svg className="size-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">
@@ -20,16 +12,17 @@ function AccountIcon() {
 }
 
 export function SiteNavigation() {
-  // The only public page in this task is /. The controller tracks subsequent pathname changes.
+  // Link islands derive SSR/current state from usePathname without hydrating the whole shell.
   const { primary, utility, homeCurrent } = getNavigationState("/");
+  const home = { label: "NOSEE", url: "/", enabled: true, active: homeCurrent, current: homeCurrent };
   return <>
     <header className="group/navigation fixed inset-x-0 top-0 z-40 hidden bg-black/70 text-inverse backdrop-blur-[10px] lg:block"
       data-desktop-navigation data-scroll-navigation data-transparent="true" data-navigation-mode="expanded">
       <Container className="flex h-[8.75rem] items-center [--desktop-navigation-content-height:5.8rem] transition-[height] duration-300 ease-out motion-reduce:transition-none group-data-[navigation-mode=compact]/navigation:h-[6.5rem] group-data-[navigation-mode=compact]/navigation:[--desktop-navigation-content-height:4.5rem] xl:h-[10.25rem] xl:[--desktop-navigation-content-height:7.5rem] xl:group-data-[navigation-mode=compact]/navigation:h-[6.5rem] xl:group-data-[navigation-mode=compact]/navigation:[--desktop-navigation-content-height:4.5rem]">
-        <a href="/" data-navigation-url="/" aria-current={homeCurrent ? "page" : undefined}
+        <NavigationLink item={home}
           className="shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
           <img src="/logoWhite.png" alt="NOSEE" className="h-[var(--desktop-navigation-content-height)] w-auto transition-[height] duration-300 ease-out motion-reduce:transition-none" />
-        </a>
+        </NavigationLink>
         <div className="flex h-[var(--desktop-navigation-content-height)] min-w-0 flex-1 flex-col pl-8 transition-[height] duration-300 ease-out motion-reduce:transition-none xl:pl-16">
           <nav className="flex h-1/2 items-center justify-end gap-1 overflow-hidden font-body" aria-label="Utility navigation">
             {utility.map((item) => item.label === "Support NOSEE" ?
@@ -91,9 +84,9 @@ export function SiteNavigation() {
       </div>
       <div className="relative z-0 max-h-48 overflow-hidden bg-black/70 opacity-100 backdrop-blur-[10px] transition-[max-height,opacity] duration-300 ease-out motion-reduce:transition-none group-data-[navigation-mode=compact]/navigation:pointer-events-none group-data-[navigation-mode=compact]/navigation:max-h-0 group-data-[navigation-mode=compact]/navigation:opacity-0" data-navigation-expanded-only>
         <Container className="py-4">
-          <a href="/" data-navigation-url="/" aria-current={homeCurrent ? "page" : undefined} className="block rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+          <NavigationLink item={home} className="block rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
             <img src="/logoWhite.png" alt="NOSEE" className="mx-auto h-auto w-full max-w-[31.25rem]" />
-          </a>
+          </NavigationLink>
         </Container>
       </div>
       <button type="button" className="fixed inset-x-0 top-[4.5rem] bottom-0 z-0 bg-black/60" aria-label="Close navigation menu" tabIndex={-1} data-mobile-overlay hidden />
@@ -105,18 +98,18 @@ export function SiteNavigation() {
               {primary.map((item, index) => <li key={item.url} className="border-b border-line-soft">
                 <div className="flex min-h-11 items-stretch">
                   <NavigationLink item={item} activeClassName="text-brand" className="flex min-h-11 flex-1 items-center rounded-sm font-heading text-base font-semibold focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent">{item.label}</NavigationLink>
-                  {item.children && <button type="button" className="group flex size-11 shrink-0 items-center justify-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent"
+                  {item.children && <NavigationSubmenuButton item={item} type="button" className="group flex size-11 shrink-0 items-center justify-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent"
                     aria-label={`Toggle ${item.label} submenu`} aria-expanded="false" aria-controls={`mobile-submenu-${index}`}
-                    data-mobile-submenu-button data-navigation-active-url={item.url} data-mobile-active-submenu={item.active ? "" : undefined}>
+                    data-mobile-submenu-button>
                     <svg className="size-5 transition-transform group-aria-expanded:rotate-180" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">
                       <path d="m5 7.5 5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                  </button>}
+                  </NavigationSubmenuButton>}
                 </div>
                 {item.children && <ul id={`mobile-submenu-${index}`} className="pb-3 pl-4" data-mobile-submenu hidden>
                   {item.children.map((child) => <li key={child.url}><NavigationLink item={child} activeClassName="text-brand font-semibold"
-                    className={`flex min-h-11 items-center rounded-sm px-3 font-body text-sm focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent ${!child.active ? "font-medium text-secondary" : ""}`}
-                    data-navigation-inactive-classes="font-medium text-secondary">{child.label}</NavigationLink></li>)}
+                    className="flex min-h-11 items-center rounded-sm px-3 font-body text-sm focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent"
+                    inactiveClassName="font-medium text-secondary">{child.label}</NavigationLink></li>)}
                 </ul>}
               </li>)}
             </ul>
