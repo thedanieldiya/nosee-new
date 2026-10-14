@@ -1,0 +1,265 @@
+{
+  "capturedAt": "2026-10-14T04:19:15.179Z",
+  "withoutRebuild": true,
+  "buildId": "BWIY6yIrWa0Mk88etzdqp",
+  "requests": [
+    {
+      "instant": "2026-11-17T22:59:59.999Z",
+      "reference": {
+        "/events": {
+          "status": 200,
+          "cacheControl": "no-cache, private",
+          "listingCards": 6,
+          "featured": true,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 4
+        },
+        "/events/archive": {
+          "status": 200,
+          "cacheControl": "no-cache, private",
+          "listingCards": 3,
+          "featured": false,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 0
+        }
+      },
+      "target": {
+        "/events": {
+          "status": 200,
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "listingCards": 6,
+          "featured": true,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 4
+        },
+        "/events/archive": {
+          "status": 200,
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "listingCards": 3,
+          "featured": false,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 0
+        }
+      }
+    },
+    {
+      "instant": "2026-11-17T23:00:00Z",
+      "reference": {
+        "/events": {
+          "status": 200,
+          "cacheControl": "no-cache, private",
+          "listingCards": 6,
+          "featured": true,
+          "ongoing": true,
+          "empty": false,
+          "icelliLinks": 2
+        },
+        "/events/archive": {
+          "status": 200,
+          "cacheControl": "no-cache, private",
+          "listingCards": 3,
+          "featured": false,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 0
+        }
+      },
+      "target": {
+        "/events": {
+          "status": 200,
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "listingCards": 6,
+          "featured": true,
+          "ongoing": true,
+          "empty": false,
+          "icelliLinks": 2
+        },
+        "/events/archive": {
+          "status": 200,
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "listingCards": 3,
+          "featured": false,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 0
+        }
+      }
+    },
+    {
+      "instant": "2026-11-20T22:59:59.999Z",
+      "reference": {
+        "/events": {
+          "status": 200,
+          "cacheControl": "no-cache, private",
+          "listingCards": 6,
+          "featured": true,
+          "ongoing": true,
+          "empty": false,
+          "icelliLinks": 2
+        },
+        "/events/archive": {
+          "status": 200,
+          "cacheControl": "no-cache, private",
+          "listingCards": 3,
+          "featured": false,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 0
+        }
+      },
+      "target": {
+        "/events": {
+          "status": 200,
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "listingCards": 6,
+          "featured": true,
+          "ongoing": true,
+          "empty": false,
+          "icelliLinks": 2
+        },
+        "/events/archive": {
+          "status": 200,
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "listingCards": 3,
+          "featured": false,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 0
+        }
+      }
+    },
+    {
+      "instant": "2026-11-20T23:00:00Z",
+      "reference": {
+        "/events": {
+          "status": 200,
+          "cacheControl": "no-cache, private",
+          "listingCards": 5,
+          "featured": true,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 0
+        },
+        "/events/archive": {
+          "status": 200,
+          "cacheControl": "no-cache, private",
+          "listingCards": 4,
+          "featured": false,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 2
+        }
+      },
+      "target": {
+        "/events": {
+          "status": 200,
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "listingCards": 5,
+          "featured": true,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 0
+        },
+        "/events/archive": {
+          "status": 200,
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "listingCards": 4,
+          "featured": false,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 2
+        }
+      }
+    },
+    {
+      "instant": "2025-01-01T00:00:00Z",
+      "reference": {
+        "/events": {
+          "status": 200,
+          "cacheControl": "no-cache, private",
+          "listingCards": 9,
+          "featured": true,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 2
+        },
+        "/events/archive": {
+          "status": 200,
+          "cacheControl": "no-cache, private",
+          "listingCards": 0,
+          "featured": false,
+          "ongoing": false,
+          "empty": true,
+          "icelliLinks": 0
+        }
+      },
+      "target": {
+        "/events": {
+          "status": 200,
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "listingCards": 9,
+          "featured": true,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 2
+        },
+        "/events/archive": {
+          "status": 200,
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "listingCards": 0,
+          "featured": false,
+          "ongoing": false,
+          "empty": true,
+          "icelliLinks": 0
+        }
+      }
+    },
+    {
+      "instant": "2028-01-01T00:00:00Z",
+      "reference": {
+        "/events": {
+          "status": 200,
+          "cacheControl": "no-cache, private",
+          "listingCards": 0,
+          "featured": false,
+          "ongoing": false,
+          "empty": true,
+          "icelliLinks": 0
+        },
+        "/events/archive": {
+          "status": 200,
+          "cacheControl": "no-cache, private",
+          "listingCards": 9,
+          "featured": false,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 2
+        }
+      },
+      "target": {
+        "/events": {
+          "status": 200,
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "listingCards": 0,
+          "featured": false,
+          "ongoing": false,
+          "empty": true,
+          "icelliLinks": 0
+        },
+        "/events/archive": {
+          "status": 200,
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "listingCards": 9,
+          "featured": false,
+          "ongoing": false,
+          "empty": false,
+          "icelliLinks": 2
+        }
+      }
+    }
+  ]
+}

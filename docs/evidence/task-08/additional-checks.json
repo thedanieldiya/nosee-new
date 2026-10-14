@@ -1,0 +1,105 @@
+{
+  "capturedAt": "2026-10-14T04:22:41.441Z",
+  "checks": [
+    {
+      "name": "archive-all-past-meeting",
+      "instant": "2028-01-01T12:00:00Z",
+      "path": "/events/archive",
+      "differences": []
+    },
+    {
+      "name": "archive-empty-desktop",
+      "instant": "2025-01-01T00:00:00Z",
+      "path": "/events/archive",
+      "differences": []
+    },
+    {
+      "kind": "reference",
+      "name": "mobile-sticky",
+      "top": 72,
+      "nav": "compact"
+    },
+    {
+      "kind": "reference",
+      "name": "external-meeting-tab",
+      "newTab": true,
+      "url": "https://icelli.nosee.org/",
+      "network": "aborted by harness; no external content or application submitted"
+    },
+    {
+      "kind": "reference",
+      "name": "no-js-mobile",
+      "route": "/events",
+      "ssrHeading": "\n                        Events\n                    ",
+      "drawerVisible": false,
+      "menuControlVisible": false
+    },
+    {
+      "kind": "reference",
+      "name": "no-js-mobile",
+      "route": "/events/archive",
+      "ssrHeading": "\n                    Event Archives\n                ",
+      "drawerVisible": false,
+      "menuControlVisible": false
+    },
+    {
+      "kind": "reference",
+      "name": "archive-reduced-motion",
+      "lift": 0,
+      "transition": "none"
+    },
+    {
+      "kind": "target",
+      "name": "mobile-sticky",
+      "top": 72,
+      "nav": "compact"
+    },
+    {
+      "kind": "target",
+      "name": "external-meeting-tab",
+      "newTab": true,
+      "url": "https://icelli.nosee.org/",
+      "network": "aborted by harness; no external content or application submitted"
+    },
+    {
+      "kind": "target",
+      "name": "no-js-mobile",
+      "route": "/events",
+      "ssrHeading": "Events",
+      "drawerVisible": false,
+      "menuControlVisible": false
+    },
+    {
+      "kind": "target",
+      "name": "no-js-mobile",
+      "route": "/events/archive",
+      "ssrHeading": "Event Archives",
+      "drawerVisible": false,
+      "menuControlVisible": false
+    },
+    {
+      "kind": "target",
+      "name": "archive-reduced-motion",
+      "lift": 0,
+      "transition": "none"
+    },
+    {
+      "kind": "target",
+      "name": "regular-event-link",
+      "sameTab": true,
+      "path": "/events/earth-observation-data-workshop",
+      "status": 404,
+      "reason": "Task 09 detail route intentionally deferred"
+    }
+  ],
+  "captures": [
+    "reference-archive-all-past-meeting-1440.png",
+    "target-archive-all-past-meeting-1440.png",
+    "reference-archive-empty-desktop-1440.png",
+    "target-archive-empty-desktop-1440.png",
+    "reference-mobile-sticky-390.png",
+    "reference-archive-reduced-motion-1440.png",
+    "target-mobile-sticky-390.png",
+    "target-archive-reduced-motion-1440.png"
+  ]
+}
