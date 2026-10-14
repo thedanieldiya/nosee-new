@@ -7,7 +7,7 @@ type SiteContent = {
     description: string;
     link_groups: { heading: string; links: ContentLink[] }[];
     contact: { heading: string; address: string; email: string; phone: string };
-    social_links: (ContentLink & { icon: string })[];
+    social_links: (ContentLink & { icon: "LinkedinFilled" | "FacebookFilled" | "SocialXFilled" | "InstagramFilled" | "YoutubeFilled" })[];
     legal_links: ContentLink[];
     newsletter: {
       heading: string; description: string; label: string; placeholder: string;
@@ -18,7 +18,7 @@ type SiteContent = {
   };
 };
 
-// Literal content/site.php; source spellings and placeholder URLs are intentional.
+// Literal content/site.php except approved MingCute UI-icon identifiers.
 export const site = {
     "name": "NSEE",
     "tagline": "Research, data, and collaboration.",
@@ -62,27 +62,27 @@ export const site = {
             {
                 "label": "LinkedIn",
                 "url": "https://linkedin.com",
-                "icon": "/media/icons/linkedin-fill.svg"
+                "icon": "LinkedinFilled"
             },
             {
                 "label": "Facebook",
                 "url": "https://facebook.com",
-                "icon": "/media/icons/facebook-fill.svg"
+                "icon": "FacebookFilled"
             },
             {
                 "label": "X",
                 "url": "https://x.com",
-                "icon": "/media/icons/x-fill.svg"
+                "icon": "SocialXFilled"
             },
             {
                 "label": "Instagram",
                 "url": "https://instagram.com",
-                "icon": "/media/icons/instagram-fill.svg"
+                "icon": "InstagramFilled"
             },
             {
                 "label": "YouTube",
                 "url": "https://youtube.com",
-                "icon": "/media/icons/youtube-fill.svg"
+                "icon": "YoutubeFilled"
             }
         ],
         "legal_links": [

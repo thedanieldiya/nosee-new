@@ -1,9 +1,13 @@
-/* eslint-disable @next/next/no-img-element -- Preserve the pinned Blade image elements and original SVGs. */
+/* eslint-disable @next/next/no-img-element -- Preserve original editorial images. */
 import type { PresentedEvent } from "@/lib/content/events-listing";
 import { ButtonLink } from "@/components/site/ui/ButtonLink";
+import LocationRegular from "@mingcute/react/core-regular/location";
+import ArrowRightRegular from "@mingcute/react/core-regular/arrow-right";
+import ArrowRightUpRegular from "@mingcute/react/core-regular/arrow-right-up";
 
 export function FeaturedEvent({ event }: { event: PresentedEvent }) {
   const target = event.external ? "_blank" : undefined, rel = event.external ? "noopener noreferrer" : undefined;
+  const ActionIcon = event.external ? ArrowRightUpRegular : ArrowRightRegular;
   return (
     <article className="card-hover-lift grid overflow-hidden border border-line-soft bg-default lg:grid-cols-[minmax(0,415px)_minmax(0,1fr)_191px]" data-featured-event="">
       <div className="min-h-52 bg-[#d9d9d9] lg:min-h-[308px]">
@@ -17,7 +21,8 @@ export function FeaturedEvent({ event }: { event: PresentedEvent }) {
         <p className="font-body text-base leading-5 text-secondary">{event.summary}</p>
         <ButtonLink href={event.destination} variant="stroke" target={target} rel={rel} className="max-w-full">
           <span className="truncate">{event.external ? `Explore ${event.title}` : "View details"}</span>
-          <span className="shrink-0" aria-hidden="true"><img src={`/media/icons/${event.external ? "arrow-up-right" : "arrow-right"}.svg`} alt="" className="size-4" /></span>
+          {/* Match the replaced image's cyclic max-width sizing in source grids. */}
+          <span className="shrink-0" aria-hidden="true"><ActionIcon size={16} className="size-4 max-w-full" aria-hidden="true" focusable="false" data-ui-icon={event.external ? "arrow-up-right" : "arrow-right"} /></span>
         </ButtonLink>
       </div>
       <div className="flex items-center gap-5 p-5 sm:p-6 lg:flex-col lg:justify-center lg:gap-8 lg:p-4">
@@ -32,7 +37,7 @@ export function FeaturedEvent({ event }: { event: PresentedEvent }) {
           </time></>}
         </div>
         <p className="flex min-w-0 items-start gap-1 text-sm leading-5 text-secondary lg:text-center">
-          <img src="/media/icons/MapPin.svg" alt="" className="mt-0.5 size-5 shrink-0" aria-hidden="true" /><span>{event.presentation.location}</span>
+          <LocationRegular size={20} className="mt-0.5 size-5 max-w-full shrink-0" aria-hidden="true" focusable="false" data-ui-icon="location" /><span>{event.presentation.location}</span>
         </p>
       </div>
     </article>

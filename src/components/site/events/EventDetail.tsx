@@ -1,7 +1,7 @@
-/* eslint-disable @next/next/no-img-element -- Preserve the original decorative SVG elements. */
 import type { PresentedEvent } from "@/lib/content/events-listing";
 import { Container } from "@/components/site/ui/Container";
 import { ButtonLink } from "@/components/site/ui/ButtonLink";
+import ArrowRightUpRegular from "@mingcute/react/core-regular/arrow-right-up";
 
 export function EventDetail({ event }: { event: PresentedEvent }) {
   const p = event.presentation;
@@ -35,7 +35,7 @@ export function EventDetail({ event }: { event: PresentedEvent }) {
           </div>}
         </section>
         {event.registration_url && <div className="mt-8">
-          <ButtonLink href={event.registration_url} size="lg" target="_blank" rel="noopener noreferrer">REGISTER<span className="shrink-0" aria-hidden="true"><img src="/media/icons/arrow-up-right.svg" alt="" className="size-4 brightness-0 invert" /></span></ButtonLink>
+          <ButtonLink href={event.registration_url} size="lg" target="_blank" rel="noopener noreferrer">REGISTER<span className="shrink-0" aria-hidden="true"><ArrowRightUpRegular size={16} className="size-4 max-w-full" aria-hidden="true" focusable="false" data-ui-icon="arrow-up-right" /></span></ButtonLink>
         </div>}
         <div className="mt-12 grid gap-12 lg:mt-16 lg:grid-cols-[minmax(0,2fr)_minmax(18rem,1fr)] lg:gap-16">
           <div className="flex min-w-0 flex-col gap-14">
@@ -59,7 +59,7 @@ export function EventDetail({ event }: { event: PresentedEvent }) {
             {event.resources.length > 0 && <section aria-labelledby="event-resources-heading">
               <h2 id="event-resources-heading" className="font-heading text-[32px] leading-9 font-medium text-primary">Resources</h2>
               <ul className="mt-5 divide-y divide-line-soft border-y border-line-soft">{event.resources.map(resource => <li key={resource.url}>
-                <a href={resource.url} target="_blank" rel="noopener noreferrer" className="flex min-h-14 items-center justify-between gap-4 py-3 font-medium text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">{resource.label}<img src="/media/icons/arrow-up-right.svg" alt="" className="size-4 shrink-0" aria-hidden="true" /></a>
+                <a href={resource.url} target="_blank" rel="noopener noreferrer" className="flex min-h-14 items-center justify-between gap-4 py-3 font-medium text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">{resource.label}<ArrowRightUpRegular size={16} className="size-4 max-w-full shrink-0" aria-hidden="true" focusable="false" data-ui-icon="arrow-up-right" /></a>
               </li>)}</ul>
             </section>}
           </div>

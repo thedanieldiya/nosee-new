@@ -16,6 +16,7 @@
   "dependencies": {
     "@fontsource/ibm-plex-sans": "5.2.8",
     "@fontsource/ubuntu-sans": "5.2.8",
+    "@mingcute/react": "3.0.2",
     "next": "16.4.0",
     "react": "19.3.0",
     "react-dom": "19.3.0"

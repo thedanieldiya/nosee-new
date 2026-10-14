@@ -15,9 +15,9 @@ export function NavigationLink({ item, className, activeClassName = "", inactive
     className={`${className ?? ""} ${state.active ? activeClassName : inactiveClassName}`}>{children}</a>;
 }
 
-export function NavigationSubmenuButton({ item, children, ...props }: {
+export function NavigationSubmenuButton({ item, children, className, ...props }: {
   item: NavigationState;
 } & ComponentPropsWithoutRef<"button">) {
   const state = withActiveState([item], normalizePath(usePathname()))[0];
-  return <button {...props} data-navigation-active-url={item.url} data-mobile-active-submenu={state.active ? "" : undefined}>{children}</button>;
+  return <button {...props} className={`${className ?? ""}${state.active ? " text-brand" : ""}`} data-navigation-active-url={item.url} data-mobile-active-submenu={state.active ? "" : undefined}>{children}</button>;
 }

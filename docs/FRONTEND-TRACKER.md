@@ -2,7 +2,7 @@
 
 **Updated:** 2026-10-14  
 **Scope:** strict 1:1 port of the public pages/routes *actually implemented* in the pinned Laravel source. Not the future dashboard, CMS, membership/email, or unimplemented public pages.  
-**Current baseline:** destination `main` includes [merged PR #9](https://github.com/thedanieldiya/nosee-new/pull/9) (commit `aad5980`); the **original Laravel public frontend routes are all ported**. [Task 10](codex-tasks/10-final-frontend-icons-review.md) instructions prepared, implementation **not started**. Owner-approved MingCute icon migration and final source frontend acceptance remain.
+**Current baseline:** destination `main` includes [merged PR #9](https://github.com/thedanieldiya/nosee-new/pull/9) (commit `aad5980`); the **original Laravel public frontend routes are all ported**. [Task 10](evidence/task-10/README.md) implemented on `codex/task-10-icons-final-public-review`, **In review**. MingCute/currentColor migration and full available local audit complete; [branch pushed](https://github.com/thedanieldiya/nosee-new/tree/codex/task-10-icons-final-public-review) (`83e05a0`). Preview URL/status unverified (HTTPS CONNECT 403); owner visual/content/accessibility/performance acceptance remains.
 
 | Task | Scope | Delivery state |
 | --- | --- | --- |
@@ -15,9 +15,9 @@
 | 07 | Entire About page | [PR #7 merged](https://github.com/thedanieldiya/nosee-new/pull/7) |
 | 08 | Events listing, search and archive | [PR #8 merged](https://github.com/thedanieldiya/nosee-new/pull/8) |
 | 09 | Event details, meeting HTTP 302, source 404 | [PR #9 merged](https://github.com/thedanieldiya/nosee-new/pull/9) |
-| 10 | MingCute icon consistency + final existing-source frontend QA | [Instructions ready](codex-tasks/10-final-frontend-icons-review.md); code not started |
+| 10 | MingCute icon consistency + final existing-source frontend QA | **In review** — [MingCute/currentColor and final audit](evidence/task-10/README.md); 101 tests, 150 comparisons with only icon-frame RGB changes, 70 axe scans; owner review pending |
 
-**Progress:** **9/10 tasks merged**. This is **task-count progress, not percent engineering effort, acceptance or launch readiness**.
+**Progress:** **9/10 tasks merged; Task 10 pushed for review**. This is **task-count progress, not percent engineering effort, acceptance or launch readiness**.
 
 ## Quality and release conditions
 
@@ -26,7 +26,7 @@
 - Owner must approve the final exact public-site port, its documented exceptions and use of content. Historical Laravel development fixtures are **not** approved organisational facts; several public pages remain deliberately **noindex**.
 - Tracked migration artifacts previously accumulated under `docs/evidence/` (notably Task 08). **Keep all evidence until Task 09 is finished and the final Task 10 parity review is accepted.** Then carry out a **separate owner-approved cleanup PR** deleting **all** migration evidence files/screenshots/raw outputs from the current tree, preserving essential reusable tests, application code and concise ongoing docs. No Git history rewrite.
 - Codex must **run** comprehensive tests/screenshot comparisons but keep bulky generated outputs in temporary or CI artifact storage; only short summaries and a few representative comparison pairs are allowed in new task commits.
-- Known release gates remain: unverified editor/organisation fixtures, missing future informational routes and critical links, source no-JS menu behavior, newsletter integration, indexing decision, low-bandwidth performance and public deployment verification.
+- Known release gates remain: unverified organisation fixtures, missing routes/critical links, source no-JS menu/close icon, newsletter integration, indexing and deployment decisions. [Final findings](evidence/task-10/README.md#accessibility-and-ordered-owner-decisions) also document contrast/label/target/focus/reflow issues, an inherited mixed-query parsing difference and unavailable manual assistive-technology testing. Local mobile LCP is ~15s in Lighthouse / 18.77s under direct throttling; optimization needs separate approval.
 
 **Later scope, separate roadmap:** P4 approved new public pages, P5 shadcn/admin authentication, P6 membership and email, P7 content publishing/CMS, P8 operational production readiness. These are **not** counted in the ten tasks above.
 

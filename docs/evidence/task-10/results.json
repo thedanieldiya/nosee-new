@@ -1,0 +1,1337 @@
+{
+  "task": 10,
+  "status": "In review",
+  "source": "9872c4ed12aa48835eab71065c69b468424adb4a",
+  "base": "06fb9c7f0543c6ce681ffe709eeb5da7da1bd532",
+  "clock": "2026-10-14T12:00:00Z",
+  "browser": "154.0.8037.57",
+  "widths": [
+    390,
+    768,
+    1024,
+    1280,
+    1440
+  ],
+  "routes": [
+    "/",
+    "/about",
+    "/events",
+    "/events/archive",
+    "/events/atmospheric-measurement-seminar",
+    "/events/community-sky-observation-day",
+    "/events/earth-observation-data-workshop",
+    "/events/environmental-data-training",
+    "/events/ionospheric-methods-seminar",
+    "/events/regional-space-weather-conference",
+    "/events/satellite-climate-lecture",
+    "/events/small-grants-application-deadline",
+    "/events/missing-event",
+    "/nonexistent-public-url"
+  ],
+  "visual": {
+    "full_page_captures": 210,
+    "state_crops": 15,
+    "state_full_frames": 15,
+    "axes": {
+      "reference": {
+        "pairs": 75,
+        "changed_pixels": 83226,
+        "outside_icon_changed_pixels": 0
+      },
+      "baseline": {
+        "pairs": 75,
+        "changed_pixels": 83226,
+        "outside_icon_changed_pixels": 0
+      }
+    },
+    "geometry_content_failures": 0
+  },
+  "colours": {
+    "initial_svg_checks": 1090,
+    "state_samples": 549,
+    "svg_checks": 13080,
+    "button_fixtures": 18,
+    "mismatches": 0,
+    "themes": [
+      {
+        "theme": "dark",
+        "route": "/",
+        "checks": 21,
+        "failures": []
+      },
+      {
+        "theme": "dark",
+        "route": "/about",
+        "checks": 14,
+        "failures": []
+      },
+      {
+        "theme": "dark",
+        "route": "/events",
+        "checks": 34,
+        "failures": []
+      },
+      {
+        "theme": "dark",
+        "route": "/events/earth-observation-data-workshop",
+        "checks": 14,
+        "failures": []
+      },
+      {
+        "theme": "forced-colors",
+        "route": "/",
+        "checks": 21,
+        "failures": []
+      },
+      {
+        "theme": "forced-colors",
+        "route": "/about",
+        "checks": 14,
+        "failures": []
+      },
+      {
+        "theme": "forced-colors",
+        "route": "/events",
+        "checks": 34,
+        "failures": []
+      },
+      {
+        "theme": "forced-colors",
+        "route": "/events/earth-observation-data-workshop",
+        "checks": 14,
+        "failures": []
+      }
+    ]
+  },
+  "php": {
+    "detail_presentations": 99,
+    "missing_lookups": 11,
+    "listing_cases": 29,
+    "homepage_cases": 9,
+    "native_php_clock": "libfaketime v0.9.13 at 86b37fde2fed7336ea2d0c17928e3015a55d9b4a",
+    "listing_file_sha256": "f5e4273f153c35218b963164e696e524c9d9803b9acb7aed9482b999d288c7bf",
+    "homepage_selections": [
+      {
+        "instant": "2026-10-14T12:00:00Z",
+        "day": "2026-10-14",
+        "events": [
+          "regional-space-weather-conference",
+          "earth-observation-data-workshop",
+          "atmospheric-measurement-seminar"
+        ],
+        "research": [
+          "low-latitude-geomagnetic-storm-responses",
+          "urban-aerosol-optical-depth-patterns",
+          "satellite-soil-moisture-drought-signals"
+        ],
+        "news": [
+          "solar-storm-monitoring-exercise",
+          "space-station-instrument-calibration",
+          "air-quality-smoke-transport-study",
+          "regional-earth-observation-partnership"
+        ],
+        "monitoring": [
+          "average-f-region-observations",
+          "range-error-from-tec",
+          "tec-difference-from-30-day-median"
+        ],
+        "sha256": "6707d4715ae82417345fbff48a2359067ff709aff7623b4be6a25efed1bad791"
+      },
+      {
+        "instant": "2026-09-26T23:59:59.999Z",
+        "day": "2026-09-26",
+        "events": [
+          "regional-space-weather-conference",
+          "earth-observation-data-workshop",
+          "atmospheric-measurement-seminar"
+        ],
+        "research": [
+          "low-latitude-geomagnetic-storm-responses",
+          "urban-aerosol-optical-depth-patterns",
+          "satellite-soil-moisture-drought-signals"
+        ],
+        "news": [
+          "solar-storm-monitoring-exercise",
+          "space-station-instrument-calibration",
+          "air-quality-smoke-transport-study",
+          "regional-earth-observation-partnership"
+        ],
+        "monitoring": [
+          "average-f-region-observations",
+          "range-error-from-tec",
+          "tec-difference-from-30-day-median"
+        ],
+        "sha256": "2314df6ca6e3b7b3b92705023cc6b6a38deda928b62b55046020257902d130cb"
+      },
+      {
+        "instant": "2026-09-27T00:00:00Z",
+        "day": "2026-09-27",
+        "events": [
+          "regional-space-weather-conference",
+          "earth-observation-data-workshop",
+          "atmospheric-measurement-seminar"
+        ],
+        "research": [
+          "low-latitude-geomagnetic-storm-responses",
+          "urban-aerosol-optical-depth-patterns",
+          "satellite-soil-moisture-drought-signals"
+        ],
+        "news": [
+          "solar-storm-monitoring-exercise",
+          "space-station-instrument-calibration",
+          "air-quality-smoke-transport-study",
+          "regional-earth-observation-partnership"
+        ],
+        "monitoring": [
+          "average-f-region-observations",
+          "range-error-from-tec",
+          "tec-difference-from-30-day-median"
+        ],
+        "sha256": "30952f71b61b0b4e2264332403fba8177dfc7ab9803ecd65239b69dba568886d"
+      },
+      {
+        "instant": "2027-07-23T22:59:59.999Z",
+        "day": "2027-07-23",
+        "events": [],
+        "research": [
+          "low-latitude-geomagnetic-storm-responses",
+          "urban-aerosol-optical-depth-patterns",
+          "satellite-soil-moisture-drought-signals"
+        ],
+        "news": [
+          "solar-storm-monitoring-exercise",
+          "space-station-instrument-calibration",
+          "air-quality-smoke-transport-study",
+          "regional-earth-observation-partnership"
+        ],
+        "monitoring": [
+          "average-f-region-observations",
+          "range-error-from-tec",
+          "tec-difference-from-30-day-median"
+        ],
+        "sha256": "7dc0077f10f0fdeb5f54f9bef30e7c62d634b5a7ab66c645dac440263458c88e"
+      },
+      {
+        "instant": "2027-07-23T23:00:00Z",
+        "day": "2027-07-23",
+        "events": [],
+        "research": [
+          "low-latitude-geomagnetic-storm-responses",
+          "urban-aerosol-optical-depth-patterns",
+          "satellite-soil-moisture-drought-signals"
+        ],
+        "news": [
+          "solar-storm-monitoring-exercise",
+          "space-station-instrument-calibration",
+          "air-quality-smoke-transport-study",
+          "regional-earth-observation-partnership"
+        ],
+        "monitoring": [
+          "average-f-region-observations",
+          "range-error-from-tec",
+          "tec-difference-from-30-day-median"
+        ],
+        "sha256": "7dc0077f10f0fdeb5f54f9bef30e7c62d634b5a7ab66c645dac440263458c88e"
+      },
+      {
+        "instant": "2027-07-23T23:59:59.999Z",
+        "day": "2027-07-23",
+        "events": [],
+        "research": [
+          "low-latitude-geomagnetic-storm-responses",
+          "urban-aerosol-optical-depth-patterns",
+          "satellite-soil-moisture-drought-signals"
+        ],
+        "news": [
+          "solar-storm-monitoring-exercise",
+          "space-station-instrument-calibration",
+          "air-quality-smoke-transport-study",
+          "regional-earth-observation-partnership"
+        ],
+        "monitoring": [
+          "average-f-region-observations",
+          "range-error-from-tec",
+          "tec-difference-from-30-day-median"
+        ],
+        "sha256": "7dc0077f10f0fdeb5f54f9bef30e7c62d634b5a7ab66c645dac440263458c88e"
+      },
+      {
+        "instant": "2027-07-24T00:00:00Z",
+        "day": "2027-07-24",
+        "events": [],
+        "research": [
+          "low-latitude-geomagnetic-storm-responses",
+          "urban-aerosol-optical-depth-patterns",
+          "satellite-soil-moisture-drought-signals"
+        ],
+        "news": [
+          "solar-storm-monitoring-exercise",
+          "space-station-instrument-calibration",
+          "air-quality-smoke-transport-study",
+          "regional-earth-observation-partnership"
+        ],
+        "monitoring": [
+          "average-f-region-observations",
+          "range-error-from-tec",
+          "tec-difference-from-30-day-median"
+        ],
+        "sha256": "baf2deffb40f63566d07d5a4b06b6af60c6884342de8745e203dfa7a75f3daec"
+      },
+      {
+        "instant": "2026-01-01T00:00:00Z",
+        "day": "2026-01-01",
+        "events": [
+          "regional-space-weather-conference",
+          "earth-observation-data-workshop",
+          "atmospheric-measurement-seminar"
+        ],
+        "research": [
+          "low-latitude-geomagnetic-storm-responses",
+          "urban-aerosol-optical-depth-patterns",
+          "satellite-soil-moisture-drought-signals"
+        ],
+        "news": [
+          "solar-storm-monitoring-exercise",
+          "space-station-instrument-calibration",
+          "air-quality-smoke-transport-study",
+          "regional-earth-observation-partnership"
+        ],
+        "monitoring": [
+          "average-f-region-observations",
+          "range-error-from-tec",
+          "tec-difference-from-30-day-median"
+        ],
+        "sha256": "b79a5ccefe3e084848b6458732e80132a5cb6f18c6834cb6d60e1616886a59e6"
+      },
+      {
+        "instant": "2028-01-01T00:00:00Z",
+        "day": "2028-01-01",
+        "events": [],
+        "research": [
+          "low-latitude-geomagnetic-storm-responses",
+          "urban-aerosol-optical-depth-patterns",
+          "satellite-soil-moisture-drought-signals"
+        ],
+        "news": [
+          "solar-storm-monitoring-exercise",
+          "space-station-instrument-calibration",
+          "air-quality-smoke-transport-study",
+          "regional-earth-observation-partnership"
+        ],
+        "monitoring": [
+          "average-f-region-observations",
+          "range-error-from-tec",
+          "tec-difference-from-30-day-median"
+        ],
+        "sha256": "b6bc1fdb4ffcb70390c00c4b293c00477b71063d9801de60eccd082a465d6f57"
+      }
+    ]
+  },
+  "http": {
+    "requests": 35,
+    "source_comparisons": 34,
+    "detail_temporal_requests": 10,
+    "deviations": [
+      {
+        "path": "/events/ICELLI2026",
+        "sourceStatus": 500,
+        "targetStatus": 404,
+        "reason": "Task requires unknown-slug 404; source rejects non-kebab-case filenames with a loader error."
+      }
+    ],
+    "fullsite_temporal_cases": 80,
+    "fullsite_requests": 240,
+    "fullsite_instants": [
+      "2026-09-20T15:59:59.999Z",
+      "2026-09-20T16:00:00Z",
+      "2026-09-26T14:59:59.999Z",
+      "2026-09-26T15:00:00Z",
+      "2026-09-26T18:00:00Z",
+      "2026-09-26T18:00:00.001Z",
+      "2026-09-26T23:59:59.999Z",
+      "2026-09-27T00:00:00Z",
+      "2026-11-17T22:59:59.999Z",
+      "2026-11-17T23:00:00Z",
+      "2026-11-20T22:59:59.999Z",
+      "2026-11-20T23:00:00Z",
+      "2027-07-18T22:59:59.999Z",
+      "2027-07-18T23:00:00Z",
+      "2027-07-23T22:59:59.999Z",
+      "2027-07-23T23:00:00Z",
+      "2027-07-23T23:59:59.999Z",
+      "2027-07-24T00:00:00Z",
+      "2025-01-01T00:00:00Z",
+      "2028-01-01T00:00:00Z"
+    ],
+    "without_rebuild": true
+  },
+  "interactions": {
+    "source_base_target_cases": 6,
+    "reduced_motion_cases": 8,
+    "sticky": [
+      {
+        "width": 390,
+        "kind": "reference",
+        "position": "sticky",
+        "top": 72,
+        "cssTop": "72px",
+        "offset": ""
+      },
+      {
+        "width": 390,
+        "kind": "baseline",
+        "position": "sticky",
+        "top": 72,
+        "cssTop": "72px",
+        "offset": ""
+      },
+      {
+        "width": 390,
+        "kind": "target",
+        "position": "sticky",
+        "top": 72,
+        "cssTop": "72px",
+        "offset": ""
+      },
+      {
+        "width": 1440,
+        "kind": "reference",
+        "position": "sticky",
+        "top": 104,
+        "cssTop": "104px",
+        "offset": ""
+      },
+      {
+        "width": 1440,
+        "kind": "baseline",
+        "position": "sticky",
+        "top": 104,
+        "cssTop": "104px",
+        "offset": ""
+      },
+      {
+        "width": 1440,
+        "kind": "target",
+        "position": "sticky",
+        "top": 104,
+        "cssTop": "104px",
+        "offset": ""
+      }
+    ],
+    "source_search_deviations": [
+      {
+        "query": "q=x&q[]=ignored",
+        "states": {
+          "reference": {
+            "query": "",
+            "featured": "International Colloquium on Equatorial and Low-Latitude Ionosphere 2026",
+            "ongoing": [],
+            "upcoming": [
+              "International Colloquium on Equatorial and Low-Latitude Ionosphere 2026",
+              "Regional Space Weather Research Conference",
+              "Earth Observation Data Methods Workshop",
+              "Advances in Atmospheric Measurement Lecture",
+              "Public Lecture on Satellite Climate Indicators",
+              "Environmental Data Stewardship Training"
+            ],
+            "empty": null
+          },
+          "baseline": {
+            "query": "x",
+            "featured": "International Colloquium on Equatorial and Low-Latitude Ionosphere 2026",
+            "ongoing": [],
+            "upcoming": [
+              "Earth Observation Data Methods Workshop"
+            ],
+            "empty": null
+          },
+          "target": {
+            "query": "x",
+            "featured": "International Colloquium on Equatorial and Low-Latitude Ionosphere 2026",
+            "ongoing": [],
+            "upcoming": [
+              "Earth Observation Data Methods Workshop"
+            ],
+            "empty": null
+          }
+        }
+      },
+      {
+        "query": "q=x&q[foo]=ignored",
+        "states": {
+          "reference": {
+            "query": "",
+            "featured": "International Colloquium on Equatorial and Low-Latitude Ionosphere 2026",
+            "ongoing": [],
+            "upcoming": [
+              "International Colloquium on Equatorial and Low-Latitude Ionosphere 2026",
+              "Regional Space Weather Research Conference",
+              "Earth Observation Data Methods Workshop",
+              "Advances in Atmospheric Measurement Lecture",
+              "Public Lecture on Satellite Climate Indicators",
+              "Environmental Data Stewardship Training"
+            ],
+            "empty": null
+          },
+          "baseline": {
+            "query": "x",
+            "featured": "International Colloquium on Equatorial and Low-Latitude Ionosphere 2026",
+            "ongoing": [],
+            "upcoming": [
+              "Earth Observation Data Methods Workshop"
+            ],
+            "empty": null
+          },
+          "target": {
+            "query": "x",
+            "featured": "International Colloquium on Equatorial and Low-Latitude Ionosphere 2026",
+            "ongoing": [],
+            "upcoming": [
+              "Earth Observation Data Methods Workshop"
+            ],
+            "empty": null
+          }
+        }
+      }
+    ],
+    "search_input_focus": [
+      {
+        "kind": "reference",
+        "rest": {
+          "outline": "none",
+          "boxShadow": "none",
+          "border": "rgb(23, 23, 23)",
+          "formOutline": "none",
+          "formBorder": "rgba(0, 0, 0, 0.2)"
+        },
+        "focused": {
+          "outline": "none",
+          "boxShadow": "none",
+          "border": "rgb(23, 23, 23)",
+          "formOutline": "none",
+          "formBorder": "rgba(0, 0, 0, 0.2)"
+        }
+      },
+      {
+        "kind": "baseline",
+        "rest": {
+          "outline": "none",
+          "boxShadow": "none",
+          "border": "rgb(23, 23, 23)",
+          "formOutline": "none",
+          "formBorder": "rgba(0, 0, 0, 0.2)"
+        },
+        "focused": {
+          "outline": "none",
+          "boxShadow": "none",
+          "border": "rgb(23, 23, 23)",
+          "formOutline": "none",
+          "formBorder": "rgba(0, 0, 0, 0.2)"
+        }
+      },
+      {
+        "kind": "target",
+        "rest": {
+          "outline": "none",
+          "boxShadow": "none",
+          "border": "rgb(23, 23, 23)",
+          "formOutline": "none",
+          "formBorder": "rgba(0, 0, 0, 0.2)"
+        },
+        "focused": {
+          "outline": "none",
+          "boxShadow": "none",
+          "border": "rgb(23, 23, 23)",
+          "formOutline": "none",
+          "formBorder": "rgba(0, 0, 0, 0.2)"
+        }
+      }
+    ]
+  },
+  "accessibility": {
+    "axe_scans": 70,
+    "common_footer_contrast_nodes_per_page": 3,
+    "additional_violation_counts": [
+      {
+        "kind": "target",
+        "width": 1440,
+        "route": "/",
+        "violations": {
+          "color-contrast": 3,
+          "label-content-name-mismatch": 11,
+          "target-size": 2
+        }
+      },
+      {
+        "kind": "target",
+        "width": 1440,
+        "route": "/about",
+        "violations": {
+          "color-contrast": 3,
+          "target-size": 3
+        }
+      },
+      {
+        "kind": "target",
+        "width": 1440,
+        "route": "/events",
+        "violations": {
+          "color-contrast": 4
+        }
+      },
+      {
+        "kind": "target",
+        "width": 390,
+        "route": "/",
+        "violations": {
+          "color-contrast": 3,
+          "label-content-name-mismatch": 7,
+          "target-size": 2
+        }
+      },
+      {
+        "kind": "target",
+        "width": 390,
+        "route": "/about",
+        "violations": {
+          "color-contrast": 3,
+          "target-size": 7
+        }
+      },
+      {
+        "kind": "target",
+        "width": 390,
+        "route": "/events",
+        "violations": {
+          "color-contrast": 4
+        }
+      }
+    ],
+    "js_off_cases": 42,
+    "reflow": [
+      {
+        "width": 720,
+        "route": "/",
+        "overflow": false,
+        "note": "CSS viewport equivalent to 200/400% desktop zoom; not a screen magnifier test"
+      },
+      {
+        "width": 720,
+        "route": "/about",
+        "overflow": false,
+        "note": "CSS viewport equivalent to 200/400% desktop zoom; not a screen magnifier test"
+      },
+      {
+        "width": 720,
+        "route": "/events",
+        "overflow": false,
+        "note": "CSS viewport equivalent to 200/400% desktop zoom; not a screen magnifier test"
+      },
+      {
+        "width": 720,
+        "route": "/events/environmental-data-training",
+        "overflow": false,
+        "note": "CSS viewport equivalent to 200/400% desktop zoom; not a screen magnifier test"
+      },
+      {
+        "width": 320,
+        "route": "/",
+        "overflow": false,
+        "note": "CSS viewport equivalent to 200/400% desktop zoom; not a screen magnifier test"
+      },
+      {
+        "width": 320,
+        "route": "/about",
+        "overflow": false,
+        "note": "CSS viewport equivalent to 200/400% desktop zoom; not a screen magnifier test"
+      },
+      {
+        "width": 320,
+        "route": "/events",
+        "overflow": true,
+        "note": "CSS viewport equivalent to 200/400% desktop zoom; not a screen magnifier test",
+        "peers": {
+          "reference": {
+            "width": 320,
+            "scrollWidth": 339
+          },
+          "baseline": {
+            "width": 320,
+            "scrollWidth": 339
+          },
+          "target": {
+            "width": 320,
+            "scrollWidth": 339
+          }
+        }
+      },
+      {
+        "width": 320,
+        "route": "/events/environmental-data-training",
+        "overflow": false,
+        "note": "CSS viewport equivalent to 200/400% desktop zoom; not a screen magnifier test"
+      }
+    ],
+    "manual_screen_reader": "NVDA/JAWS/VoiceOver/Orca unavailable; browser AX tree and keyboard checks only",
+    "new_violations": 0
+  },
+  "checks": {
+    "node_tests": 101,
+    "typecheck": "passed",
+    "lint": "passed, no warnings",
+    "production_build": "passed",
+    "diff_check": "passed"
+  },
+  "performance": {
+    "cold_contexts": [
+      {
+        "kind": "baseline",
+        "width": 390,
+        "route": "/",
+        "payload": {
+          "totals": {
+            "js": 138662,
+            "css": 11441,
+            "fonts": 105240,
+            "images": 3938451
+          },
+          "requests": 30,
+          "htmlEncoded": 29091,
+          "htmlDecoded": 213430,
+          "external": []
+        }
+      },
+      {
+        "kind": "target",
+        "width": 390,
+        "route": "/",
+        "payload": {
+          "totals": {
+            "js": 138683,
+            "css": 11297,
+            "fonts": 105240,
+            "images": 3936230
+          },
+          "requests": 24,
+          "htmlEncoded": 31881,
+          "htmlDecoded": 231360,
+          "external": []
+        }
+      },
+      {
+        "kind": "baseline",
+        "width": 390,
+        "route": "/about",
+        "payload": {
+          "totals": {
+            "js": 138136,
+            "css": 11441,
+            "fonts": 105240,
+            "images": 170001
+          },
+          "requests": 22,
+          "htmlEncoded": 23264,
+          "htmlDecoded": 178929,
+          "external": []
+        }
+      },
+      {
+        "kind": "target",
+        "width": 390,
+        "route": "/about",
+        "payload": {
+          "totals": {
+            "js": 138157,
+            "css": 11297,
+            "fonts": 105240,
+            "images": 167997
+          },
+          "requests": 17,
+          "htmlEncoded": 26461,
+          "htmlDecoded": 192751,
+          "external": []
+        }
+      },
+      {
+        "kind": "baseline",
+        "width": 390,
+        "route": "/events",
+        "payload": {
+          "totals": {
+            "js": 137118,
+            "css": 11441,
+            "fonts": 80884,
+            "images": 23347
+          },
+          "requests": 25,
+          "htmlEncoded": 21825,
+          "htmlDecoded": 192872,
+          "external": []
+        }
+      },
+      {
+        "kind": "target",
+        "width": 390,
+        "route": "/events",
+        "payload": {
+          "totals": {
+            "js": 137139,
+            "css": 11297,
+            "fonts": 80884,
+            "images": 18717
+          },
+          "requests": 14,
+          "htmlEncoded": 25853,
+          "htmlDecoded": 227850,
+          "external": []
+        }
+      },
+      {
+        "kind": "baseline",
+        "width": 390,
+        "route": "/events/archive",
+        "payload": {
+          "totals": {
+            "js": 137118,
+            "css": 11441,
+            "fonts": 80884,
+            "images": 22068
+          },
+          "requests": 22,
+          "htmlEncoded": 19831,
+          "htmlDecoded": 155979,
+          "external": []
+        }
+      },
+      {
+        "kind": "target",
+        "width": 390,
+        "route": "/events/archive",
+        "payload": {
+          "totals": {
+            "js": 137139,
+            "css": 11297,
+            "fonts": 80884,
+            "images": 18717
+          },
+          "requests": 14,
+          "htmlEncoded": 22822,
+          "htmlDecoded": 176162,
+          "external": []
+        }
+      },
+      {
+        "kind": "baseline",
+        "width": 390,
+        "route": "/events/environmental-data-training",
+        "payload": {
+          "totals": {
+            "js": 137118,
+            "css": 11441,
+            "fonts": 80884,
+            "images": 20721
+          },
+          "requests": 19,
+          "htmlEncoded": 18084,
+          "htmlDecoded": 145183,
+          "external": []
+        }
+      },
+      {
+        "kind": "target",
+        "width": 390,
+        "route": "/events/environmental-data-training",
+        "payload": {
+          "totals": {
+            "js": 137139,
+            "css": 11297,
+            "fonts": 80884,
+            "images": 18717
+          },
+          "requests": 14,
+          "htmlEncoded": 20971,
+          "htmlDecoded": 157793,
+          "external": []
+        }
+      },
+      {
+        "kind": "baseline",
+        "width": 390,
+        "route": "/nonexistent-public-url",
+        "payload": {
+          "totals": {
+            "js": 139106,
+            "css": 11441,
+            "fonts": 63832,
+            "images": 20721
+          },
+          "requests": 18,
+          "htmlEncoded": 12115,
+          "htmlDecoded": 85366,
+          "external": []
+        }
+      },
+      {
+        "kind": "target",
+        "width": 390,
+        "route": "/nonexistent-public-url",
+        "payload": {
+          "totals": {
+            "js": 139148,
+            "css": 11297,
+            "fonts": 63832,
+            "images": 18717
+          },
+          "requests": 13,
+          "htmlEncoded": 13899,
+          "htmlDecoded": 92977,
+          "external": []
+        }
+      },
+      {
+        "kind": "baseline",
+        "width": 1440,
+        "route": "/",
+        "payload": {
+          "totals": {
+            "js": 138662,
+            "css": 11441,
+            "fonts": 122216,
+            "images": 3938451
+          },
+          "requests": 31,
+          "htmlEncoded": 29091,
+          "htmlDecoded": 213430,
+          "external": []
+        }
+      },
+      {
+        "kind": "target",
+        "width": 1440,
+        "route": "/",
+        "payload": {
+          "totals": {
+            "js": 138683,
+            "css": 11297,
+            "fonts": 122216,
+            "images": 3936230
+          },
+          "requests": 25,
+          "htmlEncoded": 31881,
+          "htmlDecoded": 231360,
+          "external": []
+        }
+      },
+      {
+        "kind": "baseline",
+        "width": 1440,
+        "route": "/about",
+        "payload": {
+          "totals": {
+            "js": 138136,
+            "css": 11441,
+            "fonts": 122216,
+            "images": 980287
+          },
+          "requests": 26,
+          "htmlEncoded": 23264,
+          "htmlDecoded": 178929,
+          "external": []
+        }
+      },
+      {
+        "kind": "target",
+        "width": 1440,
+        "route": "/about",
+        "payload": {
+          "totals": {
+            "js": 138157,
+            "css": 11297,
+            "fonts": 122216,
+            "images": 978066
+          },
+          "requests": 20,
+          "htmlEncoded": 26461,
+          "htmlDecoded": 192751,
+          "external": []
+        }
+      },
+      {
+        "kind": "baseline",
+        "width": 1440,
+        "route": "/events",
+        "payload": {
+          "totals": {
+            "js": 137118,
+            "css": 11441,
+            "fonts": 97860,
+            "images": 23347
+          },
+          "requests": 26,
+          "htmlEncoded": 21825,
+          "htmlDecoded": 192872,
+          "external": []
+        }
+      },
+      {
+        "kind": "target",
+        "width": 1440,
+        "route": "/events",
+        "payload": {
+          "totals": {
+            "js": 137139,
+            "css": 11297,
+            "fonts": 97860,
+            "images": 18717
+          },
+          "requests": 15,
+          "htmlEncoded": 25853,
+          "htmlDecoded": 227850,
+          "external": []
+        }
+      },
+      {
+        "kind": "baseline",
+        "width": 1440,
+        "route": "/events/archive",
+        "payload": {
+          "totals": {
+            "js": 137118,
+            "css": 11441,
+            "fonts": 97860,
+            "images": 22068
+          },
+          "requests": 23,
+          "htmlEncoded": 19831,
+          "htmlDecoded": 155979,
+          "external": []
+        }
+      },
+      {
+        "kind": "target",
+        "width": 1440,
+        "route": "/events/archive",
+        "payload": {
+          "totals": {
+            "js": 137139,
+            "css": 11297,
+            "fonts": 97860,
+            "images": 18717
+          },
+          "requests": 15,
+          "htmlEncoded": 22822,
+          "htmlDecoded": 176162,
+          "external": []
+        }
+      },
+      {
+        "kind": "baseline",
+        "width": 1440,
+        "route": "/events/environmental-data-training",
+        "payload": {
+          "totals": {
+            "js": 137118,
+            "css": 11441,
+            "fonts": 97860,
+            "images": 20721
+          },
+          "requests": 20,
+          "htmlEncoded": 18084,
+          "htmlDecoded": 145183,
+          "external": []
+        }
+      },
+      {
+        "kind": "target",
+        "width": 1440,
+        "route": "/events/environmental-data-training",
+        "payload": {
+          "totals": {
+            "js": 137139,
+            "css": 11297,
+            "fonts": 97860,
+            "images": 18717
+          },
+          "requests": 15,
+          "htmlEncoded": 20971,
+          "htmlDecoded": 157793,
+          "external": []
+        }
+      },
+      {
+        "kind": "baseline",
+        "width": 1440,
+        "route": "/nonexistent-public-url",
+        "payload": {
+          "totals": {
+            "js": 139106,
+            "css": 11441,
+            "fonts": 97860,
+            "images": 20721
+          },
+          "requests": 20,
+          "htmlEncoded": 12115,
+          "htmlDecoded": 85366,
+          "external": []
+        }
+      },
+      {
+        "kind": "target",
+        "width": 1440,
+        "route": "/nonexistent-public-url",
+        "payload": {
+          "totals": {
+            "js": 139148,
+            "css": 11297,
+            "fonts": 97860,
+            "images": 18717
+          },
+          "requests": 15,
+          "htmlEncoded": 13899,
+          "htmlDecoded": 92977,
+          "external": []
+        }
+      }
+    ],
+    "font_display_values": [
+      "swap"
+    ],
+    "lighthouse_version": "13.5.0",
+    "lighthouse_repeats_per_profile_version": 3,
+    "lighthouse_units": {
+      "lcp": "ms",
+      "fcp": "ms",
+      "tbt": "ms",
+      "cls": "unitless",
+      "bytes": "B"
+    },
+    "lighthouse": {
+      "mobile": {
+        "baseline": {
+          "score": {
+            "median": 0.74,
+            "min": 0.74,
+            "max": 0.74
+          },
+          "lcp": {
+            "median": 14857.410100000001,
+            "min": 14855.022400000002,
+            "max": 14934.746999999998
+          },
+          "fcp": {
+            "median": 1811.11515,
+            "min": 1807.5336000000002,
+            "max": 1814.6205
+          },
+          "cls": {
+            "median": 0.003005294052866451,
+            "min": 0.003005294052866451,
+            "max": 0.003005294052866451
+          },
+          "tbt": {
+            "median": 51,
+            "min": 43.5,
+            "max": 59
+          },
+          "bytes": {
+            "median": 4232845,
+            "min": 4232845,
+            "max": 4232845
+          }
+        },
+        "target": {
+          "score": {
+            "median": 0.74,
+            "min": 0.74,
+            "max": 0.74
+          },
+          "lcp": {
+            "median": 15084.247899999997,
+            "min": 15007.065600000002,
+            "max": 15089.374199999997
+          },
+          "fcp": {
+            "median": 1813.87185,
+            "min": 1660.5983999999999,
+            "max": 1821.5612999999998
+          },
+          "cls": {
+            "median": 0.003005294052866451,
+            "min": 0.003005294052866451,
+            "max": 0.003005294052866451
+          },
+          "tbt": {
+            "median": 44,
+            "min": 41.5,
+            "max": 45.5
+          },
+          "bytes": {
+            "median": 4231462,
+            "min": 4231462,
+            "max": 4231462
+          }
+        }
+      },
+      "desktop": {
+        "baseline": {
+          "score": {
+            "median": 0.81,
+            "min": 0.81,
+            "max": 0.86
+          },
+          "lcp": {
+            "median": 3485.7300000000005,
+            "min": 2624.7448000000004,
+            "max": 3487.2111999999997
+          },
+          "fcp": {
+            "median": 448.595,
+            "min": 447.1172,
+            "max": 450.81680000000006
+          },
+          "cls": {
+            "median": 0.0024121282773774,
+            "min": 0.002346445081348529,
+            "max": 0.0024121282773774
+          },
+          "tbt": {
+            "median": 0,
+            "min": 0,
+            "max": 2
+          },
+          "bytes": {
+            "median": 4250121,
+            "min": 4250121,
+            "max": 4250121
+          }
+        },
+        "target": {
+          "score": {
+            "median": 0.81,
+            "min": 0.81,
+            "max": 0.82
+          },
+          "lcp": {
+            "median": 3423.6901,
+            "min": 3284.42,
+            "max": 3426.4317000000005
+          },
+          "fcp": {
+            "median": 446.63,
+            "min": 445.53514999999993,
+            "max": 449.64755
+          },
+          "cls": {
+            "median": 0.0024121282773774,
+            "min": 0.0024121282773774,
+            "max": 0.0024121282773774
+          },
+          "tbt": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "bytes": {
+            "median": 4248738,
+            "min": 4248738,
+            "max": 4248738
+          }
+        }
+      }
+    },
+    "direct_mobile_cdp": {
+      "down_bps": 1600000,
+      "up_bps": 750000,
+      "latency_ms": 150,
+      "cpu_rate": 4,
+      "repeats_per_version": 3,
+      "results": {
+        "baseline": {
+          "lcp": {
+            "median": 18696,
+            "min": 18680,
+            "max": 18712
+          },
+          "cls": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "menuLatency": {
+            "median": 155,
+            "min": 149,
+            "max": 160
+          },
+          "images": {
+            "median": 2442282,
+            "min": 2442282,
+            "max": 2442282
+          }
+        },
+        "target": {
+          "lcp": {
+            "median": 18772,
+            "min": 18768,
+            "max": 18776
+          },
+          "cls": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "menuLatency": {
+            "median": 144,
+            "min": 136,
+            "max": 154
+          },
+          "images": {
+            "median": 2440061,
+            "min": 2440061,
+            "max": 2440061
+          }
+        }
+      }
+    },
+    "field_cwv_inp": "not measured"
+  },
+  "artifact_sha256": {
+    "helpers.cjs": "07916f4bb3e114a7a3f354f58d4fe4a5715d7ac9c48a8a33da16d9f08b74fa59",
+    "visual.cjs": "a7c5a78786a40b6a9fa1e5bb1d2b5d9a82aa3fac7f3723fe08fee90c01586c73",
+    "pixels.py": "6a0a3e2cac9ee0fae55bb76be7a9af3b9f4de02253099b727d1b63956f6d678e",
+    "states.cjs": "bdef8d0275774a1671f9f642ee29c384c6080c80964822b4b9a7227578e464d4",
+    "state-pixels.py": "0bad158e204520335e043bbca1a30c22e85a1909315a8fce8e3eeae27ae5f044",
+    "interactions.cjs": "17f5379130cb85cbcc090e4e41d959ba64f8c6ddccd8de77d89f2c0973cc7c28",
+    "temporal.cjs": "a0b0baeb6b94b30e563d522a3c5af6cc14488aa2f7efda85492e83aa61b4e37c",
+    "home-oracle.php": "e45c230a1a46e827d45e26124f1be0a494069d6a0a75380b0a4bac2a2e32dc2d",
+    "home-compare.mjs": "1b65035ea38395b09cebf7b2a595ca1cb413dda347b7540d07ac87950697d76d",
+    "axe-extra.cjs": "db336c7284817da6e6d42f22679dc498ebcba912e7c6fcf9aff7dfc4fa194c35",
+    "performance.mjs": "1300d502571e9e98cdf572767cbeb149ce9c74ad911673bd7805b2ea101d2291",
+    "low-bandwidth.cjs": "c9827c8f8381466f333218a3de085087e8c5173c9513bec5465df51a8f74df3a",
+    "cold-payload.cjs": "0d74f52fea57d1c73fd668d8fa59b09fc8730fb1851d00a9431a75fb2085fde7",
+    "results/visual.json": "6bd0ebc3a436ddf17358b4213a5ae1678cd591e76ba8f3c9b7b3e7b4f2d67a1e",
+    "results/pixels.json": "e21ce09ade277d24c1e42b3262b5ee7d5718b05a9f9d73d01d2b12582f673d5b",
+    "results/state-pixels.json": "12ce9830432e17f64c86f0db98d9cb6e81427fea3dd9182ab6a28a50b05d3396",
+    "results/colour-final-pass.json": "efb087f2886a72dd5ea8743c207e19292b24fd74a29e335a349752515d8c2f04",
+    "results/accessibility.json": "0c93a4032db1b1287e5a1b5ffd1fcdd6b49125b9fc169a6392e9e99c0b46edb2",
+    "results/axe-extra.json": "7c3a69ec2bc178ab24e8c474b74aef0da99c06eec0d73dbcd240fb88ae830baa",
+    "results/temporal.json": "fb1d5850501c4217d59b9a86445b2d3133bf57518102042630d09ca8ee1a87a9",
+    "results/performance.json": "2c1fb9cdd99bd832ed72b7a501dce1a4d91a49265421be3e806f58b9972df7cb",
+    "results/low-bandwidth.json": "d9397b5cd729051e7d85bacca6b2175459affe47a4bf4241c3a1c616c59badb5",
+    "results/final-tests.log": "710a48981183d14f507ddeea48b7291f2d8ddcd46078604e6ceefac32cd03880",
+    "results/final-typecheck.log": "45ff70825a5dd77a3be4060ed4b70d72a128056130d317d560da56c64f0fe3a3",
+    "results/final-lint.log": "740a73f30625c54791706c352ff66a257fef10c9c8e0f8aadcfd3ef991d087a3",
+    "results/build.log": "482df960594cc1f16b8bcf9b0c154c45b67cda6e928450dd088fdb15c7ffc1c7"
+  },
+  "representative_png_sha256": {
+    "reference-leadership-control.png": "350afc8124ba77bfd4133e432c679376ce4f934869e1048dc322290872ee9ec4",
+    "reference-footer-focus.png": "e18c5e619c53efee24f0be85d36298dc4d51e6660f30135342841a62a84b8471",
+    "target-active-menu.png": "0dfe630ba4235eaa0ddafa82edd85fcda24b876d54cb934bd67678c21315b5a4",
+    "reference-search-focus.png": "e4e5400c1fb369126da3a7f3b6b4192a1f47e0799f42d685d6d3a6d9beedee9f",
+    "target-footer-focus.png": "f70a66a2126a8abe43ec1012113e0a0f24927586a762c72deaa8fb7a28bbd1f5",
+    "reference-event-meta.png": "a908d79cf63de768b4d8ee9ae9e064528ddc799ff48a31bd27f2a1495ffdd2ea",
+    "reference-active-menu.png": "a0533aa7e20fbf07ec2016950048a4d0246258462a7ee1cadd29d48aa469e609",
+    "target-event-meta.png": "1ab441c41864bcf07c8337a02016ee94b327cde3a849b46425e0a00ba51c9b71",
+    "target-leadership-control.png": "4a7c2382635e267e17781b1ee46951b77aee10bc5f7c8e47818a57b0166acf51",
+    "target-search-focus.png": "2247b5f4d67b61f7fb0ffecd271de27ba0396982503bcbd9bd23075375a3040c"
+  }
+}

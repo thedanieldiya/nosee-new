@@ -20,14 +20,14 @@ test("featured gray placeholder and duplicated meeting preserve new-tab destinat
     const html = render(component, { event });
     assert.match(html, /href="https:\/\/icelli.nosee.org" target="_blank" rel="noopener noreferrer"/);
     assert.match(html, /Explore International Colloquium/);
-    assert.match(html, /arrow-up-right.svg/);
+    assert.match(html, /data-ui-icon="arrow-up-right"/);
   }
   assert.match(render(FeaturedEvent, { event }), /bg-\[#d9d9d9\]/);
 });
 test("regular card retains times, local location, deadline and internal same-tab link", () => {
   const e = buildEvents(null, new Date("2026-10-14T12:00:00Z")).upcoming.find(e => e.type === "workshop");
   const html = render(ListingEventCard, { event: e });
-  assert.match(html, /CalendarDots.svg/); assert.match(html, /Apply before:/); assert.match(html, /April 7, 2027 at 5:00 PM/);
+  assert.match(html, /data-ui-icon="calendar"/); assert.match(html, /Apply before:/); assert.match(html, /April 7, 2027 at 5:00 PM/);
   assert.match(html, /href="\/events\/earth-observation-data-workshop"/); assert.doesNotMatch(html, /target="_blank"/);
   assert.match(html, /hidden max-w-full lg:inline-flex/);
 });

@@ -1,5 +1,6 @@
-/* eslint-disable @next/next/no-img-element -- Original search/action SVG elements. */
 import type { Metadata } from "next";
+import SearchRegular from "@mingcute/react/core-regular/search";
+import ArrowRightRegular from "@mingcute/react/core-regular/arrow-right";
 import { Container } from "@/components/site/ui/Container";
 import { ButtonLink } from "@/components/site/ui/ButtonLink";
 import { FeaturedEvent } from "@/components/site/events/FeaturedEvent";
@@ -26,7 +27,7 @@ export default async function EventsPage({ searchParams }: { searchParams: Promi
           <form action="/events" method="GET" className="hidden h-12 w-[416px] shrink-0 items-center border border-line-strong bg-default pr-1 pl-4 lg:flex" role="search">
             <label htmlFor="event-search" className="sr-only">Search upcoming events</label>
             <input id="event-search" name="q" type="search" defaultValue={query ?? ""} placeholder="Search events..." className="min-w-0 flex-1 bg-transparent text-base text-primary outline-none placeholder:text-secondary" />
-            <button type="submit" className="inline-flex h-10 items-center justify-center gap-1.5 bg-brand px-4 text-sm font-medium text-inverse focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">Search<img src="/media/icons/search.svg" alt="" className="size-4" aria-hidden="true" /></button>
+            <button type="submit" className="inline-flex h-10 items-center justify-center gap-1.5 bg-brand px-4 text-sm font-medium text-inverse focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">Search<SearchRegular size={16} className="size-4 max-w-full" aria-hidden="true" focusable="false" data-ui-icon="search" /></button>
           </form>
         </header>
         {featured && <FeaturedEvent event={featured} />}
@@ -37,7 +38,7 @@ export default async function EventsPage({ searchParams }: { searchParams: Promi
         <section aria-labelledby="upcoming-events-heading" data-upcoming-events="">
           <header className="flex items-center justify-between gap-4 border-b border-line-soft py-4 lg:pt-6">
             <h2 id="upcoming-events-heading" className="font-heading text-[28px] leading-8 font-medium lg:text-[32px] lg:leading-9">Upcoming Events</h2>
-            <ButtonLink href="/events/archive" size="sm" variant="stroke" className="hidden sm:inline-flex">View event archives<span className="shrink-0" aria-hidden="true"><img src="/media/icons/arrow-right.svg" alt="" className="size-4" /></span></ButtonLink>
+            <ButtonLink href="/events/archive" size="sm" variant="stroke" className="hidden sm:inline-flex">View event archives<span className="shrink-0" aria-hidden="true"><ArrowRightRegular size={16} className="size-4 max-w-full" aria-hidden="true" focusable="false" data-ui-icon="arrow-right" /></span></ButtonLink>
           </header>
           {upcoming_groups.length === 0 ? <div className="border-b border-line-soft py-12 text-center" data-events-empty-state="">
             <p className="font-heading text-2xl leading-8 font-medium text-primary">No upcoming events found.</p>
