@@ -266,6 +266,10 @@ Phases P2/P3 may contain several small tasks or PRs. P4 and P5 can be prioritize
 5. Record files changed, what was checked, any failed or skipped checks, residual risk, PR/commit links and which requirement IDs changed status.
 6. Stop after the assigned task. No automatic next-phase implementation.
 
+### Temporary migration evidence — storage and final cleanup
+
+**Owner decision (14 October 2026):** Keep **all actual validation and visual comparisons**, but minimize Codex token/context consumption and tracked Git artifacts. Large PHP oracle exports, raw browser dumps, build logs and full screenshot matrices may be generated/examined temporarily or stored as CI artifacts; task branches should commit concise, honest verification summaries and only a few representative paired screenshots. Never reduce the executed quality gate merely to shrink the PR. Once all presently implemented Laravel public routes are migrated, **final parity is reviewed and the owner approves**, perform a **separate cleanup PR** that deletes **every tracked migration evidence file** under `docs/evidence/` from the current tree after preserving reusable tests under `tests/`. Retain functional code and essential documentation; **do not rewrite Git history**. See `AGENTS.md` and `docs/FRONTEND-TRACKER.md`.
+
 ### Definition of Done
 
 A requirement is **Done** only if implemented on the destination branch, applicable checks have evidence, remaining differences are documented, and manual design/behavior approval is recorded when required. Task completion is not identical to PRD completion. A PR merged without required evidence may remain "In review" or "Blocked."
