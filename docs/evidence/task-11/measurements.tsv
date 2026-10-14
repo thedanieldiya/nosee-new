@@ -1,0 +1,94 @@
+kind	case	value	minimum	maximum	unit
+lighthouse	mobile/baseline/lcp	15081.369200000001	15080.225999999999	15082.9872	ms
+lighthouse	mobile/baseline/fcp	1809.5538000000001	1807.839	1811.9808	ms
+lighthouse	mobile/baseline/cls	0.003005294052866451	0.003005294052866451	0.003005294052866451	unitless
+lighthouse	mobile/baseline/tbt	49.5	42.5	52	ms
+lighthouse	mobile/baseline/score	0.74	0.74	0.74	unitless
+lighthouse	mobile/baseline/bytes	4231462	4231462	4231462	B
+lighthouse	mobile/target/lcp	3535.0315	2865.0632	4585.019399999999	ms
+lighthouse	mobile/target/fcp	915.0632	911.01575	1815.0291	ms
+lighthouse	mobile/target/cls	0.003005294052866451	0.003005294052866451	0.003005294052866451	unitless
+lighthouse	mobile/target/tbt	100	48	106.96839999999997	ms
+lighthouse	mobile/target/score	0.9	0.83	0.95	unitless
+lighthouse	mobile/target/bytes	1377651	1377651	1377651	B
+lighthouse	desktop/baseline/lcp	2572.7642	2568.1876	2588.2249999999995	ms
+lighthouse	desktop/baseline/fcp	452.3375	452.28139999999996	459.1463	ms
+lighthouse	desktop/baseline/cls	0.0024121282773774	0.0024121282773774	0.0024121282773774	unitless
+lighthouse	desktop/baseline/tbt	0	0	0	ms
+lighthouse	desktop/baseline/score	0.86	0.86	0.86	unitless
+lighthouse	desktop/baseline/bytes	4248738	4248738	4248738	B
+lighthouse	desktop/target/lcp	897.638	867.7599	938.1246500000001	ms
+lighthouse	desktop/target/fcp	451.63985	430.12465000000003	458.138	ms
+lighthouse	desktop/target/cls	0.0024121282773774	0.0024121282773774	0.0024121282773774	unitless
+lighthouse	desktop/target/tbt	0	0	3.000000000000057	ms
+lighthouse	desktop/target/score	0.99	0.99	0.99	unitless
+lighthouse	desktop/target/bytes	1070988	1070988	1070988	B
+direct-cdp	baseline/lcp	18768	18760	18780	ms
+direct-cdp	baseline/cls	0	0	0	unitless
+direct-cdp	baseline/images	3936230	3936230	3936230	B
+direct-cdp	target/lcp	2724	2688	2868	ms
+direct-cdp	target/cls	0	0	0	unitless
+direct-cdp	target/images	415255	415255	415255	B
+cold-home	baseline/390/js	138683			B
+cold-home	baseline/390/css	11297			B
+cold-home	baseline/390/fonts	105240			B
+cold-home	baseline/390/images	3936230			B
+cold-home	baseline/390/requests	24			count
+cold-home	target/390/js	138794			B
+cold-home	target/390/css	11454			B
+cold-home	target/390/fonts	105240			B
+cold-home	target/390/images	415255			B
+cold-home	target/390/requests	21			count
+cold-home	baseline/1440/js	138683			B
+cold-home	baseline/1440/css	11297			B
+cold-home	baseline/1440/fonts	122216			B
+cold-home	baseline/1440/images	3936230			B
+cold-home	baseline/1440/requests	25			count
+cold-home	target/1440/js	138794			B
+cold-home	target/1440/css	11454			B
+cold-home	target/1440/fonts	122216			B
+cold-home	target/1440/images	755373			B
+cold-home	target/1440/requests	25			count
+check	node-tests	110			count
+check	full-visual-captures	240			count
+check	source-and-main-pairs	160			count
+check	outside-approved-pixels	0			count
+check	icon-colour-checks	13080			count
+check	colour-mismatches	0			count
+check	axe-scans	14			count
+check	navigation-cases	10			count
+check	anchor-cases	30			count
+check	anchor-min-clearance	16			count
+check	http-requests	35			count
+check	http-source-matches	34			count
+check	temporal-requests	240			count
+check	variants	32			count
+check	raw-image-SSIM-min	0.9785082604			unitless
+check	painted-hero-SSIM-min	0.9947965705			unitless
+temporary-artifact-sha256	results/visual.json	91e9c409e318d757f7554abbe31038a78e8ea445a4bfb5577ffc88b9fc87f486			sha256
+temporary-artifact-sha256	results/pixels.json	0a00a7dffe9d9ca1c43a7825f498ddc34dbadcc386b88e39ac286e62eb267421			sha256
+temporary-artifact-sha256	results/hardening-last.json	d86233399b8ce1e8d3195b1602122a02731dea78b826255ef0a2f6c1ce966456			sha256
+temporary-artifact-sha256	results/icon-colours.json	1c963b91d6b37bb662670a6e7691d2135529937dfbe67246c4a1df18eff5c84e			sha256
+temporary-artifact-sha256	results/temporal.json	5059df6c957aa7018024c7ef427048747d98175bbcad4984696ccfd697ac175d			sha256
+temporary-artifact-sha256	results/event-http-final.json	ac5b31ba549669676b7dddea9231935628025936db15cfa7ff640b16d78af511			sha256
+temporary-artifact-sha256	results/painted-quality.json	d885f5e819ba13aa938a3bb117694c7158c71cf2b9e0a12ab67c45345e1a9de3			sha256
+temporary-artifact-sha256	results/image-quality.json	a42691e7242c9e9043bdd0d3e3fababc3c3dcf2bd03562e8013eeb306774f3d4			sha256
+temporary-artifact-sha256	results/performance.json	c649d12678f8300d2c67076b4091926a84ffb472f477b53bf97e0b5eab7c259a			sha256
+temporary-artifact-sha256	results/low-bandwidth.json	5dbeb7ede70789d9f7292930c55e45ba99c035dfde302706f94e74695a8e7399			sha256
+temporary-artifact-sha256	results/readiness-final.json	8f8b6f9c7c5fb6310a029c466e4210c58165f40defb929cab7dbdaae15b5f9ef			sha256
+temporary-artifact-sha256	results/tests-final.log	fc018ee9ec10b2d8bdcfac7b732d0bd07c248d22ca74ef919accb0623bac21a9			sha256
+temporary-artifact-sha256	results/typecheck-final.log	45ff70825a5dd77a3be4060ed4b70d72a128056130d317d560da56c64f0fe3a3			sha256
+temporary-artifact-sha256	results/lint-final.log	740a73f30625c54791706c352ff66a257fef10c9c8e0f8aadcfd3ef991d087a3			sha256
+temporary-artifact-sha256	results/build.log	ec5954c9722e18c0dfcdadc0aa63ff5b8eae4a07e5adb4f960c3b4b7d34e3777			sha256
+review-png-sha256	target-hero.png	9723bbd5252210763aedb44c69874074bd3ef6e4a86098c8eeb837adc054ce78			sha256
+review-png-sha256	reference-focus.png	4929f0e0665c3ca98eab7732393cb8797bc371aed0ce3efc8fe6a8bd13358de9			sha256
+review-png-sha256	baseline-hero.png	5b3bc3530a6cfb6b6afc61b3a215ad592975745095bd371311e530db67ed542e			sha256
+review-png-sha256	target-focus.png	79ec18314488ecf3fc185e4b260a3c566d41b76e9930a03e5c76a2f2b4f97015			sha256
+review-png-sha256	baseline-nojs.png	32992ed0b7bd5b26b7e3ad4e3a683de259669b734ff06c0c1478f3e6f5bef0e2			sha256
+review-png-sha256	reference-nojs.png	8fa1493a3a00a218254e043ceb734be31ee438a8f3ab6a3ca97d5ae7b616ae90			sha256
+review-png-sha256	reference-footer.png	c94f4b705c28669a1ce6a663cf4511b08535543fc8393ee2cc36964829ce719e			sha256
+review-png-sha256	target-nojs.png	ba27c8b0523a9b3ddd200e53f4da51b807ca98b0e329547fb16dca582a697ef5			sha256
+review-png-sha256	target-footer.png	f16cfa55b166743dded5c7eb560355440a988b197d200e3c5aad74ec200bf275			sha256
+review-png-sha256	baseline-focus.png	577b08f5a31f81e33c8d84c57a08f0f4c6e3efd9abaefcaf62579a1857095f18			sha256
+review-png-sha256	reference-hero.png	36a1a49d75b73b5c3412a8797525546468c6e9f006062b9da413f9bfaaf16325			sha256
+review-png-sha256	baseline-footer.png	a1d64806f03933afb80aa24c2a50ff974ddf19ecbc7358e837ec5c75837ab754			sha256

@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import "./helpers/render-site.mjs";
+import { approvedBadgeContrast } from "./helpers/public-hardening-exceptions.mjs";
 const { eventRecords } = await import("../src/lib/content/events.ts");
 const { buildEvents, archiveEvents, eventState, presentEvent, normalizeEventQuery } = await import("../src/lib/content/events-listing.ts");
 
@@ -13,9 +14,9 @@ test("all nine literal records remain exactly equal to the pinned PHP repository
 for (const expected of source.cases) {
   test(`complete PHP presentation, listing and archive oracle: ${expected.name}`, () => {
     const input = inputs.find(c => c.name === expected.name), now = new Date(input.instant), records = input.records ?? eventRecords;
-    assert.deepEqual(records.map(e => presentEvent(e, now)), expected.present);
-    assert.deepEqual(buildEvents(input.query, now, records), expected.build);
-    assert.deepEqual(archiveEvents(now, records), expected.archive);
+    assert.deepEqual(records.map(e => presentEvent(e, now)), approvedBadgeContrast(expected.present));
+    assert.deepEqual(buildEvents(input.query, now, records), approvedBadgeContrast(expected.build));
+    assert.deepEqual(archiveEvents(now, records), approvedBadgeContrast(expected.archive));
   });
 }
 test("baseline fallback featured is duplicated, and search affects only upcoming", () => {

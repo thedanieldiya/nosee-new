@@ -1,6 +1,6 @@
-# Proposed Codex Task 11 — Public-site critical accessibility and mobile-performance fixes
+# Codex Task 11 — Public-site critical accessibility and mobile-performance fixes
 
-**Status:** Proposed; **do not execute until the owner explicitly approves** the limited changes described below.  
+**Status:** Owner explicitly authorised A–D on 2026-10-14; implementation **In review**. See [Task 11 evidence](../evidence/task-11/README.md) for measured outcomes, exact exceptions and remaining gates.
 **Baseline:** \`thedanieldiya/nosee-new\` current \`main\` after [Task 10 merged PR #10](https://github.com/thedanieldiya/nosee-new/pull/10), merge \`7326c063c44b9d88cb5247bb3ade9d0e843f8397\`.  
 **Authority:** [Task 10 findings](../evidence/task-10/README.md#accessibility-and-ordered-owner-decisions), [PRD](../PRD.md), [AGENTS](../../AGENTS.md), [approved admin TRD](../admin-dashboard-trd.md). Laravel reference remains read-only.  
 **Purpose:** Small, controlled **owner-authorised post-port exceptions** to resolve the *high-priority* findings from the final site audit. **Not a redesign, not new content/routes, not admin implementation and not automatic production launch.**  

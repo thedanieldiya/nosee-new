@@ -55,7 +55,7 @@ test("server HTML contains the three exact cards, original images, safe external
   assert.equal(externalLinks.length, 3);
   source.monitoring.forEach((record, index) => {
     for (const attribute of [`src="${record.image}"`, `alt="${record.image_alt}"`, 'width="600"', 'height="338"']) assert.ok(images[index].includes(attribute));
-    assert.doesNotMatch(images[index], /loading=|srcSet=|fetchPriority=/i);
+    assert.match(images[index], /loading="lazy" decoding="async"/);
     for (const attribute of [`href="${record.source_url}"`, 'rel="noopener noreferrer"', `aria-label="View full product: ${record.title}"`]) assert.ok(externalLinks[index].includes(attribute));
   });
   assert.equal([...html.matchAll(/Provided by: National Weather Services/g)].length, 3);

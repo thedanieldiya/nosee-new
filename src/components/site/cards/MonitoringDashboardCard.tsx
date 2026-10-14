@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-img-element -- Preserve the original PNG, crop and eager source loading. */
 import type { MonitoringDashboardRecord } from "@/lib/content/monitoring";
+import { ResponsiveImage } from "@/components/site/ui/ResponsiveImage";
 
 export function MonitoringDashboardCard({ record }: { record: MonitoringDashboardRecord }) {
   return <article className="overflow-hidden border border-line-soft bg-default h-full w-full" data-monitoring-dashboard-card>
@@ -7,7 +7,7 @@ export function MonitoringDashboardCard({ record }: { record: MonitoringDashboar
       <h3 className="break-words font-heading text-base leading-6 font-medium tracking-[-0.02em] text-[#0b5025]">{record.title}</h3>
     </div>
     <div className="aspect-video overflow-hidden border-y border-line-soft px-2">
-      <img src={record.image} alt={record.image_alt} width="600" height="338" className="size-full object-cover" />
+      <ResponsiveImage src={record.image} sizes="(min-width: 1440px) 432px, (min-width: 1024px) calc((100vw - 96px) / 3), calc(100vw - 48px)" alt={record.image_alt} width="600" height="338" className="size-full object-cover" />
     </div>
     <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 p-4 text-xs tracking-[-0.02em]">
       <a href={record.source_url} target="_blank" rel="noopener noreferrer" aria-label={`View full product: ${record.title}`}

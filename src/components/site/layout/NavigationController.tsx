@@ -79,7 +79,6 @@ export function NavigationController() {
       drawer.hidden = false;
       overlay.hidden = false;
       openIcon.hidden = true;
-      // Retain the source's hidden CSS class as well as its hidden-property toggle.
       closeIcon.hidden = false;
       document.body.style.overflow = "hidden";
       resetSubmenus();

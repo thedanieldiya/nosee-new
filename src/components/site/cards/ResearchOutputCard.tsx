@@ -17,7 +17,7 @@ export function ResearchOutputCard({ record }: { record: PublicationRecord }) {
     </div>
     <div className="hidden lg:block">
       <ButtonLink href={`https://doi.org/${record.doi}`} intent="primary" variant="stroke" target="_blank" rel="noopener noreferrer"
-        aria-label={`Read publication: ${record.title}`} className="gap-10 pl-5 pr-4 tracking-[-0.02em]">
+        aria-label={`Read Here: ${record.title}`} className="gap-10 pl-5 pr-4 tracking-[-0.02em]">
         Read Here<span className="shrink-0" aria-hidden="true"><ArrowRight /></span>
       </ButtonLink>
     </div>

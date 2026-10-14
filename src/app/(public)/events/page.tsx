@@ -26,7 +26,7 @@ export default async function EventsPage({ searchParams }: { searchParams: Promi
           </div>
           <form action="/events" method="GET" className="hidden h-12 w-[416px] shrink-0 items-center border border-line-strong bg-default pr-1 pl-4 lg:flex" role="search">
             <label htmlFor="event-search" className="sr-only">Search upcoming events</label>
-            <input id="event-search" name="q" type="search" defaultValue={query ?? ""} placeholder="Search events..." className="min-w-0 flex-1 bg-transparent text-base text-primary outline-none placeholder:text-secondary" />
+            <input id="event-search" name="q" type="search" defaultValue={query ?? ""} placeholder="Search events..." className="min-w-0 flex-1 bg-transparent text-base text-primary outline-none placeholder:text-secondary focus-visible:outline-2 focus-visible:outline-solid focus-visible:-outline-offset-2 focus-visible:outline-accent" />
             <button type="submit" className="inline-flex h-10 items-center justify-center gap-1.5 bg-brand px-4 text-sm font-medium text-inverse focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">Search<SearchRegular size={16} className="size-4 max-w-full" aria-hidden="true" focusable="false" data-ui-icon="search" /></button>
           </form>
         </header>

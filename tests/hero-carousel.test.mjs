@@ -13,6 +13,7 @@ function createElement(classes = []) {
         dataset: {},
         inert: false,
         style: {},
+        querySelector: () => null,
         addEventListener(event, listener) {
             const eventListeners = listeners.get(event) ?? [];
 
@@ -308,4 +309,54 @@ test('disposal clears both timers and listeners and permits clean reinitializati
     assert.equal(harness.timerCount(6000), 1);
     restarted.destroy();
     assert.equal(harness.timerCount(6000), 0);
+});
+
+test('a cold requested image decodes before the original 400ms transition starts', async () => {
+    const harness = createHarness({ desktop: false });
+    let resolve;
+    const image = { complete: false, naturalWidth: 0, decode: () => new Promise(r => { resolve = r; }) };
+    harness.imageSlides[1].querySelector = () => image;
+    assert.equal(harness.controller.showSlide(1, true), false);
+    assert.equal(harness.controller.currentIndex(), 0);
+    assert.equal(harness.timerCount(400), 0);
+    image.complete = true; image.naturalWidth = 1008; resolve(); await Promise.resolve();
+    assert.equal(harness.controller.currentIndex(), 1);
+    assert.equal(harness.timerCount(400), 1);
+    assert.equal(harness.contentSlides[1].inert, false);
+});
+
+test('a newer selection and disposal cancel an outstanding image decode', async () => {
+    for (const cancel of ['selection', 'dispose']) {
+        const harness = createHarness({ desktop: false });
+        let resolve;
+        const image = { complete: false, naturalWidth: 0, decode: () => new Promise(r => { resolve = r; }) };
+        harness.imageSlides[1].querySelector = () => image;
+        harness.controller.showSlide(1, true);
+        if (cancel === 'selection') harness.controller.showSlide(0, true);
+        else harness.controller.destroy();
+        image.complete = true; image.naturalWidth = 1008; resolve(); await Promise.resolve();
+        assert.equal(harness.controller.currentIndex(), 0);
+        assert.equal(harness.timerCount(400), 0);
+    }
+});
+
+test('an unavailable image leaves the current slide readable without an unhandled rejection', async () => {
+    const harness = createHarness({ desktop: false });
+    harness.imageSlides[1].querySelector = () => ({ complete: true, naturalWidth: 0, decode: () => Promise.reject(new Error('Unavailable')) });
+    harness.controller.showSlide(1, true); await Promise.resolve();
+    assert.equal(harness.controller.currentIndex(), 0);
+    assert.equal(harness.contentSlides[0].inert, false);
+});
+
+test('hover still pauses an autoplay frame waiting for its image', async () => {
+    const harness = createHarness();
+    let resolve;
+    const image = { complete: false, naturalWidth: 0, decode: () => new Promise(r => { resolve = r; }) };
+    harness.imageSlides[1].querySelector = () => image;
+    harness.runTimer(6000);
+    harness.carousel.dispatch('mouseenter');
+    image.complete = true; image.naturalWidth = 1008; resolve(); await Promise.resolve();
+    assert.equal(harness.controller.currentIndex(), 0);
+    assert.equal(harness.timerCount(6000), 0);
+    assert.equal(harness.timerCount(400), 0);
 });
