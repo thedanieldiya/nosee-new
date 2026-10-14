@@ -16,6 +16,8 @@ Build the NOSEE Next.js replacement in this repository. Legacy reference: https:
 
 Only narrowly necessary safety/accessibility/compatibility exceptions are permitted, and every deviation must be explicitly described for owner review. Do not replicate the legacy newsletter's false successful-subscription behavior without an actual working subscription provider; keep the visible source form intact.
 
+**Owner-approved post-migration icon policy (14 October 2026):** The public site's general UI icons may now be replaced by **MingCute only**, as documented in [the approved admin TRD](docs/admin-dashboard-trd.md). Preserve all other source parity and functionality. Prefer `@mingcute/react` verified exports; if a matching glyph is unavailable, use the closest **existing MingCute** alternative, not custom/new SVG paths or a second icon library. **Every icon must inherit its relevant neighbouring text colour (`currentColor`)**, including hover/active/focus/disabled/dark-background states; for icon-only controls use the parent control colour. Test computed SVG paint vs label/parent colour. Original NOSEE logos/scientific illustrations/photos are content assets, not replaceable generic UI icons. Report authorised icon-shape differences distinctly from unexpected regressions.
+
 **Branch-only review is the default workflow:** create an isolated task branch, commit and push so Vercel builds its branch preview, report the real preview URL if confirmed, and stop for owner review. No automatic PR and no auto-merge. The later admin dashboard uses shadcn and is **not** subject to visual parity with the Laravel public site; it should share NOSEE brand foundations only.
 
 ## Agent guidance
