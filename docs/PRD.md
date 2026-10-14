@@ -94,7 +94,9 @@ Some source records and About/leadership content explicitly say **development fi
 
 ### C. Full-stack admin and content management — after the public foundation
 
-- Admin authentication and role checks; basic role `admin` required, `editor` optional on confirmation.
+**Approved admin information architecture:** [NOSEE Admin Dashboard — TRD v1.0](admin-dashboard-trd.md) (owner-approved 14 October 2026). This specification fixes the admin route tree, three roles, their navigation/scope permissions, research membership workflows and UI/icon requirements; it supersedes the preliminary admin role/navigation proposals below. Implementation remains a separate phase after the existing public frontend port.
+
+- Admin authentication and role checks for `super_admin`, `editor` and scoped `research_group_lead`.
 - Membership application storage, review, approval/rejection and transactional notifications.
 - Private member records separate from explicitly published executive/researcher profiles.
 - Admin management for News, Events, selected public profiles, homepage/standard site copy and monitoring resource cards.
