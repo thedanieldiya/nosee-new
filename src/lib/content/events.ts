@@ -3,7 +3,7 @@ export type EventRecord = Readonly<{
   image: string | null; image_alt: string | null; timezone: string; start_date: string; end_date: string | null;
   schedule: Readonly<{
     mode: string; start_time: string | null; end_time: string | null;
-    itinerary: readonly Readonly<{date: string; start_time: string; end_time: string; title: string; description: string | null}>[];
+    itinerary: readonly Readonly<{date: string; start_time: string; end_time: string | null; title: string | null; description: string | null}>[];
   }>;
   location: Readonly<{type: string; venue: string | null; address: string | null; city: string | null; country: string | null; platform: string | null}>;
   application_deadline: string | null; meeting_site_url: string | null; organiser: string; speakers: readonly string[];
