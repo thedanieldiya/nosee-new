@@ -4,11 +4,13 @@ import { Container } from "@/components/site/ui/Container";
 import { buttonClasses } from "@/components/site/ui/ButtonLink";
 import { NavigationController } from "./NavigationController";
 import { NavigationLink, NavigationSubmenuButton } from "./NavigationLink";
+import User3Regular from "@mingcute/react/core-regular/user-3";
+import MenuRegular from "@mingcute/react/core-regular/menu";
+import CloseRegular from "@mingcute/react/core-regular/close";
+import DownRegular from "@mingcute/react/core-regular/down";
 
 function AccountIcon() {
-  return <svg className="size-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">
-    <circle cx="12" cy="7" r="4" /><path d="M4.5 21a7.5 7.5 0 0 1 15 0" strokeLinecap="round" />
-  </svg>;
+  return <User3Regular size={28} className="size-7" aria-hidden="true" focusable="false" data-ui-icon="account" />;
 }
 
 export function SiteNavigation() {
@@ -71,13 +73,10 @@ export function SiteNavigation() {
           <button type="button" className="flex size-11 shrink-0 items-center justify-center rounded-md text-inverse focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-navigation-drawer" data-mobile-menu-button>
             <span className="relative block size-8" aria-hidden="true" data-mobile-menu-open-icon>
-              <span className="absolute top-[0.4375rem] left-1/2 h-0.5 w-[1.375rem] -translate-x-1/2 bg-current" />
-              <span className="absolute top-1/2 left-1/2 h-0.5 w-[1.375rem] -translate-1/2 bg-current" />
-              <span className="absolute bottom-[0.4375rem] left-1/2 h-0.5 w-[1.375rem] -translate-x-1/2 bg-current" />
+              <MenuRegular size={32} className="size-8" aria-hidden="true" focusable="false" data-ui-icon="menu" />
             </span>
             <span className="relative hidden size-8" aria-hidden="true" data-mobile-menu-close-icon>
-              <span className="absolute top-1/2 left-1/2 h-0.5 w-[1.375rem] -translate-1/2 rotate-45 bg-current" />
-              <span className="absolute top-1/2 left-1/2 h-0.5 w-[1.375rem] -translate-1/2 -rotate-45 bg-current" />
+              <CloseRegular size={32} className="size-8" aria-hidden="true" focusable="false" data-ui-icon="close" />
             </span>
           </button>
         </Container>
@@ -101,9 +100,7 @@ export function SiteNavigation() {
                   {item.children && <NavigationSubmenuButton item={item} type="button" className="group flex size-11 shrink-0 items-center justify-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent"
                     aria-label={`Toggle ${item.label} submenu`} aria-expanded="false" aria-controls={`mobile-submenu-${index}`}
                     data-mobile-submenu-button>
-                    <svg className="size-5 transition-transform group-aria-expanded:rotate-180" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">
-                      <path d="m5 7.5 5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <DownRegular size={20} className="size-5 transition-transform group-aria-expanded:rotate-180" aria-hidden="true" focusable="false" data-ui-icon="submenu" />
                   </NavigationSubmenuButton>}
                 </div>
                 {item.children && <ul id={`mobile-submenu-${index}`} className="pb-3 pl-4" data-mobile-submenu hidden>

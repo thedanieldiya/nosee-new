@@ -3,6 +3,13 @@ import { site } from "@/lib/content/site";
 import { Container } from "@/components/site/ui/Container";
 import { ButtonLink, buttonClasses } from "@/components/site/ui/ButtonLink";
 import { NewsletterController } from "./NewsletterController";
+import LinkedinFilled from "@mingcute/react/core-filled/linkedin";
+import FacebookFilled from "@mingcute/react/core-filled/facebook";
+import SocialXFilled from "@mingcute/react/core-filled/social-x";
+import InstagramFilled from "@mingcute/react/core-filled/instagram";
+import YoutubeFilled from "@mingcute/react/core-filled/youtube";
+
+const socialIcons = { LinkedinFilled, FacebookFilled, SocialXFilled, InstagramFilled, YoutubeFilled };
 
 const footerLinkClasses = [
   "relative inline-flex min-h-11 items-center text-tertiary transition-colors hover:text-inverse",
@@ -23,12 +30,14 @@ export function SiteFooter() {
           <img src="/logoWhite.png" alt="NOSEE - Network of Space-Earth Environmentalists" width="160" height="48" className="h-auto w-40 max-w-full" />
           {description !== "" && <p className="mt-5 max-w-xs text-sm leading-6 text-tertiary">{description}</p>}
           <ul className="mt-8 flex flex-wrap items-center gap-3" aria-label="Social media">
-            {social_links.map((link) => <li key={link.label}>
-              <a href={link.url} aria-label={link.label} {...externalProps(link.url)} className="group flex min-h-11 min-w-11 items-center justify-center rounded-sm p-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:min-h-0 lg:min-w-0">
-                <span aria-hidden="true" className="size-6 bg-tertiary transition-colors group-hover:bg-inverse group-focus-visible:bg-inverse"
-                  style={{ WebkitMask: `url('${link.icon}') center / contain no-repeat`, mask: `url('${link.icon}') center / contain no-repeat` }} />
+            {social_links.map((link) => {
+              const SocialIcon = socialIcons[link.icon];
+              return <li key={link.label}>
+              <a href={link.url} aria-label={link.label} {...externalProps(link.url)} className="group flex min-h-11 min-w-11 items-center justify-center rounded-sm p-2 text-tertiary transition-colors hover:text-inverse focus-visible:text-inverse focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:min-h-0 lg:min-w-0">
+                <span aria-hidden="true" className="size-6"><SocialIcon size={24} className="size-6" aria-hidden="true" focusable="false" data-ui-icon={link.icon} /></span>
               </a>
-            </li>)}
+            </li>;
+            })}
           </ul>
           <ButtonLink href={support_url} intent="secondary" variant="stroke" size="lg" {...externalProps(support_url)} className="mt-8 bg-default px-6 uppercase tracking-[0.02em]">Support NOSEE</ButtonLink>
         </section>

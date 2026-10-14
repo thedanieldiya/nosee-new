@@ -72,8 +72,10 @@ test("original collaboration URLs, navigation anchor labels and inactive/current
 test("source icon-only API extensions preserve existing default primitive output", () => {
   assert.ok(buttonClasses({ size: "sm", iconOnly: true, intent: "secondary", variant: "text" }).includes("h-9 w-9 p-0 text-sm"));
   assert.ok(buttonClasses({ size: "sm" }).includes("h-9 px-3 text-sm"));
-  assert.equal(render(ArrowRight), '<span aria-hidden="true" class="inline-block size-4 shrink-0 bg-current" style="-webkit-mask:url(&#x27;/media/icons/arrow-right.svg&#x27;) center / contain no-repeat;mask:url(&#x27;/media/icons/arrow-right.svg&#x27;) center / contain no-repeat"></span>');
-  assert.match(render(ArrowRight, { className: "rotate-180" }), /bg-current rotate-180/);
+  assert.match(render(ArrowRight), /class="inline-block size-4 shrink-0"/);
+  assert.match(render(ArrowRight), /data-ui-icon="arrow-right"/);
+  assert.match(render(ArrowRight), /style="color:currentColor"/);
+  assert.match(render(ArrowRight, { className: "rotate-180" }), /shrink-0 rotate-180/);
 });
 
 test("actual navigation SSR highlights About and all original fragment links before hydration", () => {
