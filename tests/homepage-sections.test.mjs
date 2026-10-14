@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import test from "node:test";
 import { render } from "./helpers/render-site.mjs";
+import { fixtures } from "./helpers/pinned-content.mjs";
+import { publicationRecords } from "../src/lib/content/publications.ts";
+import { newsRecords } from "../src/lib/content/news.ts";
+import { eventRecords } from "../src/lib/content/events.ts";
 
 const { HomeResearchOutputs } = await import("../src/components/site/sections/HomeResearchOutputs.tsx");
 const { HomeTrendingNews } = await import("../src/components/site/sections/HomeTrendingNews.tsx");
@@ -9,7 +12,11 @@ const { HomeUpcomingEvents } = await import("../src/components/site/sections/Hom
 const { TrendingNewsCard } = await import("../src/components/site/cards/TrendingNewsCard.tsx");
 const { EventCard } = await import("../src/components/site/cards/EventCard.tsx");
 const { default: HomePage, dynamic, metadata } = await import("../src/app/(public)/page.tsx");
-const source = JSON.parse(readFileSync(new URL("../docs/evidence/task-06/source-data.json", import.meta.url)));
+const source = {
+  publications: { selected: fixtures.homepage.publications.map(slug => publicationRecords.find(record => record.slug === slug)) },
+  news: { selected: fixtures.homepage.news.map(slug => newsRecords.find(record => record.slug === slug)) },
+  events: { all: eventRecords, selected: fixtures.homepage.events.map(slug => eventRecords.find(record => record.slug === slug)), presentation: fixtures.homepage.presentation },
+};
 
 test("research SSR preserves three exact publications, authors/year/area and external DOI controls", () => {
   const html = render(HomeResearchOutputs);

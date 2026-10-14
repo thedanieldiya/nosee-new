@@ -1,10 +1,10 @@
 # Source-derived public visual baseline
 
-**Task:** [Task 01](codex-tasks/01-discovery-and-baseline.md) · **Captured/inspected date:** 2026-10-13 · **Status:** In review.
+**Pinned-source inspection:** 13 October 2026. **Updated:** 14 October 2026; retained design reference after completed public migration.
 **Legacy source:** [`9872c4ed12aa48835eab71065c69b468424adb4a`](https://github.com/thedanieldiya/nosee/tree/9872c4ed12aa48835eab71065c69b468424adb4a).
 **Related:** [migration map](migration-map.md), [PRD](PRD.md), [progress](PROGRESS.md).
 
-This records CSS/template/browser-code facts, not measured pixel parity. Legacy paths are relative to the pinned source tree. No screenshots were captured: `curl --head --location --max-time 15 https://nosee.org` returned **HTTP 403 / CONNECT tunnel failed**; ports 8000/5173 had no listener and a localhost request was refused. Chromium and a preinstalled Playwright module were found, but no reachable reference renderer was available. No server was started or packages installed in the read-only legacy checkout. A live/source/Figma visual comparison remains unverified.
+This retains original CSS/template/browser-code contracts, not a current screenshot or performance report. The original public port is complete as a development milestone; [public-site status](PUBLIC-SITE-STATUS.md) records approved changes and outstanding release gates. Legacy asset sizes/loading and inactive motion below describe the pinned source; current responsive image variants, MingCute icons, contrast/focus and native no-JS fixes are authorised exceptions. Live/source/Figma verification is not inferred.
 
 ## 1. Exact theme and typography
 
@@ -102,91 +102,12 @@ Eleven SVGs under `media/icons/`: `CalendarDots`, `Clock`, `MapPin`, `arrow-righ
 
 `public/build/manifest.json` references an existing unrebuilt CSS entry of **83,447 bytes**, shared JS **9,116 bytes**, and dynamic homepage motion JS **11,126 bytes**, plus nine font faces in WOFF2/WOFF. These are artifact/file-size observations only: build currency, actual font downloads, gzip/Brotli size, HTML bytes and total request count were **not measured**. No dependency/build command was run to refresh them.
 
-## 5. Screenshot evidence matrix and reproduction
+## 5. Maintenance checks and source discrepancies
 
-Each required entry is **Not captured**. Widths are CSS pixels; later captures must record height, DPR, browser, fonts, content revision, timezone, timestamp, route state and motion preference. Proposed common settings: 390×844, 768×1024, 1440×1000; DPR 1, locale en-GB, timezone Africa/Lagos, light scheme. Static reference frames can use reduced motion, but default-motion and hover/focus states must be captured separately and labeled.
+For future approved public UI changes, compare the actual pinned renderer and destination at identical viewport, DPR, fonts, content revision, clock/timezone, slide and motion state. Check complete pages plus affected sections, crops, breakpoints, keyboard/focus/hover, JS/no-JS navigation and reduced motion. Generated captures/logs belong in temporary or CI storage, not a new tracked artifact archive.
 
-| Page/state | 390px | 768px | 1440px | Exact reproduction after a reference renderer is reachable |
-| --- | --- | --- | --- | --- |
-| Homepage, first hero/full page | Not captured | Not captured | Not captured | GET `/`, fonts/images loaded, scroll top; first ICELLI slide; full-page capture |
-| Homepage, second hero / compact nav | Not captured | Not captured | Not captured | Select second hero indicator; separately scroll 25px to compact nav; capture crop and credit visibility |
-| About, editorial page | Not captured | Not captured | Not captured | GET `/about`, full-page capture; check viewport-specific text/picture source and quote image visibility |
-| About, leadership first/last group | Not captured | Not captured | Not captured | Scroll `#leadership`; capture first group then activate last available indicator; record visible/inert profiles |
-| Events, normal listing | Not captured | Not captured | Not captured | GET `/events`; record server timestamp/timezone and actual featured/ongoing/upcoming data |
-| Events, search/no results | Not captured | Not captured | Not captured | GET `/events?q=Lagos` then `?q=baseline-no-match`; verify featured/ongoing remain and upcoming filters; search UI hidden below 1024 |
-| Archive, populated state | Not captured | Not captured | Not captured | GET `/events/archive`; at the discovery date fixtures include June/September 2026 past events; record actual date, do not assume state persists |
-| Detail, multi-day itinerary | Not captured | Not captured | Not captured | GET `/events/environmental-data-training`; verify five itinerary days, 2027-07-19…23, body/organiser grid |
-| Detail, single-day/past deadline | Not captured | Not captured | Not captured | GET `/events/community-sky-observation-day`; expected past/closed-deadline on 2026-10-13; date-dependent, record actual state |
-| Missing slug / mobile drawer / newsletter dialog | Not captured | Not captured | Not captured | GET `/events/baseline-missing`; separately open mobile menu/submenu at narrow widths; dialog only via log-only development endpoint, not production provider |
-
-Ongoing, archive-empty and future/closed deadline transitions require a reviewer-controlled reference fixture/clock, not invented screenshots. The browser clock alone cannot freeze PHP's event classification. `/events/icelli2026` is an external redirect; record HTTP status/Location instead of pretending this is a local detail screen. No external microsite parity is required by this task.
-
-Reproduction procedure:
-
-1. Obtain a reachable, reviewer-controlled **pinned legacy renderer** with existing dependencies/assets and fonts available; use a separate environment/runtime outputs so `/workspace/nosee` remains untouched. Confirm it serves the inspected revision, not an unknown live deployment. No installation or renderer startup was performed in Task 01.
-2. Set `LEGACY_BASE_URL` to that renderer and use the already installed Playwright/Chromium. The example below is **not executed evidence**; no Playwright install is required. Save captures only when successful, then link actual artifacts and manifest in PROGRESS.md.
-3. Wait for fonts/images; capture initial full pages at all three settings; use the matrix for state captures. For animated defaults wait until entrance motion completes, hover hero to pause desktop autoplay, and record the chosen slide. Do not submit real subscriber/applicant data.
-
-```javascript
-// Run in a Node environment with the existing Playwright package and Chromium.
-const { chromium } = require('playwright');
-const fs = require('node:fs');
-const base = process.env.LEGACY_BASE_URL;
-if (!base) throw new Error('Set LEGACY_BASE_URL to the pinned reference renderer');
-const pages = [
-  ['home', '/'], ['about', '/about'], ['events', '/events'],
-  ['archive', '/events/archive'],
-  ['detail', '/events/environmental-data-training'],
-];
-(async () => {
-  const browser = await chromium.launch({ executablePath: '/usr/bin/chromium' });
-  fs.mkdirSync('docs/baseline', { recursive: true });
-  try {
-    for (const [width, height] of [[390, 844], [768, 1024], [1440, 1000]]) {
-      const context = await browser.newContext({ viewport: { width, height },
-        deviceScaleFactor: 1, locale: 'en-GB', timezoneId: 'Africa/Lagos',
-        colorScheme: 'light', reducedMotion: 'reduce' });
-      const page = await context.newPage();
-      for (const [name, path] of pages) {
-        const response = await page.goto(new URL(path, base).href);
-        if (!response?.ok()) throw new Error(`${path}: HTTP ${response?.status()}`);
-        await page.evaluate(async () => {
-          await document.fonts.ready;
-          // Trigger lazy loading before full-page captures, then restore top.
-          for (let y = 0; y < document.body.scrollHeight; y += innerHeight) {
-            scrollTo(0, y); await new Promise(resolve => setTimeout(resolve, 100));
-          }
-          scrollTo(0, 0);
-          await Promise.all([...document.images].map(img => img.decode().catch(() => {})));
-        });
-        await page.screenshot({ path: `docs/baseline/${name}-${width}.png`, fullPage: true });
-      }
-      await context.close();
-    }
-  } finally { await browser.close(); }
-})();
-```
-
-Record failed image/font requests and final URLs separately; this example is only the initial-page subset, not evidence that interaction/state captures or network measurements passed.
-
-## 6. Discrepancies requiring review
-
-- Legacy PRD §9.1 forbids autoplay; current hero code uses desktop autoplay and has no arrow controls. Mobile hero source height is 750px while PHP/JS assertions still expect `78svh`. P0 records the disagreement rather than choosing a redesign.
-- Newsletter visual success promises a subscription/email despite log-only backend behavior; NWS-01 explicitly requires a functioning provider and honest outcomes. Validation JSON handling is also inconsistent with the route classification in `bootstrap/app.php`.
-- Existing copy varies by viewport, contains NSEE/NOSEE, `John Doe`, leadership placeholders and mockup commentary. Content changes need approval distinct from pixel-parity approval.
-- Live deployment/Figma authority is unverified because access failed. No deployed-versus-source visual discrepancy is claimed. Exact image/network budgets must be agreed with actual captures, not inferred from source-only layout.
-
-## 7. Measurable acceptance checklist for later tasks
-
-These are proposed review/check procedures, not changed PRD criteria or achieved measurements.
-
-- [ ] P0 owner approves source truth, autoplay/height/content decisions and the capture plan; missing reference screenshots obtained or their gate explicitly resolved.
-- [ ] Compare legacy/destination at identical 390/768/1440 widths, heights/DPR, revision/content, loaded fonts, slide/state and motion preference. Attach actual before/after images and overlay/diff; review layout/spacing/typography/crops/section order and horizontal overflow. Record unexplained differences; no parity self-approval.
-- [ ] Verify keyboard focus/skip link/dropdown/drawer return/trap, no-JS reading/navigation, reduced motion, 1/2/3-profile controls, search/empty/archive/redirect/deadline states and truthful newsletter feedback. Accessibility changes with visual impact are documented for owner approval; no WCAG pass inferred from classes.
-- [ ] Preserve shadcn as an **admin-only** dependency in P5. Map admin primary/ring to brand/accent, text/background/border to source neutrals and fonts; visually review hover/disabled/error/contrast states. Check public bundles contain no dashboard/editor/chart dependency.
-- [ ] For later lab comparison use a recorded mobile CPU throttle (initial proposal 4× slowdown) and explicit slow network (400 kbit/s down/up, 400ms latency), cold cache; also test a faster mobile profile and interrupted/retried form submission. Record browser/version/profile and distinguish lab simulations from field data.
-- [ ] Record per-route HTML, JS (framework and custom separately), CSS, fonts and initial/deferred images using response/transfer sizes, compression, request count and cache state. Compare first meaningful content/no-JS usability; do not substitute on-disk originals for network totals.
-- [ ] After that measurement, agree route budgets before P2: initial proposals for review are ≤100KiB compressed total JS on homepage / ≤80KiB informational pages, ≤20KiB CSS, ≤150KiB mobile hero, ≤350KiB initially loaded images and ≤80KiB critical fonts. They are **provisional**, not demonstrated feasible limits or approved gates; track measured exceptions explicitly.
-- [ ] Evaluate PRD field goals LCP ≤2.5s, INP ≤200ms, CLS ≤0.1 at the 75th percentile when representative field data exists. Later bounded lab checks may diagnose regressions; Task 01 runs no Lighthouse and reports no score/CWV success.
-
-**Current measurement status:** initial HTML/JS/CSS/image transfer sizes, request count, LCP/INP/CLS, lab scores and interaction timings are **Not measured**. Source asset sizes and code timings above are the available evidence, with the missing runtime captures visible to the reviewer.
+- Keep source NSEE/NOSEE spelling, viewport-dependent copy, John Doe/leadership placeholders and mockup text until content is explicitly approved.
+- The source hero autoplays despite older PRD wording and uses a 750px mobile frame despite old `78svh` assertions; preserve the implemented behaviour. The six-stage hero entrance was explicitly authorised; other source reveals remain inactive.
+- Do not recreate false newsletter delivery claims. Its source appearance remains, with the honest-error exception until a provider is integrated.
+- Image/attribution rights, live deployment, manual accessibility and content/indexing remain separate release decisions. Current mobile Lighthouse ~3.54s is accepted provisionally; ≤2.5s and field CWV are deferred.
+- Public general UI uses existing official MingCute glyphs and inherited adjacent-text `currentColor`; retain exact surrounding geometry. Admin/shadcn remains a separate phase and must not enter public bundles.

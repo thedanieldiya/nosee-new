@@ -7,6 +7,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { createElement } from "react";
 import ts from "typescript";
 import { dataRecords, homepageMonitoringRecords } from "../src/lib/content/monitoring.ts";
+import { fixtures } from "./helpers/pinned-content.mjs";
 
 // Reuse installed TypeScript to render the real server components without a test framework.
 const sourceRoot = new URL("../src/", import.meta.url);
@@ -29,7 +30,7 @@ registerHooks({
   },
 });
 const { HomeMonitoringDashboard } = await import("../src/components/site/sections/HomeMonitoringDashboard.tsx");
-const source = JSON.parse(readFileSync(new URL("../docs/evidence/task-05/source-data.json", import.meta.url)));
+const source = { all: fixtures.monitoring.all, monitoring: fixtures.monitoring.selected.map(slug => fixtures.monitoring.all.find(record => record.slug === slug)) };
 
 test("literal data and strict homepage selection match the pinned PHP repository, excluding the starter", () => {
   assert.deepEqual(dataRecords, source.all);
@@ -64,7 +65,7 @@ test("server HTML contains the three exact cards, original images, safe external
 });
 
 test("all monitoring PNGs retain pinned hashes, byte lengths and natural dimensions", () => {
-  const assets = JSON.parse(readFileSync(new URL("../docs/evidence/task-05/assets.json", import.meta.url)));
+  const assets = fixtures.monitoring.assets;
   for (const asset of assets) {
     const bytes = readFileSync(new URL("../" + asset.path, import.meta.url));
     assert.equal(bytes.length, asset.bytes);

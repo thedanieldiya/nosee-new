@@ -6,18 +6,18 @@ import { createElement } from "react";
 import { PathnameContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime.js";
 import { render } from "./helpers/render-site.mjs";
 import { about } from "../src/lib/content/about.ts";
+import { fixtures, assertPinned } from "./helpers/pinned-content.mjs";
 
 const { default: AboutPage, metadata } = await import("../src/app/(public)/about/page.tsx");
 const { buttonClasses } = await import("../src/components/site/ui/ButtonLink.tsx");
 const { ArrowRight } = await import("../src/components/site/ui/ArrowRight.tsx");
 const { SiteNavigation } = await import("../src/components/site/layout/SiteNavigation.tsx");
 const { navigation, getNavigationState } = await import("../src/lib/content/navigation.ts");
-const source = JSON.parse(readFileSync(new URL("../docs/evidence/task-07/source-data.json", import.meta.url)));
-const assets = JSON.parse(readFileSync(new URL("../docs/evidence/task-07/assets.json", import.meta.url)));
+const assets = fixtures.about.assets;
 const html = render(AboutPage);
 
-test("complete literal About record matches fresh pinned PHP, including all responsive/development copy", () => {
-  assert.deepEqual(about, source);
+test("complete literal About record matches pinned PHP, including all responsive/development copy", () => {
+  assertPinned(about, fixtures.about.recordHash);
   assert.equal(about.mission.objectives.length, 3);
   assert.equal(about.leadership.people.length, 7);
   assert.equal(new Set([about.intro.description_mobile, about.intro.description_tablet, about.intro.description]).size, 3);
@@ -30,8 +30,7 @@ test("six source PNG hashes, dimensions and paths match and reused profiles add 
   assert.equal(assets.reduce((sum, asset) => sum + asset.bytes, 0), 1481578);
   for (const asset of assets) {
     const bytes = readFileSync(new URL(`../public${asset.path}`, import.meta.url));
-    assert.equal(createHash("sha256").update(bytes).digest("hex"), asset.sourceSha256);
-    assert.equal(asset.targetSha256, asset.sourceSha256);
+    assert.equal(createHash("sha256").update(bytes).digest("hex"), asset.sha256);
     assert.equal(bytes.length, asset.bytes);
     assert.equal(bytes.readUInt32BE(16), asset.width);
     assert.equal(bytes.readUInt32BE(20), asset.height);

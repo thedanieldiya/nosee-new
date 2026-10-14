@@ -1,0 +1,968 @@
+{
+  "sourceRevision": "9872c4ed12aa48835eab71065c69b468424adb4a",
+  "monitoring": {
+    "all": [
+      {
+        "slug": "average-f-region-observations",
+        "title": "Average F-Region Observations.",
+        "summary": "Average F-region observation coverage ingested into the GloTEC model.",
+        "provider": "National Weather Services",
+        "ownership": "external",
+        "source_url": "https://www.spaceweather.gov/products/glotec",
+        "image": "/media/monitoringDashboards/fRegionObservations.png",
+        "image_alt": "Global map showing average F-region observation coverage.",
+        "homepage_monitoring": true
+      },
+      {
+        "slug": "range-error-from-tec",
+        "title": "Range Error from TEC",
+        "summary": "Estimated GPS L1 range error derived from global total electron content.",
+        "provider": "National Weather Services",
+        "ownership": "external",
+        "source_url": "https://www.spaceweather.gov/products/glotec",
+        "image": "/media/monitoringDashboards/rangeError.png",
+        "image_alt": "Global map showing GPS L1 range error derived from total electron content.",
+        "homepage_monitoring": true
+      },
+      {
+        "slug": "starter-environmental-dataset",
+        "title": "Starter Environmental Dataset",
+        "summary": "Starter data record for local development.",
+        "provider": "NOSEE",
+        "ownership": "nosee",
+        "source_url": null,
+        "image": null,
+        "image_alt": null,
+        "homepage_monitoring": false
+      },
+      {
+        "slug": "tec-difference-from-30-day-median",
+        "title": "TEC Difference from 30-Day Median",
+        "summary": "Current global total electron content compared with its 30-day median.",
+        "provider": "National Weather Services",
+        "ownership": "external",
+        "source_url": "https://www.spaceweather.gov/products/glotec",
+        "image": "/media/monitoringDashboards/tecDifference.png",
+        "image_alt": "Global map showing total electron content difference from the 30-day median.",
+        "homepage_monitoring": true
+      }
+    ],
+    "selected": [
+      "average-f-region-observations",
+      "range-error-from-tec",
+      "tec-difference-from-30-day-median"
+    ],
+    "assets": [
+      {
+        "path": "public/media/monitoringDashboards/fRegionObservations.png",
+        "dimensions": [
+          600,
+          338
+        ],
+        "bytes": 186977,
+        "sha256": "0dcef0a72754c04ad09790b9ef0ee84a5dbbb257aea16fc262c883a347df100c"
+      },
+      {
+        "path": "public/media/monitoringDashboards/rangeError.png",
+        "dimensions": [
+          600,
+          338
+        ],
+        "bytes": 213836,
+        "sha256": "182b13b4e093e004602b0ee25111c9a467bf65752013195b1e78eee1af067d80"
+      },
+      {
+        "path": "public/media/monitoringDashboards/tecDifference.png",
+        "dimensions": [
+          600,
+          338
+        ],
+        "bytes": 203079,
+        "sha256": "19bde82c0f34f5b09207376c35c3c93311c62eae93c30f05f3d1e674be0b7977"
+      }
+    ]
+  },
+  "homepage": {
+    "asOf": "2026-10-13",
+    "publicationsHash": "267c0c419d4fed3d4c0c9f74a832f6feeea155d04a792dcc7c1fa6ef560e2d9f",
+    "newsHash": "b3fa83b8a8b8f2f1b74e125c1d0067051a383b23ca654d3cc34aae7392f8842e",
+    "eventsHash": "d5a7b2a2bc4ea825311f8bdd75c1b834b62be7c2132bab9c161cc1d67b98eb71",
+    "publications": [
+      "low-latitude-geomagnetic-storm-responses",
+      "urban-aerosol-optical-depth-patterns",
+      "satellite-soil-moisture-drought-signals"
+    ],
+    "news": [
+      "solar-storm-monitoring-exercise",
+      "space-station-instrument-calibration",
+      "air-quality-smoke-transport-study",
+      "regional-earth-observation-partnership"
+    ],
+    "events": [
+      "regional-space-weather-conference",
+      "earth-observation-data-workshop",
+      "atmospheric-measurement-seminar"
+    ],
+    "publicationsSelectedHash": "943d1eb8680ad58c15650e51a701f1fd24a54f68d8300670e33cea4426befc1c",
+    "newsSelectedHash": "4d8f379f47e56124013d0f80b54b06e1ee9cd2aa5f41eef78d757d80569fea51",
+    "eventsSelectedHash": "309c16e88ea6a69bce5059c94e2fe501f50661183f93b9e0ba698c44be1fce8f",
+    "boundaries": [
+      {
+        "today": "2027-03-12",
+        "selected": [
+          "regional-space-weather-conference",
+          "earth-observation-data-workshop",
+          "atmospheric-measurement-seminar"
+        ],
+        "selectedHash": "309c16e88ea6a69bce5059c94e2fe501f50661183f93b9e0ba698c44be1fce8f"
+      },
+      {
+        "today": "2027-03-13",
+        "selected": [
+          "earth-observation-data-workshop",
+          "atmospheric-measurement-seminar"
+        ],
+        "selectedHash": "83beaa2049d5e61995aa7f0fa79e1c03dfc5f01301158d2ef70bae772e99f477"
+      },
+      {
+        "today": "2027-04-22",
+        "selected": [
+          "earth-observation-data-workshop",
+          "atmospheric-measurement-seminar"
+        ],
+        "selectedHash": "83beaa2049d5e61995aa7f0fa79e1c03dfc5f01301158d2ef70bae772e99f477"
+      },
+      {
+        "today": "2027-04-23",
+        "selected": [
+          "atmospheric-measurement-seminar"
+        ],
+        "selectedHash": "a05de5299ef9e61ea1e1ace813d889e26d25b93d445c7e68f8e8ab230562cc40"
+      },
+      {
+        "today": "2027-05-14",
+        "selected": [
+          "atmospheric-measurement-seminar"
+        ],
+        "selectedHash": "a05de5299ef9e61ea1e1ace813d889e26d25b93d445c7e68f8e8ab230562cc40"
+      },
+      {
+        "today": "2027-05-15",
+        "selected": [],
+        "selectedHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    ],
+    "dateLabels": [
+      {
+        "slug": "air-quality-smoke-transport-study",
+        "date": "22/07/2026"
+      },
+      {
+        "slug": "community-space-weather-workshop-report",
+        "date": "18/06/2026"
+      },
+      {
+        "slug": "early-career-researcher-recognition",
+        "date": "07/07/2026"
+      },
+      {
+        "slug": "new-ionospheric-forecast-method",
+        "date": "05/06/2026"
+      },
+      {
+        "slug": "open-call-environmental-data-pilots",
+        "date": "30/06/2026"
+      },
+      {
+        "slug": "regional-earth-observation-partnership",
+        "date": "14/07/2026"
+      },
+      {
+        "slug": "research-network-quarterly-update",
+        "date": "20/05/2026"
+      },
+      {
+        "slug": "solar-storm-monitoring-exercise",
+        "date": "01/08/2026"
+      },
+      {
+        "slug": "space-station-instrument-calibration",
+        "date": "28/07/2026"
+      }
+    ],
+    "presentation": [
+      {
+        "slug": "atmospheric-measurement-seminar",
+        "typeLabel": "LECTURE",
+        "dateLabel": "14.05.2027",
+        "href": "/events/atmospheric-measurement-seminar",
+        "locationLabel": "Atmospheric Science Laboratory, Ibadan, Nigeria"
+      },
+      {
+        "slug": "community-sky-observation-day",
+        "typeLabel": "OUTREACH",
+        "dateLabel": "26.09.2026",
+        "href": "/events/community-sky-observation-day",
+        "locationLabel": "Community Science Field, Enugu, Nigeria"
+      },
+      {
+        "slug": "earth-observation-data-workshop",
+        "typeLabel": "WORKSHOP",
+        "dateLabel": "21.04.2027 - 22.04.2027",
+        "href": "/events/earth-observation-data-workshop",
+        "locationLabel": "Development Geospatial Laboratory, Lagos, Nigeria + Zoom"
+      },
+      {
+        "slug": "environmental-data-training",
+        "typeLabel": "TRAINING",
+        "dateLabel": "19.07.2027 - 23.07.2027",
+        "href": "/events/environmental-data-training",
+        "locationLabel": "Development Training Centre, Port Harcourt, Nigeria"
+      },
+      {
+        "slug": "icelli2026",
+        "typeLabel": "MEETING",
+        "dateLabel": "18.11.2026 - 20.11.2026",
+        "href": "https://icelli.nosee.org",
+        "locationLabel": "Development Meeting Centre, Kano, Nigeria + Zoom"
+      },
+      {
+        "slug": "ionospheric-methods-seminar",
+        "typeLabel": "LECTURE",
+        "dateLabel": "05.06.2026",
+        "href": "/events/ionospheric-methods-seminar",
+        "locationLabel": "Microsoft Teams"
+      },
+      {
+        "slug": "regional-space-weather-conference",
+        "typeLabel": "CONFERENCE",
+        "dateLabel": "10.03.2027 - 12.03.2027",
+        "href": "/events/regional-space-weather-conference",
+        "locationLabel": "Development Conference Centre, Abuja, Nigeria"
+      },
+      {
+        "slug": "satellite-climate-lecture",
+        "typeLabel": "LECTURE",
+        "dateLabel": "09.06.2027",
+        "href": "/events/satellite-climate-lecture",
+        "locationLabel": "Zoom"
+      },
+      {
+        "slug": "small-grants-application-deadline",
+        "typeLabel": "WORKSHOP",
+        "dateLabel": "02.09.2026",
+        "href": "/events/small-grants-application-deadline",
+        "locationLabel": "Google Meet"
+      }
+    ],
+    "assets": [
+      {
+        "path": "public/media/trending/trending1.png",
+        "bytes": 285633,
+        "dimensions": [
+          642,
+          642
+        ],
+        "sha256": "f036e6a55e9dd551f6213b45d8a1c05111112a4f570ea51d966f30500bd6a4e0"
+      },
+      {
+        "path": "public/media/trending/trending2.png",
+        "bytes": 174097,
+        "dimensions": [
+          310,
+          309
+        ],
+        "sha256": "4f04e69c12e83d328e3e29f7580a1510e6d1f6f14cebe5aa119928f5de006999"
+      },
+      {
+        "path": "public/media/trending/trending3.png",
+        "bytes": 87943,
+        "dimensions": [
+          310,
+          309
+        ],
+        "sha256": "2bb62d326a8e7c59bd7ab17ad8425c433f10651022dc7414eafc9016c26063f9"
+      }
+    ]
+  },
+  "about": {
+    "recordHash": "d0ffd869ee356968ca7ef2a23d777ae578fc01932ca5d31283b15bd6aee1b664",
+    "assets": [
+      {
+        "path": "/media/about/earth-from-space.png",
+        "bytes": 394947,
+        "width": 468,
+        "height": 430,
+        "sha256": "ddc765dee8a91bf6ded3160df7c5fa1582ce4c8ef579b3842e5ec2c3e03dbba9"
+      },
+      {
+        "path": "/media/about/earth-space-environment-mobile.png",
+        "bytes": 149280,
+        "width": 370,
+        "height": 260,
+        "sha256": "ea3c2109e3430125a54c3b2fcd610d8578e1293167cca0120b3e4cf0199ec00e"
+      },
+      {
+        "path": "/media/about/earth-space-environment-tablet.png",
+        "bytes": 279329,
+        "width": 591,
+        "height": 360,
+        "sha256": "12f0ec9928e47effad9af7b8b30035519f063c01babc4b116bb12dd36ca186c4"
+      },
+      {
+        "path": "/media/about/earth-space-environment.png",
+        "bytes": 458044,
+        "width": 864,
+        "height": 400,
+        "sha256": "b9d0251459be10abd8e31ebc27fe1e2c58a18d0e657be17efe4bd28dbf9000c2"
+      },
+      {
+        "path": "/media/about/solar-observation-tablet.png",
+        "bytes": 93620,
+        "width": 296,
+        "height": 320,
+        "sha256": "725de2179931a5607040cb903ccb81292d9a8feb0f7c548892389194cd4c5343"
+      },
+      {
+        "path": "/media/about/solar-observation.png",
+        "bytes": 106358,
+        "width": 416,
+        "height": 330,
+        "sha256": "bc398c1fa18f209edf74a0890b2f97c27affa9dad03ef4eca7d3391f35b97cfe"
+      }
+    ]
+  },
+  "listing": {
+    "recordsHash": "d5a7b2a2bc4ea825311f8bdd75c1b834b62be7c2132bab9c161cc1d67b98eb71",
+    "cases": [
+      {
+        "name": "baseline",
+        "instant": "2026-10-14T12:00:00Z",
+        "query": null,
+        "presentHash": "adb815bfdd7ef3ee5d745dee3fdc228001da73801ab34faac25d7239cf97481e",
+        "buildHash": "549d92281137cf710f0f0c36a6af14261945e8c6a72153db2af0ed0388987b1b",
+        "archiveHash": "1d979fd8bb5342c022f5e37ce64a64536b7b79dd2a970741ba60740cadb043b8"
+      },
+      {
+        "name": "trim-case-lagos",
+        "instant": "2026-10-14T12:00:00Z",
+        "query": "  LaGoS  ",
+        "presentHash": "adb815bfdd7ef3ee5d745dee3fdc228001da73801ab34faac25d7239cf97481e",
+        "buildHash": "e581c9e2db8eac56e4213b98bf8a8cf89e86d677e0d324b19bb4b069d61f8b02",
+        "archiveHash": "1d979fd8bb5342c022f5e37ce64a64536b7b79dd2a970741ba60740cadb043b8"
+      },
+      {
+        "name": "no-match",
+        "instant": "2026-10-14T12:00:00Z",
+        "query": "impossible-no-match",
+        "presentHash": "adb815bfdd7ef3ee5d745dee3fdc228001da73801ab34faac25d7239cf97481e",
+        "buildHash": "51519bae1419edfb26ed760e4c402a9d4b40ba98b680f1562bae745b5575127d",
+        "archiveHash": "1d979fd8bb5342c022f5e37ce64a64536b7b79dd2a970741ba60740cadb043b8"
+      },
+      {
+        "name": "blank",
+        "instant": "2026-10-14T12:00:00Z",
+        "query": "  ",
+        "presentHash": "adb815bfdd7ef3ee5d745dee3fdc228001da73801ab34faac25d7239cf97481e",
+        "buildHash": "549d92281137cf710f0f0c36a6af14261945e8c6a72153db2af0ed0388987b1b",
+        "archiveHash": "1d979fd8bb5342c022f5e37ce64a64536b7b79dd2a970741ba60740cadb043b8"
+      },
+      {
+        "name": "array",
+        "instant": "2026-10-14T12:00:00Z",
+        "query": [
+          "x"
+        ],
+        "presentHash": "adb815bfdd7ef3ee5d745dee3fdc228001da73801ab34faac25d7239cf97481e",
+        "buildHash": "549d92281137cf710f0f0c36a6af14261945e8c6a72153db2af0ed0388987b1b",
+        "archiveHash": "1d979fd8bb5342c022f5e37ce64a64536b7b79dd2a970741ba60740cadb043b8"
+      },
+      {
+        "name": "unsafe-query",
+        "instant": "2026-10-14T12:00:00Z",
+        "query": "\"><script>alert(1)</script>",
+        "presentHash": "adb815bfdd7ef3ee5d745dee3fdc228001da73801ab34faac25d7239cf97481e",
+        "buildHash": "6489e1c561b5f0791307bc2feb3a1eff04f230b5e2aa8915cd4d84eae3851e28",
+        "archiveHash": "1d979fd8bb5342c022f5e37ce64a64536b7b79dd2a970741ba60740cadb043b8"
+      },
+      {
+        "name": "all-future-archive-empty",
+        "instant": "2025-01-01T12:00:00Z",
+        "query": null,
+        "presentHash": "a5005cb128559bb36914b0e652937d508b66f2b1d0072a9bc15180fa553f340d",
+        "buildHash": "e25aec2e970da8cda9027c7eabe747a7e63ab1430ce7d45feb7109466df3d1e5",
+        "archiveHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "name": "meeting-before-local-start",
+        "instant": "2026-11-17T22:59:59.999Z",
+        "query": null,
+        "presentHash": "adb815bfdd7ef3ee5d745dee3fdc228001da73801ab34faac25d7239cf97481e",
+        "buildHash": "549d92281137cf710f0f0c36a6af14261945e8c6a72153db2af0ed0388987b1b",
+        "archiveHash": "1d979fd8bb5342c022f5e37ce64a64536b7b79dd2a970741ba60740cadb043b8"
+      },
+      {
+        "name": "meeting-local-start",
+        "instant": "2026-11-17T23:00:00Z",
+        "query": null,
+        "presentHash": "1e4fa088c4353d57166a88d813a4f6666326b130276df64ce3453213cbd944f7",
+        "buildHash": "4ba60fc86277ad5940e966b0ca65dabfa6d883ab5f1c2ae7b14335f677759282",
+        "archiveHash": "1d979fd8bb5342c022f5e37ce64a64536b7b79dd2a970741ba60740cadb043b8"
+      },
+      {
+        "name": "ongoing-unfiltered-search",
+        "instant": "2026-11-18T12:00:00Z",
+        "query": "impossible-no-match",
+        "presentHash": "1e4fa088c4353d57166a88d813a4f6666326b130276df64ce3453213cbd944f7",
+        "buildHash": "74354bd4dabf19555a1b44b9b751358dcddd1cd10990f39a41e785360f82c020",
+        "archiveHash": "1d979fd8bb5342c022f5e37ce64a64536b7b79dd2a970741ba60740cadb043b8"
+      },
+      {
+        "name": "meeting-inclusive-end",
+        "instant": "2026-11-20T22:59:59.999Z",
+        "query": null,
+        "presentHash": "1e4fa088c4353d57166a88d813a4f6666326b130276df64ce3453213cbd944f7",
+        "buildHash": "4ba60fc86277ad5940e966b0ca65dabfa6d883ab5f1c2ae7b14335f677759282",
+        "archiveHash": "1d979fd8bb5342c022f5e37ce64a64536b7b79dd2a970741ba60740cadb043b8"
+      },
+      {
+        "name": "meeting-after-end",
+        "instant": "2026-11-20T23:00:00Z",
+        "query": null,
+        "presentHash": "44839977d221c6192b23fe3a598bab9592fa66847e59641c6dde6365f4971365",
+        "buildHash": "3d4f325f1ad66542860afcb6c4592ed035ff45298d9f6c339942ef6ff082fe80",
+        "archiveHash": "0150e117e1f493c40ecaa81a33df965c91855ee6a2de1b176020c80cbc0da5ab"
+      },
+      {
+        "name": "future-deadline",
+        "instant": "2027-04-07T15:59:59.999Z",
+        "query": null,
+        "presentHash": "a756d78558acd540e0ff5a141081bd07600ddfba0bf2c0d7ac86cb6db0969035",
+        "buildHash": "2a89c806d25b83d2b5094a13e86bf9960846ad2a34336db90c6af251985e26f6",
+        "archiveHash": "bc3b51249d8e635a1d3cd5494ec42bdc6e82572c2fa529ed2d1e9713fceb4f6b"
+      },
+      {
+        "name": "deadline-equality",
+        "instant": "2027-04-07T16:00:00Z",
+        "query": null,
+        "presentHash": "649074df4a35d0f55550daf0f79250c4d537beb211b40341a171074c936384c7",
+        "buildHash": "97c56b171c4ed4bc4f1e14196c61138bd900162f41f3ec300ade0ed37ff28f01",
+        "archiveHash": "bc3b51249d8e635a1d3cd5494ec42bdc6e82572c2fa529ed2d1e9713fceb4f6b"
+      },
+      {
+        "name": "closed-deadline",
+        "instant": "2027-04-08T12:00:00Z",
+        "query": null,
+        "presentHash": "649074df4a35d0f55550daf0f79250c4d537beb211b40341a171074c936384c7",
+        "buildHash": "97c56b171c4ed4bc4f1e14196c61138bd900162f41f3ec300ade0ed37ff28f01",
+        "archiveHash": "bc3b51249d8e635a1d3cd5494ec42bdc6e82572c2fa529ed2d1e9713fceb4f6b"
+      },
+      {
+        "name": "timed-start",
+        "instant": "2027-05-14T09:00:00Z",
+        "query": null,
+        "presentHash": "3fd31664065940c0e7fdc01073c06933df53831f183fac3b1cc5d145881f1008",
+        "buildHash": "398603b8702119e6bb27d400fa5a0cc389747aad0b9f9c31c89992cd1858e69b",
+        "archiveHash": "6523d1b2b33fac6a8e5e7d3daa8e444407c9c4237b7f74bdda761c2ec5f25360"
+      },
+      {
+        "name": "timed-exact-end",
+        "instant": "2027-05-14T11:00:00Z",
+        "query": null,
+        "presentHash": "3fd31664065940c0e7fdc01073c06933df53831f183fac3b1cc5d145881f1008",
+        "buildHash": "398603b8702119e6bb27d400fa5a0cc389747aad0b9f9c31c89992cd1858e69b",
+        "archiveHash": "6523d1b2b33fac6a8e5e7d3daa8e444407c9c4237b7f74bdda761c2ec5f25360"
+      },
+      {
+        "name": "timed-after-end",
+        "instant": "2027-05-14T11:00:00.001Z",
+        "query": null,
+        "presentHash": "4b2d729197ab98bf3762f7a26e5a6abf7d51ce2f24cb1cdd9be8db846b5797b4",
+        "buildHash": "8f93fa10b0a069b33897b28833392d2f4f69fb2243bae05146d43927ce8c8a3d",
+        "archiveHash": "2ea867d7f49f628ffcf46697085eb04f4e1823864b0f5ecbb76f73d7d8b0b94c"
+      },
+      {
+        "name": "all-past",
+        "instant": "2028-01-01T12:00:00Z",
+        "query": null,
+        "presentHash": "d2b8d903a16c264cb4278a226230b77bea65a395df67c0eb5f3f8a038f4c9dbf",
+        "buildHash": "e86bb7a607cae9defc4e5cda74809ff2adb528080197cfbcd3e79a7d421d0c48",
+        "archiveHash": "508aae2b1fe25328c3342a8e25f8a729bcc8966c8deb7dcb5c65dbebfafaf730"
+      },
+      {
+        "name": "synthetic-featured-ties-crossmonth-location",
+        "instant": "2026-11-30T15:00:00Z",
+        "query": null,
+        "records": [
+          {
+            "base": 0,
+            "changes": {
+              "slug": "z-tie",
+              "start_date": "2026-12-31",
+              "end_date": "2027-01-02",
+              "schedule": {
+                "mode": "multi_day",
+                "start_time": null,
+                "end_time": null,
+                "itinerary": []
+              }
+            }
+          },
+          {
+            "base": 0,
+            "changes": {
+              "slug": "a-tie",
+              "start_date": "2026-12-31",
+              "end_date": "2027-01-02",
+              "schedule": {
+                "mode": "multi_day",
+                "start_time": null,
+                "end_time": null,
+                "itinerary": []
+              }
+            }
+          },
+          {
+            "base": 0,
+            "changes": {
+              "slug": "timed-late",
+              "start_date": "2026-12-31",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "16:00",
+                "end_time": "17:30",
+                "itinerary": []
+              }
+            }
+          },
+          {
+            "base": 0,
+            "changes": {
+              "slug": "timed-early",
+              "start_date": "2026-12-31",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "00:00",
+                "end_time": null,
+                "itinerary": []
+              },
+              "location": {
+                "type": "physical",
+                "venue": "0",
+                "address": "",
+                "city": "Ibadan",
+                "country": "Nigeria",
+                "platform": null
+              }
+            }
+          },
+          {
+            "base": 4,
+            "changes": {
+              "slug": "featured-meeting",
+              "featured": true,
+              "start_date": "2027-01-20",
+              "end_date": "2027-01-21"
+            }
+          },
+          {
+            "base": 4,
+            "changes": {
+              "slug": "later-featured",
+              "featured": true,
+              "start_date": "2027-02-01",
+              "end_date": null,
+              "location": {
+                "type": "online",
+                "venue": null,
+                "address": null,
+                "city": null,
+                "country": null,
+                "platform": "Microsoft Teams"
+              }
+            }
+          },
+          {
+            "base": 0,
+            "changes": {
+              "slug": "cross-month",
+              "start_date": "2026-11-30",
+              "end_date": "2026-12-02",
+              "schedule": {
+                "mode": "multi_day",
+                "start_time": null,
+                "end_time": null,
+                "itinerary": []
+              }
+            }
+          },
+          {
+            "base": 0,
+            "changes": {
+              "slug": "tokyo",
+              "timezone": "Asia/Tokyo",
+              "start_date": "2026-12-01",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "00:30",
+                "end_time": null,
+                "itinerary": []
+              },
+              "application_deadline": "2026-11-30T15:15:00Z"
+            }
+          },
+          {
+            "base": 0,
+            "changes": {
+              "slug": "new-york",
+              "timezone": "America/New_York",
+              "start_date": "2026-12-01",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "09:00",
+                "end_time": "10:00",
+                "itinerary": []
+              }
+            }
+          }
+        ],
+        "presentHash": "7357ae0909180b13bc49d0a773c9f9a4cb66be0ae7121b0fff31692e56a4cd1a",
+        "buildHash": "b43fdb3bc643ddda73d89c592dbb7a830ba623e63c707307209b72cb03ddeac9",
+        "archiveHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "name": "synthetic-archive-year-month-day-desc",
+        "instant": "2028-01-01T00:00:00Z",
+        "query": null,
+        "records": [
+          {
+            "base": 0,
+            "changes": {
+              "slug": "z-tie",
+              "start_date": "2026-12-31",
+              "end_date": "2027-01-02",
+              "schedule": {
+                "mode": "multi_day",
+                "start_time": null,
+                "end_time": null,
+                "itinerary": []
+              }
+            }
+          },
+          {
+            "base": 0,
+            "changes": {
+              "slug": "a-tie",
+              "start_date": "2026-12-31",
+              "end_date": "2027-01-02",
+              "schedule": {
+                "mode": "multi_day",
+                "start_time": null,
+                "end_time": null,
+                "itinerary": []
+              }
+            }
+          },
+          {
+            "base": 0,
+            "changes": {
+              "slug": "timed-late",
+              "start_date": "2026-12-31",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "16:00",
+                "end_time": "17:30",
+                "itinerary": []
+              }
+            }
+          },
+          {
+            "base": 0,
+            "changes": {
+              "slug": "timed-early",
+              "start_date": "2026-12-31",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "00:00",
+                "end_time": null,
+                "itinerary": []
+              },
+              "location": {
+                "type": "physical",
+                "venue": "0",
+                "address": "",
+                "city": "Ibadan",
+                "country": "Nigeria",
+                "platform": null
+              }
+            }
+          },
+          {
+            "base": 4,
+            "changes": {
+              "slug": "featured-meeting",
+              "featured": true,
+              "start_date": "2027-01-20",
+              "end_date": "2027-01-21"
+            }
+          },
+          {
+            "base": 4,
+            "changes": {
+              "slug": "later-featured",
+              "featured": true,
+              "start_date": "2027-02-01",
+              "end_date": null,
+              "location": {
+                "type": "online",
+                "venue": null,
+                "address": null,
+                "city": null,
+                "country": null,
+                "platform": "Microsoft Teams"
+              }
+            }
+          },
+          {
+            "base": 0,
+            "changes": {
+              "slug": "cross-month",
+              "start_date": "2026-11-30",
+              "end_date": "2026-12-02",
+              "schedule": {
+                "mode": "multi_day",
+                "start_time": null,
+                "end_time": null,
+                "itinerary": []
+              }
+            }
+          },
+          {
+            "base": 0,
+            "changes": {
+              "slug": "tokyo",
+              "timezone": "Asia/Tokyo",
+              "start_date": "2026-12-01",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "00:30",
+                "end_time": null,
+                "itinerary": []
+              },
+              "application_deadline": "2026-11-30T15:15:00Z"
+            }
+          },
+          {
+            "base": 0,
+            "changes": {
+              "slug": "new-york",
+              "timezone": "America/New_York",
+              "start_date": "2026-12-01",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "09:00",
+                "end_time": "10:00",
+                "itinerary": []
+              }
+            }
+          }
+        ],
+        "presentHash": "e833f34a8eb93eed185677d07deb29c769bfa6e93ab47d49e88d985dceba1707",
+        "buildHash": "e86bb7a607cae9defc4e5cda74809ff2adb528080197cfbcd3e79a7d421d0c48",
+        "archiveHash": "2922af287ff9a3e2cc397ec8ee76d9d1f52e55496dca4509c6e3a73b007f9d2b"
+      },
+      {
+        "name": "dst-America-New_York-2026-03-08T07:29:59Z",
+        "instant": "2026-03-08T07:29:59Z",
+        "query": null,
+        "records": [
+          {
+            "base": 0,
+            "changes": {
+              "slug": "dst",
+              "timezone": "America/New_York",
+              "start_date": "2026-03-08",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "02:30",
+                "end_time": null,
+                "itinerary": []
+              }
+            }
+          }
+        ],
+        "presentHash": "a86c74caf76bbf0945ab493dad3ec7aef3696c83f266338dbcebd3a21a884062",
+        "buildHash": "b4585d5d1d448cc0cad53df09923f8f388767f25b359b3c0545709988e3d7700",
+        "archiveHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "name": "dst-America-New_York-2026-03-08T07:30:00Z",
+        "instant": "2026-03-08T07:30:00Z",
+        "query": null,
+        "records": [
+          {
+            "base": 0,
+            "changes": {
+              "slug": "dst",
+              "timezone": "America/New_York",
+              "start_date": "2026-03-08",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "02:30",
+                "end_time": null,
+                "itinerary": []
+              }
+            }
+          }
+        ],
+        "presentHash": "aeac1b0241efee46b4485b3195f20415a8c00e1fe92ba8e2198f5db8f344c563",
+        "buildHash": "6c88058165bf2a29c2abd7cdbd9dfa6952062155b6df3c35f5ecaf534964e6fb",
+        "archiveHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "name": "dst-America-New_York-2026-11-01T05:29:59Z",
+        "instant": "2026-11-01T05:29:59Z",
+        "query": null,
+        "records": [
+          {
+            "base": 0,
+            "changes": {
+              "slug": "dst",
+              "timezone": "America/New_York",
+              "start_date": "2026-11-01",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "01:30",
+                "end_time": null,
+                "itinerary": []
+              }
+            }
+          }
+        ],
+        "presentHash": "8a2a36675e46b8d7ea8ed7fc4c129a006067ab71156b79aea9d7d74b9a0ce0fd",
+        "buildHash": "4243431cac8074ea9a511d8677d153320b47253217751976a702680502c2fe95",
+        "archiveHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "name": "dst-America-New_York-2026-11-01T05:30:00Z",
+        "instant": "2026-11-01T05:30:00Z",
+        "query": null,
+        "records": [
+          {
+            "base": 0,
+            "changes": {
+              "slug": "dst",
+              "timezone": "America/New_York",
+              "start_date": "2026-11-01",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "01:30",
+                "end_time": null,
+                "itinerary": []
+              }
+            }
+          }
+        ],
+        "presentHash": "265f5cbfcd2187e00f0411b5f353e069f4c4c4f9e54071c0cd5c3cea13f2815f",
+        "buildHash": "db796f4020d29008b00738b06ed3faf0c4835b2b7bcb11693b3c9b4514bd1fa2",
+        "archiveHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "name": "dst-Europe-Berlin-2026-10-25T00:30:00Z",
+        "instant": "2026-10-25T00:30:00Z",
+        "query": null,
+        "records": [
+          {
+            "base": 0,
+            "changes": {
+              "slug": "dst",
+              "timezone": "Europe/Berlin",
+              "start_date": "2026-10-25",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "02:30",
+                "end_time": null,
+                "itinerary": []
+              }
+            }
+          }
+        ],
+        "presentHash": "069cac9198c89bb47b68e4fb6a97ac0f1b40bc68d9d52a320b89002c5c66af8c",
+        "buildHash": "68eb475c1da6438bdf039085f3a156a5147a348dca2d1b3a7a1de10c96ff3100",
+        "archiveHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "name": "dst-Europe-Berlin-2026-10-25T01:30:00Z",
+        "instant": "2026-10-25T01:30:00Z",
+        "query": null,
+        "records": [
+          {
+            "base": 0,
+            "changes": {
+              "slug": "dst",
+              "timezone": "Europe/Berlin",
+              "start_date": "2026-10-25",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "02:30",
+                "end_time": null,
+                "itinerary": []
+              }
+            }
+          }
+        ],
+        "presentHash": "388639439163f04106f3f1c827adb263cc2f524a5d27659432235feb393beccb",
+        "buildHash": "496758bdfeb0f4d35b8b4f5eb01e3ad9412576ada51a616c6281b64d83fc01c7",
+        "archiveHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "name": "dst-Australia-Lord_Howe-2026-10-03T15:29:59Z",
+        "instant": "2026-10-03T15:29:59Z",
+        "query": null,
+        "records": [
+          {
+            "base": 0,
+            "changes": {
+              "slug": "dst",
+              "timezone": "Australia/Lord_Howe",
+              "start_date": "2026-10-04",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "02:15",
+                "end_time": null,
+                "itinerary": []
+              }
+            }
+          }
+        ],
+        "presentHash": "6e4b38e7ffbf547ab8c73b02ae8d07acafe3a6eed29cf507555ac3e755c8349f",
+        "buildHash": "ff695fe2ced3b3554d7343eac448ccfa7dc992776b5074ce5f6aa228145607f3",
+        "archiveHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "name": "dst-Australia-Lord_Howe-2026-10-03T15:45:00Z",
+        "instant": "2026-10-03T15:45:00Z",
+        "query": null,
+        "records": [
+          {
+            "base": 0,
+            "changes": {
+              "slug": "dst",
+              "timezone": "Australia/Lord_Howe",
+              "start_date": "2026-10-04",
+              "schedule": {
+                "mode": "single_day",
+                "start_time": "02:15",
+                "end_time": null,
+                "itinerary": []
+              }
+            }
+          }
+        ],
+        "presentHash": "4545156b178a28032e9a8310fefd0e457b948767734fb0e362eacf98cc2114d7",
+        "buildHash": "b24e9e292b94d0ca0676610b732e3d009fcaff7eeab4ec3b1efb6ff51b0a888b",
+        "archiveHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    ]
+  }
+}

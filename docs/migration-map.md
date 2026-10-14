@@ -1,11 +1,11 @@
 # Laravel discovery and migration map
 
-**Task:** [Task 01](codex-tasks/01-discovery-and-baseline.md) · **Phase:** P0, In review · **Inspected:** 2026-10-13.
+**Pinned-source inspection:** 13 October 2026. **Updated:** 14 October 2026; retained source contract after completed public migration.
 **Legacy revision:** [`9872c4ed12aa48835eab71065c69b468424adb4a`](https://github.com/thedanieldiya/nosee/tree/9872c4ed12aa48835eab71065c69b468424adb4a).
 **Destination baseline:** `62ed14cd4af9fd70ffcb5cdf113ad221bf32798e`; branch `codex/task-01-discovery-baseline`.
-**Requirements:** [PRD](PRD.md); visual evidence and missing captures: [visual baseline](visual-baseline.md).
+**Requirements:** [PRD](PRD.md), [design reference](visual-baseline.md), [current public status](PUBLIC-SITE-STATUS.md).
 
-Legacy paths below are relative to the linked, pinned source tree. Proposed Next.js paths are recommendations, not existing implementation. The legacy checkout was inspected without modification. No packages, application code, migrations, or test suites were run for this task.
+Legacy paths below are relative to the linked, pinned source tree. The architecture/component proposals record discovery-time mapping; consult `src/` for current implementation. The original public frontend port is now complete as a development milestone, with authorised exceptions and deferred release gates in [public status](PUBLIC-SITE-STATUS.md). The legacy checkout remains read-only.
 
 ## 1. Source architecture and request flow
 
@@ -143,30 +143,16 @@ Evidence: `FileEventRepository.php`, `EventListingService.php`, `EventDetailServ
 
 No live/source visual difference can be confirmed: the live host was inaccessible. Figma authority and browser parity remain owner-review questions, not inferred findings.
 
-## 6. Scope separation and bounded sequence
+## 6. Remaining scope separation
 
-| Phase | Coherent next chunks / exit gate |
-| --- | --- |
-| P0, this task | Source map and source-derived visual baseline; missing screenshots explicit; owner reviews before P1 |
-| P1 | Scaffold only App Router/strict TypeScript/Tailwind, local fonts/tokens and public Container/ButtonLink/ArrowRight; minimal dependency selection; typecheck/lint/build and token review |
-| P2 | Separate shell/nav/footer, hero, and remaining homepage section parity chunks; focused behavior checks and matched three-width captures; owner review |
-| P3 | About, then Events listing/archive/detail/redirect chunks; timezone/search assertions and matched captures |
-| P4 | Approved missing public routes/content; these are new pages with separately approved designs, not parity claims |
-| P5 | After public foundation/parity gates: database, server-side auth/authorization, branded shadcn admin shell; no applicant login |
-| P6 | Private application → admin decision → reliable status emails; approval does not create login or publish a person |
-| P7 | Explicit editorial publishing, public-profile curation, media/settings and cache invalidation |
-| P8 | SEO/404/redirects, security/rollback/deployment and measured slow-mobile performance, stakeholder signoff |
+P0–P3's original Laravel public port is complete. P4's missing destinations are new pages requiring content/design approval. After the owner merges Task 12, [Admin 01](admin/01-foundation.md) begins P5 separately: database, secure server-side authentication/authorisation and branded shadcn shell under [Admin TRD v1.1](admin-dashboard-trd.md). P6 adds private membership/reliable email; P7 adds controlled editorial publishing; P8 covers launch approval and operations. Deferred manual/live/content release gates remain open without blocking that separately approved admin-development phase.
 
-**One recommended Task 02:** after P0 owner review, execute the bounded P1 foundation described above; create no homepage sections, CMS, auth, membership forms or email integration in that task. Confirm the Next.js/React/Node compatibility choice then, rather than pinning unverified versions here.
-
-Backend entities in PRD section 7 (`AdminUser`, `MembershipApplication`, `Member`, `PublicProfile`, `EmailOutbox`, etc.) are proposals. No Laravel applicant/member/publication workflow is being migrated. Resolve application fields/consent/retention, hosting/database/storage, email identities/retry policy, newsletter provider and monitoring rights before the corresponding later phase; these decisions do not block reading P0 source.
+Backend entities in PRD section 7 are future proposals; no Laravel applicant/member/admin workflow is being migrated. Resolve application fields/consent/retention, database/storage, email/retry policies, newsletter provider and monitoring rights before their corresponding phase. Approval must not create applicant login or automatically publish a person.
 
 ## 7. What not to change without a recorded decision
 
 Preserve implemented paths, slugs, hash anchors and redirect intent; exact copy/ordering until content approval; Ubuntu Sans/IBM Plex Sans and used weights; responsive thresholds, container gutters and image crops; navigation link semantics/focus/current state; carousel/manual/reduced-motion behavior; source attribution and asset filename case. Do not replace placeholders with invented facts, copy the misleading newsletter promise as working delivery, introduce admin JS into public routes, or treat old/new PRD plans as implemented source behavior.
 
-## 8. Inspection evidence and limits
+## 8. Source provenance and limits
 
-Read: legacy README/PRD and architecture guidance; routes/bootstrap/controllers; seven contracts/file repositories; content services/path/schema validation and provider/nav bindings; all public page/layout/component templates and seven browser modules; all 40 content files (selected fields/provenance); image dimensions/file sizes, font imports and existing manifest. Inspected relevant EventListingService, About, archive/detail/listing/newsletter and homepage test assertions, content-validation tests, and JS menu/carousel/motion/newsletter expectations **without executing tests**.
-
-No Next.js code, dependency installation, source refactor, Laravel mutation, application build, full suite, Lighthouse run, or deployment occurred. No successful live-site or visual-parity assertion is made. Screenshots/network measurements and owner signoff remain gates; see the per-state reproduction matrix in [visual-baseline.md](visual-baseline.md).
+Discovery inspected pinned routes/bootstrap/controllers, contracts/file repositories, content services/schema validation, public templates/browser modules, all 40 content files, original assets/fonts and the existing build manifest. Historical inspection/verification is traceable in [merged PRs](FRONTEND-TRACKER.md) and Git history; temporary migration outputs are no longer tracked. Current tests preserve content, hashes, dates, search and presentation rules. Source fixtures, live configuration and image/content rights remain subject to the separate [release checklist](PUBLIC-SITE-STATUS.md#deferred-release-checklist).

@@ -6,18 +6,22 @@ import "./helpers/render-site.mjs";
 import { publicationRecords } from "../src/lib/content/publications.ts";
 import { newsRecords } from "../src/lib/content/news.ts";
 import { eventRecords } from "../src/lib/content/events.ts";
+import { fixtures, assertPinned } from "./helpers/pinned-content.mjs";
 
 const { selectFeaturedPublications, selectTrendingNews, selectFeaturedUpcoming, utcToday, newsDateLabel, newsCategoryLabel, eventCardValues } = await import("../src/lib/content/homepage-selections.ts");
-const source = JSON.parse(readFileSync(new URL("../docs/evidence/task-06/source-data.json", import.meta.url)));
+const source = fixtures.homepage;
 const slugs = records => records.map(record => record.slug);
 
-test("all publication/news/event records and current selections equal the fresh pinned PHP export", () => {
-  assert.deepEqual(publicationRecords, source.publications.all);
-  assert.deepEqual(newsRecords, source.news.all);
-  assert.deepEqual(eventRecords, source.events.all);
-  assert.deepEqual(selectFeaturedPublications(), source.publications.selected);
-  assert.deepEqual(selectTrendingNews(), source.news.selected);
-  assert.deepEqual(selectFeaturedUpcoming(eventRecords, source.asOf), source.events.selected);
+test("all publication/news/event records and current selections equal pinned PHP fixtures", () => {
+  assertPinned(publicationRecords, source.publicationsHash);
+  assertPinned(newsRecords, source.newsHash);
+  assertPinned(eventRecords, source.eventsHash);
+  assert.deepEqual(slugs(selectFeaturedPublications()), source.publications);
+  assert.deepEqual(slugs(selectTrendingNews()), source.news);
+  assert.deepEqual(slugs(selectFeaturedUpcoming(eventRecords, source.asOf)), source.events);
+  assertPinned(selectFeaturedPublications(), source.publicationsSelectedHash);
+  assertPinned(selectTrendingNews(), source.newsSelectedHash);
+  assertPinned(selectFeaturedUpcoming(eventRecords, source.asOf), source.eventsSelectedHash);
   assert.deepEqual([publicationRecords.length, newsRecords.length, eventRecords.length], [10, 9, 9]);
 });
 
@@ -53,7 +57,10 @@ test("news uses strict featured ranking, raw ISO string order rather than instan
 });
 
 test("upcoming events match injected-date PHP predicate/comparator at ongoing, end-day and past boundaries", () => {
-  for (const boundary of source.events.boundaries) assert.deepEqual(selectFeaturedUpcoming(eventRecords, boundary.today), boundary.selected);
+  for (const boundary of source.boundaries) {
+    assert.deepEqual(slugs(selectFeaturedUpcoming(eventRecords, boundary.today)), boundary.selected);
+    assertPinned(selectFeaturedUpcoming(eventRecords, boundary.today), boundary.selectedHash);
+  }
   assert.equal(selectFeaturedUpcoming(eventRecords, "2027-03-12")[0].slug, "regional-space-weather-conference");
   assert.equal(selectFeaturedUpcoming(eventRecords, "2027-03-13").length, 2);
   assert.deepEqual(selectFeaturedUpcoming(eventRecords, "2027-05-15"), []);
@@ -79,14 +86,14 @@ test("UTC midnight, not Lagos calendar day, removes a past event; strict flags, 
 });
 
 test("news labels preserve the record offset date and category title case", () => {
-  for (const label of source.news.dateLabels) assert.equal(newsDateLabel(newsRecords.find(a => a.slug === label.slug).published_at), label.date);
+  for (const label of source.dateLabels) assert.equal(newsDateLabel(newsRecords.find(a => a.slug === label.slug).published_at), label.date);
   assert.equal(newsDateLabel("2026-12-31T23:30:00-08:00"), "31/12/2026");
   assert.equal(newsDateLabel("2027-01-01T00:30:00+14:00"), "01/01/2027");
   assert.equal(newsCategoryLabel("organisation-news"), "Organisation News");
 });
 
 test("all event date, type, same-tab meeting URL and physical/hybrid/online location transforms equal PHP", () => {
-  for (const expected of source.events.presentation) {
+  for (const expected of source.presentation) {
     const { slug, ...values } = expected;
     assert.deepEqual(eventCardValues(eventRecords.find(e => e.slug === slug)), values);
   }
@@ -94,7 +101,7 @@ test("all event date, type, same-tab meeting URL and physical/hybrid/online loca
 });
 
 test("three original news PNG hashes/dimensions match, with the fourth article reusing image two", () => {
-  const assets = JSON.parse(readFileSync(new URL("../docs/evidence/task-06/assets.json", import.meta.url)));
+  const assets = source.assets;
   for (const asset of assets.filter(a => a.dimensions)) {
     const bytes = readFileSync(new URL("../" + asset.path, import.meta.url));
     assert.equal(bytes.length, asset.bytes);

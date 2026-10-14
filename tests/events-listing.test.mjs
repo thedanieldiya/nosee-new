@@ -1,22 +1,19 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import "./helpers/render-site.mjs";
-import { approvedBadgeContrast } from "./helpers/public-hardening-exceptions.mjs";
+import { fixtures, assertPinned } from "./helpers/pinned-content.mjs";
 const { eventRecords } = await import("../src/lib/content/events.ts");
 const { buildEvents, archiveEvents, eventState, presentEvent, normalizeEventQuery } = await import("../src/lib/content/events-listing.ts");
 
-const evidence = new URL("../docs/evidence/task-08/", import.meta.url);
-const source = JSON.parse(readFileSync(new URL("source-oracle.json", evidence)));
-const inputs = JSON.parse(readFileSync(new URL("oracle-input.json", evidence)));
+const source = fixtures.listing;
 
-test("all nine literal records remain exactly equal to the pinned PHP repository", () => assert.deepEqual(eventRecords, source.records));
+test("all nine literal records remain exactly equal to the pinned PHP repository", () => assertPinned(eventRecords, source.recordsHash));
 for (const expected of source.cases) {
   test(`complete PHP presentation, listing and archive oracle: ${expected.name}`, () => {
-    const input = inputs.find(c => c.name === expected.name), now = new Date(input.instant), records = input.records ?? eventRecords;
-    assert.deepEqual(records.map(e => presentEvent(e, now)), approvedBadgeContrast(expected.present));
-    assert.deepEqual(buildEvents(input.query, now, records), approvedBadgeContrast(expected.build));
-    assert.deepEqual(archiveEvents(now, records), approvedBadgeContrast(expected.archive));
+    const now = new Date(expected.instant), records = expected.records?.map(({ base, changes }) => ({ ...eventRecords[base], ...changes })) ?? eventRecords;
+    assertPinned(records.map(e => presentEvent(e, now)), expected.presentHash, `${expected.name}: presentation`);
+    assertPinned(buildEvents(expected.query, now, records), expected.buildHash, `${expected.name}: listing`);
+    assertPinned(archiveEvents(now, records), expected.archiveHash, `${expected.name}: archive`);
   });
 }
 test("baseline fallback featured is duplicated, and search affects only upcoming", () => {
