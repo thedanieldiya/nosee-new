@@ -1,6 +1,6 @@
 # NOSEE Admin Dashboard — TRD and Information Architecture
 
-**Version:** 1.1 · **Status:** Approved information architecture; initial form field inventory added 14 October 2026  
+**Version:** 1.2 · **Status:** Approved information architecture; editorial scope and field workflows revised 14 October 2026  
 **Scope:** Authenticated administrative experience inside the existing Next.js application. **Specification only — no admin implementation is approved by this document.**  
 **Visual direction:** Shopify account-settings dashboard — quiet, clear, compact labels, restrained form panels and actions.  
 **Public-site constraint:** Original Laravel public-page parity remains separate; no changes to ongoing public migration are authorised here.
@@ -24,7 +24,7 @@ Core principles:
 | **Membership** → Applications, Members | Full access | No access | No access |
 | **Research** → Groups, group Content/Members | All groups; create/edit | No access | Assigned group only; edit and publish both Content and group Members |
 | **Publishing** → News, Events, Publications | Full | Full editorial access | No access |
-| **Website** → Site content, Monitoring dashboards | Full | Editorial access | No access |
+| **Website** → Site content (Homepage, Leadership profiles, Gallery, Privacy policy), Monitoring dashboards (reserved) | Full | Editorial access | No access |
 | **Settings** → General | Own account | Own account | Own account |
 | **Settings** → Administrators | Full | No access | No access |
 | **Settings** → Activity log | Full | No access | No access |
@@ -45,17 +45,17 @@ Core principles:
 
 **Research** — Super Admin sees group list and **Create group**. A group opens its public-page **Content** and group **Members**. **Edit research group** saves and publishes its frontend content; the group lead may do the same immediately. Members tab supports autocomplete of approved members, group-specific membership/role edits and removal.
 
-**Publishing** — News, Events, Publications: list, create, edit, structured content, rich-text fields, inline image upload, preview, draft/publish/unpublish controls where suitable.
+**Publishing** — News, Events, Publications: list, create, edit, structured content, rich-text fields, inline image upload, preview and publishing controls. Publications begin with a **DOI lookup**, which fills available citation metadata without locking fields against correction.
 
-**Website → Site content** — a **secondary page-navigation sidebar** with:
-- **Homepage:** Hero, Monitoring dashboards section, featured Research Outputs, Trending News, Upcoming Events. Edit designated copy/selection/configuration, not the original layout source.
-- **About:** introduction, mission/objectives, quote, story, **Public profiles**, collaborations. Profiles are edited through About, **not Publishing**.
-- **Gallery:** album directory, create/manage albums, multiple-photo upload, captions, alt text, album covers, sorting, visibility. An album can be associated with an event; no separate Media library.
-- **Privacy policy:** rich-text editor, preview, publication control; actual policy text must receive appropriate approval.
-- **Contact:** editable approved contact-page content.
-- **Shared content:** public navigation/footer and any reused site strings.
+**Website → Site content** — a **secondary page-navigation sidebar** with **only**:
+- **Homepage:** edit hero slides and their links/images/copy. **News, Events and Research Outputs populate automatically** from published records; there are no homepage pickers for these sections. The Monitoring dashboards display remains hardcoded.
+- **Leadership profiles:** a direct page under Site content (not nested under About), with a list plus create/edit screens for the people shown in the public About page's leadership area. The rest of the **About page remains hardcoded**; no About content editor. Profiles may exist without membership records.
+- **Gallery:** manage both **standalone photographs** (required caption, also used as alt text) and **albums** (multiple photos, no required per-photo caption). Album photo names are generated as `[Album name] - 1`, `[Album name] - 2`, etc.; images can be reordered. Optional Event association and cover photo remain available.
+- **Privacy policy:** rich-text editor, preview and publication control; actual legal text requires approval.
 
-**Website → Monitoring dashboards** — independent directory and per-dashboard configuration (name, description, approved provider/source, attribution, thumbnail, visibility/placement). **Scientific visualisations are special-purpose code/data components, not drag-and-drop generic rich-text blocks.**
+**Website → Monitoring dashboards** — **reserved, empty administration page only**. The current public monitoring cards/dashboard section and scientific visualisations remain **hardcoded**. Do not build dashboard CRUD, a resource editor or a generic scientific page builder now.
+
+**No Website → Contact, Shared content or About editor.** Public About text, contact details, navigation, footer and shared site copy remain code-managed until separately approved.
 
 **Settings → General** — current administrator's own first name, last name, profile image, email and account/security controls. It is **not** an organisation-configuration page.
 
@@ -75,26 +75,33 @@ The following are the **initial editable fields**, not a mandate to add every fi
 | **Research → Group Members** | **Approved-member autocomplete only** (select an existing Member), group-specific member role/title and optional display order; remove membership association. No manually typed person, new-member form or unapproved applicant. Group Leads can edit all of these for **their assigned group only** and publish immediately. |
 | **Publishing → News editor** | Title, slug, category, excerpt/summary, article body (**rich text**), cover image and alt text, publication date, featured flag and Draft/Published status. |
 | **Publishing → Event editor** | Title, slug, event type, summary, body (**rich text**), image/alt, organiser, speakers (repeatable); timezone, start/end dates, single-/multi-day schedule and start/end times; optional itinerary days (date, time, title, description); location type (physical/online/hybrid), venue/address/city/country/platform; application deadline, registration URL, meeting-site URL (for meeting type), resources (label + URL), featured flag and status. Conditional sections only appear for applicable event types. |
-| **Publishing → Publication editor** | Title, slug, publication type, authors (repeatable), publication date, journal/conference/source, research area/group, DOI or external reference URL, featured flag and publication status. Don't invent or auto-verify scholarly metadata. |
-| **Website → Site content → Homepage** | **Hero slides:** eyebrow, title, summary, image, alt text, image credit, CTA label + URL and ordering. **Other sections:** editable section copy and visibility/featured-source controls where supported; select from existing Research Output, News, Event and Monitoring records rather than duplicating them. Preserve documented homepage selection logic unless separately changed. |
-| **Website → Site content → About** | **Introduction:** eyebrow/headline, desktop/tablet/mobile description variants, closing statements, responsive images/alt. **Mission:** title, responsive statements and objectives (number/title/description). **Quote:** quotation, attribution, image/alt. **Story:** heading, lead, body, image/alt. **Leadership:** section title/intro and ordered profiles managed below. **Collaborations:** CTA labels + destination URLs. |
-| **Website → About → Public profile** | Name, profile category (executive/researcher), role/title, optional affiliation/research interests, biography, portrait/alt, display order and publication status. Optional **linked Member** after permission-safe match review; profiles can exist without membership. |
-| **Website → Gallery → Album** | Album title, description, optional associated Event, optional event/album date, cover photo (chosen from album), album order and Draft/Published visibility. |
-| **Website → Gallery → Album photos** | Multiple-photo upload; each photo's caption, alt text, ordering and remove/replace actions. Group photos within the selected album rather than a global Media library. |
-| **Website → Privacy policy** | Page title, approved policy body (**rich text**), effective date and publication status. Keep version/last-update information in the system record. Legal approval is required before public publication. |
-| **Website → Contact** | Page heading and introduction, optional contact-page explanatory copy; the displayed email, phone and address **reference Shared content** rather than being maintained twice. Do not enable a contact submission form before its backend/recipient is implemented. |
-| **Website → Shared content** | Navigation groups/items (**label, URL, order and enabled state**); footer description and link groups; public contact email, phone and address; social-platform URLs, legal links, support link, copyright and newsletter display copy. Newsletter success must never be simulated without a working provider. |
-| **Website → Monitoring dashboard editor** | Title, slug, summary, provider, ownership/source type, external source URL, thumbnail/alt, homepage visibility/placement and publication status. Complex scientific plots, data processing and dashboard layouts remain **code/integration-managed**, not generic page-builder fields. |
+| **Publishing → Publication editor** | **DOI is the first field.** When a valid DOI is entered/pasted (on blur or a short debounce), securely fetch available citation metadata from a supported provider (for example Crossref or DataCite) and populate title, authors, publication type, date, journal/conference/source and reference URL where supplied. Show loading/no-match/error and allow retry or full manual entry. **Every populated field remains editable**, and subsequent lookups must not silently overwrite user corrections. Other fields: editable slug, research area/group, publication status. No homepage Featured flag is needed: Research Outputs uses the latest three published records. |
+| **Website → Site content → Homepage** | **Hero slides only:** eyebrow, title, summary, image, alt text, image credit, CTA label + URL and ordering. No manual News/Event/Research selection fields; see automatic rules below. The Monitoring dashboards section is code-managed. |
+| **Website → Site content → Leadership profiles** | First name, last name/display name, role/title, profile category where applicable (executive/researcher), optional affiliation/research interests, biography, portrait/alt, display order and publication status. Optional permission-safe **linked Member** identity review; a leadership profile can exist without membership. No general About content editor. |
+| **Website → Gallery → Standalone photo** | Single image upload; **caption required**, and that same caption is used as the public image's **alt text**. Optional order and publication visibility; replace/remove actions. No album required. |
+| **Website → Gallery → Album** | Album name/title, optional description, optional linked Event/date, cover image (chosen from uploaded photos), album order and publication visibility; add/reorder/remove multiple photos. |
+| **Website → Gallery → Album photos** | Batch upload. Automatically assign photo names `[Album name] - 1`, `[Album name] - 2`, etc. **Captions are not required** (optional if entered). Optional descriptive alt text may be provided for accessibility; an automatically generated photo name is a label, not a factual visual description. Maintain stable identifiers and sensible numbering after reordering/removal. |
+| **Website → Privacy policy** | Page title, approved policy body (**rich text**), effective date and publication status. Version/last-update information remains a system record. Legal approval is required before public publication. |
+| **Website → Monitoring dashboards** | **No editable fields yet.** This is a reserved, empty destination; public monitoring dashboards stay hardcoded and the admin editor will be designed later. |
 | **Settings → General** | Own first name, last name, email, profile photo and account-security/password controls. No organisation-wide settings. |
 | **Settings → Administrators** | Invite/modify administrator: first name, last name, email, access role (**Super Admin, Editor or Research Group Lead**), and assigned research group for a Lead. Invitation status and last login are read-only; revoke/deactivate is an explicit action. |
 | **Settings → Activity log** | **No edit form.** Super Admin can filter by date range, actor, action and affected record; details include timestamp, action, target and safe before/after summary where available. |
 
-**Shared form rules:** Validate required names/titles, unique slugs, URLs, dates and uploaded file formats/sizes on the server. Auto-generated record IDs, timestamps, audit actors and calculated event status are read-only. Use contextual image upload with alt text; rich text only for editorial body fields. Publishing and previews must respect role/scope authorization; replacing development fixtures requires approved real content. Final required/optional flags, precise validation and consent language are settled with each implementation, without reopening the approved navigation tree.
+**Shared form rules:** Validate required names/titles, unique slugs, DOI format, URLs, dates and uploaded image formats/sizes server-side. DOI retrieval must be server-mediated, restricted to trusted metadata providers, with sensible timeouts/rate limits; incomplete provider data must not be invented. Editors can correct imported citation fields and save a publication manually when a DOI cannot be resolved. Auto-generated record IDs, album-photo names, timestamps, audit actors and calculated event status are not treated as public editorial input. Use contextual image upload; for **standalone gallery items the required caption is the alt**, while album-image caption is optional. Publishing and previews must respect role/scope authorization; replacing development fixtures requires approved real content. Final required/optional flags and consent language are set with each implementation without reopening the approved navigation tree.
+
+### 3.2 Homepage collection rules (automatic, not manually curated)
+
+- **Events (up to 3):** eligible published **upcoming** events, prioritising featured upcoming records (nearest start date first) and filling remaining slots with the next upcoming events by start date. **Typical case: 1 featured + 2 other upcoming; if none featured: 3 upcoming.** No duplicates; never show past/unpublished events merely because they are featured.
+- **News (up to 4, matching the existing layout):** prioritise featured **published** articles, then fill remaining places with the latest published articles by publication timestamp. No manual homepage picker and no duplicate article.
+- **Research Outputs (3):** the **three latest published publications/research outputs**, ordered by publication date descending. Featured state does **not** affect this homepage section.
+- **Monitoring dashboards:** hardcoded frontend display for now. No administrator-configured cards, ordering or live scientific dashboards in this phase.
+
+These are **future database/CMS-connected homepage rules**. The existing literal Laravel migration/fixture output is not to be silently altered by a documentation-only change.
 
 ## 4. Identity, privacy, and media rules
 
-- **Members and Public profiles are independent records.** A public executive/researcher need not be a member, and an approved member need not have a public profile.
-- During manual member creation, application review or public-profile editing, detect possible name matches and show a small notification suggesting review. Confirm identity in a persistent dialog using only data the acting role is authorised to view; allow linking or remaining separate. **Never automatically merge, overwrite or publish.** Provide auditable unlinking.
+- **Members and leadership Public profiles are independent records.** A public leadership profile may exist without membership, and an approved member need not have a public leadership profile. The public About page is code-managed except for its leadership-person collection.
+- During manual member creation, application review or leadership-profile editing, detect possible name matches and show a small notification suggesting review. Confirm identity in a persistent dialog using only data the acting role is authorised to view; allow linking or remaining separate. **Never automatically merge, overwrite or publish.** Provide auditable unlinking.
 - Editors may manage public profiles but cannot inspect sensitive member data as a side effect of match suggestions. Group Leads can use only approved-member autocomplete data necessary for scoped group association.
 - Images upload **contextually** in the relevant editor. Keep storage/security/validation records internally but **do not expose a global Media library UI**.
 
@@ -104,7 +111,7 @@ The following are the **initial editable fields**, not a mandate to add every fi
 - Use NOSEE's existing green tokens and Ubuntu Sans / IBM Plex Sans, with shadcn/ui admin primitives.
 - **MingCute is the sole general-purpose icon system for both admin and public website.** Prefer `@mingcute/react`; replace shadcn's generated default icon imports. Use icons mostly in the primary sidebar and a few necessary controls. **When an exact MingCute icon doesn't exist, choose the closest existing MingCute substitute. Do not invent icons or introduce a second icon pack.** Brand logos, diagrams, and ordinary photographic/scientific assets are not general-purpose UI icon-pack substitutions.
 - **Icon and adjacent-text colour parity (owner requirement, 14 October 2026):** Use MingCute's default `currentColor`/CSS inheritance for all general-purpose icons. The icon beside a label, link, form field or button text must match **that neighbouring text's computed colour**, including normal, hover, active, focus and disabled states; icon-only controls inherit their parent control's text colour. Avoid hardcoded icon colours, independent opacity, `brightness`/`invert` hacks or unmatched stroke/fill. Keep contrast and accessibility. Verify the actual rendered states on dark/light surfaces.
-- Replacing original public-site SVG/interface icons with MingCute requires a **separate approved, regression-tested change after the current strict Laravel port**. This TRD does not authorise breaking ongoing pixel parity.
+- The already-authorised public MingCute migration has been handled separately; subsequent admin work must keep the public interface unchanged unless the owner explicitly approves a new change.
 - PlateJS is the preferred **free/open-source rich-text editor candidate**, subject to Next/React and licensed-component compatibility testing. Use structured fields for titles, dates, metadata, membership and scientific configurations rather than embedding everything in rich text.
 - Inline image upload (including album multi-upload) must support drag/drop, image preview, server-side validation and durable storage. Exact storage provider/library remains an implementation decision, **not a confirmed purchase or integration**.
 
@@ -147,7 +154,7 @@ src/
             │   │   ├── new/page.tsx
             │   │   └── [id]/page.tsx
             │   └── publications/
-            │       ├── page.tsx            # Publications
+            │       ├── page.tsx            # DOI-first publications
             │       ├── new/page.tsx
             │       └── [id]/page.tsx
             │
@@ -155,25 +162,23 @@ src/
             │   ├── site-content/
             │   │   ├── layout.tsx          # Secondary page sidebar
             │   │   ├── page.tsx            # Redirect to Homepage
-            │   │   ├── homepage/page.tsx
-            │   │   ├── about/
-            │   │   │   ├── page.tsx
-            │   │   │   └── profiles/
-            │   │   │       ├── page.tsx    # Public profiles
-            │   │   │       ├── new/page.tsx
-            │   │   │       └── [id]/page.tsx
+            │   │   ├── homepage/page.tsx   # Hero editing only
+            │   │   ├── leadership-profiles/
+            │   │   │   ├── page.tsx        # Leadership directory
+            │   │   │   ├── new/page.tsx
+            │   │   │   └── [id]/page.tsx   # Leadership profile editor
             │   │   ├── gallery/
-            │   │   │   ├── page.tsx        # Albums directory
+            │   │   │   ├── page.tsx        # Standalone photos + albums
+            │   │   │   ├── photos/
+            │   │   │   │   ├── new/page.tsx
+            │   │   │   │   └── [id]/page.tsx # Standalone photo editor
             │   │   │   └── albums/
             │   │   │       ├── new/page.tsx
-            │   │   │       └── [id]/page.tsx  # Album and photos
-            │   │   ├── privacy-policy/page.tsx
-            │   │   ├── contact/page.tsx
-            │   │   └── shared-content/page.tsx
+            │   │   │       └── [id]/page.tsx # Album and photos
+            │   │   └── privacy-policy/page.tsx
             │   │
             │   └── monitoring-dashboards/
-            │       ├── page.tsx            # Dashboard directory
-            │       └── [id]/page.tsx       # Config/visibility
+            │       └── page.tsx            # Reserved empty page; no CRUD
             │
             └── settings/
                 ├── general/page.tsx        # All roles: own profile
@@ -183,8 +188,8 @@ src/
 
 ## 7. Implementation boundary
 
-**Locked:** Page IA, navigation labels/placement, scoped role visibility, group-lead immediate publishing and fully editable group-members association tab, approved-member-only autocomplete, album-based Gallery, public profiles under About, General as own-account settings, no Operations/Email delivery/Media Library, shadcn with MingCute-only UI icons, and the clean Shopify-inspired direction.
+**Locked:** Page IA and role/scope permissions; immediate group-lead publishing and approved-member-only group autocomplete; **DOI-first editable publication autofill**; **automatic homepage News/Events/latest-three Research Outputs**; **Leadership profiles directly under Site content** (About copy hardcoded); **standalone-captioned photos and caption-optional albums**; **Privacy policy**; empty reserved Monitoring dashboards admin destination (public display hardcoded); **no Contact/Shared content/About editors**, Operations/Email delivery/Media Library; General is own-account settings, with shadcn/MingCute-only Shopify-inspired design.
 
-**Implementation choices to validate later:** Auth/ORM/storage versions, precise admin-editor schema and media provider, email service configuration, legal text and content provenance. These do **not** reopen the approved IA.
+**Implementation choices to validate later:** Auth/ORM/storage versions, DOI metadata provider and fallback handling, precise admin-editor schema/media provider, email service configuration, legal text and content provenance. These do **not** reopen the approved IA.
 
-**No code has been implemented by approval alone.** The current public Laravel-to-Next parity tasks and final source acceptance/cleanup remain a separate milestone. This spec guides the later dedicated admin/database/CMS phases.
+**This specification change does not implement application features or rewrite the current public frontend.** The public-port close-out and the later admin/database/CMS implementation remain separately reviewed milestones.
