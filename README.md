@@ -11,7 +11,7 @@ This repository is separate from the [existing Laravel implementation](https://g
 - Public membership application form **without applicant login**. Applicants receive submission confirmations; admins are notified and can approve/reject applicants with email notifications.
 - Member records are private by default. Only deliberately published executive/researcher profiles appear on the public website.
 
-**Status:** [Tasks 01–09 merged](docs/FRONTEND-TRACKER.md): all original Laravel public routes have been ported, including [Task 09 PR #9](https://github.com/thedanieldiya/nosee-new/pull/9) for event details, meeting 302 and 404. [Task 10](docs/codex-tasks/10-final-frontend-icons-review.md) is **instructions ready, implementation not started**: owner-approved MingCute-only public UI icon migration with exact adjacent-text colour inheritance, plus comprehensive responsive/performance/a11y final review. Task 09 reports 97 tests and 52 zero-RGB pairs; uppercase invalid slug source 500 → Next 404 remains documented. Formal owner/fixture/indexing/low-bandwidth/production review remains. **Only after final acceptance**, a separate owner-approved PR deletes all temporary migration evidence. See [PROGRESS.md](docs/PROGRESS.md).
+**Status:** **All 10 original-Laravel public frontend migration tasks are merged** through [PR #10](https://github.com/thedanieldiya/nosee-new/pull/10). [Task 10's audit](docs/evidence/task-10/README.md) reports 101 passing tests and 150 icon-only visual comparison pairs, but highlights high mobile LCP (~15 s Lighthouse / 18.77 s direct throttling), accessibility, no-JS and content/indexing/live-verification gates. [Proposed Task 11](docs/codex-tasks/11-public-release-hardening.md) is a small release-hardening branch **requiring owner approval**, not implemented. Keep migration evidence until accepted, then delete it in a separate approved cleanup PR. The future admin follows the [owner-approved TRD](docs/admin-dashboard-trd.md). See [the frontend tracker](docs/FRONTEND-TRACKER.md) and [PROGRESS](docs/PROGRESS.md).
 
 ## Development
 
@@ -82,6 +82,7 @@ The owner connected this repository to Vercel. Push the task branch to trigger t
 - [Codex Task 08](docs/codex-tasks/08-events-listing-archive.md) — migrate exact Laravel Events listing, desktop GET search, featured/ongoing/upcoming states and archive in one branch, with per-event timezone/clock tests and independent source-target screenshots.
 - [Codex Task 09](docs/codex-tasks/09-event-details-and-404.md) — finish original event detail pages, exact meeting 302 redirects and shared 404; run full QA but keep committed evidence compact.
 - [Codex Task 10](docs/codex-tasks/10-final-frontend-icons-review.md) — standardize existing public UI icons to MingCute with colours inherited exactly from neighbouring text, then execute full existing-Laravel frontend regression/performance/accessibility review.
+- [Proposed Task 11](docs/codex-tasks/11-public-release-hardening.md) — **owner-approval required**: bounded mobile LCP and high-priority accessibility corrections with full regression tests; historical evidence cleanup remains separate.
 
 ## Performance is a product requirement
 
