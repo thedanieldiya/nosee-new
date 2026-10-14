@@ -4,7 +4,7 @@ Build the NOSEE Next.js replacement in this repository. Legacy reference: https:
 
 ## Canonical requirements and progress
 
-- Read [docs/PRD.md](docs/PRD.md) and [docs/PROGRESS.md](docs/PROGRESS.md) **before each scoped Codex task**. The PRD defines scope and acceptance conditions; PROGRESS.md is the evidence ledger to update after each task.
+- Before each scoped Codex task, read [the concise frontend tracker](docs/FRONTEND-TRACKER.md), the **relevant requirements and acceptance sections** of [PRD.md](docs/PRD.md), and the **current status, affected requirement rows and open blockers** in [PROGRESS.md](docs/PROGRESS.md). These docs remain authoritative, but **do not load every historical evidence entry into model context**. Update the tracker/progress accurately after the task.
 - Begin the migration with [Codex Task 01](docs/codex-tasks/01-discovery-and-baseline.md): read-only legacy discovery and visual-baseline documentation only. Do not scaffold during Task 01.
 - Keep `thedanieldiya/nosee` read-only. All new work goes in `thedanieldiya/nosee-new`, on a dedicated branch for Vercel preview; a PR is optional and must not be created automatically.
 - Mark phases `In review` until required visual evidence and owner approval exist. Do not mark tests or visual checks successful if they were skipped or unavailable.
