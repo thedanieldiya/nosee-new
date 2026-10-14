@@ -11,7 +11,7 @@ This repository is separate from the [existing Laravel implementation](https://g
 - Public membership application form **without applicant login**. Applicants receive submission confirmations; admins are notified and can approve/reject applicants with email notifications.
 - Member records are private by default. Only deliberately published executive/researcher profiles appear on the public website.
 
-**Status:** **All 10 original-Laravel public frontend migration tasks are merged** through [PR #10](https://github.com/thedanieldiya/nosee-new/pull/10). [Task 10's audit](docs/evidence/task-10/README.md) reports 101 passing tests and 150 icon-only visual comparison pairs, but highlights high mobile LCP (~15 s Lighthouse / 18.77 s direct throttling), accessibility, no-JS and content/indexing/live-verification gates. [Proposed Task 11](docs/codex-tasks/11-public-release-hardening.md) is a small release-hardening branch **requiring owner approval**, not implemented. Keep migration evidence until accepted, then delete it in a separate approved cleanup PR. The future admin follows the [owner-approved TRD](docs/admin-dashboard-trd.md). See [the frontend tracker](docs/FRONTEND-TRACKER.md) and [PROGRESS](docs/PROGRESS.md).
+**Status:** The **ten original Laravel public frontend tasks and [Task 11 hardening PR #11](https://github.com/thedanieldiya/nosee-new/pull/11) are merged**. Task 11 reports 110 tests, −89.45% mobile homepage image bytes and mobile Lighthouse median LCP **3.535s**. The owner accepts **~3.54s provisionally for development**, deferring the 2.5s target. [Task 12](docs/codex-tasks/12-public-closeout-cleanup.md) is the **single approved combined final sanity check, deferred-release checklist and complete evidence/obsolete-task cleanup**; the [secure Admin Foundation](docs/admin/01-foundation.md) follows its owner-reviewed merge, based on the [approved Admin TRD v1.1](docs/admin-dashboard-trd.md). Manual screen-reader, live deployment, fixture/legal content and indexing remain deferred release gates, not claimed passes. See [frontend tracker](docs/FRONTEND-TRACKER.md) and [PROGRESS](docs/PROGRESS.md).
 
 ## Development
 
@@ -82,7 +82,10 @@ The owner connected this repository to Vercel. Push the task branch to trigger t
 - [Codex Task 08](docs/codex-tasks/08-events-listing-archive.md) — migrate exact Laravel Events listing, desktop GET search, featured/ongoing/upcoming states and archive in one branch, with per-event timezone/clock tests and independent source-target screenshots.
 - [Codex Task 09](docs/codex-tasks/09-event-details-and-404.md) — finish original event detail pages, exact meeting 302 redirects and shared 404; run full QA but keep committed evidence compact.
 - [Codex Task 10](docs/codex-tasks/10-final-frontend-icons-review.md) — standardize existing public UI icons to MingCute with colours inherited exactly from neighbouring text, then execute full existing-Laravel frontend regression/performance/accessibility review.
-- [Proposed Task 11](docs/codex-tasks/11-public-release-hardening.md) — **owner-approval required**: bounded mobile LCP and high-priority accessibility corrections with full regression tests; historical evidence cleanup remains separate.
+- [Combined Task 12 public close-out and cleanup](docs/codex-tasks/12-public-closeout-cleanup.md) — one last technical review, deferred-gates register and complete migration-evidence purge; owner controls PR/merge.
+- [Admin Foundation 01](docs/admin/01-foundation.md) — secure shadcn/MingCute layout, authentication and scoped RBAC; start only after Task 12 merges.
+- [Approved Admin Dashboard TRD v1.1](docs/admin-dashboard-trd.md) — canonical route IA, roles, forms and visual rules.
+- [Task 11 hardening](https://github.com/thedanieldiya/nosee-new/pull/11) — merged accessibility, no-JS and responsive-image improvements; mobile Lighthouse LCP now 3.54s provisional.
 
 ## Performance is a product requirement
 
