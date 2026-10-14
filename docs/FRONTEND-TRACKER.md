@@ -2,7 +2,7 @@
 
 **Updated:** 2026-10-14  
 **Scope:** strict 1:1 port of the public pages/routes *actually implemented* in the pinned Laravel source. Not the future dashboard, CMS, membership/email, or unimplemented public pages.  
-**Current baseline:** [Task 10 PR #10 merged](https://github.com/thedanieldiya/nosee-new/pull/10) at `7326c06`; **all ten original Laravel frontend migration tasks are merged**. [Task 10 audit](evidence/task-10/README.md) reports 101 tests, 150 source/baseline comparisons with only approved icon differences, and remaining accessibility/performance/release gates. Public release/owner acceptance is **not** established by merging. [Task 11](evidence/task-11/README.md) was explicitly authorised and is **In review** on `codex/task-11-public-hardening`: scoped image/contrast/name/focus/no-JS fixes, comprehensive local verification and measured before/after performance; owner release acceptance remains separate.
+**Current baseline:** All 10 original public frontend port tasks [merged through PR #10](https://github.com/thedanieldiya/nosee-new/pull/10). [Task 11 PR #11 merged](https://github.com/thedanieldiya/nosee-new/pull/11), adding owner-approved accessibility and responsive-image improvements: 110 passing tests; cold mobile image bytes down 89.45%; mobile Lighthouse median LCP **3.535s**. The owner accepts **~3.54s provisionally for development**. [Task 12 combined final-check/deferred-gate/evidence cleanup](codex-tasks/12-public-closeout-cleanup.md) is **prepared but not implemented**; [Admin Foundation](admin/01-foundation.md) follows its merge.
 
 | Task | Scope | Delivery state |
 | --- | --- | --- |
@@ -16,22 +16,23 @@
 | 08 | Events listing, search and archive | [PR #8 merged](https://github.com/thedanieldiya/nosee-new/pull/8) |
 | 09 | Event details, meeting HTTP 302, source 404 | [PR #9 merged](https://github.com/thedanieldiya/nosee-new/pull/9) |
 | 10 | MingCute icon consistency + final existing-source frontend QA | [PR #10 merged](https://github.com/thedanieldiya/nosee-new/pull/10); [audit findings](evidence/task-10/README.md) remain open for owner release review |
-| 11 | Owner-authorised post-port public hardening (A–D only) | **In review** — [evidence, limited exceptions and remaining gates](evidence/task-11/README.md); implementation `17ff9c3` pushed to [review branch](https://github.com/thedanieldiya/nosee-new/tree/codex/task-11-public-hardening), remote head verified; actual Vercel preview/build unavailable (CONNECT 403) |
+| 11 | Owner-authorised post-port public hardening (A–D only) | [PR #11 merged](https://github.com/thedanieldiya/nosee-new/pull/11); 110 passing tests, image payload −89.45%, mobile Lighthouse median 3.54s |
 
-**Progress:** **10/10 migration tasks merged**. This is **code-delivery progress only**, not publication, visual-signoff, accessibility, field-performance or production approval.
+**Progress:** **11/11 public frontend migration/hardening tasks merged** (the ten original port tasks plus the accessibility/performance follow-up). This is **development delivery**, not content/indexing/production/manual AT clearance. Next: **one combined Task 12 close-out and cleanup**, then the approved **Admin Dashboard foundation**.
 
-## Current hardening review and next owner gates
+## Owner's streamlined handoff
 
-- [Task 11 — public accessibility/mobile-performance hardening](evidence/task-11/README.md): **In review**, explicitly authorised 2026-10-14. Original image framing/copy/routes retained; native image variants, confirmed contrast/name/focus corrections, usable native no-JS menu/anchors and a documented cold-image decode wait. 110 tests, source/main responsive comparisons and targeted browser checks pass. Mobile Lighthouse LCP 15.08→3.54s remains above 2.5s; no field/production acceptance inferred.
-- After an owner review of Task 11 fixes and manual assistive-technology/live checks, carry out the already-agreed **separate cleanup PR** removing all temporary `docs/evidence/` artifacts while preserving essential functional tests/docs and leaving Git history intact.
-- Continue with **approved future work**: new public pages (P4) and/or the locked [Admin Dashboard TRD](admin-dashboard-trd.md) (P5–P7), with implementation order set by owner. Neither is part of the completed ten-task port.
+- [Task 11](https://github.com/thedanieldiya/nosee-new/pull/11) is merged, with [compact historical findings](evidence/task-11/README.md). Mobile LCP ~3.54s is **accepted for now**, although the original 2.5s optimization target is deferred rather than met.
+- The remaining **technical check, truthful deferred-release ledger and deletion of every migration-evidence file** are now **one owner-authorised [Task 12](codex-tasks/12-public-closeout-cleanup.md)**, branch-only for the owner's single PR/merge. Remove obsolete migration task briefs after updating evergreen links; preserve tests/code/TRD.
+- **Manual screen-reader/voice-control/magnifier testing, actual live-domain and field performance, content/DOI/legal approval, missing new public routes, newsletter delivery, indexing and production launch** remain **deferred release gates**, not checks that Codex may falsely pass. Existing medium issues and the 2.5s target are for later owner prioritization.
+- After Task 12 merges, start [Admin Dashboard Foundation](admin/01-foundation.md) (P5) against the locked [Admin TRD v1.1](admin-dashboard-trd.md). No admin development in the Task 12 cleanup branch.
 
 ## Quality and release conditions
 
 - Source/target visual and behavior checks remain **mandatory** at applicable responsive widths, including date-dependent events, navigation, forms and appropriate accessibility/performance checks.
 - **Owner-approved MingCute UI icon replacement:** Test every updated icon's inherited `currentColor` against adjacent link/button/label text for normal/hover/focus/selected/disabled states, including dark/green surfaces. Any icon-shape differences from Laravel are approved; non-icon geometry/text/behaviour must remain unchanged. See [Task 10](codex-tasks/10-final-frontend-icons-review.md).
 - Owner must approve the final exact public-site port, its documented exceptions and use of content. Historical Laravel development fixtures are **not** approved organisational facts; several public pages remain deliberately **noindex**.
-- Tracked migration artifacts previously accumulated under `docs/evidence/` (notably Task 08). **Keep all evidence until Task 09 is finished and the final Task 10 parity review is accepted.** Then carry out a **separate owner-approved cleanup PR** deleting **all** migration evidence files/screenshots/raw outputs from the current tree, preserving essential reusable tests, application code and concise ongoing docs. No Git history rewrite.
+- The owner has **explicitly approved** final migration-evidence deletion as one **Task 12 combined close-out PR**, after the Task 11 merge. Remove **all** temporary `docs/evidence/` files and obsolete completed migration task docs in that PR; preserve reusable tests, brand/auth contracts, functional assets/code, the Admin TRD and evergreen documentation. The source history remains intact; don't rewrite Git history or falsely certify public launch.
 - Codex must **run** comprehensive tests/screenshot comparisons but keep bulky generated outputs in temporary or CI artifact storage; only short summaries and a few representative comparison pairs are allowed in new task commits.
 - Known release gates remain: unverified organisation fixtures, missing routes/critical links, manual assistive-technology review, newsletter integration, indexing and deployment decisions. [Task 11](evidence/task-11/README.md) resolves confirmed contrast/name/Events-focus/no-JS defects; indicator sizes, 320px Events reflow and mixed-query parsing remain excluded follow-ups. Manual AT/live review and further approved performance work remain; local Lighthouse mobile LCP is 3.54s, above goal.
 
