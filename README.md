@@ -11,7 +11,7 @@ This repository is separate from the [existing Laravel implementation](https://g
 - Public membership application form **without applicant login**. Applicants receive submission confirmations; admins are notified and can approve/reject applicants with email notifications.
 - Member records are private by default. Only deliberately published executive/researcher profiles appear on the public website.
 
-**Status:** Tasks 01–08 of the [ten-task existing-Laravel frontend roadmap](docs/FRONTEND-TRACKER.md) have merged. Task 09 is **In review**: eight original event detail pages, exact meeting HTTP 302 and a shared source-design 404. [Compact evidence](docs/evidence/task-09/README.md) records 97 passing tests, five-width comparisons, temporal/interaction/regression checks and the invalid-slug status deviation. Task 10 final frontend review remains unstarted. Fixtures, indexing, no-JS issues, performance and owner acceptance remain outstanding. After acceptance, a separate approved PR removes all temporary migration evidence. See [PROGRESS.md](docs/PROGRESS.md).
+**Status:** [Tasks 01–09 merged](docs/FRONTEND-TRACKER.md): all original Laravel public routes have been ported, including [Task 09 PR #9](https://github.com/thedanieldiya/nosee-new/pull/9) for event details, meeting 302 and 404. [Task 10](docs/codex-tasks/10-final-frontend-icons-review.md) is **instructions ready, implementation not started**: owner-approved MingCute-only public UI icon migration with exact adjacent-text colour inheritance, plus comprehensive responsive/performance/a11y final review. Task 09 reports 97 tests and 52 zero-RGB pairs; uppercase invalid slug source 500 → Next 404 remains documented. Formal owner/fixture/indexing/low-bandwidth/production review remains. **Only after final acceptance**, a separate owner-approved PR deletes all temporary migration evidence. See [PROGRESS.md](docs/PROGRESS.md).
 
 ## Development
 
@@ -70,7 +70,7 @@ The owner connected this repository to Vercel. Push the task branch to trigger t
 ## Delivery documents
 
 - [Migration and admin PRD](docs/PRD.md) — product requirements, route scope, acceptance conditions, design parity, backend/security and performance targets.
-- [Concise frontend task tracker](docs/FRONTEND-TRACKER.md) — 10-task existing-source roadmap, eight merged and final evidence cleanup gate.
+- [Concise frontend task tracker](docs/FRONTEND-TRACKER.md) — ten-task existing-source roadmap, nine merged, Task 10 ready and final evidence cleanup gate.
 - [Codex progress tracker](docs/PROGRESS.md) — live milestone and requirement statuses with evidence and blockers.
 - [Codex Task 01](docs/codex-tasks/01-discovery-and-baseline.md) — first task: audit the legacy source and produce a visual/migration baseline **without changing application code**.
 - [Codex Task 02](docs/codex-tasks/02-nextjs-foundation.md) — scaffold a lean Next.js application, port source fonts/tokens and first primitives, and review via a Vercel branch preview.
@@ -81,6 +81,7 @@ The owner connected this repository to Vercel. Push the task branch to trigger t
 - [Codex Task 07](docs/codex-tasks/07-about-page.md) — recreate the complete About page, all viewport-specific images/copy and seven-person leadership carousel in one branch, with independent Laravel/Next section and interaction comparisons.
 - [Codex Task 08](docs/codex-tasks/08-events-listing-archive.md) — migrate exact Laravel Events listing, desktop GET search, featured/ongoing/upcoming states and archive in one branch, with per-event timezone/clock tests and independent source-target screenshots.
 - [Codex Task 09](docs/codex-tasks/09-event-details-and-404.md) — finish original event detail pages, exact meeting 302 redirects and shared 404; run full QA but keep committed evidence compact.
+- [Codex Task 10](docs/codex-tasks/10-final-frontend-icons-review.md) — standardize existing public UI icons to MingCute with colours inherited exactly from neighbouring text, then execute full existing-Laravel frontend regression/performance/accessibility review.
 
 ## Performance is a product requirement
 
