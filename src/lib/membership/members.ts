@@ -6,10 +6,10 @@ import { adminDatabase } from "../admin/database.ts";
 import { requireManagerTransaction, ManagementError } from "../admin/management.ts";
 import { member, membershipApplication, applicationMember, leadershipProfileIdentity, auditLog } from "../admin/schema.ts";
 import type { Principal } from "../admin/policy.ts";
-import { emptyMemberFields, type MemberFields } from "./member-options.ts";
+import { emptyMemberFields, memberDeletionPhrase, type MemberFields } from "./member-options.ts";
 import { memberAcknowledgement } from "./input.ts";
 import type { ApplicationStatus } from "./options.ts";
-import { memberCreateInput, memberUpdateInput, memberQuery, memberMatchInput, applicationMemberInput, profileLinkInput } from "./member-input.ts";
+import { memberCreateInput, memberUpdateInput, memberDeleteInput, memberQuery, memberMatchInput, applicationMemberInput, profileLinkInput } from "./member-input.ts";
 type Transaction = Parameters<Parameters<ReturnType<typeof adminDatabase>["db"]["transaction"]>[0]>[0];
 export type MemberRecord = MemberFields & { id: string; version: number; leadershipProfileId: string | null; createdAt: string; updatedAt: string };
 export type MemberMatch = Pick<MemberRecord, "id" | "firstName" | "lastName" | "email" | "affiliation" | "status" | "joinDate" | "version">;
@@ -32,18 +32,19 @@ async function audit(tx: Transaction, actor: Principal, id: string, action: stri
   await tx.insert(auditLog).values({ id: randomUUID(), actorId: actor.id, action, targetType: application ? "membership_application" : "member", targetId: id, targetLabel: application ? "Membership application" : "Member", changes, createdAt: sql`clock_timestamp()` });
 }
 async function memberRow(tx: Transaction, id: string) {
-  const [record] = await tx.select(projection).from(member).where(eq(member.id, uuid(id)));
+  const [record] = await tx.select(projection).from(member).where(sql`${member.id}=${uuid(id)}::uuid and ${member.deletedAt} is null`);
   if (!record) throw new ManagementError("Member not found.", 404);
   return record;
 }
 async function duplicate(tx: Transaction, email: string, exclude = "") {
-  return (await tx.select(matchProjection).from(member).where(sql`lower(${member.email})=${email} and ${member.id}::text<>${exclude}`).limit(1))[0] ?? null;
+  return (await tx.select(matchProjection).from(member).where(sql`${member.deletedAt} is null and lower(${member.email})=${email} and ${member.id}::text<>${exclude}`).limit(1))[0] ?? null;
 }
 async function insertMember(tx: Transaction, actor: Principal, fields: MemberFields, requestId: string) {
   fields.researchInterests.sort();
   const digest = createHash("sha256").update(JSON.stringify(fields)).digest("hex");
-  const [prior] = await tx.select({ id: member.id, digest: member.creationDigest }).from(member).where(eq(member.creationKey, requestId));
+  const [prior] = await tx.select({ id: member.id, digest: member.creationDigest, deletedAt: member.deletedAt }).from(member).where(eq(member.creationKey, requestId));
   if (prior) {
+    if (prior.deletedAt) throw new ManagementError("That addition request belongs to a deleted member. Start a new addition; deleted records cannot be restored.", 409);
     if (prior.digest !== digest) throw new ManagementError("This addition request was already used with different details. Reload and review the member.", 409);
     return { id: prior.id, created: false };
   }
@@ -76,7 +77,7 @@ export async function updateMember(actor: Principal, id: string, raw: unknown) {
 export async function memberDirectory(actor: Principal, raw: unknown) {
   const query = parse(memberQuery, raw);
   return authorized(actor, async tx => {
-    const predicates: SQL[] = [sql`true`];
+    const predicates: SQL[] = [sql`${member.deletedAt} is null`];
     if (query.q) predicates.push(sql`concat_ws(' ',${member.firstName},${member.lastName},${member.email},${member.affiliation}) ilike ${pattern(query.q)}`);
     if (query.status) predicates.push(eq(member.status, query.status));
     if (query.interest) predicates.push(sql`${query.interest}=any(${member.researchInterests})`);
@@ -89,7 +90,7 @@ export async function memberMatches(actor: Principal, raw: unknown) {
   const query = parse(memberMatchInput, raw);
   return authorized(actor, async tx => {
     const exact = query.email ? await duplicate(tx, query.email, query.exclude) : null;
-    const suggestions = query.firstName && query.lastName ? await tx.select(matchProjection).from(member).where(sql`${member.id}::text<>${query.exclude} and ${member.firstName} ilike ${pattern(query.firstName)} and ${member.lastName} ilike ${pattern(query.lastName)}`).orderBy(member.lastName, member.firstName, member.id).limit(10) : [];
+    const suggestions = query.firstName && query.lastName ? await tx.select(matchProjection).from(member).where(sql`${member.deletedAt} is null and ${member.id}::text<>${query.exclude} and ${member.firstName} ilike ${pattern(query.firstName)} and ${member.lastName} ilike ${pattern(query.lastName)}`).orderBy(member.lastName, member.firstName, member.id).limit(10) : [];
     return { duplicate: exact, suggestions };
   });
 }
@@ -105,15 +106,17 @@ export async function applicationMemberContext(actor: Principal, id: string) {
   return authorized(actor, async tx => {
     const [application] = await tx.select({ id: membershipApplication.id, firstName: membershipApplication.firstName, lastName: membershipApplication.lastName, email: membershipApplication.email, careerStage: membershipApplication.careerStage, researchInterests: membershipApplication.researchInterests, status: sql<ApplicationStatus>`case when ${membershipApplication.status}='pending' and ${membershipApplication.expiresAt}<=statement_timestamp() then 'expired' else ${membershipApplication.status}::text end` }).from(membershipApplication).where(eq(membershipApplication.id, uuid(id)));
     if (!application) throw new ManagementError("Application not found.", 404);
-    const [association] = await tx.select({ memberId: applicationMember.memberId }).from(applicationMember).where(eq(applicationMember.applicationId, id));
-    const associated = association ? await memberRow(tx, association.memberId) : null;
-    return { application, associated: associated ? serialized<MemberRecord>(associated) : null, existing: !associated && (application.status === "approved" || application.status === "pending") ? await duplicate(tx, application.email.toLowerCase()) : null };
+    const [association] = await tx.select({ memberId: applicationMember.memberId, deletedAt: member.deletedAt }).from(applicationMember).innerJoin(member, eq(member.id, applicationMember.memberId)).where(eq(applicationMember.applicationId, id));
+    const associated = association && !association.deletedAt ? await memberRow(tx, association.memberId) : null;
+    return { application, associated: associated ? serialized<MemberRecord>(associated) : null, deletedMember: association?.deletedAt ? { id: association.memberId, deletedAt: association.deletedAt.toISOString() } : null, existing: !association && (application.status === "approved" || application.status === "pending") ? await duplicate(tx, application.email.toLowerCase()) : null };
   });
 }
 // Caller holds the management lock and supplies the successful approval's server timestamp.
 export async function establishApplicationMember(tx: Transaction, actor: Principal, application: typeof membershipApplication.$inferSelect, acknowledgement: z.infer<typeof memberAcknowledgement> | undefined) {
   const [prior] = await tx.select().from(applicationMember).where(eq(applicationMember.applicationId, application.id));
   if (prior) {
+    const [retained] = await tx.select({ deletedAt: member.deletedAt }).from(member).where(eq(member.id, prior.memberId));
+    if (!retained || retained.deletedAt) throw new ManagementError("This application's associated member was deleted. Its historical association cannot be restored or reassigned.", 409);
     if (acknowledgement && acknowledgement.memberId !== prior.memberId) throw new ManagementError("This application is already associated with another member. Refresh the review.", 409);
     return { id: prior.memberId, created: false };
   }
@@ -137,6 +140,19 @@ export async function establishApplicationMember(tx: Transaction, actor: Princip
   await tx.insert(applicationMember).values({ applicationId: application.id, memberId: id, associatedBy: actor.id, createdAt: sql`clock_timestamp()` });
   await audit(tx, actor, application.id, "Associated membership application", { before: { memberId: null }, after: { memberId: id } }, true);
   return { id, created };
+}
+export async function deleteMember(actor: Principal, id: string, raw: unknown) {
+  const input = parse(memberDeleteInput, raw);
+  return authorized(actor, async tx => {
+    const current = await memberRow(tx, id);
+    if (current.version !== input.version) throw new ManagementError("This member changed since you opened it. Reload and review the latest record before deleting.", 409);
+    if (input.phrase !== memberDeletionPhrase(current.lastName)) throw new ManagementError("The confirmation phrase does not match. Type the complete phrase exactly.");
+    const [saved] = await tx.update(member).set({ deletedAt: sql`clock_timestamp()`, leadershipProfileId: null, version: current.version + 1, updatedAt: sql`clock_timestamp()` }).where(sql`${member.id}=${id}::uuid and ${member.version}=${input.version} and ${member.deletedAt} is null`).returning({ id: member.id });
+    if (!saved) throw new ManagementError("This member changed. Reload and review before deleting.", 409);
+    if (current.leadershipProfileId) await audit(tx, actor, id, "Unlinked leadership profile", { before: { profileId: current.leadershipProfileId }, after: { profileId: null } });
+    await audit(tx, actor, id, "Deleted member");
+    return { id: saved.id, message: "Member deleted from the directory. Historical records are retained; administrator access and public profiles are unchanged." };
+  });
 }
 export async function convertApplication(actor: Principal, id: string, raw: unknown) {
   const input = parse(applicationMemberInput, raw);

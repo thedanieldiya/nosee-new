@@ -43,6 +43,13 @@
       "when": 1792091000000,
       "tag": "0005_membership_approval_template_v2",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792092000000,
+      "tag": "0006_member_deletion",
+      "breakpoints": true
     }
   ]
 }

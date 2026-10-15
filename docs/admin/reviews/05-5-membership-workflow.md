@@ -1,5 +1,8 @@
 # A05.5 — Correction review
 
+**Subsequent owner status:** A05.5 merged as PR #22 (`dd8e97b`), main `28d83dc`. The owner reports **all four A05.5 acceptance walkthroughs passed**. The implementation handoff below is historical; [A05.5.1](05-5-1-member-deletion.md) refines deletion/privacy. Unrelated owner pagination, live mail, schedules and public-release gates remain open.
+
+
 **15 October 2026 · In review.** Branch [`codex/admin-05-5-membership-workflow`](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-05-5-membership-workflow), implementation **`0b60034`**, pushed from main `a17d9e4` (A05 PR #21 / head `174620b`). [Current contract, migration and five-step owner walkthrough](../05-5-membership-workflow.md). **Correction milestone within the existing 13-task plan; not another numbered task.**
 
 The owner supersedes separate conversion with automatic Active membership on approval, explicit existing-member/reactivation acknowledgement, automatic match checks and in-place privacy review. Historical descriptions in A03–A05 reviews are marked superseded. A04 owner pagination, A10 real profiles, email live setup/acceptance, email/expiry scheduling, final privacy wording and manual AT/public-release gates remain open.

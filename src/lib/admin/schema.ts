@@ -76,8 +76,8 @@ export const member = pgTable("member", {
   researchInterests: text("research_interests").array().notNull().default(sql`'{}'::text[]`), status: text("status").$type<"active" | "inactive">().notNull().default("active"),
   joinDate: date("join_date", { mode: "string" }).notNull(), notes: text("notes").notNull().default(""), version: integer("version").notNull().default(1),
   creationKey: uuid("creation_key").notNull().unique(), creationDigest: text("creation_digest").notNull(),
-  leadershipProfileId: uuid("leadership_profile_id").references(() => leadershipProfileIdentity.id).unique(), ...timestamps,
-}, table => [uniqueIndex("member_email_normalized").on(sql`lower(${table.email})`), index("member_created").on(table.createdAt, table.id), check("member_status", sql`${table.status} in ('active','inactive')`), check("member_version", sql`${table.version} >= 1`)]);
+  leadershipProfileId: uuid("leadership_profile_id").references(() => leadershipProfileIdentity.id).unique(), deletedAt: timestamp("deleted_at", { withTimezone: true }), ...timestamps,
+}, table => [uniqueIndex("member_email_normalized").on(sql`lower(${table.email})`).where(sql`${table.deletedAt} is null`), index("member_created").on(table.createdAt, table.id), check("member_status", sql`${table.status} in ('active','inactive')`), check("member_version", sql`${table.version} >= 1`), check("member_deleted_profile", sql`${table.deletedAt} is null or ${table.leadershipProfileId} is null`)]);
 export const applicationMember = pgTable("membership_application_member", {
   applicationId: uuid("application_id").primaryKey().references(() => membershipApplication.id), memberId: uuid("member_id").notNull().references(() => member.id),
   associatedBy: uuid("associated_by").notNull().references(() => user.id), createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
