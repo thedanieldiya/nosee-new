@@ -2,9 +2,9 @@
 
 **Updated:** 15 October 2026. **Public frontend migration and Task 12 cleanup merged as [PR #12](https://github.com/thedanieldiya/nosee-new/pull/12)** (main `c8d717d7`). All `docs/evidence/` files and completed migration briefs are removed. **Public launch remains unapproved** pending the separately documented manual accessibility, live deployment, content and indexing gates. Mobile Lighthouse LCP ~3.54s remains accepted for current development.
 
-**Current priority:** [Admin 01 PR #13](https://github.com/thedanieldiya/nosee-new/pull/13) **merged** (`ece98b9`), implementing real PostgreSQL/Better Auth/Drizzle, one-time masked Super Admin bootstrap, scoped roles, shadcn/MingCute shell and Settings → General. **Owner interactive review: Preview blocked** pending isolated Vercel Preview DB, `DATABASE_URL`, `BETTER_AUTH_SECRET`, exact `ADMIN_ORIGIN`, secure bootstrap and confirmed browser URL. [Architecture/setup](admin/architecture.md) · [Tracker](admin/TRACKER.md). **A02 not started**.
+**Current priority:** [Admin 01 PR #13](https://github.com/thedanieldiya/nosee-new/pull/13) and Neon TLS [PR #15](https://github.com/thedanieldiya/nosee-new/pull/15) **merged**. Owner reports a non-public-development Neon database and initial Super Admin configured for the existing Vercel main deployment, migrations applied and **6/6 Super Admin browser acceptance checks passed**. Original A01 Editor and scoped Research Group Lead interactive checks remain open; no independent production-release or security approval. [Architecture/setup](admin/architecture.md) · [Tracker](admin/TRACKER.md). **Next: A02 invitation/administrator management and Activity log; implementation not started.**
 
-Canonical [PRD](PRD.md), [public status/deferred release checklist](PUBLIC-SITE-STATUS.md), [merged-task tracker](FRONTEND-TRACKER.md), [Admin TRD v1.2](admin-dashboard-trd.md) and [Admin Dashboard delivery tracker](admin/TRACKER.md) remain authoritative. **Admin A01 is merged: 1/13 admin tasks merged. Every admin task requires a secure owner-interactive preview and an independent owner review outcome.** Development completion does not mark broader release/full-stack requirements Done.
+Canonical [PRD](PRD.md), [public status/deferred release checklist](PUBLIC-SITE-STATUS.md), [merged-task tracker](FRONTEND-TRACKER.md), [Admin TRD v1.2](admin-dashboard-trd.md) and [Admin Dashboard delivery tracker](admin/TRACKER.md) remain authoritative. **Admin A01 is merged: 1/13 admin tasks merged. Owner has confirmed the six Super Admin interactions, but cross-role testing is still open, so full A01 approval is not recorded. Every admin task requires an owner-interactive check and independent review outcome.** Development completion does not mark broader release/full-stack requirements Done.
 
 ## Phase status
 
@@ -12,7 +12,7 @@ Canonical [PRD](PRD.md), [public status/deferred release checklist](PUBLIC-SITE-
 | --- | --- | --- |
 | P0–P3 | Done — original public-port development milestone | Discovery/foundation/homepage/About/Events delivered through PRs #1–#11; approved exceptions retained. Release gates tracked separately. |
 | P4 | Not started | Approved missing public pages, accurate content and working critical links |
-| P5 | In review — A01 code merged | [PR #13](https://github.com/thedanieldiya/nosee-new/pull/13) implemented DB/auth/roles, shell/General and local security QA; **hosted preview and interactive owner approval blocked**. No A02 implementation. |
+| P5 | In review — A01 owner Super Admin checks passed | A01 code merged and owner reports hosted development main sign-in/profile/auth checks 6/6 passed. **Editor and scoped Lead authorization walkthroughs remain; A02 not yet implemented.** |
 | P6 | Not started | Membership applications/private review/reliable email; no applicant login |
 | P7 | Not started | CMS/research/public people/media/site/monitoring publication workflows |
 | P8 | Not started | Public release checklist, live checks, indexing, security/rollback and field performance |
@@ -31,8 +31,8 @@ Statuses: `Not started`, `In progress`, `Blocked`, `In review`, `Done`. A develo
 | PUB-03 | Done — code migration | Events/search/archive/eight details/meeting redirect; original date/query rules preserved |
 | PUB-04 | Not started | Additional approved public pages |
 | PUB-05 | In progress | Real SSR 404, exact meeting 302, fixture noindex; critical links/metadata/sitemap/canonicals/indexing/live verification remain |
-| ADM-01 | In review | Real PostgreSQL-backed Better Auth, one-time masked CLI, eight-hour sessions, CSRF/throttling, role/scope guards; hosted configuration and owner acceptance pending. |
-| ADM-02 | In review | Shadcn/MingCute shell, role navigation, Overview and own General; responsive/accessibility/public isolation checks pass. Owner hands-on review blocked; future editors not implemented. |
+| ADM-01 | In review — Super Admin owner checks passed | Real Neon-backed Better Auth, one-time Super Admin creation and owner sign-in/logout/anonymous redirect passed on main's nonlaunch deployment. Cross-role review and independent security validation remain. |
+| ADM-02 | In review — owner Super Admin journey passed | Shadcn/MingCute shell, role Overview, current-user General details/edit persistence and unavailable-module labels were owner-tested. Editor/Lead browser walkthroughs still outstanding. |
 | MEM-01 | Not started | Public application form |
 | MEM-02 | Not started | Private admin review |
 | MEM-03 | Not started | Applicant/admin/status emails |
@@ -51,7 +51,7 @@ Statuses: `Not started`, `In progress`, `Blocked`, `In review`, `Done`. A develo
 - Source copy/fixture facts, original URL inconsistencies and responsive text stay unchanged. Approved hero entrance, MingCute glyphs, accessibility/no-JS/image changes, cold decode wait, honest newsletter error and custom 404 are recorded in [public status](PUBLIC-SITE-STATUS.md#implemented-scope-and-enduring-exceptions).
 - **Deferred:** manual screen-reader/voice/magnifier review; actual Vercel/domain/DNS/field performance; factual/legal/DOI/people/media approval; missing public destinations/old AGM 404; real newsletter delivery; indexing/SEO/launch decisions. Noindex retained and production settings untouched.
 - **Later technical work:** undersized hero/About indicators, inherited 320px Events overflow, mixed scalar/array search edge and original ≤2.5s LCP target. No silent fixes in Task 12.
-- Deferred public release gates remain separate from A01 development. A01 is now implemented on its review branch; its hosted/owner review gate remains blocked. No later admin task is started.
+- Deferred public release gates remain separate from A01 development. A01 is merged and owner-tested for Super Admin, but original Editor and scoped Lead owner-interactive review remains outstanding. No later admin task is started.
 
 ## Task 12 close-out
 
