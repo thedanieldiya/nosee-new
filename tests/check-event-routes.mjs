@@ -56,6 +56,15 @@ async function request(path, expectedStatus, method = "GET") {
   return html;
 }
 try {
+  // The original public utility navbar still uses /login. It must open the
+  // administrator login, not the old source's missing public page.
+  for (const path of ["/login", "/login?next=https://example.invalid"]) {
+    const response = await requestHttp(base + path);
+    assert.equal(response.status, 307, path);
+    assert.ok(response.location, `${path}: redirect location`);
+    assert.equal(new URL(response.location, base).pathname, "/admin/sign-in", path);
+    report.requests++;
+  }
   for (const e of eventRecords) {
     const html = await request(`/events/${e.slug}`, e.type === "meeting" ? 302 : 200);
     if (e.type !== "meeting") {
