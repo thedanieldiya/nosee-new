@@ -1,6 +1,6 @@
 # Public-site development status
 
-**Updated:** 14 October 2026. The original Laravel frontend migration is **complete as a development milestone**: ten port tasks and [Task 11 hardening](https://github.com/thedanieldiya/nosee-new/pull/11) merged. The owner authorised Task 12's combined technical close-out and repository cleanup. **Public launch is not approved by this milestone.** Task 12 remains in review until the owner reviews and merges its branch.
+**Updated:** 15 October 2026. The original Laravel frontend migration and [Task 12 close-out/cleanup PR #12](https://github.com/thedanieldiya/nosee-new/pull/12) are **merged** as a development milestone. All migration evidence and completed task briefs were deleted from the current tree; functional code, assets and reusable tests are retained. **Public launch is not approved by this milestone.**
 
 ## Implemented scope and enduring exceptions
 
@@ -53,4 +53,4 @@ npm run start
 
 Use `tests/check-event-routes.mjs TARGET` for HTTP/redirect/404 checks and its optional test clock for boundaries. `tests/check-public-hardening.cjs TARGET /tmp/results.json /path/to/axe.min.js` and `tests/check-public-icon-colours.cjs TARGET /tmp/colours.json` use externally available Playwright/Chromium; outputs must stay outside the checkout. Fresh PHP detail comparisons remain available through `tests/compare-event-details.mjs` and its reusable oracle helper against an isolated pinned source renderer.
 
-After the owner merges Task 12, the next separate task is [Admin 01 — secure foundation](admin/01-foundation.md), governed by [Admin Dashboard TRD v1.1](admin-dashboard-trd.md). No admin implementation is part of this branch.
+The next development task is [Admin 01 — secure foundation](admin/01-foundation.md), governed by [Admin Dashboard TRD v1.2](admin-dashboard-trd.md). Admin implementation has **not started**; the manual, live and content release gates remain deferred.
