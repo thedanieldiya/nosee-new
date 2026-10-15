@@ -1,6 +1,6 @@
 # A05.5 — Correction review
 
-**15 October 2026 · In review.** Branch [`codex/admin-05-5-membership-workflow`](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-05-5-membership-workflow), from main `a17d9e4` (A05 PR #21 / head `174620b`). [Current contract, migration and five-step owner walkthrough](../05-5-membership-workflow.md). **Correction milestone within the existing 13-task plan; not another numbered task.**
+**15 October 2026 · In review.** Branch [`codex/admin-05-5-membership-workflow`](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-05-5-membership-workflow), implementation **`0b60034`**, pushed from main `a17d9e4` (A05 PR #21 / head `174620b`). [Current contract, migration and five-step owner walkthrough](../05-5-membership-workflow.md). **Correction milestone within the existing 13-task plan; not another numbered task.**
 
 The owner supersedes separate conversion with automatic Active membership on approval, explicit existing-member/reactivation acknowledgement, automatic match checks and in-place privacy review. Historical descriptions in A03–A05 reviews are marked superseded. A04 owner pagination, A10 real profiles, email live setup/acceptance, email/expiry scheduling, final privacy wording and manual AT/public-release gates remain open.
 
@@ -20,6 +20,8 @@ Node 24.19.0 / npm 11.9.0, Next 16.4.0 production build, owned disposable loopba
 | Authorized public flow comparison | **Six source/target pairs**: three closed Join full pages **zero changed pixels**; three Privacy unchanged article regions **zero changed pixels**. Full captures show the approved removal of the return link and resulting footer displacement. Newly opened native privacy panel reviewed separately; additional 320px short-screen scroll/reflow/Escape/focus-return assertions passed |
 | HTTP and dependency boundary | **27 existing route/302/HEAD/SSR404 checks passed**; public manifests inspected for admin/Radix/auth/DB/private service leakage |
 | Typecheck / lint / build | Passed, no warnings on final checks. No new dependency/lockfile, global token/style or public performance optimization. No new CWV claim |
+
+Final production-build HTTP approval smoke also passed: authenticated 200, associated Active member, matching UTC decision/join date, blank notes and one held v2 approval job. Implementation local/remote heads matched via `git ls-remote`; no hosted deployment claim.
 
 **253 Node cases** in total (135 + 85 + 13 + 20); browser checks are additional. Full QA logs, source/target matrices and random credentials remain temporary outside Git. Representative masked dialog/member/email captures were inspected. No generated evidence archive or real private data is committed. Automated axe and keyboard checks do not certify screen-reader/voice/magnifier or email-client conformance.
 
