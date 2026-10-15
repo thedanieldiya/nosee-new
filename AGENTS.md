@@ -40,7 +40,7 @@ Project rules take priority over imported agent suggestions. Never sacrifice cor
 - Membership is an application, not a login. Store applicant records securely, send confirmation and admin notification, then allow approval/rejection and status emails.
 - Approval must not automatically create a site account or publish a person.
 - Public people directory contains only explicitly published executives and selected researchers.
-- Admins maintain news, events, site content, monitoring links/cards, people, and applications.
+- Approved admin scope (canonical [TRD v1.2](docs/admin-dashboard-trd.md)): manage membership, research groups, News/Events/DOI-first Publications, Homepage Hero, independently published Leadership profiles, standalone caption-required Gallery photos and caption-optional Albums, Privacy policy and administrator accounts. Homepage News/Events/Research Outputs are selected automatically from published records. **Do not** add About/Contact/Shared content editors or Monitoring dashboard CRUD: public displays remain code-managed, with a reserved empty admin Monitoring page.
 - Use server-side role checks and strict authorization on every protected server action/route.
 
 ## Verification and repository hygiene (owner direction, 14 October 2026)
