@@ -2,7 +2,7 @@
 
 Network of Space–Earth Environmentalists website. The [original Laravel repository](https://github.com/thedanieldiya/nosee) remains read-only.
 
-**The original public frontend migration is complete as a development milestone**, with ten port tasks and [Task 11 hardening](https://github.com/thedanieldiya/nosee-new/pull/11) merged. Task 12 closes out technical checks and removes temporary migration artifacts; its branch awaits owner review. **Public launch is separate:** manual accessibility, live deployment, factual/legal content and indexing remain deferred. Mobile Lighthouse LCP **~3.54s is accepted for now**, with the ≤2.5s goal deferred. See [public-site status](docs/PUBLIC-SITE-STATUS.md), [progress](docs/PROGRESS.md) and the [merged-task tracker](docs/FRONTEND-TRACKER.md).
+**The original public frontend migration is complete as a development milestone**, with ten port tasks and [Task 11 hardening](https://github.com/thedanieldiya/nosee-new/pull/11) merged. [Task 12 PR #12](https://github.com/thedanieldiya/nosee-new/pull/12) has merged, completing the technical close-out and removal of all migration evidence. **Public launch is separate:** manual accessibility, live deployment, factual/legal content and indexing remain deferred. Mobile Lighthouse LCP **~3.54s is accepted for now**, with the ≤2.5s goal deferred. See [public-site status](docs/PUBLIC-SITE-STATUS.md), [progress](docs/PROGRESS.md) and the [merged-task tracker](docs/FRONTEND-TRACKER.md).
 
 ## Development
 
@@ -38,7 +38,7 @@ Original layouts, wording, routes, breakpoints, data and interactions remain aut
 
 ## Next phase and delivery documents
 
-After owner review and merge of Task 12, the next separate task is [Admin 01 — secure foundation](docs/admin/01-foundation.md), under the [approved Admin Dashboard TRD v1.1](docs/admin-dashboard-trd.md). Later membership applications have **no applicant login**; member records remain private, and public profiles require deliberate publication. Admin approval never creates a login or publishes a person automatically.
+The next development task is [Admin 01 — secure foundation](docs/admin/01-foundation.md), under the [approved Admin Dashboard TRD v1.2](docs/admin-dashboard-trd.md). Later membership applications have **no applicant login**; member records remain private, and public profiles require deliberate publication. Admin approval never creates a login or publishes a person automatically.
 
 - [PRD](docs/PRD.md) — stable product/acceptance requirements.
 - [Progress](docs/PROGRESS.md) and [frontend tracker](docs/FRONTEND-TRACKER.md) — current status and merged PR traceability.
