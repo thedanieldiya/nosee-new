@@ -13,8 +13,8 @@ export async function administrator(requestHeaders: Headers): Promise<Principal 
   if (!session) return null;
   // Always re-read authority; role/scope/deactivation changes take effect immediately.
   const [record] = await adminDatabase().db.select().from(user).where(eq(user.id, session.user.id));
-  if (!record?.active || (record.role === "research_group_lead" && !record.researchGroupId)) return null;
-  return { id: record.id, firstName: record.firstName, lastName: record.lastName, email: record.email, role: record.role, researchGroupId: record.researchGroupId };
+  if (!record?.active || session.session.accessVersion !== record.accessVersion || (record.role === "research_group_lead" && !record.researchGroupId)) return null;
+  return { id: record.id, firstName: record.firstName, lastName: record.lastName, email: record.email, role: record.role, researchGroupId: record.researchGroupId, accessVersion: record.accessVersion };
 }
 export async function requireAdministrator() {
   let principal: Principal | null = null;

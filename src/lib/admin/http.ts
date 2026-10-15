@@ -22,7 +22,7 @@ export async function readJson(request: Request) {
   }
   return JSON.parse(Buffer.concat(chunks).toString("utf8"));
 }
-async function takeBucket(key: string, seconds: number, max: number) {
+export async function takeBucket(key: string, seconds: number, max: number) {
   const rows = await adminDatabase().db.execute<{ count: number }>(sql`
     INSERT INTO admin_login_attempt (key, count, started_at) VALUES (${key}, 1, now())
     ON CONFLICT (key) DO UPDATE SET

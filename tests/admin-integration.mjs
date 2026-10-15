@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { randomUUID, randomBytes } from 'node:crypto';
-import { writeFileSync, unlinkSync, realpathSync, openSync, closeSync, fchmodSync, constants } from 'node:fs';
+import { writeFileSync, unlinkSync, realpathSync, openSync, closeSync, fchmodSync, constants, mkdtempSync, rmdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { eq, sql } from 'drizzle-orm';
@@ -29,8 +29,8 @@ try{
  });
  await test('actual masked interactive bootstrap creates one hashed Super Admin',async()=>{
   const input={...fixtures.super_admin};delete input.role;delete input.researchGroupId;
-  const file=`/tmp/nosee-admin01/bootstrap-input-${randomUUID()}.json`;writeFileSync(file,JSON.stringify(input),{mode:0o600});
-  try{const r=spawnSync('python3',['tests/helpers/admin-bootstrap-pty.py',file],{encoding:'utf8',timeout:120000});assert.equal(r.status,0,'Masked interactive bootstrap must complete without exposing its transcript.');}finally{unlinkSync(file);}
+  const file=`${mkdtempSync('/tmp/nosee-admin-bootstrap-')}/input.json`;writeFileSync(file,JSON.stringify(input),{mode:0o600});
+  try{const r=spawnSync('python3',['tests/helpers/admin-bootstrap-pty.py',file],{encoding:'utf8',timeout:120000});assert.equal(r.status,0,'Masked interactive bootstrap must complete without exposing its transcript.');}finally{unlinkSync(file);rmdirSync(dirname(file));}
   const [record]=await db.select().from(user);assert.equal(record.role,'super_admin');const [credential]=await db.select().from(account);assert.ok(await verifyPassword({password:input.password,hash:credential.password}));assert.ok(!credential.password.includes(input.password));assert.equal((await db.select().from(auditLog)).length,1);
   await assert.rejects(()=>bootstrapAdministrator(input),/Bootstrap is closed/);
  });

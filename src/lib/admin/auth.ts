@@ -14,7 +14,7 @@ function createAuth(config: NonNullable<ReturnType<typeof adminConfig>>) {
     appName: "NOSEE Administration", baseURL: config.origin, basePath: "/api/admin/auth", secret: config.secret,
     database: drizzleAdapter(db, { provider: "pg", schema, transaction: true }), trustedOrigins: [config.origin],
     emailAndPassword: { enabled: true, disableSignUp: true, minPasswordLength: 15, maxPasswordLength: 128 },
-    session: { expiresIn: 8 * 60 * 60, disableSessionRefresh: true, cookieCache: { enabled: false } },
+    session: { expiresIn: 8 * 60 * 60, disableSessionRefresh: true, cookieCache: { enabled: false }, additionalFields: { accessVersion: { type: "number", required: true, defaultValue: 0, input: false } } },
     advanced: { cookiePrefix: "nosee-admin", useSecureCookies: config.secureCookies, database: { generateId: () => randomUUID() }, defaultCookieAttributes: { httpOnly: true, sameSite: "lax", path: "/" }, ipAddress: { ipAddressHeaders: process.env.VERCEL ? ["x-vercel-forwarded-for"] : [] } },
     user: { additionalFields: {
       firstName: { type: "string", required: true, input: false }, lastName: { type: "string", required: true, input: false },
@@ -25,7 +25,7 @@ function createAuth(config: NonNullable<ReturnType<typeof adminConfig>>) {
     databaseHooks: { session: { create: { before: async data => {
       const [administrator] = await db.select().from(schema.user).where(eq(schema.user.id, data.userId));
       if (!administrator?.active || (administrator.role === "research_group_lead" && !administrator.researchGroupId)) throw new APIError("UNAUTHORIZED", { message: "Unable to sign in." });
-      return { data };
+      return { data: { ...data, accessVersion: administrator.accessVersion } };
     }, after: async data => {
       await db.transaction(async tx => {
         await tx.update(schema.user).set({ lastLoginAt: new Date() }).where(eq(schema.user.id, data.userId));
