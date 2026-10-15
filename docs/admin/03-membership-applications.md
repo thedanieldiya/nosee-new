@@ -2,6 +2,8 @@
 
 **15 October 2026 · Merged in PR #19; owner confirms manual browser checks passed. This is not public-launch approval; unattended expiry scheduling/final privacy/Resend live setup remain pending.** Owner-supplied A03 requirements and the subsequent explicit-consent direction govern this task. Based on main `bf0d72e`, including Resend PR #18 (`1204b06`); [actual verification and walkthrough](reviews/03-membership-applications.md). No paid service or new dependency.
 
+**Current correction:** [A05.5](05-5-membership-workflow.md) supersedes approval-only decision/no-Member behavior and the earlier separate conversion workflow. New approval establishes Active membership atomically; historical unassociated approvals reconcile explicitly. A05 merged in PR #21 (`174620b`), sending remains OFF/live acceptance pending.
+
 ## Public contract
 
 `/join` uses the existing public shell, fonts, colours and responsive container. Existing Join links already point here. `/privacy` is the existing footer destination, now explicitly labelled as a **development-only Lorem ipsum placeholder awaiting approval**. The form warns to use test information until the final policy is published. Noindex/prelaunch restrictions remain.
@@ -19,7 +21,9 @@ All fields are required and validated on the server:
 
 Consent wording **`membership-review-v1`**: “I agree to NOSEE using the information I provide to review my membership application.” The server stores its own consent timestamp and wording version plus **`development-placeholder-v1`** as the current privacy-text version. Applicants cannot supply/forge these metadata. This is purpose-specific consent, not a claim that Lorem ipsum is meaningful approved policy. The owner will replace policy text later; review/update its version and consent wording deliberately when that happens. Legal basis, final privacy wording and retention remain launch requirements.
 
-The real receipt appears only after the transaction commits. It states that the application was received for review, no account/membership is granted, no email is sent at this stage, and pending expiry does not delete data. Native forms work without JavaScript, with server validation and retained submitted values on error. Unconfigured/unreachable infrastructure disables the form or reports unconfirmed failure; it never fabricates success.
+The real receipt appears only after the transaction commits. It states that the application was received for review, no account/membership is granted, email delivery is not confirmed by this page, and pending expiry does not delete data. Native forms work without JavaScript, with server validation and retained submitted values on error. Unconfigured/unreachable infrastructure disables the form or reports unconfirmed failure; it never fabricates success.
+
+With JS, privacy opens in an accessible modal without changing values or consent; `/privacy` is the no-JS fallback and independent page. Shared placeholder content remains unapproved; its old return-to-membership link is removed.
 
 ## Data, security and states
 
@@ -30,7 +34,7 @@ Migration **`drizzle/0002_membership_applications.sql`** adds the private applic
 | No active application for normalized email | New separate `pending` record |
 | `pending` before deadline | Super Admin → `approved` or `rejected`, with mandatory internal note, reviewer and server decision time |
 | `pending` at/after deadline | System → `expired`; no decision allowed |
-| `approved` | Final; blocks another active application; available for A04 |
+| `approved` | Final; blocks another active application; associated Active Member established during new approval (historical unassociated approvals reconcile explicitly) |
 | `rejected` / `expired` | Final for that record; a fresh application is allowed without overwriting history |
 
 Deadline = submission timestamp + **720 elapsed hours**, using PostgreSQL timestamps with timezone. A decision evaluates `clock_timestamp()` **after acquiring the transaction lock**, so a waiting transaction cannot use a stale start time to approve an overdue record. One lock serializes submissions, decisions and expiry across app instances; private operations first recheck current active Super Admin/access version through the existing management lock. System receipt/expiry events have no fake administrator. Audit payloads contain generic record ID/type/label and status changes, never applicant email, answers, review notes, consent token or other submission data. Notes remain on the authorized application detail.
@@ -39,7 +43,7 @@ Same-origin checks, a hidden honeypot, a two-hour HMAC-signed random form nonce 
 
 `/admin/membership/applications` and `/[id]`, their APIs and underlying query/mutation services enforce Super Admin authorization. Editors/Leads cannot read application data or decide it through direct URLs/API calls. Search is literal, filters include effective status, and stable pagination is 20 records. Submitted fields and consent metadata are read-only. Approve/Reject use accessible confirmation dialogs and required internal reason; final/expired controls are disabled, with independent server enforcement.
 
-No existing identity-match implementation was found to reuse. **A03 does not create Members, public profiles, credentials or sessions, or send membership email.** A04 owns identity linking/member records; A05 owns applicant/admin/status messages. New Lead assignment remains disabled until A06 supplies real groups. Local legacy Lead test fixtures are isolated authorization data, not application groups.
+Historically A03 introduced no Member/email behavior. Current A04/A05/A05.5 services add automatic identity checks, Active membership on approval and durable notification intent; submission alone still creates no Member, public profile, credential or session. New Lead assignment remains disabled until A06 supplies real groups. Local legacy Lead test fixtures are isolated authorization data, not application groups.
 
 ## Expiry operations and exact remaining setup
 

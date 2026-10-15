@@ -6,7 +6,8 @@ import { adminDatabase } from "../admin/database.ts";
 import { requireManagerTransaction, ManagementError } from "../admin/management.ts";
 import { member, membershipApplication, applicationMember, leadershipProfileIdentity, auditLog } from "../admin/schema.ts";
 import type { Principal } from "../admin/policy.ts";
-import type { MemberFields } from "./member-options.ts";
+import { emptyMemberFields, type MemberFields } from "./member-options.ts";
+import { memberAcknowledgement } from "./input.ts";
 import type { ApplicationStatus } from "./options.ts";
 import { memberCreateInput, memberUpdateInput, memberQuery, memberMatchInput, applicationMemberInput, profileLinkInput } from "./member-input.ts";
 type Transaction = Parameters<Parameters<ReturnType<typeof adminDatabase>["db"]["transaction"]>[0]>[0];
@@ -43,7 +44,7 @@ async function insertMember(tx: Transaction, actor: Principal, fields: MemberFie
   const digest = createHash("sha256").update(JSON.stringify(fields)).digest("hex");
   const [prior] = await tx.select({ id: member.id, digest: member.creationDigest }).from(member).where(eq(member.creationKey, requestId));
   if (prior) {
-    if (prior.digest !== digest) throw new ManagementError("This creation request was already used with different details. Reload and review the member.", 409);
+    if (prior.digest !== digest) throw new ManagementError("This addition request was already used with different details. Reload and review the member.", 409);
     return { id: prior.id, created: false };
   }
   if (await duplicate(tx, fields.email)) throw new ManagementError("A member with this normalized email already exists. Review the existing record; nothing was overwritten.", 409);
@@ -55,7 +56,7 @@ export async function createMember(actor: Principal, raw: unknown) {
   const input = parse(memberCreateInput, raw);
   return authorized(actor, async tx => {
     const saved = await insertMember(tx, actor, input.fields, input.requestId);
-    return { ...saved, message: saved.created ? "Member record saved. No administrator access, email or public profile was created." : "This creation request already has a member record. No new record or changes were made." };
+    return { ...saved, message: saved.created ? "Member record saved. No administrator access, email or public profile was created." : "This addition request already has a member record. No new record or changes were made." };
   });
 }
 export async function updateMember(actor: Principal, id: string, raw: unknown) {
@@ -106,39 +107,45 @@ export async function applicationMemberContext(actor: Principal, id: string) {
     if (!application) throw new ManagementError("Application not found.", 404);
     const [association] = await tx.select({ memberId: applicationMember.memberId }).from(applicationMember).where(eq(applicationMember.applicationId, id));
     const associated = association ? await memberRow(tx, association.memberId) : null;
-    return { application, associated: associated ? serialized<MemberRecord>(associated) : null, existing: !associated && application.status === "approved" ? await duplicate(tx, application.email.toLowerCase()) : null };
+    return { application, associated: associated ? serialized<MemberRecord>(associated) : null, existing: !associated && (application.status === "approved" || application.status === "pending") ? await duplicate(tx, application.email.toLowerCase()) : null };
   });
+}
+// Caller holds the management lock and supplies the successful approval's server timestamp.
+export async function establishApplicationMember(tx: Transaction, actor: Principal, application: typeof membershipApplication.$inferSelect, acknowledgement: z.infer<typeof memberAcknowledgement> | undefined) {
+  const [prior] = await tx.select().from(applicationMember).where(eq(applicationMember.applicationId, application.id));
+  if (prior) {
+    if (acknowledgement && acknowledgement.memberId !== prior.memberId) throw new ManagementError("This application is already associated with another member. Refresh the review.", 409);
+    return { id: prior.memberId, created: false };
+  }
+  const existing = await duplicate(tx, application.email.toLowerCase());
+  let id: string, created = false;
+  if (existing) {
+    if (!acknowledgement || acknowledgement.memberId !== existing.id || acknowledgement.version !== existing.version) throw new ManagementError("An existing member matches this email. Refresh the review and explicitly acknowledge the current record before approval or reconciliation.", 409);
+    if (existing.status === "inactive") {
+      if (!acknowledgement.reactivate) throw new ManagementError("This member is Inactive. Acknowledge reactivation before continuing.", 409);
+      const changed = await tx.update(member).set({ status: "active", version: existing.version + 1, updatedAt: sql`clock_timestamp()` }).where(sql`${member.id}=${existing.id}::uuid and ${member.version}=${existing.version}`).returning({ id: member.id });
+      if (!changed.length) throw new ManagementError("The member changed. Refresh the review before reactivation.", 409);
+      await audit(tx, actor, existing.id, "Changed membership status", { before: { status: "inactive" }, after: { status: "active" } });
+    }
+    id = existing.id;
+  } else {
+    if (acknowledgement) throw new ManagementError("The matching member changed. Refresh the review before continuing.", 409);
+    if (!application.reviewedAt) throw new ManagementError("A successful approval is required before membership can be added.", 409);
+    const saved = await insertMember(tx, actor, { ...emptyMemberFields, firstName: application.firstName, lastName: application.lastName, email: application.email.toLowerCase(), careerStage: application.careerStage, researchInterests: [...application.researchInterests], status: "active", joinDate: application.reviewedAt.toISOString().slice(0, 10) }, randomUUID());
+    id = saved.id; created = saved.created;
+  }
+  await tx.insert(applicationMember).values({ applicationId: application.id, memberId: id, associatedBy: actor.id, createdAt: sql`clock_timestamp()` });
+  await audit(tx, actor, application.id, "Associated membership application", { before: { memberId: null }, after: { memberId: id } }, true);
+  return { id, created };
 }
 export async function convertApplication(actor: Principal, id: string, raw: unknown) {
   const input = parse(applicationMemberInput, raw);
   return authorized(actor, async tx => {
     const [application] = await tx.select().from(membershipApplication).where(eq(membershipApplication.id, uuid(id)));
     if (!application) throw new ManagementError("Application not found.", 404);
-    if (application.status !== "approved") throw new ManagementError("Only approved applications can be associated with a member.", 409);
-    const [prior] = await tx.select().from(applicationMember).where(eq(applicationMember.applicationId, id));
-    if (prior) {
-      if (input.action === "associate" && input.memberId !== prior.memberId) throw new ManagementError("This application is already associated with a different member. Nothing was changed.", 409);
-      return { id: prior.memberId, created: false, message: "This application is already associated with a member. No record was changed." };
-    }
-    let memberId: string, created = false;
-    if (input.action === "associate") {
-      const current = await memberRow(tx, input.memberId);
-      if (current.version !== input.version) throw new ManagementError("The member changed. Reload and review its latest details before association.", 409);
-      if (current.email.toLowerCase() !== application.email.toLowerCase()) throw new ManagementError("The member email must match the approved application. Review these identities separately.", 409);
-      memberId = current.id;
-    } else {
-      const fields = input.fields;
-      if (fields.firstName !== application.firstName || fields.lastName !== application.lastName || fields.email !== application.email.toLowerCase() || fields.careerStage !== application.careerStage || [...fields.researchInterests].sort().join() !== [...application.researchInterests].sort().join()) throw new ManagementError("Preserve the approved application’s name, email, career stage and research interests during conversion. Reload its prefilled form.");
-      const saved = await insertMember(tx, actor, fields, input.requestId);
-      if (!saved.created) throw new ManagementError("An existing member requires explicit identity review and association. Nothing was changed.", 409);
-      memberId = saved.id; created = true;
-      // A retried creation key must never silently become an association with an edited identity.
-      const current = await memberRow(tx, memberId);
-      if (current.email.toLowerCase() !== application.email.toLowerCase()) throw new ManagementError("The member changed. Review it explicitly before associating this application.", 409);
-    }
-    await tx.insert(applicationMember).values({ applicationId: id, memberId, associatedBy: actor.id, createdAt: sql`clock_timestamp()` });
-    await audit(tx, actor, id, "Associated membership application", { before: { memberId: null }, after: { memberId } }, true);
-    return { id: memberId, created, message: created ? "Member created and associated. Original application answers and decision are retained; no administrator access, email or public profile was created." : "Application associated with the existing member. Its details were not overwritten." };
+    if (application.status !== "approved") throw new ManagementError("Only previously approved applications can be reconciled with a member.", 409);
+    const saved = await establishApplicationMember(tx, actor, application, input.association);
+    return { ...saved, message: "Member associated with the approved application. No approval email, administrator access or public profile was created." };
   });
 }
 export async function profileLinkOptions(actor: Principal, id: string) {

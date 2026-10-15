@@ -15,7 +15,7 @@ test('writes require confirmation, creation idempotency key and edit version',()
  const requestId='9409edae-4dc7-4bfb-80c5-c71956a7dff9';assert.equal(memberCreateInput.safeParse({fields,requestId,confirm:true}).success,true);
  for(const body of [{fields,requestId},{fields,requestId,confirm:false},{fields,requestId:'invalid',confirm:true}])assert.equal(memberCreateInput.safeParse(body).success,false);
  assert.equal(memberUpdateInput.safeParse({fields,version:0,confirm:true}).success,false);assert.equal(memberUpdateInput.safeParse({fields,version:1,confirm:true,reviewerId:requestId}).success,false);
- assert.equal(applicationMemberInput.safeParse({action:'associate',memberId:requestId,version:1,confirm:true}).success,true);assert.equal(profileLinkInput.safeParse({profileId:null,version:1,confirm:true}).success,true);assert.equal(profileLinkInput.safeParse({profileId:requestId,version:1,confirm:true,published:true}).success,false);
+ assert.equal(applicationMemberInput.safeParse({association:{memberId:requestId,version:1,confirm:true},confirm:true}).success,true);assert.equal(profileLinkInput.safeParse({profileId:null,version:1,confirm:true}).success,true);assert.equal(profileLinkInput.safeParse({profileId:requestId,version:1,confirm:true,published:true}).success,false);
 });
 test('directory and private match filters reject invalid criteria and arbitrary clock or access fields',()=>{
  assert.deepEqual(memberQuery.parse({}),{q:'',status:'',interest:'',page:1});

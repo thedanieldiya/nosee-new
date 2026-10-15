@@ -1,12 +1,10 @@
 "use client";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/admin/ManagementShared";
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
-import { memberStatuses } from "@/lib/membership/member-options";
-import type { MemberMatch, MemberRecord, ProfileIdentity } from "@/lib/membership/members";
+import type { MemberRecord, ProfileIdentity } from "@/lib/membership/members";
 function RelationConfirmation({ endpoint, payload, title, description, children, disabled = false }: { endpoint: string; payload: object; title: string; description: string; children?: React.ReactNode; disabled?: boolean }) {
   const router = useRouter(), trigger = useRef<HTMLButtonElement>(null), [open, setOpen] = useState(false), [busy, setBusy] = useState(false), [error, setError] = useState(""), [message, setMessage] = useState("");
   async function save() {
@@ -19,9 +17,6 @@ function RelationConfirmation({ endpoint, payload, title, description, children,
     finally { setBusy(false); }
   }
   return <div className="space-y-3"><Button ref={trigger} variant="outline" disabled={disabled || busy} onClick={() => { setError(""); setOpen(true); }}>{title}</Button><p role="status">{message}</p><Dialog open={open} onOpenChange={value => { if (!busy) setOpen(value); }}><DialogContent onCloseAutoFocus={event => { event.preventDefault(); trigger.current?.focus(); }}><DialogTitle className="text-xl font-semibold">{title}</DialogTitle><DialogDescription className="mt-3 text-secondary">{description}</DialogDescription><div className="my-5">{children}</div>{error ? <p role="alert" className="my-4 text-red-800">{error}</p> : null}<div className="flex justify-end gap-3"><DialogClose asChild><Button variant="outline" disabled={busy}>Cancel</Button></DialogClose><Button disabled={busy} onClick={() => void save()}>{busy ? "Saving…" : "Confirm association"}</Button></div></DialogContent></Dialog></div>;
-}
-export function ExistingMemberAssociation({ applicationId, member }: { applicationId: string; member: MemberMatch }) {
-  return <div className="space-y-5"><p>A member with the same normalized email already exists. Review both identities before explicitly associating them. Existing member fields, status and internal notes will not be overwritten.</p><dl className="grid gap-3"><div><dt className="font-medium">Existing member</dt><dd>{member.firstName} {member.lastName}</dd></div><div><dt className="font-medium">Email</dt><dd className="break-all" data-member-private>{member.email}</dd></div><div><dt className="font-medium">Affiliation / status / join date</dt><dd>{member.affiliation || "Not recorded"} · {memberStatuses[member.status]} · {member.joinDate}</dd></div></dl><Link href={`/admin/membership/members/${member.id}`} className="inline-block underline">Review existing member details</Link><RelationConfirmation endpoint={`/api/admin/membership/applications/${applicationId}/member`} payload={{ action: "associate", memberId: member.id, version: member.version }} title="Associate existing member" description="Confirm that the approved applicant and this member are the same person. This only records their association; it does not merge or overwrite either record."><p>{member.firstName} {member.lastName} · {memberStatuses[member.status]}</p><p className="break-all" data-member-private>{member.email}</p></RelationConfirmation></div>;
 }
 export function MemberProfileLink({ member, profile, options }: { member: MemberRecord; profile: ProfileIdentity | null; options: { profiles: ProfileIdentity[]; available: boolean; version: number } }) {
   const [selected, setSelected] = useState(""), candidate = options.profiles.find(value => value.id === selected);

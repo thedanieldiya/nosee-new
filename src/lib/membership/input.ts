@@ -10,4 +10,5 @@ export const applicationInput = profileInput.extend({
 }).strict();
 export const submissionInput = applicationInput.extend({ formToken: z.string().min(1).max(200), website: z.literal("") }).strict();
 export const applicationQuery = z.object({ q: z.string().trim().max(120).default(""), status: z.enum(["", ...Object.keys(applicationStatuses)] as ["", ...Array<keyof typeof applicationStatuses>]).default(""), page: z.coerce.number().int().min(1).max(100000).default(1) }).strict();
-export const decisionInput = z.object({ decision: z.enum(["approved", "rejected"]), note: z.string().trim().min(1, "Enter an internal review note or reason.").max(2000).refine(value => !/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/.test(value), "Use printable text.") }).strict();
+export const memberAcknowledgement = z.object({ memberId: z.uuid(), version: z.number().int().min(1), confirm: z.literal(true), reactivate: z.literal(true).optional() }).strict();
+export const decisionInput = z.object({ decision: z.enum(["approved", "rejected"]), note: z.string().trim().min(1, "Enter an internal review note or reason.").max(2000).refine(value => !/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/.test(value), "Use printable text."), association: memberAcknowledgement.optional() }).strict().refine(value => value.decision === "approved" || !value.association, "Only approval can associate membership.");

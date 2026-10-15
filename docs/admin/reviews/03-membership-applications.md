@@ -1,5 +1,7 @@
 # A03 — Review and verification
 
+**Historical implementation review:** A03–A05 results below describe those original milestones. **A05 merged in PR #21 (`174620b`).** The owner's [A05.5 correction](../05-5-membership-workflow.md) supersedes separate conversion/manual match controls and approval email wording for new events. Follow its current walkthrough; A04 owner pagination and live email acceptance remain pending.
+
 **Owner update, 15 October 2026:** PR #19 merged (`27baf80`, main merge `4da6d4a`) and the owner confirms A03 manual browser checks passed. Unattended expiry scheduling, final privacy wording and Resend live setup remain open. The following is the historical implementation handoff, not a claim those operational gates passed.
 
 **15 October 2026 · Branch:** [`codex/admin-03-membership-applications`](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-03-membership-applications), from main `bf0d72e`. Implementation contract, consent versions, limits, migration and worker setup: [A03](../03-membership-applications.md). Owner review pending; no PR, merge, manual deploy, hosted DB migration, provider operation or external setting change.

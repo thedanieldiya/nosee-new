@@ -1,6 +1,8 @@
 # NOSEE Admin Dashboard — TRD and Information Architecture
 
 **Version:** 1.2 · **Status:** Approved information architecture; editorial scope and field workflows revised 14 October 2026  
+**Owner correction (15 October 2026):** [A05.5](admin/05-5-membership-workflow.md) supersedes the separate application-to-member conversion/manual lookup flow. Approval atomically establishes Active membership, with explicit existing-member/reactivation acknowledgement. No administrator access/public publication.
+
 **Scope:** Authenticated administrative experience inside the existing Next.js application. **Documentation scope only — changes in this TRD do not by themselves implement admin features or change public pages.**  
 **Visual direction:** Shopify account-settings dashboard — quiet, clear, compact labels, restrained form panels and actions.  
 **Public-site constraint:** Original Laravel public-page parity remains separate; no changes to ongoing public migration are authorised here.
@@ -41,7 +43,9 @@ Core principles:
 
 **Overview** — role-specific actionable summary (applications/drafts/events for Super Admin; editorial tasks for Editor; group tasks for Lead). No fabricated metrics.
 
-**Membership** — the public **`/join`** form (to be implemented in **A03**, outside `/admin`) accepts membership applications; Super Admin privately lists/filters, reviews and approves/rejects them with recorded decisions. The member directory has create/edit/detail forms. Applications remain private and **pending** until reviewed, do not grant login access or automatically publish a public profile. Email notifications happen as a backend workflow; there is **no Email delivery page**.
+**Membership** — the public **`/join`** form (to be implemented in **A03**, outside `/admin`) accepts membership applications; Super Admin privately lists/filters, reviews and approves/rejects them with recorded decisions. The member directory has Add/Edit/detail forms. Add/Edit and approval match checks are automatic; there is no manual lookup button. Applications remain private and **pending** until reviewed, do not grant login access or automatically publish a public profile. Email notifications happen as a backend workflow; there is **no Email delivery page**.
+
+**Approval correction — A05.5:** Successful approval, Active member addition/safe acknowledged association, application link, audits and notification intent commit together. Matching normalized email requires current-version acknowledgement; Inactive membership additionally requires confirmed reactivation while preserving profile fields/original join date. Replays return the same result. New approvals show the associated Member immediately. Historical approvals without a link retain contextual **Add member** reconciliation without duplicate approval email. Optional data is not invented; no member notes from application/review answers.
 
 **Research** — Super Admin sees group list and **Create group**. A group opens its public-page **Content** and group **Members**. **Edit research group** saves and publishes its frontend content; the group lead may do the same immediately. Members tab supports autocomplete of approved members, group-specific membership/role edits and removal.
 
@@ -70,7 +74,7 @@ The following are the **initial editable fields**, not a mandate to add every fi
 | Page / form | Fields and controls |
 | --- | --- |
 | **Public `/join` + Membership → Application review** | **Public `/join`:** applicant details (minimum first name, last name, email; further fields and consent/retention copy require owner approval before build), server-side validation, duplicate/abuse protection and truthful submission acknowledgement. Save an applicant record as private **pending**, never an admin login or approved Member. **Admin review:** the submitted fields are read-only; Super Admin can **Approve / Reject** with internal review note/reason. Submission date, status and reviewer are system records. Show possible-person matches only to authorised reviewers. |
-| **Membership → Create / Edit member** | First name, last name, email; optional phone, affiliation/institution, research area(s), membership status, join date and internal notes. Show group associations and an optional **linked leadership PublicProfile record** with a confirmation/unlink workflow; don't edit its public fields here. |
+| **Membership → Add / Edit member** | First name, last name, email; optional phone, affiliation/institution, research area(s), membership status, join date and internal notes. Show group associations and an optional **linked leadership PublicProfile record** with a confirmation/unlink workflow; don't edit its public fields here. |
 | **Research → Create / Edit group** | Group name, URL slug, short introduction, full description, objectives/focus areas (repeatable), cover image and alt text, visibility/publication status; **assigned Group Lead** (Super Admin only, selected from eligible accounts). Edited content updates the corresponding public group page. |
 | **Research → Group Members** | **Approved-member autocomplete only** (select an existing Member), group-specific member role/title and optional display order; remove membership association. No manually typed person, new-member form or unapproved applicant. Group Leads can edit all of these for **their assigned group only** and publish immediately. |
 | **Publishing → News editor** | Title, slug, category, excerpt/summary, article body (**rich text**), cover image and alt text, publication date, featured flag and Draft/Published status. |
@@ -101,7 +105,7 @@ These are **future database/CMS-connected homepage rules**. The existing literal
 ## 4. Identity, privacy, and media rules
 
 - **Members and leadership Public profiles are independent records.** A public leadership profile may exist without membership, and an approved member need not have a public leadership profile. The public About page is code-managed except for its leadership-person collection.
-- During manual member creation, application review or leadership-profile editing, detect possible name matches and show a small notification suggesting review. Confirm identity in a persistent dialog using only data the acting role is authorised to view; allow linking or remaining separate. **Never automatically merge, overwrite or publish.** Provide auditable unlinking.
+- During manual member addition and application review, automatically check possible names/email with debouncing and stale-response cancellation; leadership-profile matching follows its later approved implementation. Detect possible name matches and show a small notification suggesting review. Confirm identity in a persistent dialog using only data the acting role is authorised to view; allow linking or remaining separate. **Never automatically merge, overwrite or publish.** Provide auditable unlinking.
 - Editors may manage public profiles but cannot inspect sensitive member data as a side effect of match suggestions. Group Leads can use only approved-member autocomplete data necessary for scoped group association.
 - Images upload **contextually** in the relevant editor. Keep storage/security/validation records internally but **do not expose a global Media library UI**.
 

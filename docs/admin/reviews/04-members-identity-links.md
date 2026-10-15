@@ -1,5 +1,7 @@
 # A04 — Review and verification
 
+**Historical implementation review:** A03–A05 results below describe those original milestones. **A05 merged in PR #21 (`174620b`).** The owner's [A05.5 correction](../05-5-membership-workflow.md) supersedes separate conversion/manual match controls and approval email wording for new events. Follow its current walkthrough; A04 owner pagination and live email acceptance remain pending.
+
 **15 October 2026 · Branch:** [`codex/admin-04-members-identity-links`](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-04-members-identity-links), from main `4da6d4a` / merged A03 PR #19. The owner confirms A03 manual browser checks passed; A04 owner review is pending. [Implementation, API contract and migration setup](../04-members-identity-links.md).
 
 **Current owner status (A05 handoff):** A04 merged through [PR #20](https://github.com/thedanieldiya/nosee-new/pull/20), implementation `fcab45d`. Owner checks passed **except pagination**, still pending owner verification. A05 adds automated 45-record/three-page/filter/navigation checks; those do not substitute for owner acceptance. Real profile linking remains dependent on A10. Original implementation verification below is historical; see [A05 operations](../05-membership-emails.md).
@@ -25,14 +27,9 @@ The first new-navigation scan found insufficient green-text contrast on the gray
 
 Reusable files: `tests/members.test.mjs`, `tests/members-integration.mjs` (`npm run test:members`), `tests/check-members.cjs`. Existing suites remain. Browser arguments: loopback origin, private fixture JSON, `/tmp/…` output and axe script. Integration optionally writes protected local role fixtures and adjacent `members.json`; no default/demo/owner account is provisioned by application code. Run shared-DB mutating checks sequentially. Bulk logs/screenshots remain temporary; three masked representative captures were visually inspected. Automated/keyboard checks do not certify full accessibility; manual screen-reader/voice/magnifier acceptance remains open.
 
-## Owner browser acceptance (six steps)
+## Current owner acceptance
 
-1. On the authorized isolated branch preview, apply migration `0003` through the approved operator workflow. Sign in as Super Admin; Membership → Members → Create member. Create test data with optional career/interests empty, confirm, refresh, then edit fields/status. Verify real persistence and unchanged administrator access/public pages. Repeat at mobile width and cancel a confirmation with Escape.
-2. Create two distinct test people with similar names and different emails. Use **Check possible matches** to review suggestions; neither is merged. Try a duplicate email with different capitalization and confirm that save refuses without overwrite. Open two edit tabs and verify the stale second save conflicts rather than silently replacing the first.
-3. Submit/approve an isolated `/join` application, then explicitly Create member from its review. Verify read-only source prefills, blank internal notes, original motivation/decision retained, associated member shown afterward and no duplicate on revisit/retry. No account, email or public profile should be created.
-4. For an approved test application whose normalized email already belongs to a member, review the existing identity and confirm **Associate existing member**. Verify its fields/status/notes are unchanged and both records retain their history; invalid application states cannot convert.
-5. Verify Leadership identity explains the **A10 dependency** and has a disabled picker in the real empty inventory. No public placeholders should appear. Link/unlink was exercised only with isolated database fixtures; owner live linking acceptance waits for real A10 profiles. Research groups should show a plain A06 unavailable statement, with no management controls.
-6. With an authorized existing test Editor (and a genuine scoped Lead if available), try member list/new/detail/edit/API/match/relation URLs: expect denial and no private information. Anonymous access must request sign-in/API401. As Super Admin inspect Activity log for actor/time, generic target/status/association IDs, with no member emails, applicant answers or notes. Do not invent Lead groups for this walkthrough.
+Use the [A05.5 five-step walkthrough](../05-5-membership-workflow.md#verification-and-owner-walkthrough): automatic approval-to-member, acknowledged existing-member/reactivation, automatic Add/Edit matches and privacy panel. The old separate conversion/manual-check walkthrough is superseded. **A04 owner pagination remains pending** despite automated >40-record coverage. A10 real profile picker still waits for real profiles.
 
 ## Remaining owner actions and limits
 
