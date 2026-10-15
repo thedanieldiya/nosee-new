@@ -1,6 +1,6 @@
 # Resend administrator invitation adapter
 
-**15 October 2026 · Integration code ready for review; domain verification, live sending and owner acceptance pending.** The owner authorized Resend adapter preparation only. This does not authorize account connection, DNS changes, secrets configuration, Vercel deployment/settings, live database migrations or real email. A02 core merged as [PR #17](https://github.com/thedanieldiya/nosee-new/pull/17); this follow-up starts from main `83d141a` on [`codex/admin-02-resend-invitations`](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-02-resend-invitations). No PR is created automatically.
+**15 October 2026 · Integration merged as [PR #18](https://github.com/thedanieldiya/nosee-new/pull/18), commit `1204b06`; domain verification, live sending and owner acceptance pending.** The owner authorized Resend adapter preparation only. This does not authorize account connection, DNS changes, secrets configuration, Vercel deployment/settings, live database migrations or real email. A02 core merged as [PR #17](https://github.com/thedanieldiya/nosee-new/pull/17); this follow-up starts from main `83d141a` on [`codex/admin-02-resend-invitations`](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-02-resend-invitations). No PR is created automatically.
 
 ## Configuration and later owner setup
 

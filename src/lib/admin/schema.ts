@@ -30,9 +30,9 @@ export const rateLimit = pgTable("admin_rate_limit", { id: uuid("id").primaryKey
 // Atomic account-based throttling also applies when proxy IP headers cannot be trusted.
 export const loginAttempt = pgTable("admin_login_attempt", { key: text("key").primaryKey(), count: integer("count").notNull(), startedAt: timestamp("started_at", { withTimezone: true }).notNull() });
 export const auditLog = pgTable("admin_audit_log", {
-  id: uuid("id").primaryKey(), actorId: uuid("actor_id").notNull().references(() => user.id), action: text("action").notNull(),
+  id: uuid("id").primaryKey(), actorId: uuid("actor_id").references(() => user.id), action: text("action").notNull(),
   targetType: text("target_type"), targetId: uuid("target_id"), targetLabel: text("target_label"),
-  changes: jsonb("changes").$type<{ before: { role?: string; active?: boolean }; after: { role?: string; active?: boolean } }>(),
+  changes: jsonb("changes").$type<{ before: { role?: string; active?: boolean; status?: string }; after: { role?: string; active?: boolean; status?: string } }>(),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 }, table => [index("admin_audit_actor_time").on(table.actorId, table.createdAt), index("admin_audit_time").on(table.createdAt, table.id)]);
 export const invitation = pgTable("admin_invitation", {
@@ -52,3 +52,17 @@ export const invitationSend = pgTable("admin_invitation_send", {
   status: text("status").$type<"sending" | "accepted" | "failed" | "unconfirmed">().notNull(), providerMessageId: text("provider_message_id"),
   ...timestamps,
 }, table => [check("admin_invitation_send_status", sql`${table.status} IN ('sending', 'accepted', 'failed', 'unconfirmed')`), index("admin_invitation_send_time").on(table.invitationId, table.createdAt)]);
+export const applicationStatus = pgEnum("membership_application_status", ["pending", "approved", "rejected", "expired"]);
+export const membershipApplication = pgTable("membership_application", {
+  id: uuid("id").primaryKey(), firstName: text("first_name").notNull(), lastName: text("last_name").notNull(), email: text("email").notNull(),
+  careerStage: text("career_stage").notNull(), researchInterests: text("research_interests").array().notNull(), why: text("why").notNull(),
+  consentedAt: timestamp("consented_at", { withTimezone: true }).notNull(), consentVersion: text("consent_version").notNull(), privacyVersion: text("privacy_version").notNull(),
+  status: applicationStatus("status").notNull().default("pending"), formDigest: text("form_digest").notNull().unique(), requestDigest: text("request_digest").notNull(),
+  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull().default(sql`now() + interval '720 hours'`),
+  reviewerId: uuid("reviewer_id").references(() => user.id), reviewedAt: timestamp("reviewed_at", { withTimezone: true }), reviewNote: text("review_note"), ...timestamps,
+}, table => [
+  uniqueIndex("membership_application_active_email").on(sql`lower(${table.email})`).where(sql`${table.status} IN ('pending','approved')`),
+  index("membership_application_expiry").on(table.expiresAt, table.id).where(sql`${table.status} = 'pending'`),
+  index("membership_application_created").on(table.createdAt, table.id),
+  check("membership_application_decision", sql`(${table.status} IN ('approved','rejected') AND ${table.reviewerId} IS NOT NULL AND ${table.reviewedAt} IS NOT NULL AND ${table.reviewNote} IS NOT NULL AND length(${table.reviewNote}) BETWEEN 1 AND 2000) OR (${table.status} IN ('pending','expired') AND ${table.reviewerId} IS NULL AND ${table.reviewedAt} IS NULL AND ${table.reviewNote} IS NULL)`),
+]);

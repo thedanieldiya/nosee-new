@@ -1,6 +1,6 @@
 # Admin foundation architecture and operator setup
 
-**15 October 2026 · A01/A02 core merged; Resend adapter code in review.** PostgreSQL-backed administration lives inside the existing Next.js app. Public pages still use their original content services; nothing is published from this database. The owner reports main's prelaunch Neon-backed Super Admin walkthrough passed; branch-preview and A02 delivery acceptance remain outstanding.
+**15 October 2026 · A01/A02 and Resend PR #18 (`1204b06`) merged; A03 in review.** PostgreSQL-backed administration lives inside the existing Next.js app. Public pages still use their original content services; nothing is published from this database. The owner reports main's prelaunch Neon-backed Super Admin walkthrough passed; branch-preview and A02 delivery acceptance remain outstanding.
 
 ## Selected stack and boundaries
 
@@ -70,12 +70,19 @@ Invitations are separate from login accounts. Codes are 256-bit cryptographic ra
 
 The owner authorized a small **server-only Resend fetch adapter**, with no SDK or live service configuration. The factory returns null unless server-only `RESEND_API_KEY`, a valid bare `ADMIN_INVITATION_FROM` and exact HTTPS `ADMIN_ORIGIN` exist. Invite/Resend fail closed without invitation/send/audit writes when unavailable. The durable send-attempt UUID becomes the Resend idempotency key; explicit resend still rotates the code and creates a new attempt. An eight-second request deadline fits inside the existing ten-second service ceiling. There are no automatic retries; explicit rejection/429 is failed (token invalidated), while network/timeout/409/5xx or unrecognized success remains unconfirmed. Only valid HTTP 200 acceptance IDs are persisted, without implying inbox delivery. No plaintext retry payload or manual distribution fallback exists. See [Resend setup and current verification](resend-invitations.md), [historical provider proposal](email-provider-proposal.md) and [A02 core results](reviews/02-administrators-activity.md). Domain/DNS/account/secrets configuration, live sending and owner acceptance remain pending.
 
+## A03 private membership boundary
+
+[Membership contract and expiry operations](03-membership-applications.md) document the additive `0002` migration. Public `/join` submits validated data and mandatory review-purpose consent through a size-bounded same-origin server action. Separate application records never become Better Auth identities, sessions or Members. Private services recheck the existing active Super Admin/access version inside transactions, then serialize application decisions/expiry with advisory lock `4631003` (management lock first). Partial unique normalized-email and form-digest constraints back duplicate/idempotency checks. Server clocks enforce 720 elapsed hours, including decisions delayed on a lock; pending expiry retains data and final decisions.
+
+Anonymous receipt/expiry audits have a genuine NULL/System actor, generic record ID/label and status changes only. Existing audit reads use LEFT JOIN and retain prior administrator events. Consent time and wording/policy versions stay on the private application, never in audit text. No identity-match service existed to reuse; A04 linking and A05 email remain unimplemented. The bearer/CLI sweep is prepared but **no unattended schedule is configured or verified**. Existing auth/session/bootstrap and Resend behavior remain intact.
+
 ## Local integration and safe review fixtures
 
 Tests require a deliberately disposable **loopback PostgreSQL database named `nosee_admin01_test`** and a loopback app origin. They refuse other databases before destructive setup. Use the official PostgreSQL container with a randomly generated password held in a mode-0600 file outside Git; bind its port to loopback only. Apply `admin:migrate`, load the protected local env, build/start the app at the same `ADMIN_ORIGIN`, then:
 
 ```bash
 npm run test:admin
+npm run test:membership
 ```
 
 The two sequential suites use real database identities, scrypt hashes and signed sessions, including migration preservation and invitation/access/audit races. Test fixtures never enter migrations or app defaults. Setting `NOSEE_ADMIN_FIXTURE_FILE` to a private `/tmp/…` file optionally preserves random **local-only** role credentials and an adjacent `invitation.json` for browser QA; files are mode 0600 and never printed. The suite resets its named test database; never run it against preview or production. Browser suites share fixtures and must also run sequentially. Remove the container/private files when finished. Never let an injected hosted `DATABASE_URL` override a local test file: explicitly select a disposable child-process environment before running these commands.
