@@ -1,15 +1,15 @@
 # NOSEE Admin Dashboard — Delivery Tracker
 
 **Started:** 15 October 2026 · **Scope:** Owner-approved [Admin Dashboard TRD v1.2](../admin-dashboard-trd.md).  
-**Baseline:** Public frontend migration and [Task 12 PR #12](https://github.com/thedanieldiya/nosee-new/pull/12) merged; **A01 foundation implemented on its review branch; hosted preview provisioning remains blocked**.
-**Current task:** **A01 — Secure authentication, role-aware dashboard shell and interactive preview**. [Implementation brief](01-foundation.md).  
-**Progress:** **0/13 admin tasks merged · 0/13 owner-approved interactive reviews.** A01 is implemented/In review; neither code tests nor screenshots count as owner approval or a hosted preview.
+**Baseline:** Public frontend migration and [Task 12 PR #12](https://github.com/thedanieldiya/nosee-new/pull/12) merged; [Admin 01 PR #13](https://github.com/thedanieldiya/nosee-new/pull/13) has merged. **Hosted preview setup and owner-interactive approval remain blocked by missing preview DB/env/accounts and inaccessible deployment status.**
+**Current priority:** **A01 infrastructure and interactive acceptance** (provision isolated Preview PostgreSQL, env secrets, initial Super Admin and verify browser sign-in). **A02 implementation is not started.** [Implementation brief](01-foundation.md) · [operator setup](architecture.md).  
+**Progress:** **1/13 admin tasks merged · 0/13 owner-approved interactive reviews.** A01 code merged, but owner preview access and role walkthrough are not yet approved.
 
 ## Delivery and hands-on review tracker
 
 | ID | Scope and user-visible result | Code status | Owner review | PR / branch | Interactive preview |
 | --- | --- | --- | --- | --- | --- |
-| **A01** | **First Super Admin CLI bootstrap + auth + shadcn shell + General:** create initial admin securely; sign in/out as each role, browse responsive navigation, edit and persist own name/profile fields | Pushed/In review | **Preview blocked** — no hosted DB/env/accounts or verified URL; [review](reviews/01-foundation.md) | [Branch](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-01-foundation) · `ef2a1e6` published/remote verified; no PR | Unverified; local PostgreSQL/role walkthroughs pass |
+| **A01** | **First Super Admin CLI bootstrap + auth + shadcn shell + General:** create initial admin securely; sign in/out as each role, browse responsive navigation, edit and persist own name/profile fields | **Merged** | **Preview blocked** — hosted DB/env/accounts and verified URL pending; [review](reviews/01-foundation.md) | [PR #13](https://github.com/thedanieldiya/nosee-new/pull/13) merged · `ece98b9` | Not verified; local PostgreSQL/role walkthroughs pass |
 | A02 | **Administrators + Activity log:** Super Admin manages invited administrator roles/scopes and inspects genuine audited changes | Not started | Pending | — | — |
 | A03 | **Public `/join` + membership applications:** apply through the working public `/join` form; Super Admin privately reviews, approves/rejects and records the outcome | Not started | Pending | — | — |
 | A04 | **Member records and identity links:** create/edit private Members; review suggested matches and explicitly link/unlink Leadership profiles without data leakage | Not started | Pending | — | — |
@@ -49,6 +49,7 @@
 | Date | Milestone | Update / owner decision |
 | --- | --- | --- |
 | 2026-10-15 | A03 public Join route confirmed | Owner requires a **public `/join` membership application** linked to admin review; planned within A03, not Admin 01. |
+| 2026-10-15 | A01 PR #13 merged, preview blocked | Auth, masked bootstrap, role-aware shell and account settings are merged; isolated hosted database/secret/account provisioning and interactive owner review still outstanding. [PR #13](https://github.com/thedanieldiya/nosee-new/pull/13). |
 | 2026-10-15 | A01 ready | Admin TRD v1.2 and [A01 implementation brief](01-foundation.md) approved as direction; 0/13 code tasks merged. Added **hands-on preview as an explicit requirement** before interactive owner acceptance. |
 | 2026-10-15 | A01 implemented/In review | Real PostgreSQL/auth/bootstrap, role shell and General; 116 unit/public + 15 integration cases, responsive/axe/public checks. Hosted provisioning and owner walkthrough remain blocked; no approval or A02. |
 
