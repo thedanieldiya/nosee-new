@@ -1,5 +1,7 @@
 # A01 — Secure foundation review
 
+> **Owner interaction update — 15 October 2026:** A01 [PR #13](https://github.com/thedanieldiya/nosee-new/pull/13) and Neon TLS [PR #15](https://github.com/thedanieldiya/nosee-new/pull/15) are merged. The owner connected a nonproduction Neon database to Vercel's Production-labelled main deployment, successfully migrated the schema, bootstrapped the first Super Admin and signed in. The owner reported **6/6 passing Super Admin checks**: role Overview; navigation/unavailable modules; General account details; saved first/last name persisting after refresh; logout/login; anonymous `/admin` redirect. **Original A01 role coverage is not yet complete:** no owner-in-browser Editor or scoped Research Group Lead tests, no password-change confirmation, and no independently verified production-release/security or deployment-protection signoff. Historical branch/screenshot/test evidence below remains as originally recorded; its initial "Preview blocked" label refers to the earlier implementation-stage snapshot.
+
 **15 October 2026 · [Published branch](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-01-foundation) · Implementation `ef2a1e6` remote verified · Code In review · Owner review: Preview blocked.** Base main `8d90ebfad7536038dcf561023daacb947cf39330` includes merged Task 12. No PR/merge, production settings or A02 implementation.
 
 ## Delivered and external blocker
