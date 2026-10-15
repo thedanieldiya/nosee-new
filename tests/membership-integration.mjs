@@ -32,7 +32,7 @@ try{
    // Reconstruct A02 only inside this rollback-only local fixture transaction.
    await client.query('delete from admin_audit_log where actor_id is null');
    const snapshot=async()=>JSON.stringify((await client.query(`select jsonb_build_object('users',(select jsonb_agg(to_jsonb(u) order by id) from administrator u),'accounts',(select jsonb_agg(to_jsonb(a) order by id) from admin_account a),'sessions',(select jsonb_agg(to_jsonb(s) order by id) from admin_session s),'audit',(select jsonb_agg(to_jsonb(l) order by id) from admin_audit_log l)) records`)).rows[0].records);
-   const before=await snapshot();await client.query('drop table membership_application_member;drop table membership_application;drop type membership_application_status;alter table admin_audit_log alter column actor_id set not null');
+   const before=await snapshot();await client.query('drop table membership_notification;drop table membership_application_member;drop table membership_application;drop type membership_application_status;alter table admin_audit_log alter column actor_id set not null');
    for(const statement of readFileSync(new URL('../drizzle/0002_membership_applications.sql',import.meta.url),'utf8').split('--> statement-breakpoint'))await client.query(statement);
    assert.equal(await snapshot(),before);
   }finally{await client.query('rollback');client.release();}

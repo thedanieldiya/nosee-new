@@ -1,4 +1,5 @@
 import "server-only";
+import { recordMembershipEmails } from "./email-outbox.ts";
 import { randomUUID } from "node:crypto";
 import { isIP } from "node:net";
 import { sql, eq, and, type SQL } from "drizzle-orm";
@@ -65,6 +66,7 @@ export async function submitMembershipApplication(raw: unknown, requestHeaders: 
     const id = randomUUID();
     await tx.insert(membershipApplication).values({ firstName: values.firstName, lastName: values.lastName, email: values.email, careerStage: values.careerStage, researchInterests: values.researchInterests, why: values.why, id, formDigest, requestDigest, consentedAt: sql`statement_timestamp()`, consentVersion: membershipConsent.version, privacyVersion: membershipConsent.privacyVersion, createdAt: sql`statement_timestamp()`, updatedAt: sql`statement_timestamp()`, expiresAt: sql`statement_timestamp() + interval '720 hours'` });
     await recordEvent(tx, id, "Received membership application");
+    await recordMembershipEmails(tx, id, "received");
     return { received: true };
   });
   if (!result.received) throw new ApplicationError("We couldn't accept another application with these details. If you've already applied, please wait for review or contact NOSEE.", 409);
@@ -100,11 +102,11 @@ export async function decideMembershipApplication(actor: Principal, id: string, 
     const rows = (await tx.execute<{ id: string }>(sql`with instant as materialized (select clock_timestamp() at)
       update membership_application a set status=${decision}::membership_application_status,reviewer_id=${actor.id}::uuid,reviewed_at=instant.at,review_note=${note},updated_at=instant.at
       from instant where a.id=${id}::uuid and a.status='pending' and a.expires_at>instant.at returning a.id`)).rows;
-    if (rows.length) { await recordEvent(tx, id, decision === "approved" ? "Approved membership application" : "Rejected membership application", "pending", decision, actor.id); return "saved"; }
+    if (rows.length) { await recordEvent(tx, id, decision === "approved" ? "Approved membership application" : "Rejected membership application", "pending", decision, actor.id); await recordMembershipEmails(tx, id, decision); return "saved"; }
     // Commit expiry even when refusing the decision; throwing inside the transaction would undo it.
     await persistExpiry(tx, sql`id=${id}::uuid`);
     return (await tx.select({ id: membershipApplication.id }).from(membershipApplication).where(eq(membershipApplication.id, id))).length ? "conflict" : "missing";
   });
   if (outcome !== "saved") throw new ApplicationError(outcome === "missing" ? "Application not found." : "This application is no longer pending. It may have expired or already been reviewed.", outcome === "missing" ? 404 : 409);
-  return { message: `Application ${decision}. This records the review decision; no member record, account or email was created.` };
+  return { message: `Application ${decision}. No member record or account was created. Email notifications are processed separately; delivery is not confirmed here.` };
 }

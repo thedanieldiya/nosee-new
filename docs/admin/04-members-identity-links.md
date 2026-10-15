@@ -2,6 +2,8 @@
 
 **15 October 2026 · Implemented for branch review.** Based on main `4da6d4a` (merged A03 PR #19 / `27baf80`). The owner confirms A03 manual browser checks passed. This does not resolve unattended expiry scheduling, final privacy wording or Resend live setup. [Actual verification and owner walkthrough](reviews/04-members-identity-links.md).
 
+**Current owner status (A05 handoff):** A04 merged through [PR #20](https://github.com/thedanieldiya/nosee-new/pull/20), implementation `fcab45d`. Owner checks passed **except pagination**, still pending owner verification. A05 adds automated 45-record/three-page/filter/navigation checks; those do not substitute for owner acceptance. Real profile linking remains dependent on A10. Original implementation verification below is historical; see [A05 operations](05-membership-emails.md).
+
 ## Contract and workflows
 
 Super Admin only: `/admin/membership/members`, `/new` and `/[id]`; the detail's `?edit=1` opens its edit form. Membership secondary navigation connects Members and Applications. All pages, API reads/mutations and underlying services recheck authorization. Editors/Leads have no member, match, conversion or relation access. No scoped autocomplete/group management before A06.

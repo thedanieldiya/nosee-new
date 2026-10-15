@@ -1,6 +1,6 @@
 # Admin foundation architecture and operator setup
 
-**15 October 2026 · A01/A02 and Resend PR #18 (`1204b06`) merged; A03 PR #19 merged/owner browser checks passed; A04 in review.** PostgreSQL-backed administration lives inside the existing Next.js app. Public pages still use their original content services; nothing is published from this database. The owner reports main's prelaunch Neon-backed Super Admin walkthrough passed; branch-preview and A02 delivery acceptance remain outstanding.
+**15 October 2026 · A01/A02 and Resend PR #18 (`1204b06`) merged; A03 PR #19 merged/owner browser checks passed; A04 PR #20 merged (owner pagination pending); A05 mail code in review/OFF.** PostgreSQL-backed administration lives inside the existing Next.js app. Public pages still use their original content services; nothing is published from this database. The owner reports main's prelaunch Neon-backed Super Admin walkthrough passed; branch-preview and A02 delivery acceptance remain outstanding.
 
 ## Selected stack and boundaries
 
@@ -58,7 +58,7 @@ Open **`/admin/sign-in` on the configured origin** and use the operator-chosen c
 
 Overview shows the signed-in role/workspace and **real own-account audit events**; it has no fake organisation metrics. General saves own first/last name, persists through refresh and changes the password securely. Email is read-only until verification/onboarding is implemented; photo uploads are explicitly unavailable until secure storage exists. No inert Save/upload/forgot-password control pretends to work.
 
-Super Admin navigation includes all approved modules; Administrators and Activity log are functional in A02. Editor has Overview/Publishing/Website/General; Lead has Overview/assigned Research/General. Future modules remain **Soon**, with no fake editors. The guarded catch-all denies forbidden routes with **403**; authorised but unimplemented destinations return **404**. A Lead's Research root redirects to their assigned scope, whose editor is not implemented; other scope/create/member paths are denied. No Membership, Research, Publishing or Website forms exist. [TRD v1.2](../admin-dashboard-trd.md#6-approved-nextjs-app-router-page-tree) remains the canonical future tree.
+Super Admin navigation includes all approved modules; Administrators and Activity log are functional in A02. Editor has Overview/Publishing/Website/General; Lead has Overview/assigned Research/General. Future modules remain **Soon**, with no fake editors. The guarded catch-all denies forbidden routes with **403**; authorised but unimplemented destinations return **404**. A Lead's Research root redirects to their assigned scope, whose editor is not implemented; other scope/create/member paths are denied. Membership Applications/Members are implemented in A03/A04; Research, Publishing and Website editors remain unimplemented. [TRD v1.2](../admin-dashboard-trd.md#6-approved-nextjs-app-router-page-tree) remains the canonical future tree.
 
 ## A02 invitation, access and audit boundary
 
@@ -74,7 +74,7 @@ The owner authorized a small **server-only Resend fetch adapter**, with no SDK o
 
 [Membership contract and expiry operations](03-membership-applications.md) document the additive `0002` migration. Public `/join` submits validated data and mandatory review-purpose consent through a size-bounded same-origin server action. Separate application records never become Better Auth identities, sessions or Members. Private services recheck the existing active Super Admin/access version inside transactions, then serialize application decisions/expiry with advisory lock `4631003` (management lock first). Partial unique normalized-email and form-digest constraints back duplicate/idempotency checks. Server clocks enforce 720 elapsed hours, including decisions delayed on a lock; pending expiry retains data and final decisions.
 
-Anonymous receipt/expiry audits have a genuine NULL/System actor, generic record ID/label and status changes only. Existing audit reads use LEFT JOIN and retain prior administrator events. Consent time and wording/policy versions stay on the private application, never in audit text. A03 had no identity-match service; A04 now adds explicit private member associations and prepares A10 identity linking, while A05 membership email remains unimplemented. The bearer/CLI sweep is prepared but **no unattended schedule is configured or verified**. Existing auth/session/bootstrap and Resend behavior remain intact.
+Anonymous receipt/expiry audits have a genuine NULL/System actor, generic record ID/label and status changes only. Existing audit reads use LEFT JOIN and retain prior administrator events. Consent time and wording/policy versions stay on the private application, never in audit text. A03 had no identity-match service; A04 now adds explicit private member associations and prepares A10 identity linking, while A05 now prepares disabled-by-default membership mail. The bearer/CLI sweep is prepared but **no unattended schedule is configured or verified**. Existing auth/session/bootstrap and Resend behavior remain intact.
 
 ## A04 private members and identity associations
 
@@ -82,7 +82,15 @@ Anonymous receipt/expiry audits have a genuine NULL/System actor, generic record
 
 All list/detail/match/create/edit/convert/link services reuse the active Super Admin/access-version transaction guard and advisory lock, with normalized email uniqueness, one application association and optional one-to-one profile FK/unique constraints backing concurrency. Edits and links require an optimistic integer version; stale writes return 409 without overwrite. Manual creation uses a persisted request UUID/payload digest for exact retries; conversion uses the application association as its idempotency boundary. Duplicate existing identities require explicit review/association. Application source fields and decisions remain intact; motivation is not repurposed as internal notes.
 
-Member Active/Inactive is independent from application states, admin identities/sessions and public profile visibility. Member audit targets are generic IDs; status/association IDs only, never emails, answers or internal notes. No delete, public signup, membership email or group management. Mutation bodies retain the existing 8KB bound. Match lookup uses authenticated same-origin POST so names/emails do not enter the lookup URL; no private payload logging. Membership and admin/public bundles remain separate.
+Member Active/Inactive is independent from application states, admin identities/sessions and public profile visibility. Member audit targets are generic IDs; status/association IDs only, never emails, answers or internal notes. No delete, public signup or group management. Member operations never send email; A05 only records application/decision email intents. Mutation bodies retain the existing 8KB bound. Match lookup uses authenticated same-origin POST so names/emails do not enter the lookup URL; no private payload logging. Membership and admin/public bundles remain separate.
+
+## A05 transactional membership mail
+
+[Contract and operations](05-membership-emails.md) documents additive `0004`, four responsive HTML/text templates, independently disabled mail configuration, explicit administrator recipients, prospective activation and no automatic historical/held backlog. Application/decision intent is atomic with business/audit persistence; later provider failure cannot undo it. Shared fetch preserves invitations; no SDK/dependency added.
+
+Per-recipient durable jobs have unique event keys, fenced 120s claims and database gate `4631004`; 8s requests, five-attempt backoff/429 handling and stable provider key/payload hash. Official Resend idempotency retention is 24h; automatic retries stop at 23h from first claim. Unknown/interrupted outcomes remain unconfirmed, acceptance is not delivery and no delivery tracking exists. Super-only detail summaries disclose status/attempt/eligible timing, not addresses/bodies/notes/secrets. No generic email navigation or unsafe replay control.
+
+`membership:mail` and `/api/internal/membership-emails` (separate worker bearer secret) process at most one due job/invocation; no schedule configured. Owner-approved domain/sender/recipients/private config, future cutover, isolated-inbox acceptance and runner capacity/monitoring are prerequisites for operation. No live setup/migration/sending authorized/performed. [Actual tests and owner steps](reviews/05-membership-emails.md).
 
 ## Local integration and safe review fixtures
 
@@ -92,9 +100,11 @@ Tests require a deliberately disposable **loopback PostgreSQL database named `no
 npm run test:admin
 npm run test:membership
 npm run test:members
+npm run test:mail
+npm run test:membership-mail
 ```
 
-The two sequential suites use real database identities, scrypt hashes and signed sessions, including migration preservation and invitation/access/audit races. Test fixtures never enter migrations or app defaults. Setting `NOSEE_ADMIN_FIXTURE_FILE` to a private `/tmp/…` file optionally preserves random **local-only** role credentials and an adjacent `invitation.json` for browser QA; files are mode 0600 and never printed. The suite resets its named test database; never run it against preview or production. Browser suites share fixtures and must also run sequentially. Remove the container/private files when finished. Never let an injected hosted `DATABASE_URL` override a local test file: explicitly select a disposable child-process environment before running these commands.
+The sequential suites use real database identities, scrypt hashes and signed sessions, including migration preservation and invitation/access/audit races. Test fixtures never enter migrations or app defaults. Setting `NOSEE_ADMIN_FIXTURE_FILE` to a private `/tmp/…` file optionally preserves random **local-only** role credentials and an adjacent `invitation.json` for browser QA; files are mode 0600 and never printed. The suite resets its named test database; never run it against preview or production. Browser suites share fixtures and must also run sequentially. Remove the container/private files when finished. Never let an injected hosted `DATABASE_URL` override a local test file: explicitly select a disposable child-process environment before running these commands.
 
 For a local hands-on fallback, use those legitimately provisioned isolated test accounts, retrieving access only through an approved secure local mechanism. This is **not** a hosted preview or a production account-seeding path. Hosted Editor/Lead review accounts must be separately provisioned by an authorised operator into the isolated preview DB through a secure internal process; do not expose a role-switcher/signup or reuse local test secrets. A02 supplies the maintained invitation UI, but its delivery remains gated until provider approval and real-inbox verification. Owner-interactive hosted review remains **Preview blocked** until infrastructure and secure account access exist.
 
