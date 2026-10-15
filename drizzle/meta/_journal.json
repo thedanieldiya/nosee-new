@@ -8,6 +8,13 @@
       "when": 1792045024257,
       "tag": "0000_admin_foundation",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792060000000,
+      "tag": "0001_administrators_activity",
+      "breakpoints": true
     }
   ]
 }

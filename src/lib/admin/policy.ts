@@ -1,5 +1,5 @@
 export type AdminRole = "super_admin" | "editor" | "research_group_lead";
-export type Principal = { id: string; firstName: string; lastName: string; email: string; role: AdminRole; researchGroupId: string | null };
+export type Principal = { id: string; firstName: string; lastName: string; email: string; role: AdminRole; researchGroupId: string | null; accessVersion?: number };
 export type Permission = "overview" | "account" | "membership" | "research" | "publishing" | "website" | "administrators" | "activity";
 export const roleLabels: Record<AdminRole, string> = { super_admin: "Super Admin", editor: "Editor", research_group_lead: "Research Group Lead" };
 export function canAccess(principal: Pick<Principal, "role" | "researchGroupId">, permission: Permission, groupId?: string) {
@@ -28,8 +28,8 @@ export function adminNavigation(principal: Principal) {
     { label: "Publishing", href: "/admin/publishing/news", permission: "publishing" as Permission, icon: "publishing", available: false },
     { label: "Website", href: "/admin/website/site-content", permission: "website" as Permission, icon: "website", available: false },
     { label: "General", href: "/admin/settings/general", permission: "account" as Permission, icon: "settings", available: true },
-    { label: "Administrators", href: "/admin/settings/administrators", permission: "administrators" as Permission, available: false },
-    { label: "Activity log", href: "/admin/settings/activity-log", permission: "activity" as Permission, available: false },
+    { label: "Administrators", href: "/admin/settings/administrators", permission: "administrators" as Permission, available: true },
+    { label: "Activity log", href: "/admin/settings/activity-log", permission: "activity" as Permission, available: true },
   ];
   return entries.filter(entry => canAccess(principal, entry.permission, principal.researchGroupId ?? undefined));
 }

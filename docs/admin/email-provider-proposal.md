@@ -1,0 +1,28 @@
+# A02 invitation delivery proposal
+
+**15 October 2026 · Pending explicit approval.** The owner requires free services or a generous ongoing free tier. Recommendation: evaluate **Brevo Free** first, with **Resend Free** as the credible alternative. Approval is limited to A02 administrator invitations; membership/marketing delivery is outside this decision. No provider package, adapter, account, key, DNS configuration or real sending is enabled in this branch.
+
+| Requirement | Brevo — recommended provisionally | Resend — alternative |
+| --- | --- | --- |
+| Next.js/Vercel compatibility | Official Node/TypeScript SDK documents HTTPS transactional sending, HTML/text content, API-key authentication, timeout/abort/error handling. An eventual small server-only HTTPS adapter can avoid another runtime package. | Official Node/TypeScript SDK documents HTML/text API sending, errors, cancellation and idempotency options. Compatible with the same transport boundary. |
+| Free/paid cost | Advertised allowance commonly listed as **300 emails/day**; **not independently reverified**. Current free-plan conditions, account activation and paid prices remain unconfirmed. No purchase or automatic paid upgrade authorized. | Advertised allowance commonly listed as **3,000/month, 100/day**; **not independently reverified**. Current domain/retention limits, overages and paid prices remain unconfirmed. |
+| Sender verification | Official current API definitions expose verified/authenticated domain status and verification-code, DKIM and DMARC records. Owner must approve the domain/From and follow the account's actual DNS instructions; SPF/return-path requirements must be verified rather than adding speculative records or a second SPF policy. | Official current definitions expose domain status, verification DNS records, region and custom return-path options. Owner must approve the domain/From and verify the actual SPF/DKIM/DMARC instructions. |
+| Reporting | Message acceptance IDs, transactional event reports/webhooks including delivered, deferred, bounce, blocked and error. Acceptance does not establish inbox placement. | Email status/webhook interfaces and message IDs; distinguish API acceptance, delivery events and bounce/failure. Neither provider guarantees delivery. |
+| Configuration/limits | Owner-controlled free account and transactional permission, authenticated domain, approved sender, server-only API key, isolated test inbox, exact HTTPS admin origin. Confirm account/API throughput limits and data-region/retention terms before integration. | Equivalent owner-controlled account/key/domain/test inbox; domain region options exist. Confirm current free tier, region availability, rate limits and retention before integration. |
+
+## Sources and research limitation
+
+Direct requests to official pricing, documentation and help hosts returned **HTTPS CONNECT 403** on 15 October 2026. Consequently this is a **provisional technical recommendation, not verified current commercial terms or a completed provider evaluation**. The familiar allowances above are explicitly unconfirmed; do not use them as a cost commitment. Before integration, obtain access to the official pages or owner-supplied current official terms and finish pricing, SPF, region, throughput and operational verification.
+
+Current official source repositories **were retrieved successfully**, read-only, outside the app:
+
+- [Brevo Node documentation](https://github.com/getbrevo/brevo-node/tree/f950fd5561bcf6a2c0751bd9f4d93392d4cca773): README configuration/errors/retries; `reference.md`; domain authentication and transactional send/event types. [Pricing](https://www.brevo.com/pricing/) · [API guide](https://developers.brevo.com/docs/getting-started) · [API limits](https://developers.brevo.com/docs/api-limits).
+- [Resend Node documentation](https://github.com/resend/resend-node/tree/13c70868adf67b7c82a1eb6efc9fd25556b0543c): README; email creation, domain DNS/region and webhook interfaces. [Pricing](https://resend.com/pricing) · [Domain guide](https://resend.com/docs/dashboard/domains/introduction) · [Sending API](https://resend.com/docs/api-reference/emails/send-email) · [Events](https://resend.com/docs/dashboard/webhooks/event-types).
+
+**Nodemailer:** a free SMTP transport library, requiring an actual SMTP service and sender authentication. It could use an approved free provider's SMTP credentials, but supplies neither an email service nor an allowance itself. HTTPS is the preferred Vercel transport for simpler bounded requests and explicit provider acceptance responses. Nodemailer is not installed; the owner's question about it does not approve any provider or connection.
+
+## Required owner decision
+
+Approve the specific **free-only provider/account/plan**, sending domain, `From` address (display name NOSEE), isolated test inbox and recipient-testing method, and whether account connection/secure credential configuration is authorized. Never paste keys into chat. The provider/sender/credential/test approvals remain outstanding; the free-tier preference alone does not supply them. No API key names or real secrets are read/configured before selection. The owner retains control of DNS, Vercel secrets and deployment.
+
+After approval and completion of official-doc verification, implement the selected adapter in a reviewed branch, validate configuration, disable uncontrolled retries/tracking, apply a bounded timeout, and test actual HTML/text arrival and one-time redemption in the approved inbox. Only then can invitation delivery be accepted as operational. The provider-independent implementation and strictly test-only fake transport establish lifecycle behavior; they do not establish live delivery.
