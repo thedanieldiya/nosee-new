@@ -1,6 +1,6 @@
 # A05 — Review and verification
 
-**15 October 2026 · Branch:** [`codex/admin-05-membership-emails`](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-05-membership-emails), from latest main `28454dc` / A04 PR #20 (`fcab45d`). **Code ready for review; membership sending OFF and live acceptance pending.** [Migration, exact configuration, worker and backlog policy](../05-membership-emails.md).
+**15 October 2026 · Branch:** [`codex/admin-05-membership-emails`](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-05-membership-emails), implementation **`ff00821`**, pushed from latest main `28454dc` / A04 PR #20 (`fcab45d`). **Code ready for review; membership sending OFF and live acceptance pending.** [Migration, exact configuration, worker and backlog policy](../05-membership-emails.md).
 
 A04 owner checks passed **except pagination**. Automated pagination coverage below does not complete that owner check. A10 real profile inventory/picker, Resend verification/config/live sending, unattended expiry and email schedules, final privacy wording and broader public-release/manual accessibility gates remain open.
 
