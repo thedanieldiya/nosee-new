@@ -1,0 +1,39 @@
+# A04 — Review and verification
+
+**15 October 2026 · Branch:** [`codex/admin-04-members-identity-links`](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-04-members-identity-links), from main `4da6d4a` / merged A03 PR #19. The owner confirms A03 manual browser checks passed; A04 owner review is pending. [Implementation, API contract and migration setup](../04-members-identity-links.md).
+
+## Measured checks
+
+Node 24.19.0 / npm 11.9.0, Next 16.4.0 production build, official PostgreSQL 17 disposable loopback container, Chromium and axe-core. All fixtures are synthetic, passwords random and stored only in mode-0600 temporary files. Tests refuse remote/owner databases. No live migration or external setting/service/email operation.
+
+| Check | Actual result |
+| --- | --- |
+| Public/unit plus four new member validation cases | **130/130 passed**: independent status/optional fields, Unicode/limits/real dates/enums, confirmation/version/idempotency allowlists, query validation |
+| Existing auth/invitation integration | **32/32 passed** on A04 schema, preserving bootstrap/auth/sessions/access revocation/invitation/Resend mock/audit behavior |
+| Existing application integration | **17/17 passed**, including nonce/consent/duplicates, private decisions, 720-hour/lock-wait expiry races, reapplication, system audit rollback and bounded sweeps. Its rollback-only schema-preservation reconstruction now also removes the A04 dependent relation inside that disposable transaction |
+| New member integration | **16/16 passed**: additive preservation, CRUD, normalized-email/concurrent duplicates and DB unique constraint, idempotent creation, stale versions, distinct namesakes/suggestions, filters/pagination, conversion races/invalid states/source preservation, explicit existing-member association and stale/wrong identity rejection, auth independence, profile one-to-one/FKs/unlink/version, role/page/API/service denial, body/Unicode bounds, safe audits and create/edit/conversion/link/unlink rollback |
+| Mocked Resend regression | **12/12 passed**, no live provider request |
+| New member browser checks | **42 axe scans / zero violations; 288 computed icon/parent paint observations / zero mismatches; zero runtime errors.** 390/768/1440px CRUD, confirmations/Escape/focus return, filters/empty/pagination, duplicate error/name suggestions, source conversion/existing association, offline no-false-save, pending-save close protection, unavailable profile state, isolated fixture link/unlink, Editor/Lead denial; 320px forced-colour detail reflow |
+| Existing application and management browser checks | **27 application scans / 88 icon colours + 33 administrator scans / 222 icon colours**, zero violations/mismatches/runtime errors; existing no-JS consent/expiry/review and directory/invitation/access lifecycle/Activity log workflows passed sequentially |
+| Existing public visual regression | **18 pairs / zero changed pixels** against merged A03 baseline: homepage/About/Events/archive/detail/404 at 390/768/1440, settled fonts/decoded images/reduced motion. No public source, route, asset or content change |
+| Public HTTP / bundle boundary | **27 event/meeting/302/HEAD/SSR404 HTTP checks passed**; seven public client-reference manifests (including Join/Privacy/detail) exclude admin, Radix, auth, database and private member modules |
+| Typecheck / lint / production build | Passed on final application code; no new dependency/lockfile or public performance optimization |
+
+The first new-navigation scan found insufficient green-text contrast on the gray canvas; it now uses the existing dark green. Async match results originally shifted fields during interaction; lookup is now an explicit **Check possible matches** action, with server duplicate enforcement independent of that optional check. A test's namesake fixture was made unique per run so reruns do not count prior fixtures. Affected checks were rerun; no unresolved failure is being counted as passed.
+
+Reusable files: `tests/members.test.mjs`, `tests/members-integration.mjs` (`npm run test:members`), `tests/check-members.cjs`. Existing suites remain. Browser arguments: loopback origin, private fixture JSON, `/tmp/…` output and axe script. Integration optionally writes protected local role fixtures and adjacent `members.json`; no default/demo/owner account is provisioned by application code. Run shared-DB mutating checks sequentially. Bulk logs/screenshots remain temporary; three masked representative captures were visually inspected. Automated/keyboard checks do not certify full accessibility; manual screen-reader/voice/magnifier acceptance remains open.
+
+## Owner browser acceptance (six steps)
+
+1. On the authorized isolated branch preview, apply migration `0003` through the approved operator workflow. Sign in as Super Admin; Membership → Members → Create member. Create test data with optional career/interests empty, confirm, refresh, then edit fields/status. Verify real persistence and unchanged administrator access/public pages. Repeat at mobile width and cancel a confirmation with Escape.
+2. Create two distinct test people with similar names and different emails. Use **Check possible matches** to review suggestions; neither is merged. Try a duplicate email with different capitalization and confirm that save refuses without overwrite. Open two edit tabs and verify the stale second save conflicts rather than silently replacing the first.
+3. Submit/approve an isolated `/join` application, then explicitly Create member from its review. Verify read-only source prefills, blank internal notes, original motivation/decision retained, associated member shown afterward and no duplicate on revisit/retry. No account, email or public profile should be created.
+4. For an approved test application whose normalized email already belongs to a member, review the existing identity and confirm **Associate existing member**. Verify its fields/status/notes are unchanged and both records retain their history; invalid application states cannot convert.
+5. Verify Leadership identity explains the **A10 dependency** and has a disabled picker in the real empty inventory. No public placeholders should appear. Link/unlink was exercised only with isolated database fixtures; owner live linking acceptance waits for real A10 profiles. Research groups should show a plain A06 unavailable statement, with no management controls.
+6. With an authorized existing test Editor (and a genuine scoped Lead if available), try member list/new/detail/edit/API/match/relation URLs: expect denial and no private information. Anonymous access must request sign-in/API401. As Super Admin inspect Activity log for actor/time, generic target/status/association IDs, with no member emails, applicant answers or notes. Do not invent Lead groups for this walkthrough.
+
+## Remaining owner actions and limits
+
+**Preview blocked/unverified:** read-only GitHub deployment lookup again returned HTTPS CONNECT **403**; no actual branch-specific URL is verified or guessed. Provide/authorize the actual protected Preview URL plus an isolated migrated database, exact origin and secure existing review-role access. Branch push allows the existing Vercel integration to build its preview; no manual deployment/settings change is performed here.
+
+Owner review of A04 and its explicit `0003` migration remains pending. A10 real leadership profiles are required before live linking; A06 groups and A05 membership emails are unimplemented. A03 owner-confirmed checks and PR #19 merge remain recorded separately from **unattended expiry scheduling, final privacy wording and Resend domain/live configuration/sending/owner invitation acceptance**, all still open. Public noindex, accepted historical mobile LCP (~3.54s) and other public-release gates remain unchanged. No PR, merge, live migration, manual deploy, provider/DNS/Vercel/Neon modification or real email.

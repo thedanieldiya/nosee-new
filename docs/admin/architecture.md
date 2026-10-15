@@ -1,6 +1,6 @@
 # Admin foundation architecture and operator setup
 
-**15 October 2026 · A01/A02 and Resend PR #18 (`1204b06`) merged; A03 in review.** PostgreSQL-backed administration lives inside the existing Next.js app. Public pages still use their original content services; nothing is published from this database. The owner reports main's prelaunch Neon-backed Super Admin walkthrough passed; branch-preview and A02 delivery acceptance remain outstanding.
+**15 October 2026 · A01/A02 and Resend PR #18 (`1204b06`) merged; A03 PR #19 merged/owner browser checks passed; A04 in review.** PostgreSQL-backed administration lives inside the existing Next.js app. Public pages still use their original content services; nothing is published from this database. The owner reports main's prelaunch Neon-backed Super Admin walkthrough passed; branch-preview and A02 delivery acceptance remain outstanding.
 
 ## Selected stack and boundaries
 
@@ -74,7 +74,15 @@ The owner authorized a small **server-only Resend fetch adapter**, with no SDK o
 
 [Membership contract and expiry operations](03-membership-applications.md) document the additive `0002` migration. Public `/join` submits validated data and mandatory review-purpose consent through a size-bounded same-origin server action. Separate application records never become Better Auth identities, sessions or Members. Private services recheck the existing active Super Admin/access version inside transactions, then serialize application decisions/expiry with advisory lock `4631003` (management lock first). Partial unique normalized-email and form-digest constraints back duplicate/idempotency checks. Server clocks enforce 720 elapsed hours, including decisions delayed on a lock; pending expiry retains data and final decisions.
 
-Anonymous receipt/expiry audits have a genuine NULL/System actor, generic record ID/label and status changes only. Existing audit reads use LEFT JOIN and retain prior administrator events. Consent time and wording/policy versions stay on the private application, never in audit text. No identity-match service existed to reuse; A04 linking and A05 email remain unimplemented. The bearer/CLI sweep is prepared but **no unattended schedule is configured or verified**. Existing auth/session/bootstrap and Resend behavior remain intact.
+Anonymous receipt/expiry audits have a genuine NULL/System actor, generic record ID/label and status changes only. Existing audit reads use LEFT JOIN and retain prior administrator events. Consent time and wording/policy versions stay on the private application, never in audit text. A03 had no identity-match service; A04 now adds explicit private member associations and prepares A10 identity linking, while A05 membership email remains unimplemented. The bearer/CLI sweep is prepared but **no unattended schedule is configured or verified**. Existing auth/session/bootstrap and Resend behavior remain intact.
+
+## A04 private members and identity associations
+
+[A04 contract/setup](04-members-identity-links.md) documents `0003_members_identity_links.sql`. It adds `member`, immutable source-application associations and an **empty** `leadership_profile_identity` anchor for A10. Public About/leadership remains literal code-managed fixtures. No content migration, CMS or publishing path is introduced. A10 may extend the stable identity IDs with its approved public content model; it must not expose private member data to Editors. The picker is honestly unavailable until real profile records exist.
+
+All list/detail/match/create/edit/convert/link services reuse the active Super Admin/access-version transaction guard and advisory lock, with normalized email uniqueness, one application association and optional one-to-one profile FK/unique constraints backing concurrency. Edits and links require an optimistic integer version; stale writes return 409 without overwrite. Manual creation uses a persisted request UUID/payload digest for exact retries; conversion uses the application association as its idempotency boundary. Duplicate existing identities require explicit review/association. Application source fields and decisions remain intact; motivation is not repurposed as internal notes.
+
+Member Active/Inactive is independent from application states, admin identities/sessions and public profile visibility. Member audit targets are generic IDs; status/association IDs only, never emails, answers or internal notes. No delete, public signup, membership email or group management. Mutation bodies retain the existing 8KB bound. Match lookup uses authenticated same-origin POST so names/emails do not enter the lookup URL; no private payload logging. Membership and admin/public bundles remain separate.
 
 ## Local integration and safe review fixtures
 
@@ -83,6 +91,7 @@ Tests require a deliberately disposable **loopback PostgreSQL database named `no
 ```bash
 npm run test:admin
 npm run test:membership
+npm run test:members
 ```
 
 The two sequential suites use real database identities, scrypt hashes and signed sessions, including migration preservation and invitation/access/audit races. Test fixtures never enter migrations or app defaults. Setting `NOSEE_ADMIN_FIXTURE_FILE` to a private `/tmp/…` file optionally preserves random **local-only** role credentials and an adjacent `invitation.json` for browser QA; files are mode 0600 and never printed. The suite resets its named test database; never run it against preview or production. Browser suites share fixtures and must also run sequentially. Remove the container/private files when finished. Never let an injected hosted `DATABASE_URL` override a local test file: explicitly select a disposable child-process environment before running these commands.

@@ -10,7 +10,7 @@ export type DirectoryRow = {
   role: "super_admin" | "editor" | "research_group_lead"; status: string; delivery: string | null;
   createdAt: string; lastLoginAt: string | null; expiresAt: string | null;
 };
-export type ActivityRow = { id: string; actorId: string | null; actor: string; action: string; createdAt: string; targetType: string | null; targetId: string | null; targetLabel: string | null; changes: { before: Record<string, string | boolean>; after: Record<string, string | boolean> } | null };
+export type ActivityRow = { id: string; actorId: string | null; actor: string; action: string; createdAt: string; targetType: string | null; targetId: string | null; targetLabel: string | null; changes: { before: Record<string, string | boolean | null>; after: Record<string, string | boolean | null> } | null };
 const pattern = (value: string) => `%${value.replace(/[\\%_]/g, "\\$&")}%`;
 export async function administratorDirectory(actor: Principal, raw: unknown) {
   const query = directoryInput.parse(raw);

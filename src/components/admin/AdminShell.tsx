@@ -27,7 +27,7 @@ export function AdminShell({ principal, navigation, children }: { principal: Pri
   }
   function links() { return <nav aria-label="Administration" className="space-y-1">{navigation.map((item, index) => {
     const Icon = item.icon ? icons[item.icon as keyof typeof icons] : null;
-    const selected = item.href === "/admin" ? pathname === "/admin" : pathname.startsWith(item.href);
+    const selected = item.href === "/admin" ? pathname === "/admin" : item.permission === "membership" ? pathname.startsWith("/admin/membership/") : pathname.startsWith(item.href);
     const classes = `flex min-h-11 items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium ${selected ? "bg-[#e7f3eb] text-[#0b5025]" : "text-secondary"}`;
     return <div key={item.href}>{index > 0 && item.permission === "account" ? <p className="mt-7 mb-2 px-3 text-xs font-medium text-secondary">Settings</p> : null}{item.available ? <Link href={item.href} aria-current={selected ? "page" : undefined} onClick={() => setOpen(false)} className={`${classes} hover:bg-black/5 hover:text-primary`}>{Icon ? <Icon size={20} aria-hidden="true" focusable="false" data-admin-icon={item.icon} /> : null}{item.label}</Link> : <span aria-disabled="true" data-nav-target={item.href} className={`${classes} cursor-not-allowed`}>
       {Icon ? <Icon size={20} aria-hidden="true" focusable="false" data-admin-icon={item.icon} /> : null}<span>{item.label}</span><span className="ml-auto text-[10px] font-normal">Soon</span></span>}</div>;
