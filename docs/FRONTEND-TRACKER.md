@@ -15,12 +15,12 @@
 | 09 | Event details/meeting 302/shared 404 | [PR #9](https://github.com/thedanieldiya/nosee-new/pull/9) merged |
 | 10 | MingCute/currentColor and full public review | [PR #10](https://github.com/thedanieldiya/nosee-new/pull/10) merged |
 | 11 | Authorised accessibility/no-JS/responsive images | [PR #11](https://github.com/thedanieldiya/nosee-new/pull/11) merged |
-| 12 | Combined sanity checks/release register/complete artifact cleanup | **In review**; implementation `f58639e` pushed to [review branch](https://github.com/thedanieldiya/nosee-new/tree/codex/task-12-public-closeout-cleanup), remote head verified; [verification/publication](PROGRESS.md#task-12-close-out) |
+| 12 | Combined public sanity checks, release register and artifact cleanup | [PR #12 merged](https://github.com/thedanieldiya/nosee-new/pull/12), 436 files (~99.72 MB) removed; 111 tests, build/typecheck/lint and route checks passed |
 
 Mobile normal-motion Lighthouse LCP **3.535s** is accepted for now; ≤2.5s remains a deferred target, not a passed criterion. No further performance work in Task 12. Historical migration artifacts/briefs are removed as explicitly authorised; source/code/tests and Git history remain.
 
 Public changes must preserve source layout, wording, routes, responsive behaviour and the [documented approved exceptions](PUBLIC-SITE-STATUS.md#implemented-scope-and-enduring-exceptions). Run appropriate source/target comparisons for future visual changes and keep generated QA outside Git. Official MingCute glyphs and adjacent-text `currentColor` apply to both public and future admin UI; admin code must stay out of public bundles.
 
-**Next after owner merge:** [Admin 01 — secure foundation](admin/01-foundation.md), with the approved [Admin TRD v1.1](admin-dashboard-trd.md). Admin is **not started**. Deferred manual AT/live/content release gates do not imply failed development close-out or block that separately authorised phase; they remain open before public launch.
+**Next:** [Admin 01 — secure foundation](admin/01-foundation.md), with the approved [Admin TRD v1.2](admin-dashboard-trd.md). Admin implementation is **not started**; public launch gates are deferred. Deferred manual AT/live/content release gates do not imply failed development close-out or block that separately authorised phase; they remain open before public launch.
 
 [PRD](PRD.md) · [requirement progress](PROGRESS.md) · [agent instructions](../AGENTS.md)
