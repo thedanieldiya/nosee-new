@@ -1,10 +1,10 @@
 # NOSEE delivery progress
 
-**Updated:** 14 October 2026. **Original Laravel frontend migration complete as a development milestone**, ten port tasks and [hardening PR #11](https://github.com/thedanieldiya/nosee-new/pull/11) merged. The owner accepts mobile Lighthouse LCP ~3.54s for now. **Public launch, manual accessibility, live deployment, content/rights and indexing remain unapproved.**
+**Updated:** 15 October 2026. **Public frontend migration and Task 12 cleanup merged as [PR #12](https://github.com/thedanieldiya/nosee-new/pull/12)** (main `c8d717d7`). All `docs/evidence/` files and completed migration briefs are removed. **Public launch remains unapproved** pending the separately documented manual accessibility, live deployment, content and indexing gates. Mobile Lighthouse LCP ~3.54s remains accepted for current development.
 
-**Current task:** Task 12 combined close-out/cleanup, **In review** on `codex/task-12-public-closeout-cleanup`, based on latest main `46703933949be42654fab35812bc4c50d5a49a5d` including Task 11 merge `f48d5a691ada73c00f4df0e4a920089a3ad748fc`. Destination `thedanieldiya/nosee-new`; Laravel remains read-only at `9872c4ed12aa48835eab71065c69b468424adb4a`.
+**Current task:** [Admin 01 — Secure Foundation and Shopify-style dashboard shell](admin/01-foundation.md) (**instructions ready; application implementation not started**). Begin P5 on a new branch from latest main; enforce fail-closed auth, Super Admin/Editor/Research Group Lead permissions and the approved [Admin TRD v1.2](admin-dashboard-trd.md). Maintain public regression checks and the deferred release checklist.
 
-Canonical [PRD](PRD.md), [public status/deferred release checklist](PUBLIC-SITE-STATUS.md), [merged-task tracker](FRONTEND-TRACKER.md) and [Admin TRD v1.1](admin-dashboard-trd.md) remain authoritative. Development completion does not mark broader release/full-stack requirements Done.
+Canonical [PRD](PRD.md), [public status/deferred release checklist](PUBLIC-SITE-STATUS.md), [merged-task tracker](FRONTEND-TRACKER.md) and [Admin TRD v1.2](admin-dashboard-trd.md) remain authoritative. Development completion does not mark broader release/full-stack requirements Done.
 
 ## Phase status
 
