@@ -14,7 +14,8 @@
     "typecheck": "next typegen && tsc --noEmit",
     "admin:migrate": "node --env-file-if-exists=.env.local scripts/admin-migrate.mjs",
     "admin:bootstrap": "node --conditions=react-server --env-file-if-exists=.env.local scripts/admin-bootstrap.mjs",
-    "test:admin": "node --conditions=react-server --env-file-if-exists=.env.local --test --test-concurrency=1 tests/admin-integration.mjs tests/admin-management-integration.mjs"
+    "test:admin": "node --conditions=react-server --env-file-if-exists=.env.local --test --test-concurrency=1 tests/admin-integration.mjs tests/admin-management-integration.mjs",
+    "test:admin-mail": "node --conditions=react-server --test tests/admin-resend.mjs"
   },
   "dependencies": {
     "@fontsource/ibm-plex-sans": "5.2.8",

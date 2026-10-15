@@ -21,6 +21,6 @@ Mobile normal-motion Lighthouse LCP **3.535s** is accepted for now; ≤2.5s rema
 
 Public changes must preserve source layout, wording, routes, responsive behaviour and the [documented approved exceptions](PUBLIC-SITE-STATUS.md#implemented-scope-and-enduring-exceptions). Run appropriate source/target comparisons for future visual changes and keep generated QA outside Git. Official MingCute glyphs and adjacent-text `currentColor` apply to both public and future admin UI; admin code must stay out of public bundles.
 
-**Admin development:** [A01 foundation](admin/01-foundation.md) is merged; A02 provider-independent work is in review under the approved [Admin TRD v1.2](admin-dashboard-trd.md). Follow the [Admin tracker](admin/TRACKER.md). Public launch gates remain deferred. Deferred manual AT/live/content release gates do not imply failed development close-out or block that separately authorised phase; they remain open before public launch.
+**Admin development:** [A01 foundation](admin/01-foundation.md) is merged; A02 core is merged and its Resend adapter is in review under the approved [Admin TRD v1.2](admin-dashboard-trd.md). Follow the [Admin tracker](admin/TRACKER.md). Public launch gates remain deferred. Deferred manual AT/live/content release gates do not imply failed development close-out or block that separately authorised phase; they remain open before public launch.
 
 [PRD](PRD.md) · [requirement progress](PROGRESS.md) · [agent instructions](../AGENTS.md)
