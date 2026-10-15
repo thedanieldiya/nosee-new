@@ -1,6 +1,6 @@
 # Admin foundation architecture and operator setup
 
-**15 October 2026 · A01/A02 and Resend PR #18 (`1204b06`) merged; A03 PR #19 merged/owner browser checks passed; A04 PR #20 merged (owner pagination pending); A05 mail code in review/OFF.** PostgreSQL-backed administration lives inside the existing Next.js app. Public pages still use their original content services; nothing is published from this database. The owner reports main's prelaunch Neon-backed Super Admin walkthrough passed; branch-preview and A02 delivery acceptance remain outstanding.
+**15 October 2026 · A01/A02 and Resend PR #18 (`1204b06`) merged; A03 PR #19 merged/owner browser checks passed; A04 PR #20 merged (owner pagination pending); A05 PR #21 (`174620b`) merged/OFF; A05.5 correction in review.** PostgreSQL-backed administration lives inside the existing Next.js app. Public pages still use their original content services; nothing is published from this database. The owner reports main's prelaunch Neon-backed Super Admin walkthrough passed; branch-preview and A02 delivery acceptance remain outstanding.
 
 ## Selected stack and boundaries
 
@@ -80,9 +80,17 @@ Anonymous receipt/expiry audits have a genuine NULL/System actor, generic record
 
 [A04 contract/setup](04-members-identity-links.md) documents `0003_members_identity_links.sql`. It adds `member`, immutable source-application associations and an **empty** `leadership_profile_identity` anchor for A10. Public About/leadership remains literal code-managed fixtures. No content migration, CMS or publishing path is introduced. A10 may extend the stable identity IDs with its approved public content model; it must not expose private member data to Editors. The picker is honestly unavailable until real profile records exist.
 
-All list/detail/match/create/edit/convert/link services reuse the active Super Admin/access-version transaction guard and advisory lock, with normalized email uniqueness, one application association and optional one-to-one profile FK/unique constraints backing concurrency. Edits and links require an optimistic integer version; stale writes return 409 without overwrite. Manual creation uses a persisted request UUID/payload digest for exact retries; conversion uses the application association as its idempotency boundary. Duplicate existing identities require explicit review/association. Application source fields and decisions remain intact; motivation is not repurposed as internal notes.
+All list/detail/match/create/edit/convert/link services reuse the active Super Admin/access-version transaction guard and advisory lock, with normalized email uniqueness, one application association and optional one-to-one profile FK/unique constraints backing concurrency. Edits and links require an optimistic integer version; stale writes return 409 without overwrite. Manual addition uses a persisted request UUID/payload digest for exact retries; automatic approval and historical reconciliation use the application association as their idempotency boundary. Duplicate existing identities require explicit review/association. Application source fields and decisions remain intact; motivation is not repurposed as internal notes.
 
 Member Active/Inactive is independent from application states, admin identities/sessions and public profile visibility. Member audit targets are generic IDs; status/association IDs only, never emails, answers or internal notes. No delete, public signup or group management. Member operations never send email; A05 only records application/decision email intents. Mutation bodies retain the existing 8KB bound. Match lookup uses authenticated same-origin POST so names/emails do not enter the lookup URL; no private payload logging. Membership and admin/public bundles remain separate.
+
+## A05.5 approval and usability correction
+
+[Current contract and setup](05-5-membership-workflow.md) supersedes separate conversion/manual lookup. Approval holds management lock `4631002` then application lock `4631003`, rechecks server expiry and performs decision, Active membership, association, safe audits and v2 outbox intent in one transaction. Existing matches require Member ID/version acknowledgement; Inactive status requires explicit reactivation with all profile fields/original join date preserved. Unique normalized email/association and guarded versions prevent duplicates/stale writes. Completed approval replay is idempotent; historical approved/unassociated reconciliation uses the same helper and original approval date without another email intent.
+
+Automatic Add/Edit/approval checks use 350ms debounce, minimum complete-email/name input, cancellation/query identity, POST bodies and existing auth/rate limits. The native public privacy dialog is portalled outside the disabled fieldset with focus wrapping/inert background/value preservation; shared policy stays an unapproved placeholder and no Radix dependency enters public bundles.
+
+Additive `0005` expands only the email version constraint. Existing v1 rendering/hash/key/attempts are preserved; only newly recorded approval uses v2. No new environment variable, history migration, live provider operation or A06. A04 owner pagination, Resend live setup/acceptance, worker/expiry schedules and final privacy remain pending.
 
 ## A05 transactional membership mail
 
@@ -102,6 +110,7 @@ npm run test:membership
 npm run test:members
 npm run test:mail
 npm run test:membership-mail
+npm run test:membership-workflow
 ```
 
 The sequential suites use real database identities, scrypt hashes and signed sessions, including migration preservation and invitation/access/audit races. Test fixtures never enter migrations or app defaults. Setting `NOSEE_ADMIN_FIXTURE_FILE` to a private `/tmp/…` file optionally preserves random **local-only** role credentials and an adjacent `invitation.json` for browser QA; files are mode 0600 and never printed. The suite resets its named test database; never run it against preview or production. Browser suites share fixtures and must also run sequentially. Remove the container/private files when finished. Never let an injected hosted `DATABASE_URL` override a local test file: explicitly select a disposable child-process environment before running these commands.

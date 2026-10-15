@@ -1,4 +1,5 @@
 import "server-only";
+import { establishApplicationMember } from "./members.ts";
 import { recordMembershipEmails } from "./email-outbox.ts";
 import { randomUUID } from "node:crypto";
 import { isIP } from "node:net";
@@ -7,7 +8,7 @@ import { adminDatabase } from "../admin/database.ts";
 import { adminConfig } from "../admin/config.ts";
 import { takeBucket } from "../admin/http.ts";
 import { ManagementError, requireManagerTransaction } from "../admin/management.ts";
-import { auditLog, membershipApplication } from "../admin/schema.ts";
+import { auditLog, membershipApplication, applicationMember } from "../admin/schema.ts";
 import type { Principal } from "../admin/policy.ts";
 import { applicationInput, submissionInput, applicationQuery, decisionInput } from "./input.ts";
 import { validApplicationToken, tokenDigest, applicationFingerprint } from "./form-guard.ts";
@@ -96,17 +97,28 @@ export async function getMembershipApplication(actor: Principal, id: string) {
 export async function decideMembershipApplication(actor: Principal, id: string, raw: unknown) {
   const parsed = decisionInput.safeParse(raw);
   if (!parsed.success) throw new ApplicationError("Choose Approve or Reject and enter a review note of 1–2,000 characters.");
-  const { decision, note } = parsed.data;
+  const { decision, note, association } = parsed.data;
   const outcome = await adminDatabase().db.transaction(async tx => {
     await requireManagerTransaction(tx, actor); await lock(tx);
-    const rows = (await tx.execute<{ id: string }>(sql`with instant as materialized (select clock_timestamp() at)
+    const [prior] = await tx.select({ status: membershipApplication.status, memberId: applicationMember.memberId }).from(membershipApplication).leftJoin(applicationMember, eq(applicationMember.applicationId, membershipApplication.id)).where(eq(membershipApplication.id, id));
+    if (decision === "approved" && prior?.status === "approved" && prior.memberId) {
+      if (association && association.memberId !== prior.memberId) throw new ApplicationError("This application is associated with another member. Refresh the review.", 409);
+      return { memberId: prior.memberId, repeated: true };
+    }
+    const changed = (await tx.execute<{ id: string }>(sql`with instant as materialized (select clock_timestamp() at)
       update membership_application a set status=${decision}::membership_application_status,reviewer_id=${actor.id}::uuid,reviewed_at=instant.at,review_note=${note},updated_at=instant.at
       from instant where a.id=${id}::uuid and a.status='pending' and a.expires_at>instant.at returning a.id`)).rows;
-    if (rows.length) { await recordEvent(tx, id, decision === "approved" ? "Approved membership application" : "Rejected membership application", "pending", decision, actor.id); await recordMembershipEmails(tx, id, decision); return "saved"; }
+    if (changed.length) {
+      const [application] = await tx.select().from(membershipApplication).where(eq(membershipApplication.id, id));
+      const saved = decision === "approved" ? await establishApplicationMember(tx, actor, application, association) : null;
+      await recordEvent(tx, id, decision === "approved" ? "Approved membership application" : "Rejected membership application", "pending", decision, actor.id);
+      await recordMembershipEmails(tx, id, decision);
+      return { memberId: saved?.id ?? null, repeated: false };
+    }
     // Commit expiry even when refusing the decision; throwing inside the transaction would undo it.
     await persistExpiry(tx, sql`id=${id}::uuid`);
     return (await tx.select({ id: membershipApplication.id }).from(membershipApplication).where(eq(membershipApplication.id, id))).length ? "conflict" : "missing";
   });
-  if (outcome !== "saved") throw new ApplicationError(outcome === "missing" ? "Application not found." : "This application is no longer pending. It may have expired or already been reviewed.", outcome === "missing" ? 404 : 409);
-  return { message: `Application ${decision}. No member record or account was created. Email notifications are processed separately; delivery is not confirmed here.` };
+  if (typeof outcome === "string") throw new ApplicationError(outcome === "missing" ? "Application not found." : "This application is no longer pending. It may have expired or already been reviewed.", outcome === "missing" ? 404 : 409);
+  return { memberId: outcome.memberId, repeated: outcome.repeated, message: `${outcome.repeated ? "Application already approved; no new changes were made." : decision === "approved" ? "Application approved and Active membership established." : "Application rejected."} No administrator access or public profile was created. Email notifications are processed separately; delivery is not confirmed here.` };
 }

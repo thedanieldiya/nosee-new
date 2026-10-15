@@ -1,0 +1,4 @@
+export function PrivacyPolicyContent({ inDialog = false }: { inDialog?: boolean }) {
+  const Heading = inDialog ? "h3" : "h2";
+  return <><p role="note" className="my-8 border-l-4 border-brand bg-surface p-5 font-medium">Development placeholder — not an approved privacy policy. The owner has approved Lorem ipsum for testing only. Approved privacy wording is required before public launch.</p><Heading className="font-heading text-2xl font-semibold">Placeholder text</Heading><p className="mt-4 leading-7 text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p className="mt-6 leading-7">This text does not explain NOSEE’s actual privacy practices and is not a consent statement. Application expiry after 30 days changes status; it does not delete personal data.</p></>;
+}

@@ -30,7 +30,7 @@ export async function recordMembershipEmails(tx: Transaction, applicationId: str
       await tx.insert(membershipNotification).values({ id: randomUUID(), applicationId, kind,
         recipientKey: kind !== "admin_alert" ? "applicant" : recipient ? digest(recipient) : "administrators",
         administratorRecipient: queued && kind === "admin_alert" ? recipient : null,
-        state: queued ? "queued" : "held", fromAddress: queued ? config.from : null, origin: queued ? config.origin : null, activationKey: queued ? config.activationKey : null,
+        templateVersion: kind === "approval" ? 2 : 1, state: queued ? "queued" : "held", fromAddress: queued ? config.from : null, origin: queued ? config.origin : null, activationKey: queued ? config.activationKey : null,
         nextAttemptAt: queued ? now : null, lastIssue: overlap ? "recipient_overlap" : queued ? null : "not_activated", createdAt: now, updatedAt: now,
       }).onConflictDoNothing({ target: [membershipNotification.applicationId, membershipNotification.kind, membershipNotification.recipientKey] });
     }
@@ -78,8 +78,8 @@ async function prepare(job: Job) {
     const now = new Date((await tx.execute<{ now: string }>(sql`select clock_timestamp() now`)).rows[0].now);
     if (current?.claimToken !== job.claimToken || current.state !== "sending" || !current.leaseUntil || current.leaseUntil <= now) return null;
     const [application] = await tx.select({ firstName: membershipApplication.firstName, email: membershipApplication.email }).from(membershipApplication).where(eq(membershipApplication.id, job.applicationId));
-    if (!application || !job.fromAddress || !job.origin || job.templateVersion !== 1) throw new Error("Membership email cannot be prepared.");
-    const message = { to: job.kind === "admin_alert" ? job.administratorRecipient! : application.email, ...renderMembershipEmail({ kind: job.kind, firstName: application.firstName, applicationId: job.applicationId, origin: job.origin }) };
+    if (!application || !job.fromAddress || !job.origin) throw new Error("Membership email cannot be prepared.");
+    const message = { to: job.kind === "admin_alert" ? job.administratorRecipient! : application.email, ...renderMembershipEmail({ kind: job.kind, firstName: application.firstName, applicationId: job.applicationId, origin: job.origin, templateVersion: job.templateVersion }) };
     const payloadDigest = digest(JSON.stringify({ from: job.fromAddress, ...message }));
     if (current.payloadDigest && current.payloadDigest !== payloadDigest) {
       const state = current.uncertain || current.attempts > 1 ? "unconfirmed" : "failed";

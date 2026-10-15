@@ -48,6 +48,8 @@ Use the implemented Laravel version as the technical source of truth when an old
 | Administrators | Sign in to `/admin`, review member applications, manage members and chosen public profiles, maintain news/events/site content and monitoring resource information |
 | Editors (optional later) | Draft and publish assigned types of content under restricted permissions; introduce only if the owner confirms a need |
 
+Owner-approved [A05.5 correction](admin/05-5-membership-workflow.md): approval automatically establishes Active private membership and an immutable application association in the decision/audit/outbox transaction. Existing normalized-email matches require explicit current-record acknowledgement and, if Inactive, reactivation acknowledgement; preserve their profile fields and join date. Historical unassociated approvals reconcile explicitly without duplicate mail.
+
 Membership application **does not** grant dashboard access. Approval also does **not** automatically expose the member on a public directory.
 
 ## 3. Grounded pinned legacy baseline
@@ -159,9 +161,9 @@ Requirement IDs are stable and referenced in [PROGRESS.md](PROGRESS.md). A requi
 ### Membership state and email details
 
 1. `pending` application is created server-side from validated input (no public account). Send applicant a **receipt**, not an approval, and notify designated admins.
-2. Authorized admin reviews the full original submission; approve or reject with a recorded actor, timestamp and optional internal reason. Reject invalid state transitions and duplicate decisions.
+2. Authorized admin reviews the full original submission; approve or reject with a recorded actor, timestamp and optional internal reason. Reject invalid state transitions; replayed completed approvals return the associated Member without duplicate writes or email.
 3. Store the decision before dispatching notification; use an outbox/queue or equivalent reliable approach for retry/deduplication. The member email clearly indicates approval or rejection, without leaking internal notes.
-4. Approval records the member privately. Public visibility is always a **separate, opt-in editorial step**. People categories include `executive` and `researcher`; public profile must be explicitly published and contain an approved portrait/bio/role.
+4. Approval records the Active member privately in the same transaction as decision, association, audit and notification intent. Public visibility is always a **separate, opt-in editorial step**. People categories include `executive` and `researcher`; public profile must be explicitly published and contain an approved portrait/bio/role.
 5. Use simple, editable subject/body templates with safe variables (`name`, `status`, `organisation`), and permit a short custom note when responding. Do not build a complex campaign email editor. If a manual Gmail response is desired, support an explicit copy/draft workflow without automatically treating it as sent.
 6. Clarify required application fields, attachments if any, consent/retention wording, actual notification addresses, and rejection email policy before shipping the form.
 

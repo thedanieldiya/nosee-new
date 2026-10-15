@@ -1,14 +1,17 @@
 import type { MembershipEmailKind } from "./email-options.ts";
-type Input = { kind: MembershipEmailKind; firstName: string; applicationId: string; origin: string };
+type Input = { kind: MembershipEmailKind; firstName: string; applicationId: string; origin: string; templateVersion?: number };
 export function renderMembershipEmail(input: Input) {
   const origin = new URL(input.origin);
   if (origin.protocol !== "https:" || origin.origin !== input.origin || !/^[0-9a-f-]{36}$/.test(input.applicationId)) throw new Error("Invalid membership email destination.");
+  const version = input.templateVersion ?? 1;
+  if (version !== 1 && !(version === 2 && input.kind === "approval")) throw new Error("Unknown membership email template version.");
   const copy = {
     receipt: { subject: "We received your NOSEE membership application", heading: "Application received", paragraphs: ["We have received your NOSEE membership application. It was recorded as pending review when received.", "Applying does not create a dashboard account. This acknowledgement confirms receipt of your application; it does not confirm membership approval."] },
     admin_alert: { subject: "New NOSEE membership application", heading: "New membership application", paragraphs: ["A new NOSEE membership application has been received for review.", "Open the application in the administration workspace to check its current status and review the submitted details. Super Admin access is required."] },
     approval: { subject: "Your NOSEE membership application has been approved", heading: "Application approved", paragraphs: ["Your NOSEE membership application has been approved.", "This message confirms the application decision. Creating a member record is a separate administrative step; this approval does not create a dashboard account or publish a public profile."] },
     rejection: { subject: "Update on your NOSEE membership application", heading: "Application update", paragraphs: ["Thank you for your interest in NOSEE. Following review, your membership application has not been approved."] },
   }[input.kind];
+  if (version === 2) copy.paragraphs = ["Your NOSEE membership application has been approved, and your membership was set to Active at approval.", "This does not create an administrator account, dashboard access or a public profile."];
   const url = `${origin.origin}/admin/membership/applications/${input.applicationId}`, greeting = input.kind === "admin_alert" ? "Hello," : `Hello ${input.firstName},`;
   const escape = (value: string) => value.replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]!);
   const link = input.kind === "admin_alert" ? `\n\nReview application: ${url}` : "";

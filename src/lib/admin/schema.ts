@@ -94,7 +94,7 @@ export const membershipNotification = pgTable("membership_notification", {
 }, table => [uniqueIndex("membership_notification_event").on(table.applicationId, table.kind, table.recipientKey), index("membership_notification_due").on(table.nextAttemptAt, table.id).where(sql`${table.state} in ('queued','unconfirmed')`), check("membership_notification_attempts", sql`${table.attempts} between 0 and 5`),
   check("membership_notification_kind", sql`${table.kind} in ('receipt','admin_alert','approval','rejection')`),
   check("membership_notification_state", sql`${table.state} in ('held','queued','sending','accepted','failed','unconfirmed')`),
-  check("membership_notification_template_version", sql`${table.templateVersion}=1`),
+  check("membership_notification_template_version", sql`${table.templateVersion}=1 or (${table.templateVersion}=2 and ${table.kind}='approval')`),
   check("membership_notification_claim", sql`(${table.state}='sending' and ${table.claimToken} is not null and ${table.leaseUntil} is not null) or (${table.state}<>'sending' and ${table.claimToken} is null and ${table.leaseUntil} is null)`),
   check("membership_notification_acceptance", sql`(${table.state}='accepted' and ${table.providerMessageId} is not null) or (${table.state}<>'accepted' and ${table.providerMessageId} is null)`),
   check("membership_notification_held", sql`${table.state}<>'held' or (${table.attempts}=0 and ${table.nextAttemptAt} is null and ${table.activationKey} is null)`),

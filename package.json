@@ -21,7 +21,8 @@
     "test:members": "node --conditions=react-server --env-file-if-exists=.env.local --test tests/members-integration.mjs",
     "membership:mail": "node --conditions=react-server --env-file-if-exists=.env.local scripts/membership-email-worker.mjs",
     "test:membership-mail": "node --conditions=react-server --env-file-if-exists=.env.local --test tests/membership-email-integration.mjs",
-    "test:mail": "node --conditions=react-server --test tests/admin-resend.mjs tests/membership-email.mjs"
+    "test:mail": "node --conditions=react-server --test tests/admin-resend.mjs tests/membership-email.mjs",
+    "test:membership-workflow": "node --conditions=react-server --env-file-if-exists=.env.local --test tests/membership-workflow-integration.mjs"
   },
   "dependencies": {
     "@fontsource/ibm-plex-sans": "5.2.8",
