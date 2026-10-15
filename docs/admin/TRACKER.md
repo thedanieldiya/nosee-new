@@ -9,7 +9,7 @@
 
 | ID | Scope and user-visible result | Code status | Owner review | PR / branch | Interactive preview |
 | --- | --- | --- | --- | --- | --- |
-| **A01** | **Auth + shadcn shell + General:** sign in/out as each role, browse responsive navigation, edit and persist own name/profile fields | Not started | Pending | — | — |
+| **A01** | **First Super Admin CLI bootstrap + auth + shadcn shell + General:** create initial admin securely; sign in/out as each role, browse responsive navigation, edit and persist own name/profile fields | Not started | Pending | — | — |
 | A02 | **Administrators + Activity log:** Super Admin manages invited administrator roles/scopes and inspects genuine audited changes | Not started | Pending | — | — |
 | A03 | **Membership applications:** submit a test application via approved public intake form, then privately review/approve/reject it | Not started | Pending | — | — |
 | A04 | **Member records and identity links:** create/edit private Members; review suggested matches and explicitly link/unlink Leadership profiles without data leakage | Not started | Pending | — | — |
@@ -36,7 +36,7 @@
 
 ## Milestone boundaries and exclusions
 
-- **A01** is intentionally narrow: real admin auth, roles, page shell, Overview, Settings → General, and the working review experience. Other sidebar modules may indicate that they are planned, but must not pretend their forms/data are operational.
+- **A01** is intentionally narrow: **one-time, server/CLI-only first Super Admin bootstrap** (interactive masked password prompt, refusal after first admin, no public signup), real admin auth, roles, page shell, Overview, Settings → General, and the working review experience. Other sidebar modules may indicate that they are planned, but must not pretend their forms/data are operational.
 - **A03–A05** need owner-approved membership form fields, consent/retention copy, email provider and recipient configuration before public intake/email goes live. Applications are **not** dashboard accounts.
 - **A06** only associates existing **approved NOSEE Members** to research groups. Group Leads edit and publish their own group's Content and Members immediately. Editors cannot read private member records.
 - **A07–A09** implement CMS and homepage feed rules from TRD v1.2. New public News/Publication detail/listing pages require separately approved public-page scope/design/content (P4); do not publish invented copy or remove `noindex` just because a CMS editor works.
