@@ -98,6 +98,8 @@ Some source records and About/leadership content explicitly say **development fi
 
 **Approved admin information architecture:** [NOSEE Admin Dashboard — TRD v1.2](admin-dashboard-trd.md) (updated by owner 14 October 2026). This specification controls the admin route tree, three access roles, exact Site content destinations, research membership flows, **DOI-first editable publication imports, automatic homepage content rules and Gallery photo/album workflows**. It overrides the older preliminary navigation/editing proposals. Admin implementation remains separate from the completed public route port.
 
+**Incremental admin tracker and review:** [Admin Dashboard 13-task tracker](admin/TRACKER.md). Every implemented admin task must be **demonstrable to the owner in a real authenticated interactive preview** (or explicitly marked `Preview blocked` until working access is possible), with role-scoped test accounts and safe non-production data. Record owner review independently from commit/PR merge; screenshots and passing CI are supporting evidence, not substitutes for hands-on acceptance.
+
 - Admin authentication and scoped role checks for `super_admin`, `editor` and `research_group_lead`.
 - Membership application storage, review, approval/rejection and transactional notifications; private Member records remain independent of published leadership PublicProfile records.
 - Publishing editors for News, Events and Publications; the Publication editor starts with **DOI**, retrieves citation metadata from a trusted provider, and leaves imported fields editable for corrections/manual fallback.
