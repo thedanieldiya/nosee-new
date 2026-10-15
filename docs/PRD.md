@@ -1,13 +1,13 @@
 # NOSEE — Next.js Migration and Administration PRD
 
-**Version:** 1.1 · **Date:** 13 October 2026 · **Status:** Active migration requirements; strict 1:1 public-site parity reaffirmed by owner  
+**Version:** 1.2 · **Updated:** 14 October 2026 · **Status:** Original public migration complete as a development milestone; release and full-stack requirements remain active
 **Product:** Network of Space–Earth Environmentalists (NOSEE) website  
 **Delivery:** Codex Cloud, in small reviewable tasks  
 **Destination:** https://github.com/thedanieldiya/nosee-new  
 **Legacy source (read-only):** https://github.com/thedanieldiya/nosee  
 **Legacy reference revision at PRD creation:** `9872c4ed12aa48835eab71065c69b468424adb4a` (main)  
 **Progress record:** [PROGRESS.md](PROGRESS.md)  
-**First Codex task:** [codex-tasks/01-discovery-and-baseline.md](codex-tasks/01-discovery-and-baseline.md)  
+**Development/release baseline:** [PUBLIC-SITE-STATUS.md](PUBLIC-SITE-STATUS.md)
 **Legacy product scope reference:** [Laravel PRD](https://github.com/thedanieldiya/nosee/blob/main/docs/PRD.md)
 
 > This document is the product and acceptance-criteria source of truth for the Next.js project. It supersedes the legacy Laravel PRD **for the new implementation**; the legacy PRD remains useful as the original public-site feature inventory. Implemented legacy behavior and actual visuals must be audited separately from older aspirational requirements. Do not equate "present in an old PRD" with "currently implemented."
@@ -50,7 +50,7 @@ Use the implemented Laravel version as the technical source of truth when an old
 
 Membership application **does not** grant dashboard access. Approval also does **not** automatically expose the member on a public directory.
 
-## 3. Grounded legacy baseline (to verify in Task 01)
+## 3. Grounded pinned legacy baseline
 
 ### 3.1 Currently routed in `routes/web.php`
 
@@ -212,7 +212,9 @@ docs/
   PROGRESS.md
   migration-map.md
   visual-baseline.md
-  codex-tasks/
+  PUBLIC-SITE-STATUS.md
+  FRONTEND-TRACKER.md
+  admin/                  # future approved admin task briefs
 .agents/skills/
 AGENTS.md
 ```
@@ -271,11 +273,13 @@ Phases P2/P3 may contain several small tasks or PRs. P4 and P5 can be prioritize
 5. Record files changed, what was checked, any failed or skipped checks, residual risk, PR/commit links and which requirement IDs changed status.
 6. Stop after the assigned task. No automatic next-phase implementation.
 
-### Temporary migration evidence — storage and final cleanup
+### Development close-out and temporary QA storage
 
-**Owner decision (14 October 2026):** Keep **all actual validation and visual comparisons**, but minimize Codex token/context consumption and tracked Git artifacts. Large PHP oracle exports, raw browser dumps, build logs and full screenshot matrices may be generated/examined temporarily or stored as CI artifacts; task branches should commit concise, honest verification summaries and only a few representative paired screenshots. Never reduce the executed quality gate merely to shrink the PR. Once all presently implemented Laravel public routes are migrated, **final parity is reviewed and the owner approves**, perform a **separate cleanup PR** that deletes **every tracked migration evidence file** under `docs/evidence/` from the current tree after preserving reusable tests under `tests/`. Retain functional code and essential documentation; **do not rewrite Git history**. See `AGENTS.md` and `docs/FRONTEND-TRACKER.md`.
+**Owner decision (14 October 2026, after [Task 11 PR #11](https://github.com/thedanieldiya/nosee-new/pull/11) merged):** The original Laravel public port and scoped hardening are accepted **as a development milestone**. Normal-motion Lighthouse mobile median **3.535s (~3.54s)** is satisfactory for now; ≤2.5s and field CWV remain deferred, not passed. No further optimisation in Task 12.
 
-**Owner's accelerated handoff (14 October 2026, after Task 11 PR #11 merged):** The original Laravel public route port and scoped hardening are accepted **as a development milestone**. Task 11's Lighthouse median mobile **3.535s (~3.54s)** is satisfactory **for now**; the 2.5s Core Web Vitals target remains future work, not marked as met. The owner expressly authorises a **single Task 12 PR** combining final technical sanity checks, an accurate deferred release-gates register, removal of **all** temporary `docs/evidence/` files and obsolete migration work instructions, and evergreen-link cleanup. This consolidates the originally separate final-review and cleanup stages without falsely certifying manual screen-reader testing, live deployment, factual/legal content, newsletter delivery or search/indexing. **After Task 12 merges, the next implementation phase is P5, the [approved secure Admin foundation](admin/01-foundation.md), following [Admin Dashboard TRD v1.2](admin-dashboard-trd.md).** The user retains PR creation and merge control.
+The owner authorised one Task 12 branch combining final technical sanity, accurate deferred-release notes and complete deletion of temporary migration artifacts and completed source-migration briefs. Current-tree cleanup retains functional code/assets, reusable tests/compact independent fixtures, this PRD, source/design contracts, the Admin TRD and future admin briefs; Git history is not rewritten. [Public-site status](PUBLIC-SITE-STATUS.md) preserves decisions, exceptions, release gates and reproducible checks; [the tracker](FRONTEND-TRACKER.md) retains merged PR links. No new generated evidence archive. Future QA still runs fully as needed, with bulky outputs in temporary or CI storage.
+
+Manual screen-reader/voice/magnifier review, live deployment/domain/field performance, factual/legal content, missing new pages, real newsletter delivery and indexing/launch remain separate open gates. Automated checks and merged development code cannot certify them. After the owner merges Task 12, **P5 is next**, through [Admin 01 secure foundation](admin/01-foundation.md) and [Admin Dashboard TRD v1.1](admin-dashboard-trd.md); deferred release gates do not alone block that separately approved engineering task. Owner retains PR/merge and production control.
 
 ### Definition of Done
 
@@ -311,4 +315,4 @@ Codex must maintain [PROGRESS.md](PROGRESS.md) as a concise, persistent ledger, 
 
 The owner required a **strict 1:1 port of the existing PHP public website to Next.js, with no creative or editorial changes**, plus a proper Next.js folder structure, a source-extracted public design system, and a branded shadcn admin **as later, new functionality**. Those decisions are fixed unless changed explicitly. Every additional planned feature must be prioritized after parity and identified as new work, not falsely described as a migration of already implemented code.
 
-**Before beginning:** Run [Codex Task 01](codex-tasks/01-discovery-and-baseline.md). Use its output to refine the migration sequence without changing the established visual-fidelity and low-bandwidth goals. The new PRD starts at version 1.0; the progress ledger starts with all implementation phases not started.
+**Current handoff:** Original Laravel frontend development is complete; Task 12 close-out/cleanup awaits owner review. Follow [PROGRESS](PROGRESS.md) and the [release checklist](PUBLIC-SITE-STATUS.md#deferred-release-checklist). Begin [Admin 01](admin/01-foundation.md) only in a separately authorised task after the Task 12 merge. Public parity, performance goals and private/public boundaries remain binding.

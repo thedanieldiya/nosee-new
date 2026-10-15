@@ -1,101 +1,59 @@
-# NOSEE — Next.js rebuild
+# NOSEE — Next.js
 
-Project repository for the Network of Space–Earth Environmentalists (NOSEE) website.
+Network of Space–Earth Environmentalists website. The [original Laravel repository](https://github.com/thedanieldiya/nosee) remains read-only.
 
-This repository is separate from the [existing Laravel implementation](https://github.com/thedanieldiya/nosee), which remains untouched.
-
-## Intended application
-
-- Public, accessible, low-bandwidth website for NOSEE's research, news, events, publications, and monitoring resources.
-- Admin-only dashboard to publish content, manage leadership and featured researchers, and review membership applications.
-- Public membership application form **without applicant login**. Applicants receive submission confirmations; admins are notified and can approve/reject applicants with email notifications.
-- Member records are private by default. Only deliberately published executive/researcher profiles appear on the public website.
-
-**Status:** The **ten original Laravel public frontend tasks and [Task 11 hardening PR #11](https://github.com/thedanieldiya/nosee-new/pull/11) are merged**. Task 11 reports 110 tests, −89.45% mobile homepage image bytes and mobile Lighthouse median LCP **3.535s**. The owner accepts **~3.54s provisionally for development**, deferring the 2.5s target. [Task 12](docs/codex-tasks/12-public-closeout-cleanup.md) is the **single approved combined final sanity check, deferred-release checklist and complete evidence/obsolete-task cleanup**; the [secure Admin Foundation](docs/admin/01-foundation.md) follows its owner-reviewed merge, based on the [approved Admin TRD v1.2](docs/admin-dashboard-trd.md). Manual screen-reader, live deployment, fixture/legal content and indexing remain deferred release gates, not claimed passes. See [frontend tracker](docs/FRONTEND-TRACKER.md) and [PROGRESS](docs/PROGRESS.md).
+**The original public frontend migration is complete as a development milestone**, with ten port tasks and [Task 11 hardening](https://github.com/thedanieldiya/nosee-new/pull/11) merged. Task 12 closes out technical checks and removes temporary migration artifacts; its branch awaits owner review. **Public launch is separate:** manual accessibility, live deployment, factual/legal content and indexing remain deferred. Mobile Lighthouse LCP **~3.54s is accepted for now**, with the ≤2.5s goal deferred. See [public-site status](docs/PUBLIC-SITE-STATUS.md), [progress](docs/PROGRESS.md) and the [merged-task tracker](docs/FRONTEND-TRACKER.md).
 
 ## Development
 
-Use **Node.js 24.x** and npm. `.node-version` and `package.json` select the same major as the cloud environment (validated with Node 24.19.0); Vercel should use the package engine policy. Next.js 16.4.0 requires Node >=20.9.0, and React/React DOM 19.3.0 satisfy its published stable peer ranges. TypeScript is pinned to 5.9.3. Exact dependency versions are committed in `package-lock.json`.
+Use **Node.js 24.x** and npm; `.node-version` and `package.json` agree. Current stack: Next 16.4.0, React 19.3.0, TypeScript 5.9.3, Tailwind 4.3.3. Exact versions remain in `package-lock.json`.
 
 ```bash
 npm ci
 npm run dev
 ```
 
-For validation and a local production server:
+Validation and local production:
 
 ```bash
+node --test tests/*.test.mjs
 npm run typecheck
 npm run lint
-node --test tests/navigation.test.mjs
-node --test tests/hero-carousel.test.mjs tests/hero-entrance.test.mjs
-node --test tests/monitoring.test.mjs
-node --test tests/homepage-content.test.mjs tests/homepage-sections.test.mjs
-node --test tests/about-page.test.mjs tests/profile-carousel.test.mjs
-node --test tests/events-listing.test.mjs tests/events-pages.test.mjs tests/event-details.test.mjs
 npm run build
 npm run start
 ```
 
-Typecheck generates Next's route types before running strict TypeScript. Lint uses the ESLint CLI with Next's flat configuration. Tailwind CSS 4.3.3 uses `@tailwindcss/postcss`; no static-export setting or custom server is needed. On hosts with an unwritable npm cache, use `npm --cache /workspace/.cache/npm ci` or another writable cache location.
+Typecheck generates Next route types before strict TypeScript. Lint uses Next's flat ESLint config. On hosts with an unwritable cache, use `npm --cache /workspace/.cache/npm ci` or another writable cache. ESLint 9.39.5 remains pinned for the installed Next plugin peer ranges; upgrade the stack together when peers support ESLint 10. No peer verification bypass.
 
-ESLint 9.39.5 is pinned because the current Next React/import/accessibility plugin peer ranges do not yet accept ESLint 10. The registry marks ESLint 9 deprecated; upgrade the lint stack together when those peers support the current major. No peer checks are bypassed.
+## Implemented public application
 
-## Foundation scope
+- Source-faithful shared navigation/footer, tokens and self-hosted Ubuntu Sans/IBM Plex Sans; `font-display: swap`, no Google-font build requests. General UI icons use **official MingCute only**, with text/control `currentColor` in every state.
+- Complete five-section homepage: hero/carousel, monitoring, research, trending news and upcoming events. Server-rendered per request for the original **UTC** homepage selector. Native responsive AVIF/WebP images retain originals as fallbacks; first hero is prioritised, below-fold rasters lazy. The approved six-stage entrance remains; other inactive source reveals stay inactive.
+- Complete static `/about`: responsive editorial copy/images, mission/objectives, quote/story, seven-profile leadership carousel and collaborations. Source placeholders remain explicitly unapproved content.
+- Dynamic `/events` and `/events/archive`: native desktop GET search, original event-specific timezone/date state, featured/ongoing/upcoming selection and archive ordering. Eight regular `/events/[slug]` detail pages preserve original content, deadlines and optional itinerary/resources/people.
+- `/events/icelli2026` returns **HTTP 302** to exactly `https://icelli.nosee.org`, including HEAD/query/encoded/trailing-slash cases. Missing routes render the shared SSR **404**. Next's global not-found boundary and narrow Proxy preserve complete HTML and encoded meeting handling; trailing slashes render directly.
+- Small controllers handle the JS menu/focus/scroll and source carousels; native disclosure navigation and anchor clearance work without JS. Newsletter keeps its source appearance and an honest error; no provider, email transmission or native POST is implemented.
 
-- `src/styles/tokens.css` is the single source for the legacy semantic palette and font-family tokens; `src/app/globals.css` imports those tokens and establishes base/focus styles. Tailwind's 640/768/1024/1280px breakpoints are unchanged.
-- `src/components/site/ui/Container.tsx`, `ButtonLink.tsx`, and `ArrowRight.tsx` are server components. The container preserves the 90rem width and source gutters; links preserve 36/44/48px sizes, fill/stroke/text styles, and disabled semantics. Native footer/carousel buttons share source classes; optional icon-only sizes and arrow rotation preserve existing defaults. Copied media comprises the source arrow, white logo, five social SVGs, two hero images, three monitoring PNGs, three news PNGs, six About PNGs, five additional original Events SVGs and empty original favicon, all unmodified.
-- Fonts are self-hosted from the same `@fontsource` 5.2.8 families as the legacy project, with Latin subsets and `font-display: swap`. Local faces include Ubuntu Sans 500/600/700 and IBM Plex Sans 400/500/600 plus 400 italic. No font is preloaded or fetched from Google at build time.
-- `/` has the source title **NOSEE** and all five server-rendered sections. It renders per request so UTC event selection cannot freeze at build time. Its page metadata remains `noindex, nofollow` pending owner review and approval of development fixtures; the root layout does not impose a site-wide indexing policy.
-- Navigation/footer/hero markup and literal `src/lib/content/` records are server-rendered. Small pathname link/submenu boundaries supply correct active state in SSR and client navigation; controllers handle scroll/drawer, the task-approved newsletter error response and homepage-only carousel/entrance. The owner approved enabling the declared six-stage homepage entrance because the pinned Laravel renderer plays no entrance animation. Native Web Animations adds no dependency. No admin, database, auth, email or membership implementation is included. Next.js still supplies its framework runtime.
-- Monitoring uses two server components and the exact source CSS for desktop hover/focus lift. Literal data preserves sorted source order and strict homepage selection, excluding the starter dataset. Its reveal hooks remain, but no reveal is activated because the pinned renderer plays none; the hero approval does not authorize changing this. The three 600×338 eager PNGs total 603,892 bytes. These are static source screenshots and links, not live data feeds.
-- Research/news/events use three server sections and three source card types, with literal records and source-equivalent selectors. Research sorts featured publications newest-first; news ranks strict featured first then raw ISO strings; events select featured records through their end day in **UTC**, sorted by start/slug. Original dates, DOI fixtures, duplicate news image, responsive CTAs and source URLs remain. No new section reveals are activated. Three eager news PNGs add 547,673 bytes; all initial image bodies total about 3.94MB locally. Performance targets remain unachieved.
+Original layouts, wording, routes, breakpoints, data and interactions remain authoritative with only [documented authorised exceptions](docs/PUBLIC-SITE-STATUS.md#implemented-scope-and-enduring-exceptions). Fixture routes remain `noindex, nofollow`. Critical unimplemented destinations, old AGM 404 and medium source issues remain tracked. No database/auth/admin/CMS/membership/email implementation is included.
 
-- `/about` is statically server-rendered with all six editorial regions, exact conditional copy/pictures, three objectives, John Doe quote, story and seven original profile placeholders. Its small carousel controller preserves 1/2/3 profiles, grouped indicators, one-step arrows, mobile swipe and source resize behavior with cleanup. No new reveal or dependency. About remains `noindex, nofollow` pending content approval. [Evidence](docs/evidence/task-07/README.md) records the retained initial gutter offset, native 1px fragment variance and no-JS limitations.
+## Next phase and delivery documents
 
-- `/events` and `/events/archive` render per request with the original server-local event-timezone state machine, desktop native GET search, featured/ongoing/upcoming selection and newest-first archive. Four server event components reuse original cards, SVGs and palettes; homepage's separate UTC selection remains unchanged. Both pages keep fixture noindex/nofollow. [Task 08 evidence](docs/evidence/task-08/README.md) documents retained source button visibility/clipping quirks. No Events client controller or new dependency.
+After owner review and merge of Task 12, the next separate task is [Admin 01 — secure foundation](docs/admin/01-foundation.md), under the [approved Admin Dashboard TRD v1.1](docs/admin-dashboard-trd.md). Later membership applications have **no applicant login**; member records remain private, and public profiles require deliberate publication. Admin approval never creates a login or publishes a person automatically.
 
-- Eight regular `/events/[slug]` pages render per request with exact source detail sections, escaped body and optional itinerary/register/resources/people. Existing records and presentation services are reused, including closed past deadlines; titles and fixture noindex remain. `/events/icelli2026` returns native HTTP **302** with the exact original external URL. Missing slugs/public URLs use a shared 404 inside the public shell, including SSR with JavaScript off. Next's experimental global not-found boundary and a narrow Proxy provide complete 404 HTML and encoded meeting handling; trailing slashes render directly as in Laravel. [Task 09 evidence](docs/evidence/task-09/README.md) records the uppercase-invalid source 500 versus required target 404 exception.
+- [PRD](docs/PRD.md) — stable product/acceptance requirements.
+- [Progress](docs/PROGRESS.md) and [frontend tracker](docs/FRONTEND-TRACKER.md) — current status and merged PR traceability.
+- [Public-site status](docs/PUBLIC-SITE-STATUS.md) — approved exceptions, accepted lab baseline and deferred release checklist.
+- [Source map](docs/migration-map.md) and [design reference](docs/visual-baseline.md) — enduring source architecture, content and design contracts.
+- [Agent instructions](AGENTS.md) — coding/verification/branch policy.
 
-The public layout keeps source offset variables isolated from future admin routes. The hero starts underneath the overlaid header. About, Events detail/listing/archive and 404 apply `pt-[var(--expanded-navbar-offset)]` through a route wrapper; homepage/shell geometry is unchanged. Unimplemented source destinations, including collaboration actions, the old AGM hero slug and `/login`, retain their original URLs and return 404. The ICELLI hero CTA now uses the exact meeting 302.
-
-The newsletter keeps its source text/form/closed dialog, but a valid JavaScript-enabled submission shows the existing error without transmitting email or opening the false-success dialog. Its native no-JS POST remains unimplemented. The source no-JS navigation fallback is broken by CSS layer precedence; its rules and the source close-icon behavior are retained under the owner's no-corrections instruction. [Task 03 reference/target captures and exceptions](docs/evidence/task-03/README.md) describe the checks, blocked accessibility gate and proposed correction requiring approval.
-
-**Public-site fidelity:** All public pages are a strict 1:1 migration of the original Laravel site's visible layout, content, assets and behavior. No editorial or design corrections without owner approval; see [PRD](docs/PRD.md) and [Task 03](docs/codex-tasks/03-public-shell.md). The admin dashboard is a later, separate project phase.
+Temporary migration screenshots, exports/reports and completed briefs have been removed from the current tree. Historical commits/PRs remain; reusable tests, compact independent runtime fixtures and functional original/optimised assets are retained. Keep future generated QA outside Git.
 
 ## Preview deployment
 
-The owner connected this repository to Vercel. Push the task branch to trigger that integration and review its **actual branch deployment URL** from Vercel/GitHub checks. `https://nosee-new.vercel.app` is the main/production domain and must not be presented as the task preview. Deployment status and any available preview URL are recorded in [PROGRESS.md](docs/PROGRESS.md); stop after pushing the task branch for owner review.
+Push a task branch for the owner's configured Vercel Git integration, report only a verified actual preview URL, and stop for review. Codex does not automatically create PRs, merge or change production settings. GitHub status/Vercel access has returned HTTPS CONNECT 403 here; local checks are not proof of a live deployment. No production domain is presented as a branch preview.
 
-## Delivery documents
+## Development guidance and performance
 
-- [Migration and admin PRD](docs/PRD.md) — product requirements, route scope, acceptance conditions, design parity, backend/security and performance targets.
-- [Concise frontend task tracker](docs/FRONTEND-TRACKER.md) — ten-task existing-source roadmap, nine merged, Task 10 ready and final evidence cleanup gate.
-- [Codex progress tracker](docs/PROGRESS.md) — live milestone and requirement statuses with evidence and blockers.
-- [Codex Task 01](docs/codex-tasks/01-discovery-and-baseline.md) — first task: audit the legacy source and produce a visual/migration baseline **without changing application code**.
-- [Codex Task 02](docs/codex-tasks/02-nextjs-foundation.md) — scaffold a lean Next.js application, port source fonts/tokens and first primitives, and review via a Vercel branch preview.
-- [Codex Task 03](docs/codex-tasks/03-public-shell.md) — strictly reproduce the original Laravel public navigation, footer, and responsive behavior; push a branch for Vercel preview without requiring a PR.
-- [Codex Task 04](docs/codex-tasks/04-homepage-hero.md) — reproduce the two original homepage hero slides, images, overlays, carousel/autoplay/swipe, and entrance animations with pinned-source visual comparisons.
-- [Codex Task 05](docs/codex-tasks/05-home-monitoring.md) — reproduce the three source monitoring dashboard cards, exact images/data and responsive CTAs, with matched Laravel/Next screenshots and no creative changes.
-- [Codex Task 06](docs/codex-tasks/06-complete-homepage.md) — migrate the remaining three homepage sections together, with independent source data, responsive visual, behavior and full-page regression evidence. Faster delivery does not relax the 1:1 quality gate.
-- [Codex Task 07](docs/codex-tasks/07-about-page.md) — recreate the complete About page, all viewport-specific images/copy and seven-person leadership carousel in one branch, with independent Laravel/Next section and interaction comparisons.
-- [Codex Task 08](docs/codex-tasks/08-events-listing-archive.md) — migrate exact Laravel Events listing, desktop GET search, featured/ongoing/upcoming states and archive in one branch, with per-event timezone/clock tests and independent source-target screenshots.
-- [Codex Task 09](docs/codex-tasks/09-event-details-and-404.md) — finish original event detail pages, exact meeting 302 redirects and shared 404; run full QA but keep committed evidence compact.
-- [Codex Task 10](docs/codex-tasks/10-final-frontend-icons-review.md) — standardize existing public UI icons to MingCute with colours inherited exactly from neighbouring text, then execute full existing-Laravel frontend regression/performance/accessibility review.
-- [Combined Task 12 public close-out and cleanup](docs/codex-tasks/12-public-closeout-cleanup.md) — one last technical review, deferred-gates register and complete migration-evidence purge; owner controls PR/merge.
-- [Admin Foundation 01](docs/admin/01-foundation.md) — secure shadcn/MingCute layout, authentication and scoped RBAC; start only after Task 12 merges.
-- [Approved Admin Dashboard TRD v1.1](docs/admin-dashboard-trd.md) — canonical route IA, roles, forms and visual rules.
-- [Task 11 hardening](https://github.com/thedanieldiya/nosee-new/pull/11) — merged accessibility, no-JS and responsive-image improvements; mobile Lighthouse LCP now 3.54s provisional.
+Prefer server-rendered content, small client boundaries, responsive images and no unnecessary third-party requests. Keep admin/shadcn/editor dependencies out of public bundles. Preserve the current accepted baseline; measure future approved changes without claiming field CWV from local lab results.
 
-## Performance is a product requirement
-
-The public website must remain useful on slow mobile connections and lower-powered devices. Prefer server-rendered/prerendered content, small HTML/CSS, little or no client JavaScript on information pages, properly sized images, no unnecessary third-party scripts, and no dependence on JavaScript for primary reading/navigation. Set measurable bundle, image, and Core Web Vitals budgets during the first implementation milestone; validate with throttled mobile tests and real-user data where available.
-
-See [AGENTS.md](AGENTS.md) for the detailed engineering rules and [the project-local skills](.agents/skills/) for coding-agent guidance. Files in `.agents/` are **developer tooling, not runtime dependencies**.
-
-## Third-party development guidance
-
-- [Ponytail](https://github.com/DietrichGebert/ponytail) — lean implementation and review skills.
-- [Agency Agents](https://github.com/msitarzewski/agency-agents) — selected engineering, security, accessibility, and performance specialist profiles.
-
-The source licenses and attribution are retained in [third-party notices](.agents/THIRD_PARTY_NOTICES.md).
+Project-local [skills](.agents/skills/) are development tooling, not runtime dependencies: [Ponytail](https://github.com/DietrichGebert/ponytail) and selected [Agency Agents](https://github.com/msitarzewski/agency-agents). Licenses/attribution remain in [third-party notices](.agents/THIRD_PARTY_NOTICES.md).
