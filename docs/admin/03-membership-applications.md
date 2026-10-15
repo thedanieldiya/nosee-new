@@ -6,7 +6,7 @@
 
 ## Public contract
 
-`/join` uses the existing public shell, fonts, colours and responsive container. Existing Join links already point here. `/privacy` is the existing footer destination, now explicitly labelled as a **development-only Lorem ipsum placeholder awaiting approval**. The form warns to use test information until the final policy is published. Noindex/prelaunch restrictions remain.
+`/join` uses the existing public shell, fonts, colours and responsive container. Existing Join links already point here. `/privacy` is the existing footer destination, still a **Lorem ipsum placeholder awaiting approval**; A05.5.1 removes the visible policy-content callout by owner direction. The form warns to use test information until the final policy is published. Noindex/prelaunch restrictions remain.
 
 All fields are required and validated on the server:
 

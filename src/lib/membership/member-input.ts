@@ -13,6 +13,8 @@ export const memberInput = profileInput.extend({
 }).strict();
 export const memberCreateInput = z.object({ fields: memberInput, requestId: z.uuid(), confirm: z.literal(true) }).strict();
 export const memberUpdateInput = z.object({ fields: memberInput, version: z.number().int().min(1), confirm: z.literal(true) }).strict();
+// Deliberately preserve every character; confirmation must match the stored name exactly.
+export const memberDeleteInput = z.object({ phrase: z.string().min(1).max(200), version: z.number().int().min(1) }).strict();
 export const applicationMemberInput = z.object({ confirm: z.literal(true), association: memberAcknowledgement.optional() }).strict();
 export const profileLinkInput = z.object({ profileId: z.uuid().nullable(), version: z.number().int().min(1), confirm: z.literal(true) }).strict();
 export const memberQuery = z.object({ q: z.string().trim().max(120).default(""), status: z.enum(["", "active", "inactive"]).default(""), interest: z.union([z.literal(""), applicationInput.shape.researchInterests.element]).default(""), page: z.coerce.number().int().min(1).max(100000).default(1) }).strict();

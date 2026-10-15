@@ -100,6 +100,14 @@ Per-recipient durable jobs have unique event keys, fenced 120s claims and databa
 
 `membership:mail` and `/api/internal/membership-emails` (separate worker bearer secret) process at most one due job/invocation; no schedule configured. Owner-approved domain/sender/recipients/private config, future cutover, isolated-inbox acceptance and runner capacity/monitoring are prerequisites for operation. No live setup/migration/sending authorized/performed. [Actual tests and owner steps](reviews/05-membership-emails.md).
 
+## A05.5.1 member deletion and retained history
+
+[Deletion contract, migration and review](reviews/05-5-1-member-deletion.md): `0006_member_deletion.sql` adds `member.deleted_at`, a no-linked-profile-on-deleted check and a nondeleted-only normalized-email unique index. The existing explicit Drizzle migration runner/journal are unchanged; no migration on build/start or live migration here. Review/apply through the authorized isolated Preview process before using this code; after email reuse, reverting the unconditional unique index is unsafe.
+
+Super Admin DELETE rechecks current authority/access version, stored-name exact phrase and member version under lock `4631002`. Timestamp/version/profile unlink and safe actor/time/ID audits commit atomically. Every normal Member read/match/mutation excludes deleted rows. **A06's future selectors must use the same nondeleted guard.** Partial email uniqueness permits a new ID/request key; old creation keys, approval replay and historical reconciliation cannot restore/reassign deleted identities. Historical associations are retained and disclosed without returning the deleted member's personal fields. Separate admin credentials/sessions and independently published profiles are untouched; no deletion mail/job.
+
+This is irreversible **within the application**, not personal-data erasure: full member rows/digests, source applications/answers/decisions/associations, existing notification metadata and audit history remain internally stored. No retention duration/purge policy is invented. Final retention/erasure and approved privacy wording remain launch requirements. Native privacy backdrop dismissal retains consent/form values; visible policy-content placeholder callouts are removed by owner direction, without approving the Lorem ipsum policy or changing consent versions/noindex.
+
 ## Local integration and safe review fixtures
 
 Tests require a deliberately disposable **loopback PostgreSQL database named `nosee_admin01_test`** and a loopback app origin. They refuse other databases before destructive setup. Use the official PostgreSQL container with a randomly generated password held in a mode-0600 file outside Git; bind its port to loopback only. Apply `admin:migrate`, load the protected local env, build/start the app at the same `ADMIN_ORIGIN`, then:
@@ -111,6 +119,7 @@ npm run test:members
 npm run test:mail
 npm run test:membership-mail
 npm run test:membership-workflow
+node --conditions=react-server --test tests/member-deletion-integration.mjs
 ```
 
 The sequential suites use real database identities, scrypt hashes and signed sessions, including migration preservation and invitation/access/audit races. Test fixtures never enter migrations or app defaults. Setting `NOSEE_ADMIN_FIXTURE_FILE` to a private `/tmp/…` file optionally preserves random **local-only** role credentials and an adjacent `invitation.json` for browser QA; files are mode 0600 and never printed. The suite resets its named test database; never run it against preview or production. Browser suites share fixtures and must also run sequentially. Remove the container/private files when finished. Never let an injected hosted `DATABASE_URL` override a local test file: explicitly select a disposable child-process environment before running these commands.

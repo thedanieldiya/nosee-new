@@ -8,7 +8,7 @@ import { adminDatabase } from "../admin/database.ts";
 import { adminConfig } from "../admin/config.ts";
 import { takeBucket } from "../admin/http.ts";
 import { ManagementError, requireManagerTransaction } from "../admin/management.ts";
-import { auditLog, membershipApplication, applicationMember } from "../admin/schema.ts";
+import { auditLog, membershipApplication, applicationMember, member } from "../admin/schema.ts";
 import type { Principal } from "../admin/policy.ts";
 import { applicationInput, submissionInput, applicationQuery, decisionInput } from "./input.ts";
 import { validApplicationToken, tokenDigest, applicationFingerprint } from "./form-guard.ts";
@@ -100,8 +100,9 @@ export async function decideMembershipApplication(actor: Principal, id: string, 
   const { decision, note, association } = parsed.data;
   const outcome = await adminDatabase().db.transaction(async tx => {
     await requireManagerTransaction(tx, actor); await lock(tx);
-    const [prior] = await tx.select({ status: membershipApplication.status, memberId: applicationMember.memberId }).from(membershipApplication).leftJoin(applicationMember, eq(applicationMember.applicationId, membershipApplication.id)).where(eq(membershipApplication.id, id));
+    const [prior] = await tx.select({ status: membershipApplication.status, memberId: applicationMember.memberId, deletedAt: member.deletedAt }).from(membershipApplication).leftJoin(applicationMember, eq(applicationMember.applicationId, membershipApplication.id)).leftJoin(member, eq(member.id, applicationMember.memberId)).where(eq(membershipApplication.id, id));
     if (decision === "approved" && prior?.status === "approved" && prior.memberId) {
+      if (prior.deletedAt) throw new ApplicationError("This application's associated member was deleted. Its historical association cannot be restored or reassigned.", 409);
       if (association && association.memberId !== prior.memberId) throw new ApplicationError("This application is associated with another member. Refresh the review.", 409);
       return { memberId: prior.memberId, repeated: true };
     }
