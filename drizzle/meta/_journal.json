@@ -29,6 +29,13 @@
       "when": 1792080000000,
       "tag": "0003_members_identity_links",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792090000000,
+      "tag": "0004_membership_notifications",
+      "breakpoints": true
     }
   ]
 }

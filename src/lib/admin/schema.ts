@@ -82,3 +82,23 @@ export const applicationMember = pgTable("membership_application_member", {
   applicationId: uuid("application_id").primaryKey().references(() => membershipApplication.id), memberId: uuid("member_id").notNull().references(() => member.id),
   associatedBy: uuid("associated_by").notNull().references(() => user.id), createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 }, table => [index("membership_application_member_person").on(table.memberId)]);
+export const membershipNotification = pgTable("membership_notification", {
+  id: uuid("id").primaryKey(), applicationId: uuid("application_id").notNull().references(() => membershipApplication.id),
+  kind: text("kind").$type<"receipt" | "admin_alert" | "approval" | "rejection">().notNull(), recipientKey: text("recipient_key").notNull(),
+  // Only configured administrator addresses need a copy; applicants use their immutable source record.
+  administratorRecipient: text("administrator_recipient"), fromAddress: text("from_address"), origin: text("origin"), activationKey: text("activation_key"),
+  templateVersion: integer("template_version").notNull().default(1), state: text("state").$type<"held" | "queued" | "sending" | "accepted" | "failed" | "unconfirmed">().notNull(),
+  attempts: integer("attempts").notNull().default(0), uncertain: boolean("uncertain").notNull().default(false), nextAttemptAt: timestamp("next_attempt_at", { withTimezone: true }),
+  firstAttemptAt: timestamp("first_attempt_at", { withTimezone: true }), claimToken: uuid("claim_token"), leaseUntil: timestamp("lease_until", { withTimezone: true }),
+  payloadDigest: text("payload_digest"), providerMessageId: text("provider_message_id"), lastIssue: text("last_issue"), ...timestamps,
+}, table => [uniqueIndex("membership_notification_event").on(table.applicationId, table.kind, table.recipientKey), index("membership_notification_due").on(table.nextAttemptAt, table.id).where(sql`${table.state} in ('queued','unconfirmed')`), check("membership_notification_attempts", sql`${table.attempts} between 0 and 5`),
+  check("membership_notification_kind", sql`${table.kind} in ('receipt','admin_alert','approval','rejection')`),
+  check("membership_notification_state", sql`${table.state} in ('held','queued','sending','accepted','failed','unconfirmed')`),
+  check("membership_notification_template_version", sql`${table.templateVersion}=1`),
+  check("membership_notification_claim", sql`(${table.state}='sending' and ${table.claimToken} is not null and ${table.leaseUntil} is not null) or (${table.state}<>'sending' and ${table.claimToken} is null and ${table.leaseUntil} is null)`),
+  check("membership_notification_acceptance", sql`(${table.state}='accepted' and ${table.providerMessageId} is not null) or (${table.state}<>'accepted' and ${table.providerMessageId} is null)`),
+  check("membership_notification_held", sql`${table.state}<>'held' or (${table.attempts}=0 and ${table.nextAttemptAt} is null and ${table.activationKey} is null)`),
+]);
+export const membershipMailControl = pgTable("membership_mail_control", {
+  id: text("id").primaryKey(), nextDispatchAt: timestamp("next_dispatch_at", { withTimezone: true }).notNull().defaultNow(),
+});

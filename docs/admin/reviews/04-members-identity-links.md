@@ -2,6 +2,8 @@
 
 **15 October 2026 · Branch:** [`codex/admin-04-members-identity-links`](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-04-members-identity-links), from main `4da6d4a` / merged A03 PR #19. The owner confirms A03 manual browser checks passed; A04 owner review is pending. [Implementation, API contract and migration setup](../04-members-identity-links.md).
 
+**Current owner status (A05 handoff):** A04 merged through [PR #20](https://github.com/thedanieldiya/nosee-new/pull/20), implementation `fcab45d`. Owner checks passed **except pagination**, still pending owner verification. A05 adds automated 45-record/three-page/filter/navigation checks; those do not substitute for owner acceptance. Real profile linking remains dependent on A10. Original implementation verification below is historical; see [A05 operations](../05-membership-emails.md).
+
 ## Measured checks
 
 Node 24.19.0 / npm 11.9.0, Next 16.4.0 production build, official PostgreSQL 17 disposable loopback container, Chromium and axe-core. All fixtures are synthetic, passwords random and stored only in mode-0600 temporary files. Tests refuse remote/owner databases. No live migration or external setting/service/email operation.
