@@ -10,7 +10,7 @@ export type DirectoryRow = {
   role: "super_admin" | "editor" | "research_group_lead"; status: string; delivery: string | null;
   createdAt: string; lastLoginAt: string | null; expiresAt: string | null;
 };
-export type ActivityRow = { id: string; actorId: string; actor: string; action: string; createdAt: string; targetType: string | null; targetId: string | null; targetLabel: string | null; changes: { before: Record<string, string | boolean>; after: Record<string, string | boolean> } | null };
+export type ActivityRow = { id: string; actorId: string | null; actor: string; action: string; createdAt: string; targetType: string | null; targetId: string | null; targetLabel: string | null; changes: { before: Record<string, string | boolean>; after: Record<string, string | boolean> } | null };
 const pattern = (value: string) => `%${value.replace(/[\\%_]/g, "\\$&")}%`;
 export async function administratorDirectory(actor: Principal, raw: unknown) {
   const query = directoryInput.parse(raw);
@@ -46,7 +46,8 @@ export async function activityDirectory(actor: Principal, raw: unknown) {
   return adminDatabase().db.transaction(async tx => {
     await requireManagerTransaction(tx, actor);
     const predicates: SQL[] = [sql`true`];
-    if (query.actor) predicates.push(sql`a.actor_id=${query.actor}::uuid`);
+    if (query.actor === "system") predicates.push(sql`a.actor_id is null`);
+    else if (query.actor) predicates.push(sql`a.actor_id=${query.actor}::uuid`);
     if (query.action) predicates.push(sql`a.action=${query.action}`);
     if (query.target) predicates.push(sql`concat_ws(' ',a.target_type,a.target_id::text,a.target_label) ilike ${pattern(query.target)}`);
     if (query.from) predicates.push(sql`a.created_at >= ${query.from}::date::timestamp at time zone 'UTC'`);
@@ -54,8 +55,8 @@ export async function activityDirectory(actor: Principal, raw: unknown) {
     const where = sql.join(predicates, sql` and `);
     const total = Number((await tx.execute<{ total: number }>(sql`select count(*)::int total from admin_audit_log a where ${where}`)).rows[0].total);
     const page = Math.min(query.page, Math.max(1, Math.ceil(total / PAGE_SIZE)));
-    const rows = (await tx.execute<ActivityRow>(sql`select a.id,a.actor_id "actorId",u.name actor,a.action,a.created_at "createdAt",a.target_type "targetType",a.target_id "targetId",a.target_label "targetLabel",a.changes
-      from admin_audit_log a join administrator u on u.id=a.actor_id where ${where} order by a.created_at desc,a.id desc limit ${PAGE_SIZE} offset ${(page - 1) * PAGE_SIZE}`)).rows;
+    const rows = (await tx.execute<ActivityRow>(sql`select a.id,a.actor_id "actorId",coalesce(u.name,'System') actor,a.action,a.created_at "createdAt",a.target_type "targetType",a.target_id "targetId",a.target_label "targetLabel",a.changes
+      from admin_audit_log a left join administrator u on u.id=a.actor_id where ${where} order by a.created_at desc,a.id desc limit ${PAGE_SIZE} offset ${(page - 1) * PAGE_SIZE}`)).rows;
     const actors = (await tx.execute<{ id: string; name: string }>(sql`select id,name from administrator order by name,id limit 200`)).rows;
     const actions = (await tx.execute<{ action: string }>(sql`select distinct action from admin_audit_log order by action limit 100`)).rows.map(row => row.action);
     return { rows: JSON.parse(JSON.stringify(rows)) as ActivityRow[], total, page, pages: Math.max(1, Math.ceil(total / PAGE_SIZE)), actors, actions };

@@ -23,7 +23,7 @@ export function pathPermission(path: string[]): { permission: Permission; groupI
 export function adminNavigation(principal: Principal) {
   const entries = [
     { label: "Overview", href: "/admin", permission: "overview" as Permission, icon: "home", available: true },
-    { label: "Membership", href: "/admin/membership/applications", permission: "membership" as Permission, icon: "members", available: false },
+    { label: "Membership", href: "/admin/membership/applications", permission: "membership" as Permission, icon: "members", available: true },
     { label: "Research", href: principal.role === "research_group_lead" ? `/admin/research/${principal.researchGroupId}` : "/admin/research", permission: "research" as Permission, icon: "research", available: false },
     { label: "Publishing", href: "/admin/publishing/news", permission: "publishing" as Permission, icon: "publishing", available: false },
     { label: "Website", href: "/admin/website/site-content", permission: "website" as Permission, icon: "website", available: false },

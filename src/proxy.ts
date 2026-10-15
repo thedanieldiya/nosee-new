@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { findEvent } from "@/lib/content/events-detail";
 
 export function proxy(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith("/admin") || request.nextUrl.pathname.startsWith("/api/admin/")) {
+  if (request.nextUrl.pathname.startsWith("/admin") || request.nextUrl.pathname.startsWith("/api/admin/") || request.nextUrl.pathname.startsWith("/join") || request.nextUrl.pathname === "/api/internal/membership-expiry") {
     const response = NextResponse.next();
     response.headers.set("Cache-Control", "private, no-store, max-age=0");
     response.headers.set("X-Robots-Tag", "noindex, nofollow");
@@ -28,4 +28,4 @@ export function proxy(request: NextRequest) {
   return NextResponse.rewrite(missing);
 }
 
-export const config = { matcher: ["/events/:slug", "/admin/:path*", "/api/admin/:path*"] };
+export const config = { matcher: ["/events/:slug", "/admin/:path*", "/api/admin/:path*", "/join/:path*", "/api/internal/membership-expiry"] };

@@ -15,6 +15,7 @@
       "when": 1792060000000,
       "tag": "0001_administrators_activity",
       "breakpoints": true
-    }
+    },
+    { "idx": 2, "version": "7", "when": 1792070000000, "tag": "0002_membership_applications", "breakpoints": true }
   ]
 }
