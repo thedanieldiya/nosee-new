@@ -9,7 +9,7 @@
 
 | ID | Scope and user-visible result | Code status | Owner review | PR / branch | Interactive preview |
 | --- | --- | --- | --- | --- | --- |
-| **A01** | **First Super Admin CLI bootstrap + auth + shadcn shell + General:** create initial admin securely; sign in/out as each role, browse responsive navigation, edit and persist own name/profile fields | In review | **Preview blocked** — no hosted DB/env/accounts or verified URL; [review](reviews/01-foundation.md) | `codex/admin-01-foundation` (no PR) | Unverified; local PostgreSQL/role walkthroughs pass |
+| **A01** | **First Super Admin CLI bootstrap + auth + shadcn shell + General:** create initial admin securely; sign in/out as each role, browse responsive navigation, edit and persist own name/profile fields | Pushed/In review | **Preview blocked** — no hosted DB/env/accounts or verified URL; [review](reviews/01-foundation.md) | [Branch](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-01-foundation) · `ef2a1e6` published/remote verified; no PR | Unverified; local PostgreSQL/role walkthroughs pass |
 | A02 | **Administrators + Activity log:** Super Admin manages invited administrator roles/scopes and inspects genuine audited changes | Not started | Pending | — | — |
 | A03 | **Membership applications:** submit a test application via approved public intake form, then privately review/approve/reject it | Not started | Pending | — | — |
 | A04 | **Member records and identity links:** create/edit private Members; review suggested matches and explicitly link/unlink Leadership profiles without data leakage | Not started | Pending | — | — |

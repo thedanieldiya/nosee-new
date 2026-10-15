@@ -1,6 +1,6 @@
 # A01 — Secure foundation review
 
-**15 October 2026 · `codex/admin-01-foundation` · Code In review · Owner review: Preview blocked.** Base main `8d90ebfad7536038dcf561023daacb947cf39330` includes merged Task 12. No PR/merge, production settings or A02 implementation.
+**15 October 2026 · [Published branch](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-01-foundation) · Implementation `ef2a1e6` remote verified · Code In review · Owner review: Preview blocked.** Base main `8d90ebfad7536038dcf561023daacb947cf39330` includes merged Task 12. No PR/merge, production settings or A02 implementation.
 
 ## Delivered and external blocker
 
