@@ -4,7 +4,7 @@
 
 **Current task:** [Admin 01 — Secure Foundation and Shopify-style dashboard shell](admin/01-foundation.md) (**instructions ready; application implementation not started**). Begin P5 on a new branch from latest main; enforce fail-closed auth, Super Admin/Editor/Research Group Lead permissions and the approved [Admin TRD v1.2](admin-dashboard-trd.md). Maintain public regression checks and the deferred release checklist.
 
-Canonical [PRD](PRD.md), [public status/deferred release checklist](PUBLIC-SITE-STATUS.md), [merged-task tracker](FRONTEND-TRACKER.md) and [Admin TRD v1.2](admin-dashboard-trd.md) remain authoritative. Development completion does not mark broader release/full-stack requirements Done.
+Canonical [PRD](PRD.md), [public status/deferred release checklist](PUBLIC-SITE-STATUS.md), [merged-task tracker](FRONTEND-TRACKER.md), [Admin TRD v1.2](admin-dashboard-trd.md) and [Admin Dashboard delivery tracker](admin/TRACKER.md) remain authoritative. **Admin A01 is the current pending task: 0/13 admin tasks merged. Every admin task requires a secure owner-interactive preview and an independent owner review outcome.** Development completion does not mark broader release/full-stack requirements Done.
 
 ## Phase status
 
