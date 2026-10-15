@@ -24,6 +24,7 @@ export function DeleteMember({ id, version, firstName, lastName, disabled }: { i
     } finally { submitting.current = false; setBusy(false); }
   }
   return <div className="border-t border-line-mild pt-6">
+    <p className="mb-4 text-secondary">Deletion removes group participation and revokes linked Group Lead access. Separate administrator accounts and public profiles are retained.</p>
     <Button ref={trigger} type="button" variant="destructive" disabled={disabled} onClick={() => { setPhrase(""); setError(""); setOpen(true); }}>Delete member</Button>
     <Dialog open={open} onOpenChange={value => { if (!submitting.current) setOpen(value); }}>
       <DialogContent onOpenAutoFocus={event => { event.preventDefault(); cancel.current?.focus(); }} onCloseAutoFocus={event => { event.preventDefault(); trigger.current?.focus(); }}>

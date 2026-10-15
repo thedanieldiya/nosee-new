@@ -1,5 +1,6 @@
 // Real PostgreSQL and HTTP checks, restricted to disposable loopback fixtures.
 import assert from 'node:assert/strict';
+import {seedLeadScope} from './helpers/research-fixture.mjs';
 import test from 'node:test';
 import {randomUUID,randomBytes} from 'node:crypto';
 import {readFileSync,writeFileSync,openSync,closeSync,fchmodSync,constants,realpathSync} from 'node:fs';
@@ -19,7 +20,7 @@ assert.ok(!process.env.DATABASE_MIGRATION_URL&&!process.env.DATABASE_URL_UNPOOLE
 const {db,pool}=adminDatabase(),fixtures={},cookies={},headers=new Headers({origin:base,'sec-fetch-site':'same-origin'});
 const input=(patch={})=>({firstName:'Applicant',lastName:'Fixture',email:`${randomUUID()}@example.invalid`,careerStage:'early_career',researchInterests:['space_weather','climate_science'],why:'Private scientific motivation. Not audit metadata.',consent:true,formToken:createApplicationToken(),website:'',...patch});
 async function request(path,{method='GET',cookie,body,origin=base,headers:extra={}}={}){const r=await fetch(base+path,{method,redirect:'manual',headers:{...(cookie?{cookie}:{}),...(method==='GET'?{}:{origin,'content-type':'application/json'}),...extra},...(body===undefined?{}:{body:JSON.stringify(body)})});return {status:r.status,headers:r.headers,text:await r.text()};}
-async function createPerson(role){const p={id:randomUUID(),firstName:'Test',lastName:role==='super_admin'?'Reviewer':role==='editor'?'Editor':'Lead',email:`${randomUUID()}@example.invalid`,password:randomBytes(32).toString('base64url'),role,researchGroupId:role==='research_group_lead'?randomUUID():null};await db.insert(user).values({...p,password:undefined,name:p.firstName+' '+p.lastName});await db.insert(account).values({id:randomUUID(),userId:p.id,accountId:p.id,providerId:'credential',password:await hashPassword(p.password)});return p;}
+async function createPerson(role){const p={id:randomUUID(),firstName:'Test',lastName:role==='super_admin'?'Reviewer':role==='editor'?'Editor':'Lead',email:`${randomUUID()}@example.invalid`,password:randomBytes(32).toString('base64url'),role,researchGroupId:role==='research_group_lead'?randomUUID():null};await db.insert(user).values({...p,password:undefined,name:p.firstName+' '+p.lastName});await db.insert(account).values({id:randomUUID(),userId:p.id,accountId:p.id,providerId:'credential',password:await hashPassword(p.password)});if(role==='research_group_lead')await seedLeadScope(db,p);return p;}
 const count=async table=>Number((await db.select({n:sql`count(*)`}).from(table))[0].n);
 async function row(id){return (await db.select().from(membershipApplication).where(eq(membershipApplication.id,id)))[0];}
 async function received(patch={}){const data=input(patch);await submit(data,headers);return {data,record:(await db.select().from(membershipApplication).where(eq(membershipApplication.email,data.email.toLowerCase()))).sort((a,b)=>b.createdAt-a.createdAt)[0]};}

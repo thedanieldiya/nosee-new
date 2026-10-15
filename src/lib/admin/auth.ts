@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm";
 import { adminConfig } from "./config.ts";
 import { adminDatabase } from "./database.ts";
 import * as schema from "./schema.ts";
+import { validLeadAssignment } from "../research/security.ts";
 let instance: ReturnType<typeof createAuth> | undefined;
 function createAuth(config: NonNullable<ReturnType<typeof adminConfig>>) {
   const { db } = adminDatabase();
@@ -25,6 +26,7 @@ function createAuth(config: NonNullable<ReturnType<typeof adminConfig>>) {
     databaseHooks: { session: { create: { before: async data => {
       const [administrator] = await db.select().from(schema.user).where(eq(schema.user.id, data.userId));
       if (!administrator?.active || (administrator.role === "research_group_lead" && !administrator.researchGroupId)) throw new APIError("UNAUTHORIZED", { message: "Unable to sign in." });
+      if (administrator.role === "research_group_lead" && !(await validLeadAssignment(db, administrator.id, administrator.researchGroupId))) throw new APIError("UNAUTHORIZED", { message: "Unable to sign in." });
       return { data: { ...data, accessVersion: administrator.accessVersion } };
     }, after: async data => {
       await db.transaction(async tx => {

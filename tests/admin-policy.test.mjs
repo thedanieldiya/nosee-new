@@ -20,7 +20,7 @@ test('role-specific navigation exposes only approved destinations and marks futu
  assert.deepEqual(adminNavigation(principals.editor).map(i=>i.label),['Overview','Publishing','Website','General']);
  assert.deepEqual(adminNavigation(principals.research_group_lead).map(i=>i.label),['Overview','Research','General']);
  assert.equal(adminNavigation(principals.super_admin).length,8);
- for(const principal of Object.values(principals))assert.deepEqual(adminNavigation(principal).filter(i=>i.available).map(i=>i.href),principal.role==='super_admin'?['/admin','/admin/membership/applications','/admin/settings/general','/admin/settings/administrators','/admin/settings/activity-log']:['/admin','/admin/settings/general']);
+ for(const principal of Object.values(principals))assert.deepEqual(adminNavigation(principal).filter(i=>i.available).map(i=>i.href),principal.role==='super_admin'?['/admin','/admin/membership/applications','/admin/research','/admin/settings/general','/admin/settings/administrators','/admin/settings/activity-log']:principal.role==='research_group_lead'?['/admin',`/admin/research/${group}`,'/admin/settings/general']:['/admin','/admin/settings/general']);
  assert.equal(adminNavigation(principals.research_group_lead)[1].href,`/admin/research/${group}`);
  assert.deepEqual(pathPermission(['research',group,'members']),{permission:'research',groupId:group});
  assert.equal(pathPermission(['settings','generalised']),null);

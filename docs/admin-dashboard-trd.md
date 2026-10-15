@@ -2,6 +2,7 @@
 
 **Version:** 1.2 · **Status:** Approved information architecture; editorial scope and field workflows revised 14 October 2026  
 **Owner correction (15 October 2026):** [A05.5](admin/05-5-membership-workflow.md) supersedes the separate application-to-member conversion/manual lookup flow. Approval atomically establishes Active membership, with explicit existing-member/reactivation acknowledgement. No administrator access/public publication.
+**Owner A06 refinement (15 October 2026):** [Research groups](admin/06-research-groups.md) adds explicit Active Member/real-group-bound Lead identity and membership-driven scope revocation while retaining separate administrator accounts. Public research rendering/design and new image uploads remain identified dependencies, not implied existing pages/services.
 
 **Scope:** Authenticated administrative experience inside the existing Next.js application. **Documentation scope only — changes in this TRD do not by themselves implement admin features or change public pages.**  
 **Visual direction:** Shopify account-settings dashboard — quiet, clear, compact labels, restrained form panels and actions.  

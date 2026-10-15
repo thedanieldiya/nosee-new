@@ -1,6 +1,6 @@
 # Original Laravel frontend migration tracker
 
-**Updated:** 14 October 2026. **Development milestone complete:** all ten original public-port tasks plus hardening merged. Content, accessibility and production acceptance are separate; see [public-site status and deferred release checklist](PUBLIC-SITE-STATUS.md).
+**Updated:** 15 October 2026. **Development milestone complete:** all ten original public-port tasks plus hardening merged. Content, accessibility and production acceptance are separate; see [public-site status and deferred release checklist](PUBLIC-SITE-STATUS.md).
 
 | Task | Delivered scope | Traceability |
 | --- | --- | --- |
@@ -21,6 +21,6 @@ Mobile normal-motion Lighthouse LCP **3.535s** is accepted for now; ≤2.5s rema
 
 Public changes must preserve source layout, wording, routes, responsive behaviour and the [documented approved exceptions](PUBLIC-SITE-STATUS.md#implemented-scope-and-enduring-exceptions). Run appropriate source/target comparisons for future visual changes and keep generated QA outside Git. Official MingCute glyphs and adjacent-text `currentColor` apply to both public and future admin UI; admin code must stay out of public bundles.
 
-**Admin development:** [A01 foundation](admin/01-foundation.md) is merged; A02 core and its Resend adapter (PR #18, `1204b06`) are merged; A03 public applications/private review (PR #19) is merged with owner-confirmed browser checks; A04 private member records/identity associations are in review under the approved [Admin TRD v1.2](admin-dashboard-trd.md). Follow the [Admin tracker](admin/TRACKER.md). Public launch gates remain deferred. Deferred manual AT/live/content release gates do not imply failed development close-out or block that separately authorised phase; they remain open before public launch.
+**Admin development:** A01–A05 core are merged (**5/13**); A05.5.1 [PR #23](https://github.com/thedanieldiya/nosee-new/pull/23) is merged and owner-tested successfully. [A06 research workspaces](admin/06-research-groups.md) are in review. Public research routes have no approved design/renderer and remain unchanged; live Resend, scheduling, final privacy and broader public-release gates stay open. Follow the [Admin tracker](admin/TRACKER.md).
 
 [PRD](PRD.md) · [requirement progress](PROGRESS.md) · [agent instructions](../AGENTS.md)

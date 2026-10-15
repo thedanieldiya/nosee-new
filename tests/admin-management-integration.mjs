@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {seedLeadScope} from './helpers/research-fixture.mjs';
 import test from 'node:test';
 import { randomUUID, randomBytes, createHash } from 'node:crypto';
 import { readFileSync, writeFileSync, realpathSync, openSync, closeSync, fchmodSync, constants } from 'node:fs';
@@ -17,7 +18,7 @@ const {db,pool}=adminDatabase(),fixtures={};
 async function person(role='editor'){
  const p={id:randomUUID(),firstName:role==='super_admin'?'Avery':role==='editor'?'Jordan':'Morgan',lastName:'Reviewer',email:`${randomUUID()}@example.invalid`,password:randomBytes(32).toString('base64url'),role,researchGroupId:role==='research_group_lead'?randomUUID():null};
  await db.insert(user).values({...p,name:p.firstName+' '+p.lastName,password:undefined});
- await db.insert(account).values({id:randomUUID(),userId:p.id,accountId:p.id,providerId:'credential',password:await hashPassword(p.password)});return p;
+ await db.insert(account).values({id:randomUUID(),userId:p.id,accountId:p.id,providerId:'credential',password:await hashPassword(p.password)});if(role==='research_group_lead')await seedLeadScope(db,p);return p;
 }
 async function request(path,{method='GET',cookie,body,origin=base,headers={}}={}){
  const r=await fetch(base+path,{method,redirect:'manual',headers:{...(cookie?{cookie}:{}),...(method==='GET'?{}:{origin,'content-type':'application/json'}),...headers},...(body!==undefined?{body:typeof body==='string'?body:JSON.stringify(body)}:{})});return{status:r.status,headers:r.headers,text:await r.text()};

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {seedLeadScope} from './helpers/research-fixture.mjs';
 import test from 'node:test';
 import { randomUUID, randomBytes } from 'node:crypto';
 import { writeFileSync, unlinkSync, realpathSync, openSync, closeSync, fchmodSync, constants, mkdtempSync, rmdirSync } from 'node:fs';
@@ -8,7 +9,7 @@ import { eq, sql } from 'drizzle-orm';
 import { hashPassword, verifyPassword } from 'better-auth/crypto';
 import { adminDatabase } from '../src/lib/admin/database.ts';
 import { bootstrapAdministrator } from '../src/lib/admin/bootstrap.ts';
-import { user, account, session, auditLog, loginAttempt } from '../src/lib/admin/schema.ts';
+import { user, account, session, auditLog, loginAttempt, researchLeadAssignment } from '../src/lib/admin/schema.ts';
 const databaseURL=new URL(process.env.DATABASE_URL||''),base=process.env.ADMIN_ORIGIN;
 assert.ok(['localhost','127.0.0.1'].includes(databaseURL.hostname)&&databaseURL.pathname==='/nosee_admin01_test','Destructive tests require the isolated loopback nosee_admin01_test database.');
 assert.ok(['localhost','127.0.0.1'].includes(new URL(base).hostname),'Integration tests must use a loopback application.');
@@ -46,7 +47,7 @@ try{
  });
  for(const role of ['editor','research_group_lead']){
   const fixture=fixtures[role],id=randomUUID();fixture.id=id;
-  await db.transaction(async tx=>{await tx.insert(user).values({id,name:`${fixture.firstName} ${fixture.lastName}`,firstName:fixture.firstName,lastName:fixture.lastName,email:fixture.email,role,researchGroupId:fixture.researchGroupId});await tx.insert(account).values({id:randomUUID(),accountId:id,userId:id,providerId:'credential',password:await hashPassword(fixture.password)});});
+  await db.transaction(async tx=>{await tx.insert(user).values({id,name:`${fixture.firstName} ${fixture.lastName}`,firstName:fixture.firstName,lastName:fixture.lastName,email:fixture.email,role,researchGroupId:fixture.researchGroupId});await tx.insert(account).values({id:randomUUID(),accountId:id,userId:id,providerId:'credential',password:await hashPassword(fixture.password)});});if(role==='research_group_lead')await seedLeadScope(db,fixture);
  }
  await test('no public signup, administrator creation or unsupported auth endpoint exists',async()=>{
   for(const path of ['sign-up/email','admin/create-user','update-user','change-email','request-password-reset'])assert.equal((await request('/api/admin/auth/'+path,{method:'POST',body:{email:fixtures.editor.email,password:fixtures.editor.password,role:'super_admin'}})).status,404);
@@ -85,7 +86,7 @@ try{
  await test('Lead can reach only assigned research boundary; other-group and create paths are denied',async()=>{
   const cookie=sessions.research_group_lead.cookie;
   assert.equal((await request('/admin/research',{cookie})).status,307);
-  assert.equal((await request('/admin/research/'+group,{cookie})).status,404,'Assigned workspace is authorised but not implemented.');
+  assert.equal((await request('/admin/research/'+group,{cookie})).status,200,'Assigned workspace is backed by a real group.');
   for(const p of [randomUUID(),'new',group+'/../'+randomUUID()])assert.equal((await request('/admin/research/'+p,{cookie})).status,403);
   assert.equal((await request('/admin/research/'+randomUUID()+'/members',{cookie})).status,403);
  });
@@ -102,11 +103,13 @@ try{
  await test('role changes and deactivation apply immediately to existing sessions',async()=>{
   const id=fixtures.editor.id,cookie=sessions.editor.cookie;
   await db.update(user).set({role:'research_group_lead',researchGroupId:group}).where(eq(user.id,id));
+  assert.equal((await request('/api/admin/profile',{cookie})).status,401,'An unlinked scope must fail closed.');
+  const real=await seedLeadScope(db,{...fixtures.editor,researchGroupId:randomUUID()});await db.update(user).set({researchGroupId:real.groupId}).where(eq(user.id,id));
   assert.equal((await request('/api/admin/profile',{cookie})).json().role,'research_group_lead');
   assert.equal((await request('/admin/publishing/news',{cookie})).status,403);
   await db.update(user).set({active:false}).where(eq(user.id,id));assert.equal((await request('/api/admin/profile',{cookie})).status,401);
   assert.notEqual((await request('/api/admin/auth/sign-in/email',{method:'POST',body:{email:fixtures.editor.email,password:fixtures.editor.password}})).status,200);
-  await db.update(user).set({role:'editor',researchGroupId:null,active:true}).where(eq(user.id,id));
+  await db.update(user).set({role:'editor',researchGroupId:null,active:true}).where(eq(user.id,id));await db.update(researchLeadAssignment).set({revokedAt:new Date()}).where(eq(researchLeadAssignment.administratorId,id));
  });
  await test('password change verifies old credential and revokes other sessions',async()=>{
   await db.delete(loginAttempt);const other=await signIn(fixtures.editor),cookie=sessions.editor.cookie;

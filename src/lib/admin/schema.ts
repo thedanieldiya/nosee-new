@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import { pgTable, uuid, text, timestamp, date, boolean, pgEnum, index, uniqueIndex, bigint, integer, check, jsonb } from "drizzle-orm/pg-core";
+import type { GroupContent } from "../research/options.ts";
 
 export const adminRole = pgEnum("admin_role", ["super_admin", "editor", "research_group_lead"]);
 const timestamps = { createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(), updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow() };
@@ -32,7 +33,7 @@ export const loginAttempt = pgTable("admin_login_attempt", { key: text("key").pr
 export const auditLog = pgTable("admin_audit_log", {
   id: uuid("id").primaryKey(), actorId: uuid("actor_id").references(() => user.id), action: text("action").notNull(),
   targetType: text("target_type"), targetId: uuid("target_id"), targetLabel: text("target_label"),
-  changes: jsonb("changes").$type<{ before: { role?: string; active?: boolean; status?: string; memberId?: string | null; profileId?: string | null }; after: { role?: string; active?: boolean; status?: string; memberId?: string | null; profileId?: string | null } }>(),
+  changes: jsonb("changes").$type<{ before: { role?: string; active?: boolean; status?: string; memberId?: string | null; profileId?: string | null; administratorId?: string | null; associationId?: string | null }; after: { role?: string; active?: boolean; status?: string; memberId?: string | null; profileId?: string | null; administratorId?: string | null; associationId?: string | null } }>(),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 }, table => [index("admin_audit_actor_time").on(table.actorId, table.createdAt), index("admin_audit_time").on(table.createdAt, table.id)]);
 export const invitation = pgTable("admin_invitation", {
@@ -41,8 +42,11 @@ export const invitation = pgTable("admin_invitation", {
   tokenDigest: text("token_digest"), expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
   revokedAt: timestamp("revoked_at", { withTimezone: true }), acceptedAt: timestamp("accepted_at", { withTimezone: true }),
   acceptedUserId: uuid("accepted_user_id").references(() => user.id), ...timestamps,
+  researchGroupId: uuid("research_group_id").references(() => researchGroup.id), memberId: uuid("member_id").references(() => member.id), memberVersion: integer("member_version"),
 }, table => [
-  check("admin_invitation_eligible_role", sql`${table.role} IN ('super_admin', 'editor')`),
+  check("admin_invitation_eligible_role", sql`(${table.role} IN ('super_admin', 'editor') and ${table.researchGroupId} is null and ${table.memberId} is null and ${table.memberVersion} is null) or (${table.role}='research_group_lead' and ${table.researchGroupId} is not null and ${table.memberId} is not null and ${table.memberVersion} is not null and ${table.memberVersion}>0)`),
+  uniqueIndex("admin_invitation_pending_group").on(table.researchGroupId).where(sql`${table.revokedAt} is null and ${table.acceptedAt} is null`),
+  uniqueIndex("admin_invitation_pending_member").on(table.memberId).where(sql`${table.revokedAt} is null and ${table.acceptedAt} is null`),
   uniqueIndex("admin_invitation_token").on(table.tokenDigest),
   uniqueIndex("admin_invitation_pending_email").on(sql`lower(${table.email})`).where(sql`${table.revokedAt} IS NULL AND ${table.acceptedAt} IS NULL`),
   uniqueIndex("admin_invitation_accepted_user").on(table.acceptedUserId),
@@ -82,6 +86,17 @@ export const applicationMember = pgTable("membership_application_member", {
   applicationId: uuid("application_id").primaryKey().references(() => membershipApplication.id), memberId: uuid("member_id").notNull().references(() => member.id),
   associatedBy: uuid("associated_by").notNull().references(() => user.id), createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 }, table => [index("membership_application_member_person").on(table.memberId)]);
+export const researchGroup = pgTable("research_group", {
+  id: uuid("id").primaryKey(), name: text("name").notNull(), slug: text("slug").notNull().unique(), introduction: text("introduction").notNull().default(""), description: text("description").notNull().default(""), objectives: text("objectives").array().notNull().default(sql`'{}'::text[]`), coverImage: text("cover_image").notNull().default(""), coverAlt: text("cover_alt").notNull().default(""),
+  status: text("status").$type<"draft" | "published">().notNull().default("draft"), publishedContent: jsonb("published_content").$type<GroupContent>(), publishedSlug: text("published_slug").unique(), publishedAt: timestamp("published_at", { withTimezone: true }),
+  version: integer("version").notNull().default(1), creationKey: uuid("creation_key").notNull().unique(), creationDigest: text("creation_digest").notNull(), createdBy: uuid("created_by").notNull().references(() => user.id), ...timestamps,
+}, table => [check("research_group_status", sql`${table.status} in ('draft','published')`), check("research_group_version", sql`${table.version}>0`), check("research_group_publication", sql`${table.status}<>'published' or (${table.publishedContent} is not null and ${table.publishedSlug} is not null and ${table.publishedAt} is not null)`)]);
+export const researchGroupMember = pgTable("research_group_member", {
+  id: uuid("id").primaryKey(), groupId: uuid("group_id").notNull().references(() => researchGroup.id), memberId: uuid("member_id").notNull().references(() => member.id), roleTitle: text("role_title").notNull().default(""), displayOrder: integer("display_order").notNull().default(0), version: integer("version").notNull().default(1), addedBy: uuid("added_by").notNull().references(() => user.id), removedAt: timestamp("removed_at", { withTimezone: true }), ...timestamps,
+}, table => [uniqueIndex("research_group_member_current").on(table.groupId, table.memberId).where(sql`${table.removedAt} is null`), index("research_group_member_person").on(table.memberId), check("research_group_member_order", sql`${table.displayOrder} between 0 and 9999`), check("research_group_member_version", sql`${table.version}>0`)]);
+export const researchLeadAssignment = pgTable("research_lead_assignment", {
+  id: uuid("id").primaryKey(), groupId: uuid("group_id").notNull().references(() => researchGroup.id), administratorId: uuid("administrator_id").notNull().references(() => user.id), memberId: uuid("member_id").notNull().references(() => member.id), assignedBy: uuid("assigned_by").notNull().references(() => user.id), createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(), revokedAt: timestamp("revoked_at", { withTimezone: true }), revokedBy: uuid("revoked_by").references(() => user.id), revocationReason: text("revocation_reason"),
+}, table => [uniqueIndex("research_lead_current_group").on(table.groupId).where(sql`${table.revokedAt} is null`), uniqueIndex("research_lead_current_administrator").on(table.administratorId).where(sql`${table.revokedAt} is null`), uniqueIndex("research_lead_current_member").on(table.memberId).where(sql`${table.revokedAt} is null`)]);
 export const membershipNotification = pgTable("membership_notification", {
   id: uuid("id").primaryKey(), applicationId: uuid("application_id").notNull().references(() => membershipApplication.id),
   kind: text("kind").$type<"receipt" | "admin_alert" | "approval" | "rejection">().notNull(), recipientKey: text("recipient_key").notNull(),
