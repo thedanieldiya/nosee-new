@@ -7,6 +7,7 @@ import { eq, sql } from 'drizzle-orm';
 import { hashPassword, verifyPassword } from 'better-auth/crypto';
 import { adminDatabase } from '../src/lib/admin/database.ts';
 import { manageAdministrator } from '../src/lib/admin/management.ts';
+import { resendInvitationTransport } from '../src/lib/admin/resend-mail.ts';
 import { administratorDirectory, activityDirectory } from '../src/lib/admin/management-queries.ts';
 import { user, account, invitation, invitationSend, auditLog, session, loginAttempt } from '../src/lib/admin/schema.ts';
 const url=new URL(process.env.DATABASE_URL||''),base=process.env.ADMIN_ORIGIN;
@@ -30,6 +31,7 @@ async function issued(actor,status='accepted') {const messages=[],data=input();a
 const accept=(code,password=randomBytes(32).toString('base64url'),extra={})=>request('/api/admin/accept-invitation',{method:'POST',body:{code,password,confirmation:password,...extra}});
 const hash=value=>createHash('sha256').update(value).digest('hex');
 function writePrivate(file,data){assert.ok(realpathSync(dirname(file)).startsWith('/tmp/'));const fd=openSync(file,constants.O_WRONLY|constants.O_CREAT|constants.O_TRUNC|constants.O_NOFOLLOW,0o600);try{fchmodSync(fd,0o600);writeFileSync(fd,JSON.stringify(data));}finally{closeSync(fd);}}
+test.beforeEach(async()=>{await db.delete(loginAttempt);});
 try{
  await test('additive A01-to-A02 schema upgrade preserves identities, credential hashes, sessions, audit history and bootstrap marker',async()=>{
   const client=await pool.connect();
@@ -56,6 +58,24 @@ try{
   const count=async table=>Number((await db.select({n:sql`count(*)`}).from(table))[0].n),before=await Promise.all([count(invitation),count(invitationSend),count(auditLog)]);
   const r=await request('/api/admin/administrators',{method:'POST',cookie:cookies.super_admin,body:input()});assert.equal(r.status,503);assert.ok(r.text.includes('Email invitations are not configured'));
   assert.deepEqual(await Promise.all([count(invitation),count(invitationSend),count(auditLog)]),before);
+ });
+ await test('mocked Resend acceptance persists only the provider ID and uses the durable send-attempt idempotency key',async()=>{
+  const data=input(),providerId=`email_${randomUUID()}`;let sent,headerKey;
+  const transport=resendInvitationTransport({RESEND_API_KEY:'test-only-key',ADMIN_INVITATION_FROM:'sender@example.invalid',ADMIN_ORIGIN:'https://preview.example.invalid'},async(url,init)=>{
+   assert.equal(url,'https://api.resend.com/emails');sent=JSON.parse(init.body);headerKey=new Headers(init.headers).get('idempotency-key');return Response.json({id:providerId});
+  });
+  const result=await manageAdministrator(actor,data,transport),[record]=await db.select().from(invitation).where(eq(invitation.email,data.email)),[send]=await db.select().from(invitationSend).where(eq(invitationSend.invitationId,record.id));
+  assert.equal(headerKey,`nosee-admin-invitation/${send.id}`);assert.equal(send.status,'accepted');assert.equal(send.providerMessageId,providerId);assert.ok(result.message.includes('inbox delivery is not confirmed'));
+  const code=codeOf(sent),audits=await activityDirectory(actor,{target:record.id});assert.equal(JSON.stringify({result,send,audits}).includes(code),false);assert.equal((await accept(code)).status,200);
+ });
+ await test('mocked Resend rejection invalidates its code; uncertain provider failure remains redeemable without false acceptance',async()=>{
+  for(const status of [429,503,200]){
+   const data=input();let sent,calls=0;
+   const transport=resendInvitationTransport({RESEND_API_KEY:'test-only-key',ADMIN_INVITATION_FROM:'sender@example.invalid',ADMIN_ORIGIN:'https://preview.example.invalid'},async(_url,init)=>{calls++;sent=JSON.parse(init.body);return Response.json(status===200?{id:`provider-${codeOf(sent)}`}:{message:'do not persist this error'}, {status});});
+   const result=await manageAdministrator(actor,data,transport),[record]=await db.select().from(invitation).where(eq(invitation.email,data.email)),[send]=await db.select().from(invitationSend).where(eq(invitationSend.invitationId,record.id));
+   assert.equal(calls,1);assert.equal(send.status,status===429?'failed':'unconfirmed');assert.equal(send.providerMessageId,null);assert.equal(result.message.includes('accepted by provider'),false);assert.equal((await accept(codeOf(sent))).status,status===429?400:200);
+   const audits=await activityDirectory(actor,{target:record.id});assert.equal(JSON.stringify({result,send,audits}).includes(codeOf(sent)),false);
+  }
  });
  await test('issue stores only a 256-bit digest, pending identities cannot log in and duplicate/Lead/scope assignments fail',async()=>{
   const invite=await issued(actor),[record]=await db.select().from(invitation).where(eq(invitation.id,invite.record.id));

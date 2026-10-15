@@ -1,6 +1,8 @@
 # A02 — Administrator management and Activity log
 
-**15 October 2026 · Provider-independent implementation in review; automated email delivery blocked.** Branch: [`codex/admin-02-administrators-activity`](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-02-administrators-activity), based on main **`f36559c`**, including merged lockfile PR #16. No PR, merge, deployment, Vercel/Neon modification or real email was performed.
+**Historical A02 handoff · updated 15 October 2026:** core implementation merged as [PR #17](https://github.com/thedanieldiya/nosee-new/pull/17). The [Resend adapter follow-up](../resend-invitations.md) is now prepared for review; live delivery/owner acceptance remain pending.
+
+**Original handoff (15 October 2026): provider-independent implementation in review; automated email delivery blocked.** Branch: [`codex/admin-02-administrators-activity`](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-02-administrators-activity), based on main **`f36559c`**, including merged lockfile PR #16. No PR, merge, deployment, Vercel/Neon modification or real email was performed.
 
 ## Implemented boundary
 

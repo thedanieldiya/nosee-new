@@ -1,6 +1,8 @@
 # A02 invitation delivery proposal
 
-**15 October 2026 · Pending explicit approval.** The owner requires free services or a generous ongoing free tier. Recommendation: evaluate **Brevo Free** first, with **Resend Free** as the credible alternative. Approval is limited to A02 administrator invitations; membership/marketing delivery is outside this decision. No provider package, adapter, account, key, DNS configuration or real sending is enabled in this branch.
+**Historical proposal · updated 15 October 2026.** The owner subsequently selected **Resend for adapter code preparation only**; [current setup and gates](resend-invitations.md) supersede the provisional Brevo recommendation below. No account connection, DNS/secrets configuration or live sending is approved by that code-preparation instruction.
+
+**Original A02 proposal:** The owner requires free services or a generous ongoing free tier. Recommendation: evaluate **Brevo Free** first, with **Resend Free** as the credible alternative. Approval is limited to A02 administrator invitations; membership/marketing delivery is outside this decision. No provider package, adapter, account, key, DNS configuration or real sending is enabled in this branch.
 
 | Requirement | Brevo — recommended provisionally | Resend — alternative |
 | --- | --- | --- |

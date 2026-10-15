@@ -93,7 +93,7 @@ export async function manageAdministrator(actor: Principal, raw: unknown, transp
   let timer: ReturnType<typeof setTimeout> | undefined;
   let result: DeliveryResult;
   try {
-    result = await Promise.race([transport.send({ ...message, to: prepared.pending.email }, { signal: controller.signal }), new Promise<DeliveryResult>(resolve => { timer = setTimeout(() => { controller.abort(); resolve({ status: "unconfirmed" }); }, 10000); })]);
+    result = await Promise.race([transport.send({ ...message, to: prepared.pending.email }, { signal: controller.signal, idempotencyKey: sendId }), new Promise<DeliveryResult>(resolve => { timer = setTimeout(() => { controller.abort(); resolve({ status: "unconfirmed" }); }, 10000); })]);
   } catch { result = { status: "unconfirmed" }; }
   finally { clearTimeout(timer); }
   // Never persist an adapter error body, message payload or secret. A crash leaves a recoverable stale send.
