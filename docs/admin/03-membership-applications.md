@@ -1,6 +1,6 @@
 # A03 — Public applications and private review
 
-**15 October 2026 · Implemented for review, not public-launch approval.** Owner-supplied A03 requirements and the subsequent explicit-consent direction govern this task. Based on main `bf0d72e`, including Resend PR #18 (`1204b06`); [actual verification and walkthrough](reviews/03-membership-applications.md). No paid service or new dependency.
+**15 October 2026 · Merged in PR #19; owner confirms manual browser checks passed. This is not public-launch approval; unattended expiry scheduling/final privacy/Resend live setup remain pending.** Owner-supplied A03 requirements and the subsequent explicit-consent direction govern this task. Based on main `bf0d72e`, including Resend PR #18 (`1204b06`); [actual verification and walkthrough](reviews/03-membership-applications.md). No paid service or new dependency.
 
 ## Public contract
 

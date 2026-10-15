@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, uuid, text, timestamp, boolean, pgEnum, index, uniqueIndex, bigint, integer, check, jsonb } from "drizzle-orm/pg-core";
+import { pgTable, uuid, text, timestamp, date, boolean, pgEnum, index, uniqueIndex, bigint, integer, check, jsonb } from "drizzle-orm/pg-core";
 
 export const adminRole = pgEnum("admin_role", ["super_admin", "editor", "research_group_lead"]);
 const timestamps = { createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(), updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow() };
@@ -32,7 +32,7 @@ export const loginAttempt = pgTable("admin_login_attempt", { key: text("key").pr
 export const auditLog = pgTable("admin_audit_log", {
   id: uuid("id").primaryKey(), actorId: uuid("actor_id").references(() => user.id), action: text("action").notNull(),
   targetType: text("target_type"), targetId: uuid("target_id"), targetLabel: text("target_label"),
-  changes: jsonb("changes").$type<{ before: { role?: string; active?: boolean; status?: string }; after: { role?: string; active?: boolean; status?: string } }>(),
+  changes: jsonb("changes").$type<{ before: { role?: string; active?: boolean; status?: string; memberId?: string | null; profileId?: string | null }; after: { role?: string; active?: boolean; status?: string; memberId?: string | null; profileId?: string | null } }>(),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 }, table => [index("admin_audit_actor_time").on(table.actorId, table.createdAt), index("admin_audit_time").on(table.createdAt, table.id)]);
 export const invitation = pgTable("admin_invitation", {
@@ -66,3 +66,19 @@ export const membershipApplication = pgTable("membership_application", {
   index("membership_application_created").on(table.createdAt, table.id),
   check("membership_application_decision", sql`(${table.status} IN ('approved','rejected') AND ${table.reviewerId} IS NOT NULL AND ${table.reviewedAt} IS NOT NULL AND ${table.reviewNote} IS NOT NULL AND length(${table.reviewNote}) BETWEEN 1 AND 2000) OR (${table.status} IN ('pending','expired') AND ${table.reviewerId} IS NULL AND ${table.reviewedAt} IS NULL AND ${table.reviewNote} IS NULL)`),
 ]);
+// Empty identity anchor for A10; no CMS, fixture import or public publishing path.
+export const leadershipProfileIdentity = pgTable("leadership_profile_identity", {
+  id: uuid("id").primaryKey(), displayName: text("display_name").notNull(), roleTitle: text("role_title").notNull(), affiliation: text("affiliation").notNull().default(""), ...timestamps,
+});
+export const member = pgTable("member", {
+  id: uuid("id").primaryKey(), firstName: text("first_name").notNull(), lastName: text("last_name").notNull(), email: text("email").notNull(),
+  phone: text("phone").notNull().default(""), affiliation: text("affiliation").notNull().default(""), careerStage: text("career_stage").notNull().default(""),
+  researchInterests: text("research_interests").array().notNull().default(sql`'{}'::text[]`), status: text("status").$type<"active" | "inactive">().notNull().default("active"),
+  joinDate: date("join_date", { mode: "string" }).notNull(), notes: text("notes").notNull().default(""), version: integer("version").notNull().default(1),
+  creationKey: uuid("creation_key").notNull().unique(), creationDigest: text("creation_digest").notNull(),
+  leadershipProfileId: uuid("leadership_profile_id").references(() => leadershipProfileIdentity.id).unique(), ...timestamps,
+}, table => [uniqueIndex("member_email_normalized").on(sql`lower(${table.email})`), index("member_created").on(table.createdAt, table.id), check("member_status", sql`${table.status} in ('active','inactive')`), check("member_version", sql`${table.version} >= 1`)]);
+export const applicationMember = pgTable("membership_application_member", {
+  applicationId: uuid("application_id").primaryKey().references(() => membershipApplication.id), memberId: uuid("member_id").notNull().references(() => member.id),
+  associatedBy: uuid("associated_by").notNull().references(() => user.id), createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+}, table => [index("membership_application_member_person").on(table.memberId)]);

@@ -1,0 +1,24 @@
+import { randomUUID } from "node:crypto";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { requirePermission } from "@/lib/admin/session";
+import { getMember, profileLinkOptions } from "@/lib/membership/members";
+import { ManagementError } from "@/lib/admin/management";
+import { careerStages, researchInterests } from "@/lib/membership/options";
+import { memberStatuses } from "@/lib/membership/member-options";
+import { MemberForm } from "@/components/admin/MemberForm";
+import { MemberProfileLink } from "@/components/admin/MemberRelations";
+import { MembershipNavigation } from "@/components/admin/MembershipNavigation";
+import { dateTime } from "@/components/admin/ManagementShared";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+export const metadata = { title: "Member details" };
+export default async function MemberPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const actor = await requirePermission("membership"), { id } = await params;
+  let data: Awaited<ReturnType<typeof getMember>>;
+  try { data = await getMember(actor, id); } catch (error) { if (error instanceof ManagementError && error.status === 404) notFound(); throw error; }
+  const { member: person, applications, profile } = data, edit = (await searchParams).edit === "1";
+  if (edit) return <main id="main-content" className="mx-auto max-w-4xl space-y-6 p-5 sm:p-8 lg:p-10"><MembershipNavigation current="members" /><h1 className="text-2xl font-semibold">Edit member</h1><MemberForm initial={person} requestId={randomUUID()} memberId={id} version={person.version} /></main>;
+  const options = await profileLinkOptions(actor, id);
+  return <main id="main-content" className="mx-auto max-w-5xl space-y-6 p-5 sm:p-8 lg:p-10"><MembershipNavigation current="members" /><div className="flex flex-wrap items-start justify-between gap-4"><div><h1 className="text-2xl font-semibold">{person.firstName} {person.lastName}</h1><p className="mt-2 text-secondary">Private member record · {memberStatuses[person.status]}</p></div><Button asChild variant="outline"><Link href={`/admin/membership/members/${id}?edit=1`}>Edit member</Link></Button></div><Card><CardHeader><h2 className="font-semibold">Member details</h2></CardHeader><CardContent><dl className="grid gap-5 sm:grid-cols-2">{[["Email", person.email], ["Phone", person.phone], ["Affiliation / institution", person.affiliation], ["Membership status", memberStatuses[person.status]], ["Join date", person.joinDate], ["Career stage", careerStages[person.careerStage as keyof typeof careerStages] ?? "Not recorded"], ["Created", dateTime(person.createdAt)], ["Last updated", dateTime(person.updatedAt)]].map(([label, value]) => <div key={label}><dt className="font-medium">{label}</dt><dd className="mt-1 break-words" data-member-private={label === "Email" || label === "Phone" || label === "Affiliation / institution" ? "" : undefined}>{value || "Not recorded"}</dd></div>)}<div className="sm:col-span-2"><dt className="font-medium">Research interests</dt><dd>{person.researchInterests.length ? <ul className="mt-2 list-disc space-y-1 pl-5">{person.researchInterests.map(value => <li key={value}>{researchInterests[value as keyof typeof researchInterests]}</li>)}</ul> : "Not recorded"}</dd></div><div className="sm:col-span-2"><dt className="font-medium">Internal notes</dt><dd className="mt-2 whitespace-pre-wrap" data-member-private>{person.notes || "Not recorded"}</dd></div></dl></CardContent></Card><Card><CardHeader><h2 className="font-semibold">Source applications</h2></CardHeader><CardContent>{applications.length ? <ul className="space-y-3">{applications.map(application => <li key={application.id}><Link href={`/admin/membership/applications/${application.id}`} className="underline">View approved application submitted {dateTime(application.createdAt)}</Link><p className="mt-1 text-xs text-secondary">Associated {dateTime(application.associatedAt)}. Original motivation and decision remain on the application.</p></li>)}</ul> : <p className="text-secondary">Manually created member; no application is associated.</p>}</CardContent></Card><Card><CardHeader><h2 className="font-semibold">Leadership identity</h2></CardHeader><CardContent><MemberProfileLink key={person.version} member={person} profile={profile} options={options} /></CardContent></Card><Card><CardHeader><h2 className="font-semibold">Research groups</h2></CardHeader><CardContent><p className="text-secondary">Group associations are unavailable until A06 introduces real research groups.</p></CardContent></Card></main>;
+}
