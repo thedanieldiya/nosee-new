@@ -9,6 +9,8 @@ Build the NOSEE Next.js replacement in this repository. Legacy reference: https:
 - Keep `thedanieldiya/nosee` read-only. All new work goes in `thedanieldiya/nosee-new`, on a dedicated branch for Vercel preview; a PR is optional and must not be created automatically.
 - Mark phases `In review` until required visual evidence and owner approval exist. Do not mark tests or visual checks successful if they were skipped or unavailable.
 - Each Codex task must remain narrow: change one coherent feature, run the minimum relevant checks, update PROGRESS.md with evidence, then stop for owner review.
+- **Admin delivery tracking and visible review:** The approved [Admin TRD v1.2](docs/admin-dashboard-trd.md) and [13-task Admin tracker](docs/admin/TRACKER.md) govern every admin task. At each task, update its row with actual code status, branch/PR, **verified working preview URL** and independent owner review state. Provide a secure **interactive browser preview** with real session/role permissions and isolated test accounts/data; screenshots alone do not satisfy the owner's need to see and use the dashboard. If preview configuration is unavailable or GitHub/Vercel requests get 403, mark `Preview blocked` and request specific access/configuration; never invent a URL, claim interaction was verified, publish credentials or bypass authentication.
+
 
 ## Strict 1:1 Laravel public-site replication (owner direction)
 
