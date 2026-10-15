@@ -1,6 +1,6 @@
 # A05.5.1 — Member deletion and privacy refinements
 
-**15 October 2026 · In review.** Dedicated branch `codex/admin-05-5-1-member-deletion`, based on latest main **`28d83dc`**, merged A05.5 [PR #22](https://github.com/thedanieldiya/nosee-new/pull/22), head `dd8e97b`. The owner reports **all four A05.5 acceptance walkthroughs passed**. This correction does not change the **5/13 core-task count**. A05.5.1 owner acceptance remains pending.
+**15 October 2026 · Merged in PR #23 (`5712d32`); owner-tested successfully.** Dedicated branch `codex/admin-05-5-1-member-deletion`, based on latest main **`28d83dc`**, merged A05.5 [PR #22](https://github.com/thedanieldiya/nosee-new/pull/22), head `dd8e97b`. The owner reports **all four A05.5 acceptance walkthroughs passed**. This correction does not change the **5/13 core-task count**. The owner reports A05.5.1 testing passed. A06 subsequently adds the approved membership-driven research-scope revocation while retaining separate accounts; this implementation handoff is historical.
 
 ## Behaviour and retention
 

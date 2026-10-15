@@ -1,10 +1,10 @@
 import { roleLabels } from "./policy.ts";
-type InvitationEmail = { firstName: string; inviterName: string; role: "super_admin" | "editor"; code: string; origin: string };
+type InvitationEmail = { firstName: string; inviterName: string; role: "super_admin" | "editor" | "research_group_lead"; code: string; origin: string };
 export function renderInvitationEmail(input: InvitationEmail) {
   const origin = new URL(input.origin);
   if (origin.origin !== input.origin || (origin.protocol !== "https:" && !(origin.protocol === "http:" && ["127.0.0.1", "localhost"].includes(origin.hostname)))) throw new Error("Invalid activation origin.");
   const url = `${origin.origin}/admin/accept-invitation`, role = roleLabels[input.role];
-  const introduction = `${input.inviterName} has invited you to the NOSEE administration workspace as ${role}. To activate your account, open the setup page and enter the invitation code below, then create your password.`;
+  const introduction = `${input.inviterName} has invited you to the NOSEE administration workspace as ${role}. To activate your account, open the setup page and enter the invitation code below, then create your password.${input.role === "research_group_lead" ? " Your research access is limited to your assigned group and requires Active NOSEE membership." : ""}`;
   const expiry = "This invitation expires in 48 hours. If you weren't expecting it, you can ignore this email.";
   const escape = (value: string) => value.replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]!);
   const text = `NOSEE\n\nYou're invited to NOSEE\n\nHello ${input.firstName},\n\n${introduction}\n\nSet up your account: ${url}\n\nYour invitation code\n${input.code}\n\n${expiry}`;

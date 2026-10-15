@@ -1,5 +1,8 @@
 # Admin Dashboard 02 — Administrators, automated invitations and Activity log
 
+**Subsequent A06 scope update:** [Research groups](06-research-groups.md) now prepares real Member/group-bound Lead assignment/invitations, lifting A02's deferral through that contextual workflow only. Generic unscoped role changes remain disallowed; live provider/inbox acceptance remains pending.
+
+
 **Decision status (15 October 2026):** Owner approved **automated emailed administrator invitations**, subject to **a separate, explicit email-provider approval before integration, connection or sending**. The owner also approved deferring new Research Group Lead invitations/assignments until A06 creates real Research groups. This document supersedes the earlier manual-code-delivery proposal. The email template direction is Swiss-inspired and concise. **Provider choice, sending domain/address, credentials and paid resources are NOT approved yet.**
 
 **Later owner direction (15 October 2026):** Resend adapter **code preparation is now explicitly authorized**; follow [Resend setup/status](resend-invitations.md). This supersedes the provider-code gate only. Account connection, sender/domain/DNS, Vercel configuration, live migrations and real sending remain unauthorized/pending.

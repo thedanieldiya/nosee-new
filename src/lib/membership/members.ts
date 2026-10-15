@@ -4,7 +4,8 @@ import { z } from "zod";
 import { eq, sql, type SQL } from "drizzle-orm";
 import { adminDatabase } from "../admin/database.ts";
 import { requireManagerTransaction, ManagementError } from "../admin/management.ts";
-import { member, membershipApplication, applicationMember, leadershipProfileIdentity, auditLog } from "../admin/schema.ts";
+import { member, membershipApplication, applicationMember, leadershipProfileIdentity, auditLog, researchGroupMember, researchGroup, researchLeadAssignment } from "../admin/schema.ts";
+import { revokeMemberResearch } from "../research/security.ts";
 import type { Principal } from "../admin/policy.ts";
 import { emptyMemberFields, memberDeletionPhrase, type MemberFields } from "./member-options.ts";
 import { memberAcknowledgement } from "./input.ts";
@@ -70,8 +71,9 @@ export async function updateMember(actor: Principal, id: string, raw: unknown) {
     const [saved] = await tx.update(member).set({ ...fields, version: current.version + 1, updatedAt: sql`clock_timestamp()` }).where(sql`${member.id}=${id}::uuid and ${member.version}=${input.version}`).returning({ id: member.id, version: member.version });
     if (!saved) throw new ManagementError("This member changed. Reload before trying again.", 409);
     const statusChanged = current.status !== fields.status;
+    if (statusChanged && fields.status === "inactive") await revokeMemberResearch(tx, actor.id, id);
     await audit(tx, actor, id, statusChanged ? "Changed membership status" : "Updated member", statusChanged ? { before: { status: current.status }, after: { status: fields.status } } : undefined);
-    return { ...saved, message: "Member updated. Administrator access and public profiles are unchanged." };
+    return { ...saved, message: statusChanged && fields.status === "inactive" ? "Member updated. Group participation and linked Lead access were revoked; separate administrator accounts and public profiles are retained." : "Member updated. Separate administrator accounts and public profiles are unchanged; revoked Lead assignments are not restored." };
   });
 }
 export async function memberDirectory(actor: Principal, raw: unknown) {
@@ -99,7 +101,9 @@ export async function getMember(actor: Principal, id: string) {
     const record = await memberRow(tx, id);
     const applications = await tx.select({ id: membershipApplication.id, createdAt: membershipApplication.createdAt, associatedAt: applicationMember.createdAt }).from(applicationMember).innerJoin(membershipApplication, eq(membershipApplication.id, applicationMember.applicationId)).where(eq(applicationMember.memberId, id)).orderBy(sql`${applicationMember.createdAt} desc,${membershipApplication.id} desc`);
     const profile = record.leadershipProfileId ? (await tx.select(profileProjection).from(leadershipProfileIdentity).where(eq(leadershipProfileIdentity.id, record.leadershipProfileId)))[0] : null;
-    return { member: serialized<MemberRecord>(record), applications: serialized<Array<{ id: string; createdAt: string; associatedAt: string }>>(applications), profile: profile ?? null };
+    const groups = await tx.select({ id: researchGroup.id, name: researchGroup.name, roleTitle: researchGroupMember.roleTitle, removedAt: researchGroupMember.removedAt }).from(researchGroupMember).innerJoin(researchGroup, eq(researchGroup.id, researchGroupMember.groupId)).where(eq(researchGroupMember.memberId, id)).orderBy(researchGroup.name, researchGroupMember.createdAt);
+    const leadAssignments = await tx.select({ id: researchGroup.id, name: researchGroup.name, revokedAt: researchLeadAssignment.revokedAt }).from(researchLeadAssignment).innerJoin(researchGroup, eq(researchGroup.id, researchLeadAssignment.groupId)).where(eq(researchLeadAssignment.memberId, id)).orderBy(researchGroup.name, researchLeadAssignment.createdAt);
+    return { member: serialized<MemberRecord>(record), applications: serialized<Array<{ id: string; createdAt: string; associatedAt: string }>>(applications), profile: profile ?? null, groups: serialized<Array<{ id: string; name: string; roleTitle: string; removedAt: string | null }>>(groups), leadAssignments: serialized<Array<{ id: string; name: string; revokedAt: string | null }>>(leadAssignments) };
   });
 }
 export async function applicationMemberContext(actor: Principal, id: string) {
@@ -149,9 +153,10 @@ export async function deleteMember(actor: Principal, id: string, raw: unknown) {
     if (input.phrase !== memberDeletionPhrase(current.lastName)) throw new ManagementError("The confirmation phrase does not match. Type the complete phrase exactly.");
     const [saved] = await tx.update(member).set({ deletedAt: sql`clock_timestamp()`, leadershipProfileId: null, version: current.version + 1, updatedAt: sql`clock_timestamp()` }).where(sql`${member.id}=${id}::uuid and ${member.version}=${input.version} and ${member.deletedAt} is null`).returning({ id: member.id });
     if (!saved) throw new ManagementError("This member changed. Reload and review before deleting.", 409);
+    await revokeMemberResearch(tx, actor.id, id);
     if (current.leadershipProfileId) await audit(tx, actor, id, "Unlinked leadership profile", { before: { profileId: current.leadershipProfileId }, after: { profileId: null } });
     await audit(tx, actor, id, "Deleted member");
-    return { id: saved.id, message: "Member deleted from the directory. Historical records are retained; administrator access and public profiles are unchanged." };
+    return { id: saved.id, message: "Member deleted from the directory. Historical records, separate accounts and public profiles are retained. Group participation and linked Lead access were revoked." };
   });
 }
 export async function convertApplication(actor: Principal, id: string, raw: unknown) {

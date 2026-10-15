@@ -6,6 +6,7 @@ import { adminAuth } from "./auth.ts";
 import { adminDatabase } from "./database.ts";
 import { user } from "./schema.ts";
 import { canAccess, type Permission, type Principal } from "./policy.ts";
+import { validLeadAssignment } from "../research/security.ts";
 export async function administrator(requestHeaders: Headers): Promise<Principal | null> {
   const auth = adminAuth();
   if (!auth) return null;
@@ -14,6 +15,7 @@ export async function administrator(requestHeaders: Headers): Promise<Principal 
   // Always re-read authority; role/scope/deactivation changes take effect immediately.
   const [record] = await adminDatabase().db.select().from(user).where(eq(user.id, session.user.id));
   if (!record?.active || session.session.accessVersion !== record.accessVersion || (record.role === "research_group_lead" && !record.researchGroupId)) return null;
+  if (record.role === "research_group_lead" && !(await validLeadAssignment(adminDatabase().db, record.id, record.researchGroupId))) return null;
   return { id: record.id, firstName: record.firstName, lastName: record.lastName, email: record.email, role: record.role, researchGroupId: record.researchGroupId, accessVersion: record.accessVersion };
 }
 export async function requireAdministrator() {

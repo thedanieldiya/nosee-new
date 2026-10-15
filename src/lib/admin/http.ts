@@ -9,7 +9,7 @@ export function privateJson(data: unknown, status = 200, extra: Record<string, s
 export function sameOrigin(request: Request) {
   return request.headers.get("origin") === adminConfig()?.origin && request.headers.get("sec-fetch-site") !== "cross-site";
 }
-export async function readJson(request: Request) {
+export async function readJson(request: Request, maxBytes = 8192) {
   if (!request.headers.get("content-type")?.startsWith("application/json")) throw new Error("Expected JSON.");
   const reader = request.body?.getReader();
   if (!reader) throw new Error("Missing body.");
@@ -17,7 +17,7 @@ export async function readJson(request: Request) {
   while (true) {
     const { value, done } = await reader.read(); if (done) break;
     length += value.length;
-    if (length > 8192) { await reader.cancel(); throw new Error("Body too large."); }
+    if (length > maxBytes) { await reader.cancel(); throw new Error("Body too large."); }
     chunks.push(value);
   }
   return JSON.parse(Buffer.concat(chunks).toString("utf8"));

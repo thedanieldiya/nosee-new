@@ -8,7 +8,7 @@ export const PAGE_SIZE = 20;
 export type DirectoryRow = {
   id: string; kind: "account" | "invitation"; firstName: string; lastName: string; email: string;
   role: "super_admin" | "editor" | "research_group_lead"; status: string; delivery: string | null;
-  createdAt: string; lastLoginAt: string | null; expiresAt: string | null;
+  createdAt: string; lastLoginAt: string | null; expiresAt: string | null; researchGroupId: string | null; researchAccess: boolean | null;
 };
 export type ActivityRow = { id: string; actorId: string | null; actor: string; action: string; createdAt: string; targetType: string | null; targetId: string | null; targetLabel: string | null; changes: { before: Record<string, string | boolean | null>; after: Record<string, string | boolean | null> } | null };
 const pattern = (value: string) => `%${value.replace(/[\\%_]/g, "\\$&")}%`;
@@ -20,13 +20,14 @@ export async function administratorDirectory(actor: Principal, raw: unknown) {
       select u.id, 'account'::text kind, u.first_name "firstName", u.last_name "lastName", u.email, u.role,
         case when u.active then 'active' else 'deactivated' end status,
         case when i.id is not null then 'Invitation accepted' else null end delivery,
-        coalesce(i.created_at,u.created_at) "createdAt", u.last_login_at "lastLoginAt", null::timestamptz "expiresAt"
+        coalesce(i.created_at,u.created_at) "createdAt", u.last_login_at "lastLoginAt", null::timestamptz "expiresAt", u.research_group_id "researchGroupId",
+        case when u.role='research_group_lead' then u.active and exists(select 1 from research_lead_assignment a join member m on m.id=a.member_id where a.administrator_id=u.id and a.group_id=u.research_group_id and a.revoked_at is null and m.status='active' and m.deleted_at is null) else null end "researchAccess"
       from administrator u left join admin_invitation i on i.accepted_user_id=u.id
       union all
       select i.id, 'invitation', i.first_name, i.last_name, i.email, i.role,
         case when i.revoked_at is not null then 'revoked' when i.expires_at <= now() then 'expired' else 'pending' end,
         case when s.status='sending' and s.created_at <= now()-interval '2 minutes' then 'unconfirmed' else coalesce(s.status,'unconfirmed') end,
-        i.created_at, null::timestamptz, i.expires_at
+        i.created_at, null::timestamptz, i.expires_at, i.research_group_id, null::boolean
       from admin_invitation i left join lateral (select status,created_at from admin_invitation_send where invitation_id=i.id order by created_at desc,id desc limit 1) s on true
       where i.accepted_at is null
     ) d`;

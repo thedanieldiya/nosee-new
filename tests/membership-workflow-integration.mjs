@@ -1,5 +1,6 @@
 // Mutations are restricted to owned disposable loopback fixtures; provider calls are mocked.
 import assert from 'node:assert/strict';
+import {seedLeadScope} from './helpers/research-fixture.mjs';
 import test from 'node:test';
 import {randomUUID,randomBytes,createHash} from 'node:crypto';
 import {readFileSync,writeFileSync,chmodSync} from 'node:fs';
@@ -28,7 +29,7 @@ const jobs=app=>db.select().from(membershipNotification).where(eq(membershipNoti
 const associations=app=>db.select().from(applicationMember).where(eq(applicationMember.applicationId,app.id));
 const counts=async()=>Promise.all([member,applicationMember,auditLog,membershipNotification,user,account,session].map(async table=>Number((await db.select({n:sql`count(*)`}).from(table))[0].n)));
 async function historical(){const app=await application();await db.update(membershipApplication).set({status:'approved',reviewerId:actor.id,reviewNote:'Historical approved fixture',reviewedAt:new Date('2026-01-15T23:30:00Z')}).where(eq(membershipApplication.id,app.id));return row(app);}
-async function person(role){const p={id:randomUUID(),firstName:'Workflow',lastName:role==='super_admin'?'Reviewer':role==='editor'?'Editor':'Lead',email:randomUUID()+'@example.invalid',password:randomBytes(32).toString('base64url'),role,researchGroupId:role==='research_group_lead'?randomUUID():null};await db.insert(user).values({...p,password:undefined,name:p.firstName+' '+p.lastName});await db.insert(account).values({id:randomUUID(),userId:p.id,accountId:p.id,providerId:'credential',password:await hashPassword(p.password)});await db.delete(loginAttempt);const r=await fetch(base+'/api/admin/auth/sign-in/email',{method:'POST',headers:{origin:base,'content-type':'application/json'},body:JSON.stringify({email:p.email,password:p.password})});assert.equal(r.status,200);cookies[role]=r.headers.getSetCookie().find(c=>c.includes('session_token='))?.split(';')[0];assert.ok(cookies[role]);return p;}
+async function person(role){const p={id:randomUUID(),firstName:'Workflow',lastName:role==='super_admin'?'Reviewer':role==='editor'?'Editor':'Lead',email:randomUUID()+'@example.invalid',password:randomBytes(32).toString('base64url'),role,researchGroupId:role==='research_group_lead'?randomUUID():null};await db.insert(user).values({...p,password:undefined,name:p.firstName+' '+p.lastName});await db.insert(account).values({id:randomUUID(),userId:p.id,accountId:p.id,providerId:'credential',password:await hashPassword(p.password)});if(role==='research_group_lead')await seedLeadScope(db,p);await db.delete(loginAttempt);const r=await fetch(base+'/api/admin/auth/sign-in/email',{method:'POST',headers:{origin:base,'content-type':'application/json'},body:JSON.stringify({email:p.email,password:p.password})});assert.equal(r.status,200);cookies[role]=r.headers.getSetCookie().find(c=>c.includes('session_token='))?.split(';')[0];assert.ok(cookies[role]);return p;}
 test.beforeEach(async()=>{await db.delete(loginAttempt);});
 try{
  for(const role of ['super_admin','editor','research_group_lead'])fixtures[role]=await person(role);actor={...fixtures.super_admin,accessVersion:0};

@@ -5,9 +5,11 @@ export const invitationMailConfiguration = z.object({
   senderName: z.literal("NOSEE"), from: z.email().max(254),
   origin: z.string().refine(value => { try { const url = new URL(value); return url.protocol === "https:" && url.origin === value; } catch { return false; } }, "Use the exact secure administrator origin."),
 }).strict();
-export const invitationInput = profileInput.extend({ email: z.email().max(254).transform(value => value.toLowerCase()), role: eligibleRole }).strict();
+const invitationFields = profileInput.extend({ email: z.email().max(254).transform(value => value.toLowerCase()), role: z.enum(["super_admin", "editor", "research_group_lead"]), researchGroupId: z.uuid().optional(), memberId: z.uuid().optional(), memberVersion: z.number().int().positive().optional(), groupVersion: z.number().int().positive().optional(), confirmIdentity: z.literal(true).optional() }).strict();
+const scopeValid = (value: z.infer<typeof invitationFields>) => value.role === "research_group_lead" ? !!(value.researchGroupId && value.memberId && value.memberVersion && value.groupVersion && value.confirmIdentity) : [value.researchGroupId, value.memberId, value.memberVersion, value.groupVersion, value.confirmIdentity].every(item => item === undefined);
+export const invitationInput = invitationFields.refine(scopeValid, "Group Lead invitations require a reviewed real group and Active member.");
 export const managementInput = z.discriminatedUnion("action", [
-  invitationInput.extend({ action: z.literal("invite") }).strict(),
+  invitationFields.extend({ action: z.literal("invite") }).refine(scopeValid, "Review the member and group scope."),
   z.object({ action: z.enum(["resend", "revoke", "activate", "deactivate"]), id: z.uuid() }).strict(),
   z.object({ action: z.literal("change-role"), id: z.uuid(), role: eligibleRole }).strict(),
 ]);
