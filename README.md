@@ -38,7 +38,7 @@ Original layouts, wording, routes, breakpoints, data and interactions remain aut
 
 ## Next phase and delivery documents
 
-The next development task is [Admin 01 — secure foundation](docs/admin/01-foundation.md), under the [approved Admin Dashboard TRD v1.2](docs/admin-dashboard-trd.md). Later membership applications have **no applicant login**; member records remain private, and public profiles require deliberate publication. Admin approval never creates a login or publishes a person automatically.
+The next development task is [Admin 01 — secure foundation](docs/admin/01-foundation.md), under the [approved Admin Dashboard TRD v1.2](docs/admin-dashboard-trd.md) and the **[13-task Admin Dashboard tracker](docs/admin/TRACKER.md)**. Admin work now requires a real **owner-interactive, authenticated browser preview** for each task; screenshots are supplemental, and blocked Vercel previews must be reported accurately. Later membership applications have **no applicant login**; member records remain private, and public profiles require deliberate publication. Admin approval never creates a login or publishes a person automatically.
 
 - [PRD](docs/PRD.md) — stable product/acceptance requirements.
 - [Progress](docs/PROGRESS.md) and [frontend tracker](docs/FRONTEND-TRACKER.md) — current status and merged PR traceability.
