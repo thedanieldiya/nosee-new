@@ -13,7 +13,7 @@ Canonical [PRD](PRD.md), [public status/deferred release checklist](PUBLIC-SITE-
 | P0–P3 | Done — original public-port development milestone | Discovery/foundation/homepage/About/Events delivered through PRs #1–#11; approved exceptions retained. Release gates tracked separately. |
 | P4 | Not started | Approved missing public pages, accurate content and working critical links |
 | P5 | Not started | [Admin 01 secure foundation](admin/01-foundation.md) next after owner merges Task 12; DB/auth/shadcn isolation and role checks |
-| P6 | Not started | Membership applications/private review/reliable email; no applicant login |
+| P6 | Not started | **Public `/join`** application in A03, private review/member records and reliable email in later tasks; no applicant login. See [Admin tracker](admin/TRACKER.md). |
 | P7 | Not started | CMS/research/public people/media/site/monitoring publication workflows |
 | P8 | Not started | Public release checklist, live checks, indexing, security/rollback and field performance |
 
@@ -33,7 +33,7 @@ Statuses: `Not started`, `In progress`, `Blocked`, `In review`, `Done`. A develo
 | PUB-05 | In progress | Real SSR 404, exact meeting 302, fixture noindex; critical links/metadata/sitemap/canonicals/indexing/live verification remain |
 | ADM-01 | Not started | Protected admin authentication |
 | ADM-02 | Not started | Branded shadcn admin UI, MingCute and isolated public bundles |
-| MEM-01 | Not started | Public application form |
+| MEM-01 | Not started | Owner confirmed public **`/join`** membership application in [Admin A03](admin/TRACKER.md); validated private pending submission linked to Membership → Applications review. No applicant login; exact fields/consent pending approval. |
 | MEM-02 | Not started | Private admin review |
 | MEM-03 | Not started | Applicant/admin/status emails |
 | MEM-04 | Not started | Private membership and explicitly curated public profiles |
