@@ -28,7 +28,7 @@ test("public source has no obsolete icon assets, custom SVG, masks, filters or s
   for (const file of files) {
     const text = readFileSync(new URL(file, root), "utf8");
     assert.doesNotMatch(text, /\/media\/icons\/|<svg\b|WebkitMask|brightness-0|\binvert\b|lucide|phosphor|tabler/, file);
-    if (text.includes("@mingcute/react")) assert.ok(!text.startsWith('"use client"'), `${file}: icons must stay server-rendered`);
+    if (text.includes("@mingcute/react") && (file.startsWith("components/site/") || file.startsWith("app/(public)/"))) assert.ok(!text.startsWith('"use client"'), `${file}: public icons must stay server-rendered`);
   }
 });
 test("footer brands retain exact accessible platform names and URLs with control-level colour states", () => {

@@ -1,0 +1,13 @@
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+@reference "../../../styles/tokens.css";
+@source ".";
+@source "../../../components/admin";
+@source "../../../components/ui";
+
+.admin {
+  font-family: var(--font-body);
+  color: var(--color-primary);
+  overflow-wrap: anywhere;
+}

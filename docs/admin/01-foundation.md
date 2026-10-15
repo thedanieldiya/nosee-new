@@ -1,6 +1,6 @@
 # Admin Dashboard 01 — Secure foundation and Shopify-inspired shell
 
-**Status:** Ready for implementation; [public close-out Task 12 PR #12](https://github.com/thedanieldiya/nosee-new/pull/12) is merged. No admin application code has been implemented yet.  
+**Status:** A01 implemented **In review** on `codex/admin-01-foundation`; [local verification/screenshots](reviews/01-foundation.md) and [operator setup](architecture.md). Hosted preview/owner-interactive acceptance remains **Preview blocked**, not approved. Task 12 PR #12 is merged.
 **Canonical IA and fields:** [Admin Dashboard TRD v1.2](../admin-dashboard-trd.md) and [live 13-task Admin Tracker](TRACKER.md), including the complete Next.js `src/app/(admin)/admin/` route tree. The approved navigation, three roles, group scope, editable research Members tab, album Gallery and MingCute rules must **not** be redesigned.  
 **App:** `thedanieldiya/nosee-new`, latest main **after** Task 12 merge; Node 24, Next 16.4, React 19.3, Tailwind 4 and current installed `@mingcute/react@3.0.2`. Public site stays undisturbed.  
 **Branch:** `codex/admin-01-foundation`. Commit/push, stop for owner visual/code/security review; **no automatic PR, merge or production changes**. No published admin data, membership application form, article CMS or gallery system in this first foundation task.

@@ -2,9 +2,9 @@
 
 **Updated:** 15 October 2026. **Public frontend migration and Task 12 cleanup merged as [PR #12](https://github.com/thedanieldiya/nosee-new/pull/12)** (main `c8d717d7`). All `docs/evidence/` files and completed migration briefs are removed. **Public launch remains unapproved** pending the separately documented manual accessibility, live deployment, content and indexing gates. Mobile Lighthouse LCP ~3.54s remains accepted for current development.
 
-**Current task:** [Admin 01 — Secure Foundation and Shopify-style dashboard shell](admin/01-foundation.md) (**instructions ready; application implementation not started**). Begin P5 on a new branch from latest main; enforce fail-closed auth, Super Admin/Editor/Research Group Lead permissions and the approved [Admin TRD v1.2](admin-dashboard-trd.md). Maintain public regression checks and the deferred release checklist.
+**Current task:** [Admin 01](admin/01-foundation.md) **In review** on `codex/admin-01-foundation`, based on latest main `8d90ebfad7536038dcf561023daacb947cf39330`. PostgreSQL/Better Auth/Drizzle, one-time masked bootstrap, role/group guards, shadcn/MingCute shell, Overview and own General are implemented/tested. **Owner review: Preview blocked** pending hosted DB/env/account provisioning and an actual deployment URL; [review/walkthrough](admin/reviews/01-foundation.md), [operator architecture/setup](admin/architecture.md). No owner approval inferred.
 
-Canonical [PRD](PRD.md), [public status/deferred release checklist](PUBLIC-SITE-STATUS.md), [merged-task tracker](FRONTEND-TRACKER.md), [Admin TRD v1.2](admin-dashboard-trd.md) and [Admin Dashboard delivery tracker](admin/TRACKER.md) remain authoritative. **Admin A01 is the current pending task: 0/13 admin tasks merged. Every admin task requires a secure owner-interactive preview and an independent owner review outcome.** Development completion does not mark broader release/full-stack requirements Done.
+Canonical [PRD](PRD.md), [public status/deferred release checklist](PUBLIC-SITE-STATUS.md), [merged-task tracker](FRONTEND-TRACKER.md), [Admin TRD v1.2](admin-dashboard-trd.md) and [Admin Dashboard delivery tracker](admin/TRACKER.md) remain authoritative. **Admin A01 is implemented/In review: 0/13 admin tasks merged. Every admin task requires a secure owner-interactive preview and an independent owner review outcome.** Development completion does not mark broader release/full-stack requirements Done.
 
 ## Phase status
 
@@ -12,7 +12,7 @@ Canonical [PRD](PRD.md), [public status/deferred release checklist](PUBLIC-SITE-
 | --- | --- | --- |
 | P0–P3 | Done — original public-port development milestone | Discovery/foundation/homepage/About/Events delivered through PRs #1–#11; approved exceptions retained. Release gates tracked separately. |
 | P4 | Not started | Approved missing public pages, accurate content and working critical links |
-| P5 | Not started | [Admin 01 secure foundation](admin/01-foundation.md) next after owner merges Task 12; DB/auth/shadcn isolation and role checks |
+| P5 | In review | [A01](admin/reviews/01-foundation.md): actual DB/auth/roles/scoped shell/General checked locally; hosted preview and owner review remain blocked. No later modules. |
 | P6 | Not started | Membership applications/private review/reliable email; no applicant login |
 | P7 | Not started | CMS/research/public people/media/site/monitoring publication workflows |
 | P8 | Not started | Public release checklist, live checks, indexing, security/rollback and field performance |
@@ -31,8 +31,8 @@ Statuses: `Not started`, `In progress`, `Blocked`, `In review`, `Done`. A develo
 | PUB-03 | Done — code migration | Events/search/archive/eight details/meeting redirect; original date/query rules preserved |
 | PUB-04 | Not started | Additional approved public pages |
 | PUB-05 | In progress | Real SSR 404, exact meeting 302, fixture noindex; critical links/metadata/sitemap/canonicals/indexing/live verification remain |
-| ADM-01 | Not started | Protected admin authentication |
-| ADM-02 | Not started | Branded shadcn admin UI, MingCute and isolated public bundles |
+| ADM-01 | In review | Real PostgreSQL-backed Better Auth, one-time masked CLI, eight-hour sessions, CSRF/throttling, role/scope guards; hosted configuration and owner acceptance pending. |
+| ADM-02 | In review | Shadcn/MingCute shell, role navigation, Overview and own General; responsive/accessibility/public isolation checks pass. Owner hands-on review blocked; future editors not implemented. |
 | MEM-01 | Not started | Public application form |
 | MEM-02 | Not started | Private admin review |
 | MEM-03 | Not started | Applicant/admin/status emails |
@@ -51,7 +51,7 @@ Statuses: `Not started`, `In progress`, `Blocked`, `In review`, `Done`. A develo
 - Source copy/fixture facts, original URL inconsistencies and responsive text stay unchanged. Approved hero entrance, MingCute glyphs, accessibility/no-JS/image changes, cold decode wait, honest newsletter error and custom 404 are recorded in [public status](PUBLIC-SITE-STATUS.md#implemented-scope-and-enduring-exceptions).
 - **Deferred:** manual screen-reader/voice/magnifier review; actual Vercel/domain/DNS/field performance; factual/legal/DOI/people/media approval; missing public destinations/old AGM 404; real newsletter delivery; indexing/SEO/launch decisions. Noindex retained and production settings untouched.
 - **Later technical work:** undersized hero/About indicators, inherited 320px Events overflow, mixed scalar/array search edge and original ≤2.5s LCP target. No silent fixes in Task 12.
-- These release gates do not block the next separately approved admin-development task after this branch is reviewed/merged. No admin implementation here.
+- Deferred public release gates remain separate from A01 development. A01 is now implemented on its review branch; its hosted/owner review gate remains blocked. No later admin task is started.
 
 ## Task 12 close-out
 
@@ -61,6 +61,15 @@ Statuses: `Not started`, `In progress`, `Blocked`, `In review`, `Done`. A develo
 - **Cleanup:** all **424 migration artifacts / 99,542,493 bytes (99.54 MB)** and **12 completed migration briefs** removed from current tree. Disposable renderer/capture scripts deleted; durable code/tests/fixtures/runtime assets/package lock/source-map/design docs/PRD/Admin TRD/future admin brief retained. Historical ledger compressed into these forward-looking requirements, decisions and PR links.
 - **Post-cleanup checks:** **111/111 Node tests** (110 retained + one fixture-integrity case), typecheck, lint, production build and whitespace pass. Production: **35 HTTP checks / ten detail boundary cases**, plus six homepage/About/Events/search/archive responses with noindex, **46 media URLs** and decoded responsive hero at **390/768/1440px**, three homepage UTC date selections. Browser hardening: **14 axe scans**, ten JS/no-JS viewport cases, 30 About anchors, solid Events keyboard focus and zero runtime errors; only deferred indicator target-size findings remain. Project Markdown: **75 local links / zero broken targets or headings**, zero removed-path references and zero tracked migration artifacts/briefs. Initial test-clock native-method omission corrected outside Git and all affected checks rerun. MingCute audit: **549 state samples / 13,080 SVG checks / 18 enabled/disabled fixtures**, zero colour mismatches. Local production browser checks used Chromium 154.0.8037.57 and frozen UTC `2026-10-14T12:00:00Z` except explicit boundary cases. No application/dependency/assets/Admin TRD/admin-brief changes; logs remain temporary.
 - **Publication/live:** implementation/cleanup **`f58639edf8a96e387958811b20621fac79a6baeb`** pushed to [codex/task-12-public-closeout-cleanup](https://github.com/thedanieldiya/nosee-new/tree/codex/task-12-public-closeout-cleanup); remote/local heads matched via `git ls-remote`. This publication record follows in a documentation-only commit. Read-only GitHub deployment status and actual `https://nosee-new.vercel.app` requests returned HTTPS CONNECT **403**; live deployment/domain/preview remain **unverified**, not passed. No preview URL guessed, PR created, merge performed or production settings changed. Stop for owner review.
+
+## Admin A01 — 15 October 2026
+
+- **Scope:** implemented on `codex/admin-01-foundation`, no PR/merge, production changes or A02. [Backend/operator setup](admin/architecture.md) selects Better Auth 1.7.9, Drizzle 0.45.4 and pg 8.23.1; official compatibility guidance plus actual PostgreSQL 17 integration. No hosted DB/auth bindings, purchased resources or production identities.
+- **Security/function:** real hashed credentials and signed HttpOnly/SameSite/Secure-on-HTTPS cookies; fixed eight-hour database sessions with no cookie cache/sliding refresh; current role/scope/deactivation reread on protected access. Masked interactive-only first Super Admin CLI with transaction lock/permanent audit marker, repeat/race/elevation refusal. Origin/CSRF checks, bounded/allowlisted input, atomic cross-instance account throttling, own-name persistence and real password/logout revocation. Future routes are guarded/unimplemented, not fake editors.
+- **Checks:** **116/116 unit/public tests**, **15 PostgreSQL integration cases**, typecheck/lint/production build/whitespace pass. Browser: nine role/width walkthroughs plus password/offline failure checks; **67 axe scans / zero violations**, **514 SVG/text observations / zero mismatches**, 320px/forced-colour/dark/reduced-motion/focus states. Manual AT remains unrun. Missing config/unreachable DB fail closed while public reading stays available.
+- **Public regression:** 36 settled captures / 18 zero-RGB-difference pairs, six routes at 390/768/1440; 25 HTTP/302/404 checks. Five public client manifests have no admin/Radix/Better Auth modules. Sample decoded public JS +1,224B/one small Next authorization-boundary script; no admin code leaks or new CWV claim. Public code/data/assets unchanged except scoped CSS discovery/security headers. Mobile LCP ~3.54s remains the accepted historical baseline.
+- **Dependencies/evidence:** PostCSS patched to 8.5.30; zero runtime audit advisories. Five inherited high lint-chain alerts through unpatched braces remain documented. Only six masked representative dashboard screenshots (~270KB), concise [review](admin/reviews/01-foundation.md), essential runtime migrations/tests; bulk logs/credentials/QA stay temporary.
+- **Review/publication:** commit/push verification follows. **Preview blocked**: Vercel access returns 403; no actual branch URL, hosted DB/role accounts or owner interactive approval claimed. Owner must configure an isolated Preview PostgreSQL DB, `DATABASE_URL`, `BETTER_AUTH_SECRET`, exact `ADMIN_ORIGIN` (optional direct migration URL), run migrations/bootstrap securely and supply the actual deployment URL/access mechanism. No secret values in chat/Git. Stop for A01 review, no A02.
 
 ## Update protocol
 
