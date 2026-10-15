@@ -2,9 +2,9 @@
 
 **Updated:** 15 October 2026. **Public frontend migration and Task 12 cleanup merged as [PR #12](https://github.com/thedanieldiya/nosee-new/pull/12)** (main `c8d717d7`). All `docs/evidence/` files and completed migration briefs are removed. **Public launch remains unapproved** pending the separately documented manual accessibility, live deployment, content and indexing gates. Mobile Lighthouse LCP ~3.54s remains accepted for current development.
 
-**Current task:** [Admin 01](admin/01-foundation.md) **In review** on `codex/admin-01-foundation`, based on latest main `8d90ebfad7536038dcf561023daacb947cf39330`. PostgreSQL/Better Auth/Drizzle, one-time masked bootstrap, role/group guards, shadcn/MingCute shell, Overview and own General are implemented/tested. **Owner review: Preview blocked** pending hosted DB/env/account provisioning and an actual deployment URL; [review/walkthrough](admin/reviews/01-foundation.md), [operator architecture/setup](admin/architecture.md). No owner approval inferred.
+**Current priority:** [Admin 01 PR #13](https://github.com/thedanieldiya/nosee-new/pull/13) **merged** (`ece98b9`), implementing real PostgreSQL/Better Auth/Drizzle, one-time masked Super Admin bootstrap, scoped roles, shadcn/MingCute shell and Settings → General. **Owner interactive review: Preview blocked** pending isolated Vercel Preview DB, `DATABASE_URL`, `BETTER_AUTH_SECRET`, exact `ADMIN_ORIGIN`, secure bootstrap and confirmed browser URL. [Architecture/setup](admin/architecture.md) · [Tracker](admin/TRACKER.md). **A02 not started**.
 
-Canonical [PRD](PRD.md), [public status/deferred release checklist](PUBLIC-SITE-STATUS.md), [merged-task tracker](FRONTEND-TRACKER.md), [Admin TRD v1.2](admin-dashboard-trd.md) and [Admin Dashboard delivery tracker](admin/TRACKER.md) remain authoritative. **Admin A01 is implemented/In review: 0/13 admin tasks merged. Every admin task requires a secure owner-interactive preview and an independent owner review outcome.** Development completion does not mark broader release/full-stack requirements Done.
+Canonical [PRD](PRD.md), [public status/deferred release checklist](PUBLIC-SITE-STATUS.md), [merged-task tracker](FRONTEND-TRACKER.md), [Admin TRD v1.2](admin-dashboard-trd.md) and [Admin Dashboard delivery tracker](admin/TRACKER.md) remain authoritative. **Admin A01 is merged: 1/13 admin tasks merged. Every admin task requires a secure owner-interactive preview and an independent owner review outcome.** Development completion does not mark broader release/full-stack requirements Done.
 
 ## Phase status
 
@@ -12,7 +12,7 @@ Canonical [PRD](PRD.md), [public status/deferred release checklist](PUBLIC-SITE-
 | --- | --- | --- |
 | P0–P3 | Done — original public-port development milestone | Discovery/foundation/homepage/About/Events delivered through PRs #1–#11; approved exceptions retained. Release gates tracked separately. |
 | P4 | Not started | Approved missing public pages, accurate content and working critical links |
-| P5 | In review | [A01](admin/reviews/01-foundation.md): actual DB/auth/roles/scoped shell/General checked locally; hosted preview and owner review remain blocked. No later modules. |
+| P5 | In review — A01 code merged | [PR #13](https://github.com/thedanieldiya/nosee-new/pull/13) implemented DB/auth/roles, shell/General and local security QA; **hosted preview and interactive owner approval blocked**. No A02 implementation. |
 | P6 | Not started | Membership applications/private review/reliable email; no applicant login |
 | P7 | Not started | CMS/research/public people/media/site/monitoring publication workflows |
 | P8 | Not started | Public release checklist, live checks, indexing, security/rollback and field performance |
