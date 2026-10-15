@@ -33,7 +33,7 @@ export function SiteNavigation() {
                 className={buttonClasses({ size: "sm", className: "ml-1 border-line-soft uppercase" })}>{item.label}</NavigationLink>
               : item.label === "Login" ? <span key={item.url} className="contents">
                 <span className="mx-3 h-8 w-px shrink-0 bg-white" aria-hidden="true" />
-                <NavigationLink item={item} aria-label="Login" className="flex size-9 shrink-0 items-center justify-center rounded-sm text-inverse transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"><AccountIcon /></NavigationLink>
+                <NavigationLink item={item} aria-label="Admin sign in" className="flex size-9 shrink-0 items-center justify-center rounded-sm text-inverse transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"><AccountIcon /></NavigationLink>
               </span> : <NavigationLink key={item.url} item={item} activeClassName="underline decoration-2 decoration-white underline-offset-4"
                 className="inline-flex h-9 items-center rounded-sm px-5 text-base font-medium text-inverse transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">{item.label}</NavigationLink>)}
           </nav>
@@ -68,7 +68,7 @@ export function SiteNavigation() {
                 className={buttonClasses({ size: "sm", intent: "secondary", className: "!bg-white !text-brand uppercase hover:!bg-white/90 active:!bg-white/80" })}>{item.label}</NavigationLink>
               : item.label === "Login" ? <span key={item.url} className="contents">
                 <span className="mx-3 h-8 w-px shrink-0 bg-white" aria-hidden="true" />
-                <NavigationLink item={item} aria-label="Login" className="flex size-9 shrink-0 items-center justify-center rounded-sm text-inverse focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"><AccountIcon /></NavigationLink>
+                <NavigationLink item={item} aria-label="Admin sign in" className="flex size-9 shrink-0 items-center justify-center rounded-sm text-inverse focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"><AccountIcon /></NavigationLink>
               </span> : null)}
           </div>
           <button type="button" className="flex size-11 shrink-0 items-center justify-center rounded-md text-inverse focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
