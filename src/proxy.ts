@@ -2,6 +2,15 @@ import { NextResponse, type NextRequest } from "next/server";
 import { findEvent } from "@/lib/content/events-detail";
 
 export function proxy(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith("/admin") || request.nextUrl.pathname.startsWith("/api/admin/")) {
+    const response = NextResponse.next();
+    response.headers.set("Cache-Control", "private, no-store, max-age=0");
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+    response.headers.set("Content-Security-Policy", "frame-ancestors 'none'; object-src 'none'; base-uri 'self'");
+    response.headers.set("X-Content-Type-Options", "nosniff");
+    response.headers.set("Referrer-Policy", "same-origin");
+    return response;
+  }
   if (request.method !== "GET" && request.method !== "HEAD") return NextResponse.next();
   let slug: string;
   try { slug = decodeURIComponent(request.nextUrl.pathname.slice("/events/".length).replace(/\/$/, "")); }
@@ -19,4 +28,4 @@ export function proxy(request: NextRequest) {
   return NextResponse.rewrite(missing);
 }
 
-export const config = { matcher: "/events/:slug" };
+export const config = { matcher: ["/events/:slug", "/admin/:path*", "/api/admin/:path*"] };

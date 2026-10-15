@@ -34,7 +34,7 @@ Typecheck generates Next route types before strict TypeScript. Lint uses Next's 
 - `/events/icelli2026` returns **HTTP 302** to exactly `https://icelli.nosee.org`, including HEAD/query/encoded/trailing-slash cases. Missing routes render the shared SSR **404**. Next's global not-found boundary and narrow Proxy preserve complete HTML and encoded meeting handling; trailing slashes render directly.
 - Small controllers handle the JS menu/focus/scroll and source carousels; native disclosure navigation and anchor clearance work without JS. Newsletter keeps its source appearance and an honest error; no provider, email transmission or native POST is implemented.
 
-Original layouts, wording, routes, breakpoints, data and interactions remain authoritative with only [documented authorised exceptions](docs/PUBLIC-SITE-STATUS.md#implemented-scope-and-enduring-exceptions). Fixture routes remain `noindex, nofollow`. Critical unimplemented destinations, old AGM 404 and medium source issues remain tracked. No database/auth/admin/CMS/membership/email implementation is included.
+Original layouts, wording, routes, breakpoints, data and interactions remain authoritative with only [documented authorised exceptions](docs/PUBLIC-SITE-STATUS.md#implemented-scope-and-enduring-exceptions). Fixture routes remain `noindex, nofollow`. Critical unimplemented destinations, old AGM 404 and medium source issues remain tracked. The public site does not depend on the admin database. The A01 foundation below adds private auth/account capabilities; CMS/membership/email implementation remains future scope.
 
 ## Next phase and delivery documents
 
@@ -47,6 +47,14 @@ The next development task is [Admin 01 — secure foundation](docs/admin/01-foun
 - [Agent instructions](AGENTS.md) — coding/verification/branch policy.
 
 Temporary migration screenshots, exports/reports and completed briefs have been removed from the current tree. Historical commits/PRs remain; reusable tests, compact independent runtime fixtures and functional original/optimised assets are retained. Keep future generated QA outside Git.
+
+## Admin foundation (A01 — In review)
+
+PostgreSQL + Drizzle + Better Auth provide real administrator sign-in/out, fixed eight-hour sessions, server-side Super Admin/Editor/scoped Lead permissions and a one-time masked **`npm run admin:bootstrap`** CLI. The private Shopify-inspired shadcn/MingCute shell includes Overview and persistent own-name/password settings. Future modules are disabled, with no fake metrics or simulated authentication. Public bundles exclude admin libraries.
+
+[Operator setup/architecture](docs/admin/architecture.md) documents required `DATABASE_URL`, `BETTER_AUTH_SECRET`, exact `ADMIN_ORIGIN`, optional direct migration URL, TLS, migrations and secure initial provisioning. Run `npm run admin:migrate` then `npm run admin:bootstrap` from an authorised interactive terminal for the intended environment. No default accounts/passwords, signup, auto-migration or build-time provisioning. Missing infrastructure fails closed.
+
+[Review/screenshots/walkthrough](docs/admin/reviews/01-foundation.md) and [Admin tracker](docs/admin/TRACKER.md) distinguish local real-PostgreSQL validation from **Preview blocked** hosted/owner review. `npm run test:admin` requires the explicitly named disposable loopback test database and local app; it refuses production/preview databases. Email changes, uploads, invitations and all module editors remain unavailable. No A02 work.
 
 ## Preview deployment
 

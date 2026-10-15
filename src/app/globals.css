@@ -8,6 +8,10 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
 
+@source not "./(admin)";
+@source not "../components/admin";
+@source not "../components/ui";
+
 @layer base {
   body {
     @apply bg-default font-body text-primary;

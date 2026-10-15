@@ -1,15 +1,15 @@
 # NOSEE Admin Dashboard — Delivery Tracker
 
 **Started:** 15 October 2026 · **Scope:** Owner-approved [Admin Dashboard TRD v1.2](../admin-dashboard-trd.md).  
-**Baseline:** Public frontend migration and [Task 12 PR #12](https://github.com/thedanieldiya/nosee-new/pull/12) merged; **admin application code not started**.  
+**Baseline:** Public frontend migration and [Task 12 PR #12](https://github.com/thedanieldiya/nosee-new/pull/12) merged; **A01 foundation implemented on its review branch; hosted preview provisioning remains blocked**.
 **Current task:** **A01 — Secure authentication, role-aware dashboard shell and interactive preview**. [Implementation brief](01-foundation.md).  
-**Progress:** **0/13 admin tasks merged · 0/13 owner-approved interactive reviews.** This is a planning count, not percent effort or production launch readiness.
+**Progress:** **0/13 admin tasks merged · 0/13 owner-approved interactive reviews.** A01 is implemented/In review; neither code tests nor screenshots count as owner approval or a hosted preview.
 
 ## Delivery and hands-on review tracker
 
 | ID | Scope and user-visible result | Code status | Owner review | PR / branch | Interactive preview |
 | --- | --- | --- | --- | --- | --- |
-| **A01** | **First Super Admin CLI bootstrap + auth + shadcn shell + General:** create initial admin securely; sign in/out as each role, browse responsive navigation, edit and persist own name/profile fields | Not started | Pending | — | — |
+| **A01** | **First Super Admin CLI bootstrap + auth + shadcn shell + General:** create initial admin securely; sign in/out as each role, browse responsive navigation, edit and persist own name/profile fields | Pushed/In review | **Preview blocked** — no hosted DB/env/accounts or verified URL; [review](reviews/01-foundation.md) | [Branch](https://github.com/thedanieldiya/nosee-new/tree/codex/admin-01-foundation) · `ef2a1e6` published/remote verified; no PR | Unverified; local PostgreSQL/role walkthroughs pass |
 | A02 | **Administrators + Activity log:** Super Admin manages invited administrator roles/scopes and inspects genuine audited changes | Not started | Pending | — | — |
 | A03 | **Public `/join` + membership applications:** apply through the working public `/join` form; Super Admin privately reviews, approves/rejects and records the outcome | Not started | Pending | — | — |
 | A04 | **Member records and identity links:** create/edit private Members; review suggested matches and explicitly link/unlink Leadership profiles without data leakage | Not started | Pending | — | — |
@@ -50,5 +50,6 @@
 | --- | --- | --- |
 | 2026-10-15 | A03 public Join route confirmed | Owner requires a **public `/join` membership application** linked to admin review; planned within A03, not Admin 01. |
 | 2026-10-15 | A01 ready | Admin TRD v1.2 and [A01 implementation brief](01-foundation.md) approved as direction; 0/13 code tasks merged. Added **hands-on preview as an explicit requirement** before interactive owner acceptance. |
+| 2026-10-15 | A01 implemented/In review | Real PostgreSQL/auth/bootstrap, role shell and General; 116 unit/public + 15 integration cases, responsive/axe/public checks. Hosted provisioning and owner walkthrough remain blocked; no approval or A02. |
 
 **Canonical docs:** [Admin TRD v1.2](../admin-dashboard-trd.md) · [Admin 01 brief](01-foundation.md) · [Delivery progress](../PROGRESS.md) · [PRD](../PRD.md).

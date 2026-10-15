@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function AdminNotFound() { return <main id="main-content" className="mx-auto max-w-xl px-6 py-20"><h1 className="text-2xl font-semibold">Page unavailable</h1><p className="mt-3 text-secondary">This administration page is not available yet.</p><Link href="/admin" className="mt-6 inline-block text-brand underline underline-offset-4">Return to Overview</Link></main>; }
