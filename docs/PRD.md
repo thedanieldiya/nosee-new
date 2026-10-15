@@ -140,7 +140,7 @@ Requirement IDs are stable and referenced in [PROGRESS.md](PROGRESS.md). A requi
 | PUB-05 | SEO, links, redirects | Metadata, sitemap, robots, canonical URLs, proper 404 and no broken critical public links |
 | ADM-01 | Secure admin sign-in | Unauthorized users cannot access admin data/actions, even by direct API or server-action requests; safe sessions/log-out |
 | ADM-02 | Admin layout & navigation | shadcn interface uses NOSEE theme; responsive nav, understandable information hierarchy and distinct private app boundary |
-| MEM-01 | Membership application | Public form validates necessary details, displays clear acknowledgement, persists once, resists spam/duplicate submissions |
+| MEM-01 | **Public `/join` membership application** | A real public `/join` route accepts approved applicant details, validates and stores a private pending application once, shows an honest acknowledgement, and resists spam/duplicates; **no account or login is created**. Admin reviews under Membership → Applications. |
 | MEM-02 | Admin application review | Admin can filter/view pending/approved/rejected applications; sees submitted details privately and can record decisions safely |
 | MEM-03 | Applicant/admin emails | Submission acknowledges receipt to applicant, alerts admin; approval/rejection triggers correct email with clear status; send failures logged and retriable |
 | MEM-04 | Private members & leadership profiles | Approved applicants become private member records; admin manages separately published Leadership profiles directly under Website → Site content, optionally linking matching identities without exposing private member details to Editors. |
@@ -151,6 +151,8 @@ Requirement IDs are stable and referenced in [PROGRESS.md](PROGRESS.md). A requi
 | OPS-01 | Secure and maintainable operations | Secrets excluded from Git, environment sample, DB migrations, backups, restricted admin media, auditability, error logging, deployment and rollback documented |
 | PERF-01 | Fast low-bandwidth delivery | Public route performance measured; Core Web Vitals and page-weight targets checked, slow-network usability demonstrated |
 | QA-01 | Evidence-driven delivery | Every milestone has narrow checks, relevant screenshot comparisons and a progress update with commits/PR links and open issues |
+
+**Public entry point (owner-confirmed 15 October 2026):** The membership join/application page lives at **`/join`**, implemented during [Admin A03](admin/TRACKER.md). It is a **public, unauthenticated application form**, not a member portal, a dashboard login, or an admin route. The form feeds private `pending` Membership Applications for Super Admin review. Exact required questions, consent wording and retention rules require approval before implementing the form. Do not start `/join` as part of Admin A01 or claim the current public website already serves it.
 
 ### Membership state and email details
 

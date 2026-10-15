@@ -41,7 +41,7 @@ Core principles:
 
 **Overview** — role-specific actionable summary (applications/drafts/events for Super Admin; editorial tasks for Editor; group tasks for Lead). No fabricated metrics.
 
-**Membership** — list/filter applications; privately review and approve/reject with recorded decisions; private member directory, create/edit/detail forms. Email notifications happen as a backend workflow; there is **no Email delivery page**.
+**Membership** — the public **`/join`** form (to be implemented in **A03**, outside `/admin`) accepts membership applications; Super Admin privately lists/filters, reviews and approves/rejects them with recorded decisions. The member directory has create/edit/detail forms. Applications remain private and **pending** until reviewed, do not grant login access or automatically publish a public profile. Email notifications happen as a backend workflow; there is **no Email delivery page**.
 
 **Research** — Super Admin sees group list and **Create group**. A group opens its public-page **Content** and group **Members**. **Edit research group** saves and publishes its frontend content; the group lead may do the same immediately. Members tab supports autocomplete of approved members, group-specific membership/role edits and removal.
 
@@ -69,7 +69,7 @@ The following are the **initial editable fields**, not a mandate to add every fi
 
 | Page / form | Fields and controls |
 | --- | --- |
-| **Membership → Application review** | Submitted **first name, last name, email**, and any submitted phone, institution/affiliation, research interests or supporting statement (**read-only**, according to the approved public application form); decision **Approve / Reject** and an internal **review note/reason**. Submission date, current status and reviewer are system records. Show a possible-person match for authorised review/linking. |
+| **Public `/join` + Membership → Application review** | **Public `/join`:** applicant details (minimum first name, last name, email; further fields and consent/retention copy require owner approval before build), server-side validation, duplicate/abuse protection and truthful submission acknowledgement. Save an applicant record as private **pending**, never an admin login or approved Member. **Admin review:** the submitted fields are read-only; Super Admin can **Approve / Reject** with internal review note/reason. Submission date, status and reviewer are system records. Show possible-person matches only to authorised reviewers. |
 | **Membership → Create / Edit member** | First name, last name, email; optional phone, affiliation/institution, research area(s), membership status, join date and internal notes. Show group associations and an optional **linked leadership PublicProfile record** with a confirmation/unlink workflow; don't edit its public fields here. |
 | **Research → Create / Edit group** | Group name, URL slug, short introduction, full description, objectives/focus areas (repeatable), cover image and alt text, visibility/publication status; **assigned Group Lead** (Super Admin only, selected from eligible accounts). Edited content updates the corresponding public group page. |
 | **Research → Group Members** | **Approved-member autocomplete only** (select an existing Member), group-specific member role/title and optional display order; remove membership association. No manually typed person, new-member form or unapproved applicant. Group Leads can edit all of these for **their assigned group only** and publish immediately. |
@@ -117,7 +117,7 @@ These are **future database/CMS-connected homepage rules**. The existing literal
 
 ## 6. Approved Next.js App Router page tree
 
-`(admin)` is a route group and does not appear in URLs. Shown entries are page destinations; supporting server actions, models, component files, schemas and tests live outside this tree.
+`(admin)` is a route group and does not appear in URLs. Shown entries are page destinations; supporting server actions, models, component files, schemas and tests live outside this tree. **The public `/join` route is a separate future public page (e.g. `src/app/(public)/join/page.tsx`), not part of this admin route tree; A03 implements it alongside application review.**
 
 ```text
 src/
