@@ -1,5 +1,7 @@
 # A06 review — research workspaces
 
+**Historical A06 implementation record:** merged through PR #24 (`4888b53`, main `3b05477`). Current editor/deletion behavior and owner steps are in [A06.5 review](06-5-research-editor-deletion.md). Full A06 owner acceptance remains pending; the original counts below describe the original branch.
+
 **15 October 2026 · In review.** `codex/admin-06-research-groups` from `c569169` / merged A05.5.1 PR #23 (`5712d32`), which the owner reports tested successfully. Core merged progress remains **5/13**; A06 owner review is pending. [Contract, source/storage dependencies and migration](../06-research-groups.md).
 
 ## Actual verification

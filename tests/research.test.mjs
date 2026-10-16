@@ -6,12 +6,12 @@ import {invitationInput} from '../src/lib/admin/management-input.ts';
 import {researchPaths} from '../src/lib/research/cache.ts';
 import {emptyGroupContent,researchCovers} from '../src/lib/research/options.ts';
 import {renderInvitationEmail} from '../src/lib/admin/invitation-email.ts';
-const id=randomUUID(),content={...emptyGroupContent,name:'Synthetic group',slug:'synthetic-group'};
+const id=randomUUID(),content={name:'Synthetic group',introduction:'',description:'',objectives:[]},snapshot={...emptyGroupContent,...content,slug:'synthetic-group'};
 test('research content validates slugs, bounded text, objective lists and trusted deployed images',()=>{
- assert.ok(groupContentInput.safeParse(content).success);assert.equal(groupContentInput.safeParse({...content,coverImage:researchCovers[0],coverAlt:''}).success,false);
- for(const slug of ['UPPER','a--b','../admin','a/b','a?draft=true',' a','a'.repeat(81),''])assert.equal(groupContentInput.safeParse({...content,slug}).success,false);
- for(const patch of [{administratorId:id},{status:'published'},{publishedContent:content},{description:'a'.repeat(6001)},{objectives:Array(9).fill('focus')},{objectives:['']},{coverImage:'https://attacker.invalid/image.jpg',coverAlt:'Description'},{coverImage:'data:image/png;base64,x',coverAlt:'Description'},{name:'bad\u0000'}])assert.equal(groupContentInput.safeParse({...content,...patch}).success,false);
- assert.ok(groupContentInput.safeParse({...content,description:'<script>literal, never executed</script>\nPlain text',coverImage:researchCovers[0],coverAlt:'Owner supplied description'}).success);
+ assert.ok(groupContentInput.safeParse(snapshot).success);assert.ok(groupContentInput.safeParse({...snapshot,coverImage:researchCovers[0],coverAlt:'Legacy alt'}).success);
+ for(const slug of ['UPPER','a--b','../admin','a/b','a?draft=true',' a','a'.repeat(81),''])assert.equal(groupContentInput.safeParse({...snapshot,slug}).success,false);
+ for(const patch of [{administratorId:id},{status:'published'},{publishedContent:content},{description:'a'.repeat(6001)},{objectives:Array(9).fill('focus')},{objectives:['']},{coverImage:'https://attacker.invalid/image.jpg',coverAlt:'Description'},{coverImage:'data:image/png;base64,x',coverAlt:'Description'},{name:'bad\u0000'}])assert.equal(groupContentInput.safeParse({...snapshot,...patch}).success,false);
+ assert.ok(groupContentInput.safeParse({...snapshot,description:'<script>literal, never executed</script>\nPlain text',coverImage:researchCovers[0],coverAlt:'Owner supplied description'}).success);
 });
 test('research writes require reviewed identifiers, strict versions and confirmation without accepting group or role injection',()=>{
  assert.ok(groupCreateInput.safeParse({content,requestId:id,confirm:true}).success);assert.ok(groupUpdateInput.safeParse({content,version:1,confirm:true}).success);
