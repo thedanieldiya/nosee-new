@@ -1,6 +1,6 @@
 # A07 — News publishing and homepage feed
 
-**16 October 2026 · In review; owner acceptance pending.** `codex/admin-07-news-publishing` starts at main `a0c94d4`, containing [A06.5 PR #25](https://github.com/thedanieldiya/nosee-new/pull/25), head `04f71b7`. Core merged progress remains **6/13**. The owner confirmed research-group deletion and focus-area removal work; other A06 walkthroughs are not inferred complete.
+**16 October 2026 · Pushed / In review; owner acceptance pending.** `codex/admin-07-news-publishing` starts at main `a0c94d4`, containing [A06.5 PR #25](https://github.com/thedanieldiya/nosee-new/pull/25), head `04f71b7`. Core merged progress remains **6/13**. The owner confirmed research-group deletion and focus-area removal work; other A06 walkthroughs are not inferred complete.
 
 ## Workspace and security
 
