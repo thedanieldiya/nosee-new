@@ -12,7 +12,7 @@ export async function researchApi(request: Request, work: (actor: Principal, bod
     let body;
     if (request.method !== "GET") {
       if (!(await takeBucket(`research:${actor.id}`, 60, 40))) return privateJson({ error: "Too many requests. Try again shortly." }, 429, { "Retry-After": "60" });
-      try { body = await readJson(request, 32768); } catch { return privateJson({ error: "Use valid research details within the 32 KB request limit." }, 400); }
+      try { body = await readJson(request, 131072); } catch { return privateJson({ error: "Use valid research details within the 128 KB request limit." }, 400); }
     }
     return privateJson(await work(actor, body));
   } catch (error) {

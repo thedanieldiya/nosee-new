@@ -4,34 +4,54 @@ import { z } from "zod";
 import { eq, sql } from "drizzle-orm";
 import { adminDatabase } from "../admin/database.ts";
 import { ManagementError } from "../admin/errors.ts";
-import { user, member, researchGroup, researchGroupMember, researchLeadAssignment, invitation, session } from "../admin/schema.ts";
+import { user, member, auditLog, researchGroup, researchGroupMember, researchLeadAssignment, invitation, session } from "../admin/schema.ts";
 import type { Principal } from "../admin/policy.ts";
+import { descriptionText } from "./description.ts";
+import { researchSlugBase, researchSlugCandidate, researchDeletionPhrase } from "./slug.ts";
 import type { GroupContent, EligibleMember } from "./options.ts";
-import { groupContentInput, groupCreateInput, groupUpdateInput, groupQuery, eligibleQuery, groupMemberInput, leadInput, leadInvitationInput, publicationInput } from "./input.ts";
+import { groupContentInput, groupDeletionInput, groupCreateInput, groupUpdateInput, groupQuery, eligibleQuery, groupMemberInput, leadInput, leadInvitationInput, publicationInput } from "./input.ts";
 import { requireResearchTransaction, eligibleMember, researchAudit, revokeLeadAssignments, type ResearchTransaction } from "./security.ts";
 export type GroupRecord = GroupContent & { id: string; version: number; status: "draft" | "published"; publishedContent: GroupContent | null; publishedSlug: string | null; publishedAt: string | null; updatedAt: string };
-const contentProjection = { name: researchGroup.name, slug: researchGroup.slug, introduction: researchGroup.introduction, description: researchGroup.description, objectives: researchGroup.objectives, coverImage: researchGroup.coverImage, coverAlt: researchGroup.coverAlt };
+const contentProjection = { name: researchGroup.name, slug: researchGroup.slug, introduction: researchGroup.introduction, description: sql<GroupContent["description"]>`coalesce(${researchGroup.descriptionDocument},to_jsonb(${researchGroup.description}))`, objectives: researchGroup.objectives, coverImage: researchGroup.coverImage, coverAlt: sql<string>`${researchGroup.name} || ' cover photo'` };
 const projection = { ...contentProjection, id: researchGroup.id, version: researchGroup.version, status: researchGroup.status, publishedContent: researchGroup.publishedContent, publishedSlug: researchGroup.publishedSlug, publishedAt: researchGroup.publishedAt, updatedAt: researchGroup.updatedAt };
 const memberProjection = { id: member.id, firstName: member.firstName, lastName: member.lastName, affiliation: member.affiliation, version: member.version };
 const serialize = <T>(value: unknown) => JSON.parse(JSON.stringify(value)) as T;
 const pattern = (value: string) => `%${value.replace(/[\\%_]/g, "\\$&")}%`;
-function parse<T>(schema: z.ZodType<T>, raw: unknown): T { const result = schema.safeParse(raw); if (!result.success) throw new ManagementError("Check required fields, limits, selected identities and confirmation. Refresh if the record has changed."); return result.data; }
+function parse<T>(schema: z.ZodType<T>, raw: unknown): T { const result = schema.safeParse(raw); if (!result.success) throw new ManagementError(result.error.issues.some(issue => issue.path.includes("description")) ? "Use supported description formatting and safe links, within 6,000 visible characters." : "Check required fields, limits, selected identities and confirmation. Refresh if the record has changed."); return result.data; }
 function uuid(id: string) { if (!z.uuid().safeParse(id).success) throw new ManagementError("Research group not found.", 404); return id; }
 async function authorized<T>(actor: Principal, id: string | undefined, work: (tx: ResearchTransaction) => Promise<T>, managerOnly = false) {
   return adminDatabase().db.transaction(async tx => { await requireResearchTransaction(tx, actor, id, managerOnly); return work(tx); });
 }
 async function row(tx: ResearchTransaction, id: string) {
-  const [record] = await tx.select(projection).from(researchGroup).where(eq(researchGroup.id, uuid(id)));
+  const [record] = await tx.select(projection).from(researchGroup).where(sql`${researchGroup.id}=${uuid(id)}::uuid and ${researchGroup.deletedAt} is null`);
   if (!record) throw new ManagementError("Research group not found.", 404); return record;
 }
 function version(record: { version: number }, expected: number) { if (record.version !== expected) throw new ManagementError("This group changed. Reload and review the latest version.", 409); }
 async function slugAvailable(tx: ResearchTransaction, slug: string, id = "") {
   if ((await tx.select({ id: researchGroup.id }).from(researchGroup).where(sql`${researchGroup.id}::text<>${id} and (${researchGroup.slug}=${slug} or ${researchGroup.publishedSlug}=${slug})`).limit(1)).length) throw new ManagementError("That URL slug is already reserved by another group.", 409);
 }
+function storedContent(content: z.infer<typeof groupCreateInput>["content"]) {
+  return { ...content, description: descriptionText(content.description), descriptionDocument: typeof content.description === "string" ? null : content.description, coverAlt: `${content.name} cover photo` };
+}
+export async function deleteResearchGroup(actor: Principal, id: string, raw: unknown) {
+  const input = parse(groupDeletionInput, raw);
+  return authorized(actor, id, async tx => {
+    const current = await row(tx, id); version(current, input.version);
+    if (input.phrase !== researchDeletionPhrase(current.name)) throw new ManagementError("Type the exact confirmation phrase for the current group name.");
+    await revokeLeadAssignments(tx, actor.id, sql`${researchLeadAssignment.groupId}=${id}::uuid`, "group_deleted");
+    const pending = await tx.update(invitation).set({ revokedAt: sql`clock_timestamp()`, tokenDigest: null, updatedAt: sql`clock_timestamp()` }).where(sql`${invitation.researchGroupId}=${id}::uuid and ${invitation.acceptedAt} is null and ${invitation.revokedAt} is null`).returning({ id: invitation.id });
+    for (const item of pending) await tx.insert(auditLog).values({ id: randomUUID(), actorId: actor.id, action: "Revoked deleted group invitation", targetType: "invitation", targetId: item.id, targetLabel: "Administrator invitation", createdAt: sql`clock_timestamp()` });
+    const removed = await tx.update(researchGroupMember).set({ removedAt: sql`clock_timestamp()`, version: sql`${researchGroupMember.version}+1`, updatedAt: sql`clock_timestamp()` }).where(sql`${researchGroupMember.groupId}=${id}::uuid and ${researchGroupMember.removedAt} is null`).returning({ id: researchGroupMember.id, memberId: researchGroupMember.memberId });
+    for (const association of removed) await researchAudit(tx, actor.id, id, "Removed research group member", { before: { memberId: association.memberId, associationId: association.id }, after: { memberId: null, associationId: null } });
+    await tx.update(researchGroup).set({ deletedAt: sql`clock_timestamp()`, version: sql`${researchGroup.version}+1`, updatedAt: sql`clock_timestamp()` }).where(eq(researchGroup.id, id));
+    await researchAudit(tx, actor.id, id, "Deleted research group");
+    return { id, invalidatedSlugs: [current.slug, ...(current.publishedSlug ? [current.publishedSlug] : [])], message: "Research group deleted. Members, separate administrator accounts and history are retained." };
+  }, true);
+}
 export async function groupDirectory(actor: Principal, raw: unknown) {
   const query = parse(groupQuery, raw);
   return authorized(actor, undefined, async tx => {
-    const where = sql`${researchGroup.name} ilike ${pattern(query.q)}`;
+    const where = sql`${researchGroup.deletedAt} is null and ${researchGroup.name} ilike ${pattern(query.q)}`;
     const total = Number((await tx.select({ n: sql`count(*)::int` }).from(researchGroup).where(where))[0].n), pages = Math.max(1, Math.ceil(total / 20)), page = Math.min(query.page, pages);
     const rows = await tx.select({ id: researchGroup.id, name: researchGroup.name, slug: researchGroup.slug, status: researchGroup.status, updatedAt: researchGroup.updatedAt }).from(researchGroup).where(where).orderBy(researchGroup.name, researchGroup.id).limit(20).offset((page - 1) * 20);
     return { rows: serialize<Array<{ id: string; name: string; slug: string; status: string; updatedAt: string }>>(rows), total, page, pages };
@@ -48,18 +68,20 @@ export async function getResearchGroup(actor: Principal, id: string) {
 export async function createResearchGroup(actor: Principal, raw: unknown) {
   const input = parse(groupCreateInput, raw), digest = createHash("sha256").update(JSON.stringify(input.content)).digest("hex");
   return authorized(actor, undefined, async tx => {
-    const [prior] = await tx.select({ id: researchGroup.id, digest: researchGroup.creationDigest }).from(researchGroup).where(eq(researchGroup.creationKey, input.requestId));
-    if (prior) { if (prior.digest !== digest) throw new ManagementError("This creation request was already used with different content. Refresh before adding another group.", 409); return { id: prior.id, message: "This request already created a group; no duplicate was added." }; }
-    await slugAvailable(tx, input.content.slug);
-    const id = randomUUID(); await tx.insert(researchGroup).values({ ...input.content, id, createdBy: actor.id, creationKey: input.requestId, creationDigest: digest });
+    const [prior] = await tx.select({ id: researchGroup.id, digest: researchGroup.creationDigest, deletedAt: researchGroup.deletedAt }).from(researchGroup).where(eq(researchGroup.creationKey, input.requestId));
+    if (prior) { if (prior.deletedAt) throw new ManagementError("This request belongs to a deleted group. Start a new group explicitly.", 409); if (prior.digest !== digest) throw new ManagementError("This creation request was already used with different content. Refresh before adding another group.", 409); return { id: prior.id, message: "This request already created a group; no duplicate was added." }; }
+    const base = researchSlugBase(input.content.name);
+    const reserved = new Set((await tx.select({ slug: researchGroup.slug, publishedSlug: researchGroup.publishedSlug }).from(researchGroup)).flatMap(group => [group.slug, group.publishedSlug]));
+    let number = 1, slug = base; while (reserved.has(slug)) slug = researchSlugCandidate(base, ++number);
+    const id = randomUUID(); await tx.insert(researchGroup).values({ ...storedContent(input.content), slug, id, createdBy: actor.id, creationKey: input.requestId, creationDigest: digest });
     await researchAudit(tx, actor.id, id, "Created research group"); return { id, message: "Group saved as a private draft." };
   }, true);
 }
 export async function updateResearchGroup(actor: Principal, id: string, raw: unknown) {
   const input = parse(groupUpdateInput, raw);
   return authorized(actor, id, async tx => {
-    const current = await row(tx, id); version(current, input.version); await slugAvailable(tx, input.content.slug, id);
-    await tx.update(researchGroup).set({ ...input.content, version: current.version + 1, updatedAt: sql`clock_timestamp()` }).where(eq(researchGroup.id, id));
+    const current = await row(tx, id); version(current, input.version);
+    await tx.update(researchGroup).set({ ...storedContent(input.content), version: current.version + 1, updatedAt: sql`clock_timestamp()` }).where(eq(researchGroup.id, id));
     await researchAudit(tx, actor.id, id, "Updated research group draft"); return { id, message: "Changes saved privately. Publish explicitly to update the published version." };
   });
 }
@@ -68,9 +90,10 @@ export async function publishResearchGroup(actor: Principal, id: string, raw: un
   return authorized(actor, id, async tx => {
     const current = await row(tx, id); version(current, input.version);
     const content = groupContentInput.parse(Object.fromEntries(Object.keys(contentProjection).map(key => [key, current[key as keyof GroupContent]])));
-    if (input.action === "publish" && (!content.introduction || !content.description || !content.objectives.length || !content.coverImage || !content.coverAlt)) throw new ManagementError("Add an introduction, description, focus areas and a cover with alt text before publishing.");
+    if (input.action === "publish" && (!content.introduction || !descriptionText(content.description).trim() || !content.objectives.length)) throw new ManagementError("Add an introduction, description and focus areas before publishing.");
     await slugAvailable(tx, content.slug, id);
     const published = input.action === "publish";
+    content.coverAlt = `${content.name} cover photo`;
     await tx.update(researchGroup).set({ status: published ? "published" : "draft", ...(published ? { publishedContent: content, publishedSlug: content.slug, publishedAt: sql`clock_timestamp()` } : {}), version: current.version + 1, updatedAt: sql`clock_timestamp()` }).where(eq(researchGroup.id, id));
     await researchAudit(tx, actor.id, id, published ? "Published research group" : "Unpublished research group", { before: { status: current.status }, after: { status: published ? "published" : "draft" } });
     return { id, invalidatedSlugs: [...new Set([current.publishedSlug, content.slug].filter((value): value is string => !!value))], message: published ? "Published version recorded. Public research pages await an approved design; their URLs remain unavailable." : "Group unpublished. Saved content remains private." };
@@ -155,7 +178,7 @@ export async function researchOverview(actor: Principal) {
   if (actor.role === "editor") return null;
   return authorized(actor, actor.role === "research_group_lead" ? actor.researchGroupId ?? undefined : undefined, async tx => {
     if (actor.role === "research_group_lead") { const group = await row(tx, actor.researchGroupId!); const count = Number((await tx.select({ n: sql`count(*)::int` }).from(researchGroupMember).innerJoin(member, eq(member.id, researchGroupMember.memberId)).where(sql`${researchGroupMember.groupId}=${group.id}::uuid and ${researchGroupMember.removedAt} is null and ${member.deletedAt} is null and ${member.status}='active'`))[0].n); return { group: serialize<GroupRecord>(group), groups: 1, published: group.status === "published" ? 1 : 0, participants: count }; }
-    const [counts] = await tx.select({ groups: sql<number>`count(*)::int`, published: sql<number>`count(*) filter(where status='published')::int` }).from(researchGroup);
+    const [counts] = await tx.select({ groups: sql<number>`count(*)::int`, published: sql<number>`count(*) filter(where status='published')::int` }).from(researchGroup).where(sql`${researchGroup.deletedAt} is null`);
     return { ...counts, group: null, participants: null };
   });
 }

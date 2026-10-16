@@ -8,7 +8,7 @@ import type { Principal } from "../admin/policy.ts";
 export type ResearchTransaction = Parameters<Parameters<ReturnType<typeof adminDatabase>["db"]["transaction"]>[0]>[0];
 export async function validLeadAssignment(tx: Pick<ResearchTransaction, "select">, administratorId: string, groupId: string | null) {
   if (!groupId) return false;
-  return !!(await tx.select({ id: researchLeadAssignment.id }).from(researchLeadAssignment).innerJoin(member, eq(member.id, researchLeadAssignment.memberId)).innerJoin(researchGroup, eq(researchGroup.id, researchLeadAssignment.groupId)).where(sql`${researchLeadAssignment.administratorId}=${administratorId}::uuid and ${researchLeadAssignment.groupId}=${groupId}::uuid and ${researchLeadAssignment.revokedAt} is null and ${member.status}='active' and ${member.deletedAt} is null`).limit(1)).length;
+  return !!(await tx.select({ id: researchLeadAssignment.id }).from(researchLeadAssignment).innerJoin(member, eq(member.id, researchLeadAssignment.memberId)).innerJoin(researchGroup, eq(researchGroup.id, researchLeadAssignment.groupId)).where(sql`${researchLeadAssignment.administratorId}=${administratorId}::uuid and ${researchLeadAssignment.groupId}=${groupId}::uuid and ${researchLeadAssignment.revokedAt} is null and ${researchGroup.deletedAt} is null and ${member.status}='active' and ${member.deletedAt} is null`).limit(1)).length;
 }
 export async function requireResearchTransaction(tx: ResearchTransaction, actor: Principal, groupId?: string, managerOnly = false) {
   // Same lock as membership, administrator access and invitation redemption: one authority boundary.

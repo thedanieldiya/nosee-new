@@ -11,3 +11,13 @@
   color: var(--color-primary);
   overflow-wrap: anywhere;
 }
+
+.research-description { white-space: pre-wrap; line-height: 1.7; overflow-wrap: anywhere; }
+.research-description > * + * { margin-top: 0.75rem; }
+.research-description h2 { font-size: 1.5rem; font-weight: 600; }
+.research-description h3 { font-size: 1.25rem; font-weight: 600; }
+.research-description ul { list-style: disc; padding-left: 1.5rem; }
+.research-description ol { list-style: decimal; padding-left: 1.5rem; }
+.research-description li > * + * { margin-top: 0.5rem; }
+.research-description a { color: var(--color-brand); text-decoration: underline; text-underline-offset: 0.15em; padding-block: 0.25rem; }
+.research-description a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
