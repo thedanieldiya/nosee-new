@@ -1,7 +1,7 @@
 # NOSEE delivery progress
 
 **Updated:** 16 October 2026. **Public frontend migration and Task 12 cleanup merged as [PR #12](https://github.com/thedanieldiya/nosee-new/pull/12)** (main `c8d717d7`). All `docs/evidence/` files and completed migration briefs are removed. **Public launch remains unapproved** pending the separately documented manual accessibility, live deployment, content and indexing gates. Mobile Lighthouse LCP ~3.54s remains accepted for current development.
-**Current task: A06.5 research editor and group deletion correction — In review.** A06 merged in [PR #24](https://github.com/thedanieldiya/nosee-new/pull/24), head `4888b53` / latest main `3b05477`; core code progress is **6/13**. This feedback does not establish full A06 owner acceptance. Dedicated branch `codex/a06-5-research-editor-deletion`; [current verification and walkthrough](admin/reviews/06-5-research-editor-deletion.md).
+**Current task: A06.5 research editor and group deletion correction — Pushed / In review.** A06 merged in [PR #24](https://github.com/thedanieldiya/nosee-new/pull/24), head `4888b53` / latest main `3b05477`; core code progress is **6/13**. This feedback does not establish full A06 owner acceptance. Dedicated branch `codex/a06-5-research-editor-deletion`; [current verification and walkthrough](admin/reviews/06-5-research-editor-deletion.md).
 
 **Current priority:** complete A06.5 owner review after the [A06 PR #24](https://github.com/thedanieldiya/nosee-new/pull/24) merge. A05.5.1 PR #23 remains owner-tested successfully. A04 owner pagination, live Resend acceptance, email/expiry scheduling, A10 real profile picker, public research design/mapping, durable uploads and final privacy remain open.
 

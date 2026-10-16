@@ -1,6 +1,6 @@
 # A06.5 — research editor and group deletion review
 
-**16 October 2026 · In review.** Branch `codex/a06-5-research-editor-deletion` starts at latest main `3b05477`, containing A06 [PR #24](https://github.com/thedanieldiya/nosee-new/pull/24) / `4888b53`. **6/13 core milestones merged.** This is a correction within A06; the request/merge does not establish full A06 owner acceptance. [Current research contract](../06-research-groups.md).
+**16 October 2026 · Pushed / In review.** Branch `codex/a06-5-research-editor-deletion` starts at latest main `3b05477`, containing A06 [PR #24](https://github.com/thedanieldiya/nosee-new/pull/24) / `4888b53`. **6/13 core milestones merged.** This is a correction within A06; the request/merge does not establish full A06 owner acceptance. [Current research contract](../06-research-groups.md).
 
 ## Delivered behavior
 
@@ -39,6 +39,6 @@ Temporary logs, screenshots and private synthetic fixtures are kept outside Git.
 3. **Publication:** publish without a cover. For a previously saved cover, confirm the reference remains; rename/save and confirm generated private alt changes while the published snapshot stays unchanged until Publish. Use **Published preview** to inspect the formatted stored version independently. Public research routes remain unavailable pending approved design.
 4. **Delete:** at the bottom of Edit, open Delete research group. Cancel, Escape and backdrop must dismiss; inside clicks must retain the dialog. Wrong case/extra spaces must not enable deletion. Paste the exact phrase and confirm. Verify the group disappears, old edit/preview links return 404 and its slug is reserved when creating a new same-named group. Its Members and separate administrator accounts remain; old Lead sessions immediately fail. A Lead cannot see or invoke deletion.
 
-**Preview blocked/unverified:** an actual protected branch URL, isolated migrated Preview DB, exact `ADMIN_ORIGIN` and secure existing role access are required for hosted owner interaction. Do not use owner/Production data as QA fixtures, invent a deployment URL or bypass authentication. Local browser checks/screenshots do not complete owner review.
+**Preview blocked/unverified:** branch push and remote code head `02c28a0` were verified. Deployment lookup for that pushed code returned HTTPS CONNECT 403; no actual URL could be confirmed. An actual protected branch URL, isolated migrated Preview DB, exact `ADMIN_ORIGIN` and secure existing role access are required for hosted owner interaction. Do not use owner/Production data as QA fixtures, invent a deployment URL or bypass authentication. Local browser checks/screenshots do not complete owner review.
 
 Public research design/rendering, durable uploads, live Resend/sender/inbox acceptance, email/expiry scheduling, A04 owner pagination, A10 real profile picker and final privacy/manual AT/public release remain open. Public mobile LCP ~3.54s remains accepted; no optimization or new field-performance claim. No A07, hosted migration, provider/DNS/Vercel/Neon changes, email, manual deploy, PR or merge.
