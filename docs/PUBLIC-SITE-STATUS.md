@@ -55,3 +55,8 @@ npm run start
 Use `tests/check-event-routes.mjs TARGET` for HTTP/redirect/404 checks and its optional test clock for boundaries. `tests/check-public-hardening.cjs TARGET /tmp/results.json /path/to/axe.min.js` and `tests/check-public-icon-colours.cjs TARGET /tmp/colours.json` use externally available Playwright/Chromium; outputs must stay outside the checkout. Fresh PHP detail comparisons remain available through `tests/compare-event-details.mjs` and its reusable oracle helper against an isolated pinned source renderer.
 
 The next development task is [Admin 01 — secure foundation](admin/01-foundation.md), governed by [Admin Dashboard TRD v1.2](admin-dashboard-trd.md). Admin implementation has **not started**; the manual, live and content release gates remain deferred.
+
+
+## A07 authorized News transition (16 October 2026)
+
+The owner authorizes the homepage News data source to move from pinned development fixtures to validated database-published snapshots, Featured/date/slug ordered and capped at four. No fixture migration or empty-feed fallback is allowed. The section hides for an empty/unavailable collection. Square responsive card styling remains; image-free records use the existing dark base. Since `/news` and `/news/[slug]` still lack approved layouts/routes, dead Read more and listing CTAs are omitted, with semantic headline headings and the former lower action-row height retained. This is an explicit A07 change, not unexpected Laravel drift; existing unrelated navigation gaps remain tracked. [Contract and remaining design/storage work](admin/07-news-publishing.md). No indexing/launch, factual content/rights or manual AT approval is inferred.

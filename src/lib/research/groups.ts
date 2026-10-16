@@ -7,7 +7,8 @@ import { ManagementError } from "../admin/errors.ts";
 import { user, member, auditLog, researchGroup, researchGroupMember, researchLeadAssignment, invitation, session } from "../admin/schema.ts";
 import type { Principal } from "../admin/policy.ts";
 import { descriptionText } from "./description.ts";
-import { researchSlugBase, researchSlugCandidate, researchDeletionPhrase } from "./slug.ts";
+import { automaticSlug } from "../content/slug.ts";
+import { researchDeletionPhrase } from "./slug.ts";
 import type { GroupContent, EligibleMember } from "./options.ts";
 import { groupContentInput, groupDeletionInput, groupCreateInput, groupUpdateInput, groupQuery, eligibleQuery, groupMemberInput, leadInput, leadInvitationInput, publicationInput } from "./input.ts";
 import { requireResearchTransaction, eligibleMember, researchAudit, revokeLeadAssignments, type ResearchTransaction } from "./security.ts";
@@ -70,9 +71,8 @@ export async function createResearchGroup(actor: Principal, raw: unknown) {
   return authorized(actor, undefined, async tx => {
     const [prior] = await tx.select({ id: researchGroup.id, digest: researchGroup.creationDigest, deletedAt: researchGroup.deletedAt }).from(researchGroup).where(eq(researchGroup.creationKey, input.requestId));
     if (prior) { if (prior.deletedAt) throw new ManagementError("This request belongs to a deleted group. Start a new group explicitly.", 409); if (prior.digest !== digest) throw new ManagementError("This creation request was already used with different content. Refresh before adding another group.", 409); return { id: prior.id, message: "This request already created a group; no duplicate was added." }; }
-    const base = researchSlugBase(input.content.name);
     const reserved = new Set((await tx.select({ slug: researchGroup.slug, publishedSlug: researchGroup.publishedSlug }).from(researchGroup)).flatMap(group => [group.slug, group.publishedSlug]));
-    let number = 1, slug = base; while (reserved.has(slug)) slug = researchSlugCandidate(base, ++number);
+    const slug = automaticSlug(input.content.name, reserved);
     const id = randomUUID(); await tx.insert(researchGroup).values({ ...storedContent(input.content), slug, id, createdBy: actor.id, creationKey: input.requestId, creationDigest: digest });
     await researchAudit(tx, actor.id, id, "Created research group"); return { id, message: "Group saved as a private draft." };
   }, true);

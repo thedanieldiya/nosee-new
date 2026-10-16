@@ -1,6 +1,6 @@
 # A06 — Research groups and scoped Lead access
 
-**16 October 2026 · A06 merged through [PR #24](https://github.com/thedanieldiya/nosee-new/pull/24), head `4888b53` / main `3b05477`.** **6/13** core tasks merged; full A06 owner acceptance remains pending. A06.5 is a correction within A06, on `codex/a06-5-research-editor-deletion`, **In review**. [Current correction contract, tests and walkthrough](reviews/06-5-research-editor-deletion.md); [historical A06 verification](reviews/06-research-groups.md). A05.5.1 PR #23 remains owner-tested successfully.
+**16 October 2026 · A06 merged through [PR #24](https://github.com/thedanieldiya/nosee-new/pull/24), head `4888b53` / main `3b05477`.** **6/13** core tasks merged; full A06 owner acceptance remains pending. A06.5 is a correction within A06, **merged through PR #25 (`04f71b7`)**. Owner confirmed group deletion and focus-area removal; other A06 walkthroughs remain open. [Current correction contract, tests and walkthrough](reviews/06-5-research-editor-deletion.md); [historical A06 verification](reviews/06-research-groups.md). A05.5.1 PR #23 remains owner-tested successfully.
 
 ## Current implementation
 

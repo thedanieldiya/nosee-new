@@ -117,3 +117,9 @@ export const membershipNotification = pgTable("membership_notification", {
 export const membershipMailControl = pgTable("membership_mail_control", {
   id: text("id").primaryKey(), nextDispatchAt: timestamp("next_dispatch_at", { withTimezone: true }).notNull().defaultNow(),
 });
+
+export const newsArticle = pgTable("news_article", {
+  id: uuid("id").primaryKey(), title: text("title").notNull(), slug: text("slug").notNull().unique(), category: text("category").notNull(), excerpt: text("excerpt").notNull().default(""), body: jsonb("body").$type<import("../research/description.ts").Description>().notNull(), publicationDate: timestamp("publication_date", { withTimezone: true }).notNull(), featured: boolean("featured").notNull().default(false),
+  coverImage: text("cover_image").notNull().default(""), coverAlt: text("cover_alt").notNull().default(""), status: text("status").$type<"draft" | "published">().notNull().default("draft"), publishedContent: jsonb("published_content").$type<import("../news/options.ts").NewsContent>(), publishedDate: timestamp("published_date", { withTimezone: true }), publishedFeatured: boolean("published_featured"), publishedAt: timestamp("published_at", { withTimezone: true }),
+  version: integer("version").notNull().default(1), creationKey: uuid("creation_key").notNull().unique(), creationDigest: text("creation_digest").notNull(), createdBy: uuid("created_by").notNull().references(() => user.id), ...timestamps,
+}, table => [check("news_article_status", sql`${table.status} in ('draft','published')`), check("news_article_version", sql`${table.version}>0`), check("news_article_publication", sql`${table.status}<>'published' or (${table.publishedContent} is not null and ${table.publishedDate} is not null and ${table.publishedFeatured} is not null and ${table.publishedAt} is not null)`), index("news_article_feed").on(table.publishedFeatured, table.publishedDate, table.slug).where(sql`${table.status}='published'`)]);

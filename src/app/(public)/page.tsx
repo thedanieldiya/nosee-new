@@ -1,3 +1,4 @@
+import { homepageNews } from "@/lib/news/homepage";
 import type { Metadata } from "next";
 import { HomeHero } from "@/components/site/sections/HomeHero";
 import { HomeMonitoringDashboard } from "@/components/site/sections/HomeMonitoringDashboard";
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function HomePage() {
-  return <><HomeHero /><HomeMonitoringDashboard /><HomeResearchOutputs /><HomeTrendingNews /><HomeUpcomingEvents /></>;
+export default async function HomePage() {
+  const articles = await homepageNews();
+  return <><HomeHero /><HomeMonitoringDashboard /><HomeResearchOutputs /><HomeTrendingNews articles={articles} /><HomeUpcomingEvents /></>;
 }
