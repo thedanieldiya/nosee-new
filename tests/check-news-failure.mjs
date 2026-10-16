@@ -1,0 +1,6 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {resolve} from 'node:path';
+const[base,control,failureLog]=process.argv.slice(2);for(const origin of[base,control])assert.equal(new URL(origin).hostname,'127.0.0.1');assert.notEqual(base,control);assert.ok(resolve(failureLog).startsWith('/tmp/'));
+const healthy=await fetch(control);assert.equal(healthy.status,200);assert.ok((await healthy.text()).includes('data-trending-news-section'),'The isolated control must have published fixtures.');
+const started=performance.now(),response=await fetch(base),html=await response.text();assert.equal(response.status,200);for(const hook of['data-home-hero','data-monitoring-dashboard-section','data-research-outputs-section','data-upcoming-events-section'])assert.ok(html.includes(hook));assert.equal(html.includes('data-trending-news-section'),false);assert.doesNotMatch(html,/DATABASE_URL|ECONNREFUSED|pg-protocol/);assert.ok(readFileSync(failureLog,'utf8').includes('Published news feed unavailable.'));assert.ok(performance.now()-started<8000);console.log(JSON.stringify({databaseUnavailableHomepage:200,healthyControlHasNews:true,newsHidden:true,unrelatedSectionsPresent:true,elapsedMs:Math.round(performance.now()-started)}));

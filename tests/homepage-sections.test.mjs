@@ -29,17 +29,18 @@ test("research SSR preserves three exact publications, authors/year/area and ext
   assert.doesNotMatch(html, /<script/);
 });
 
-test("news SSR preserves featured + three compact cards, full-link labels, sr-only context, dates and image attributes", () => {
-  const html = render(HomeTrendingNews);
+test("news SSR preserves featured + three compact cards, truthful noninteractive summaries, sr-only context, dates and image attributes", () => {
+  const html = render(HomeTrendingNews, {articles:source.news.selected});
   assert.match(html, /What’s Trending/);
   assert.equal([...html.matchAll(/data-variant="featured"/g)].length, 1);
   assert.equal([...html.matchAll(/data-variant="compact"/g)].length, 3);
   source.news.selected.forEach(record => {
-    for (const value of [`href="/news/${record.slug}"`, record.title, record.excerpt, `alt="${record.image_alt}"`]) assert.ok(html.includes(value), value);
+    for (const value of [record.title, record.excerpt, `alt="${record.image_alt}"`]) assert.ok(html.includes(value), value);
     assert.ok(html.toLowerCase().includes(`datetime="${record.published_at}"`.toLowerCase()));
   });
   assert.equal([...html.matchAll(/width="642" height="642"/g)].length, 4);
-  assert.equal([...html.matchAll(/href="\/news"/g)].length, 2);
+  assert.doesNotMatch(html, /<a |Read more|VIEW MORE|VIEW ALL NEWS/);
+  assert.equal(render(HomeTrendingNews, {articles:[]}), "");
   assert.match(html, /loading="lazy" decoding="async"/);
   assert.doesNotMatch(html, /aria-label="Read more:|<script/);
   assert.throws(() => render(TrendingNewsCard, { article: source.news.selected[0], variant: "unsupported" }), /Unsupported trending news card variant/);
@@ -58,9 +59,12 @@ test("event SSR preserves card summaries/date ranges/locations and same-tab link
   assert.doesNotMatch(render(HomeUpcomingEvents, { events: [] }), /data-event-card/);
 });
 
-test("homepage is server-rendered in five-section source order and evaluated per request, with noindex retained", () => {
-  const html = render(HomePage);
-  const hooks = ["data-home-hero", "data-monitoring-dashboard-section", "data-research-outputs-section", "data-trending-news-section", "data-upcoming-events-section"];
+test("homepage remains server-rendered per request with noindex and hides empty live news", async () => {
+  const original = process.env.DATABASE_URL; delete process.env.DATABASE_URL;
+  let element; try { element = await HomePage(); } finally { if (original !== undefined) process.env.DATABASE_URL = original; }
+  const html = render(() => element);
+  assert.equal(html.includes("data-trending-news-section"), false);
+  const hooks = ["data-home-hero", "data-monitoring-dashboard-section", "data-research-outputs-section", "data-upcoming-events-section"];
   const positions = hooks.map(hook => html.indexOf(hook));
   assert.ok(positions.every(position => position >= 0));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions);

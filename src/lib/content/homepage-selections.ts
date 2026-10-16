@@ -1,5 +1,5 @@
 import { publicationRecords, type PublicationRecord } from "./publications";
-import { newsRecords, type NewsRecord } from "./news";
+import { type NewsRecord } from "./news";
 import { eventRecords, type EventRecord } from "./events";
 
 // Source strcmp ordering for the ASCII dates/slugs, independent of host locale.
@@ -11,7 +11,7 @@ export function selectFeaturedPublications(records: readonly PublicationRecord[]
     .sort((a, b) => compare(b.publication_date, a.publication_date) || compare(a.slug, b.slug)).slice(0, limit);
 }
 
-export function selectTrendingNews(records: readonly NewsRecord[] = newsRecords, limit = 4) {
+export function selectTrendingNews(records: readonly NewsRecord[], limit = 4) {
   if (limit <= 0) return [];
   return [...records].sort((a, b) => Number(b.featured === true) - Number(a.featured === true)
     || compare(b.published_at, a.published_at) || compare(a.slug, b.slug)).slice(0, limit);

@@ -1,5 +1,7 @@
 # A06.5 — research editor and group deletion review
 
+**Current owner status (16 October 2026):** PR #25 (`04f71b7`) merged. The owner confirmed group deletion and focus-area removal work; remaining A06 walkthroughs are not inferred complete. The implementation evidence below is historical.
+
 **16 October 2026 · Pushed / In review.** Branch `codex/a06-5-research-editor-deletion` starts at latest main `3b05477`, containing A06 [PR #24](https://github.com/thedanieldiya/nosee-new/pull/24) / `4888b53`. **6/13 core milestones merged.** This is a correction within A06; the request/merge does not establish full A06 owner acceptance. [Current research contract](../06-research-groups.md).
 
 ## Delivered behavior

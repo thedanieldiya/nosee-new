@@ -17,10 +17,10 @@ test("all publication/news/event records and current selections equal pinned PHP
   assertPinned(newsRecords, source.newsHash);
   assertPinned(eventRecords, source.eventsHash);
   assert.deepEqual(slugs(selectFeaturedPublications()), source.publications);
-  assert.deepEqual(slugs(selectTrendingNews()), source.news);
+  assert.deepEqual(slugs(selectTrendingNews(newsRecords)), source.news);
   assert.deepEqual(slugs(selectFeaturedUpcoming(eventRecords, source.asOf)), source.events);
   assertPinned(selectFeaturedPublications(), source.publicationsSelectedHash);
-  assertPinned(selectTrendingNews(), source.newsSelectedHash);
+  assertPinned(selectTrendingNews(newsRecords), source.newsSelectedHash);
   assertPinned(selectFeaturedUpcoming(eventRecords, source.asOf), source.eventsSelectedHash);
   assert.deepEqual([publicationRecords.length, newsRecords.length, eventRecords.length], [10, 9, 9]);
 });
@@ -109,5 +109,5 @@ test("three original news PNG hashes/dimensions match, with the fourth article r
     if (asset.dimensions) assert.deepEqual([bytes.readUInt32BE(16), bytes.readUInt32BE(20)], asset.dimensions);
   }
   assert.equal(assets.filter(a => a.dimensions).reduce((sum, a) => sum + a.bytes, 0), 547673);
-  assert.equal(selectTrendingNews()[3].image, "/media/trending/trending2.png");
+  assert.equal(selectTrendingNews(newsRecords)[3].image, "/media/trending/trending2.png");
 });
