@@ -35,8 +35,9 @@ export function NewsEditor({ initial, id, version, status = "draft", requestId, 
   useEffect(() => { if (focusSaved) statusRef.current?.focus(); }, [focusSaved]);
 
   const zone = editorialZone(fields.publicationTimezone);
+  const temporalEdited = date !== initialTime.date || time !== initialTime.time || zone !== timeZone;
   let instant: string;
-  try { instant = editorialInstant(date, time, zone); }
+  try { instant = temporalEdited ? editorialInstant(date, time, zone) : initial.publicationDate; }
   catch { instant = date + " " + time + " " + zone; }
   const candidate = { ...fields, publicationDate: instant, publicationTimezone: zone };
   const candidateKey = draftFingerprint(candidate);
@@ -84,7 +85,7 @@ export function NewsEditor({ initial, id, version, status = "draft", requestId, 
     if (submitting.current || !formRef.current?.reportValidity()) return;
     submitting.current = true; setBusy(true); setError("");
     try {
-      const resolved = editorialInstant(date, time, zone);
+      const resolved = temporalEdited ? editorialInstant(date, time, zone) : initial.publicationDate;
       const payloadFields = { ...fields, publicationDate: resolved, publicationTimezone: zone };
       const fingerprint = mode + ":" + (version ?? 0) + ":" + draftFingerprint(payloadFields);
       if (!actionKey.current || actionKey.current.fingerprint !== fingerprint) actionKey.current = { fingerprint, id: crypto.randomUUID() };
