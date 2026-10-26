@@ -10,11 +10,10 @@ import type { ResearchTransaction } from "../research/security.ts";
 import { descriptionText } from "../research/description.ts";
 import { automaticSlug } from "../content/slug.ts";
 import { newsCreateInput, newsUpdateInput, newsPublicationInput, newsDeletionInput, newsQuery, newsContentInput } from "./input.ts";
-import type { NewsContent } from "./options.ts";
+import { newsDeletionPhrase, type NewsContent } from "./options.ts";
 
 export type NewsStatus = "draft" | "published" | "unpublished" | "deleted";
 export type ArticleRecord = NewsContent & { id: string; version: number; status: NewsStatus; publishedContent: NewsContent | null; publishedAt: string | null; updatedAt: string };
-export const newsDeletionPhrase = (title: string) => `Delete ${title}`;
 const fields = { title: newsArticle.title, slug: newsArticle.slug, category: newsArticle.category, excerpt: newsArticle.excerpt, body: newsArticle.body, publicationDate: newsArticle.publicationDate, publicationTimezone: newsArticle.publicationTimezone, featured: newsArticle.featured, coverImage: newsArticle.coverImage, coverAlt: newsArticle.coverAlt };
 const projection = { ...fields, id: newsArticle.id, version: newsArticle.version, status: newsArticle.status, publishedContent: newsArticle.publishedContent, publishedAt: newsArticle.publishedAt, updatedAt: newsArticle.updatedAt, lastMutationKey: newsArticle.lastMutationKey, lastMutationDigest: newsArticle.lastMutationDigest };
 const serialize = <T>(value: unknown): T => JSON.parse(JSON.stringify(value));
