@@ -51,8 +51,8 @@ export async function activityDirectory(actor: Principal, raw: unknown) {
     else if (query.actor) predicates.push(sql`a.actor_id=${query.actor}::uuid`);
     if (query.action) predicates.push(sql`a.action=${query.action}`);
     if (query.target) predicates.push(sql`concat_ws(' ',a.target_type,a.target_id::text,a.target_label) ilike ${pattern(query.target)}`);
-    if (query.from) predicates.push(sql`a.created_at >= ${query.from}::date::timestamp at time zone 'UTC'`);
-    if (query.to) predicates.push(sql`a.created_at < (${query.to}::date+1)::timestamp at time zone 'UTC'`);
+    if (query.from) predicates.push(sql`a.created_at >= ${query.from}::date::timestamp at time zone 'Africa/Lagos'`);
+    if (query.to) predicates.push(sql`a.created_at < (${query.to}::date+1)::timestamp at time zone 'Africa/Lagos'`);
     const where = sql.join(predicates, sql` and `);
     const total = Number((await tx.execute<{ total: number }>(sql`select count(*)::int total from admin_audit_log a where ${where}`)).rows[0].total);
     const page = Math.min(query.page, Math.max(1, Math.ceil(total / PAGE_SIZE)));
