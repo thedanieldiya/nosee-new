@@ -8,7 +8,7 @@ import ts from "typescript";
 const sourceRoot = new URL("../../src/", import.meta.url);
 registerHooks({
   resolve(specifier, context, nextResolve) {
-    if (specifier === "next/navigation") return nextResolve("next/navigation.js", context);
+    if (["next/navigation", "next/link"].includes(specifier)) return nextResolve(specifier + ".js", context);
     const base = specifier.startsWith("@/") ? new URL(specifier.slice(2), sourceRoot)
       : specifier.startsWith(".") && context.parentURL?.startsWith(sourceRoot.href) ? new URL(specifier, context.parentURL) : null;
     if (base) {

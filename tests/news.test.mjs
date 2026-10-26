@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {render} from './helpers/render-site.mjs';
-import {newsCategories,emptyNewsFields,newsDeletionPhrase} from '../src/lib/news/options.ts';
+import {newsCategories,emptyNewsFields,newsDeletionPhrase,editableNewsFields} from '../src/lib/news/options.ts';
 import {newsFieldsInput,newsCreateInput,newsUpdateInput,newsPublicationInput,newsContentInput,newsFeedInput,newsDeletionInput,newsQuery} from '../src/lib/news/input.ts';
 import {draftFingerprint} from '../src/lib/news/draft-state.ts';
 import {automaticSlug} from '../src/lib/content/slug.ts';
@@ -10,6 +10,14 @@ import {newsRecords} from '../src/lib/content/news.ts';
 const {HomeTrendingNews}=await import('../src/components/site/sections/HomeTrendingNews.tsx');
 const {TrendingNewsCard}=await import('../src/components/site/cards/TrendingNewsCard.tsx');
 const fields={...emptyNewsFields(new Date('2026-01-01T00:00:00Z')),title:'Synthetic headline',excerpt:'Synthetic summary',body:'Synthetic body'};
+test('saved records expose only editable fields to strict saves and snapshot comparisons',()=>{
+ const stored={...fields,id:randomUUID(),slug:'reserved-url',status:'published',version:4,publishedContent:{...fields},coverImage:'',coverAlt:'',lastMutationKey:randomUUID(),updatedAt:'2026-01-01T00:00:00Z'};
+ const editable=editableNewsFields(stored);
+ assert.deepEqual(editable,fields);
+ assert.ok(newsFieldsInput.safeParse(editable).success);
+ assert.equal(draftFingerprint(editable),draftFingerprint(fields));
+ assert.ok(!newsFieldsInput.safeParse(stored).success);
+});
 test('news categories reuse every established content value without an invented taxonomy',()=>{assert.deepEqual([...newsCategories].sort(),[...new Set(newsRecords.map(n=>n.category))].sort());});
 test('news fields enforce documented limits and safe structured bodies while allowing incomplete drafts',()=>{
  assert.ok(newsFieldsInput.safeParse({...fields,excerpt:'',body:''}).success);for(const patch of[{title:''},{title:'x'.repeat(161)},{excerpt:'x'.repeat(401)},{category:'invented'},{featured:1},{body:'x'.repeat(6001)},{body:{type:'doc',content:[{type:'image',attrs:{src:'data:image/svg+xml,x'}}]}},{publicationDate:'tomorrow'},{title:'bad\u0000'}])assert.equal(newsFieldsInput.safeParse({...fields,...patch}).success,false);assert.ok(newsFieldsInput.safeParse({...fields,body:'<script>literal text</script>\n\nNo execution'}).success);

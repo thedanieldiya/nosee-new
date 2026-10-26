@@ -54,8 +54,11 @@ async function record(title) {
   return result.rows[0];
 }
 async function saved(page, label) {
+  const response = page.waitForResponse(r => r.url().includes('/api/admin/news') && ['POST','PATCH'].includes(r.request().method()));
   await page.getByRole('button', { name: label, exact: true }).click();
+  assert.equal((await response).status(), 200);
   await page.waitForURL(url => /^\/admin\/publishing\/news\/[0-9a-f-]{36}$/.test(url.pathname) && url.searchParams.get('saved') === '1');
+  await page.waitForLoadState('networkidle');
 }
 async function editFields(page, title) {
   await page.locator('#news-title').fill(title);

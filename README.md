@@ -54,7 +54,7 @@ PostgreSQL + Drizzle + Better Auth provide real administrator sign-in/out, fixed
 
 [Operator setup/architecture](docs/admin/architecture.md) documents required `DATABASE_URL`, `BETTER_AUTH_SECRET`, exact `ADMIN_ORIGIN`, optional direct migration URL, TLS, migrations and secure initial provisioning. Run `npm run admin:migrate` then `npm run admin:bootstrap` from an authorised interactive terminal for the intended environment. No default accounts/passwords, signup, auto-migration or build-time provisioning. Missing infrastructure fails closed.
 
-[Review/screenshots/walkthrough](docs/admin/reviews/01-foundation.md) and [Admin tracker](docs/admin/TRACKER.md) distinguish local real-PostgreSQL validation from **Preview blocked** hosted/owner review. `npm run test:admin` requires the explicitly named disposable loopback test database and local app; it refuses production/preview databases. Email changes, uploads, invitations and all module editors remain unavailable. No A02 work.
+[Review/screenshots/walkthrough](docs/admin/reviews/01-foundation.md) and [Admin tracker](docs/admin/TRACKER.md) distinguish local real-PostgreSQL validation from **Preview blocked** hosted/owner review. `npm run test:admin` requires the explicitly named disposable loopback test database and local app; it refuses production/preview databases. A01–A07 are merged, including the A07.1 News correction and follow-up PR #28. See the [current A07.1 setup, verification and owner walkthroughs](docs/admin/07-1-news-workflow-public-wat-toasts.md). News and Research workspaces are implemented; uploads, live email acceptance and remaining modules stay separately gated.
 
 ## Preview deployment
 

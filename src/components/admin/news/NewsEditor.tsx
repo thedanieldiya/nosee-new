@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { newsCategories, type NewsFields } from "@/lib/news/options";
+import { newsCategories, editableNewsFields, type NewsFields } from "@/lib/news/options";
 import { editorialZones } from "@/lib/news/input";
 import { draftFingerprint } from "@/lib/news/draft-state";
 import { editorialInstant, editorialLocal, editorialZone } from "@/lib/timezones";
@@ -20,10 +20,12 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
 
 type Props = { initial: NewsFields; id?: string; version?: number; status?: string; requestId: string; published?: NewsFields | null; focusSaved?: boolean };
+type HistoryNavigation = EventTarget & { traverseTo(key: string): unknown };
+type HistoryEvent = Event & { navigationType: string; destination: { key: string; url: string; sameDocument: boolean } };
 export function NewsEditor({ initial, id, version, status = "draft", requestId, published = null, focusSaved = false }: Props) {
   const router = useRouter(), timeZone = editorialZone(initial.publicationTimezone);
   const initialTime = editorialLocal(initial.publicationDate, timeZone);
-  const baseline = { ...initial, publicationTimezone: timeZone };
+  const baseline = { ...editableNewsFields(initial), publicationTimezone: timeZone };
   const [fields, setFields] = useState<NewsFields>(baseline);
   const [date, setDate] = useState(initialTime.date), [time, setTime] = useState(initialTime.time);
   const [savedKey, setSavedKey] = useState(draftFingerprint(baseline));
@@ -55,31 +57,40 @@ export function NewsEditor({ initial, id, version, status = "draft", requestId, 
     const warn = (event: BeforeUnloadEvent) => { if (allowLeaving.current) return; event.preventDefault(); event.returnValue = ""; };
     const internalClick = (event: MouseEvent) => {
       if (allowLeaving.current || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
-      const anchor = event.target instanceof Element ? event.target.closest("a[href]") : null;
+      const anchor = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[href]") : null;
       if (!anchor || anchor.hasAttribute("download") || anchor.getAttribute("target") === "_blank") return;
       const href = new URL(anchor.href, window.location.href);
       if (href.origin !== location.origin || href.href === location.href) return;
       event.preventDefault(); event.stopPropagation();
       leaveTrigger.current = anchor; setLeaving(href.pathname + href.search + href.hash);
     };
-    const url = location.href;
-    history.pushState({ noseeNewsGuard: true }, "", url);
-    const historyAttempt = () => {
-      if (allowLeaving.current) return;
-      history.pushState({ noseeNewsGuard: true }, "", url);
-      leaveTrigger.current = null; setLeaving("__history__");
+    // Cancel reliable same-document traversals without adding synthetic history entries.
+    // Other browsers retain native unload protection and the internal-link guard.
+    const navigation = (window as Window & { navigation?: HistoryNavigation }).navigation;
+    const historyAttempt = (event: Event) => {
+      const attempt = event as HistoryEvent;
+      if (allowLeaving.current || attempt.navigationType !== "traverse" || !attempt.cancelable || !attempt.destination.sameDocument) return;
+      if (new URL(attempt.destination.url).origin !== location.origin) return;
+      attempt.preventDefault();
+      leaveTrigger.current = null; setLeaving("__history__:" + attempt.destination.key);
     };
     window.addEventListener("beforeunload", warn);
     window.addEventListener("click", internalClick, true);
-    window.addEventListener("popstate", historyAttempt);
-    return () => { window.removeEventListener("beforeunload", warn); window.removeEventListener("click", internalClick, true); window.removeEventListener("popstate", historyAttempt); };
+    navigation?.addEventListener("navigate", historyAttempt);
+    return () => { window.removeEventListener("beforeunload", warn); window.removeEventListener("click", internalClick, true); navigation?.removeEventListener("navigate", historyAttempt); };
   }, [dirty]);
 
   function navigate(destination: string) {
     allowLeaving.current = true;
     setLeaving(null);
-    if (destination === "__history__") window.history.go(-2);
-    else { router.push(destination); router.refresh(); }
+    if (destination.startsWith("__history__:")) (window as Window & { navigation?: HistoryNavigation }).navigation?.traverseTo(destination.slice("__history__:".length));
+    else {
+      const anchor = leaveTrigger.current;
+      // Replay the confirmed link so sidebar menus also finish their normal close action.
+      if (anchor instanceof HTMLAnchorElement && anchor.href === new URL(destination, location.href).href) anchor.click();
+      else router.push(destination);
+      router.refresh();
+    }
   }
   async function save(mode: "draft" | "publish", destination?: string) {
     if (submitting.current || !formRef.current?.reportValidity()) return;
@@ -100,7 +111,7 @@ export function NewsEditor({ initial, id, version, status = "draft", requestId, 
       else adminToast.success(mode === "publish" ? "Article published" : "Draft saved");
       actionKey.current = null;
       allowLeaving.current = true;
-      navigate(destination && destination !== "__history__" ? destination : destination === "__history__" ? destination : "/admin/publishing/news/" + result.id + "?saved=1");
+      navigate(destination ?? "/admin/publishing/news/" + result.id + "?saved=1");
     } catch (failure) {
       const message = failure instanceof Error && failure.message !== "Failed to fetch" ? failure.message : "The save could not be confirmed. Your content remains in the editor; check the saved version before retrying.";
       setError(message); adminToast.error("Couldn’t save changes");

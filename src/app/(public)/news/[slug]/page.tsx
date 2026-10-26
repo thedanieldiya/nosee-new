@@ -14,7 +14,7 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const article = process.env.DATABASE_URL ? await publishedNewsArticle(slug) : null;
-  if (!article) return { title: "Page not found | NOSEE", robots: { index: false, follow: false } };
+  if (!article) return { title: "Page not found — NOSEE", robots: { index: false, follow: false } };
   return { title: article.title + " | NOSEE", description: article.excerpt, alternates: { canonical: newsCanonical("/news/" + article.slug) }, robots: { index: false, follow: false } };
 }
 export default async function ArticlePage({ params }: Props) {
