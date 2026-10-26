@@ -1,4 +1,5 @@
 "use client";
+import { adminToast } from "@/components/admin/AdminToasts";
 import { useRef, useState, useEffect, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -30,8 +31,8 @@ export function MemberForm({ initial, requestId, memberId, version }: { initial:
       const response = await fetch(endpoint, { method: memberId ? "PATCH" : "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ fields, confirm: true, ...(memberId ? { version } : { requestId }) }) });
       const result = await response.json(); if (!response.ok) throw new Error(result.error || "The member could not be saved.");
       if (!/^[0-9a-f-]{36}$/.test(result.id)) throw new Error("The save could not be confirmed. Check the directory before retrying.");
-      setOpen(false); router.push(`/admin/membership/members/${result.id}`); router.refresh();
-    } catch (failure) { setOpen(false); setError(failure instanceof Error && failure.message !== "Failed to fetch" ? failure.message : "The save could not be confirmed. Check the directory before retrying; do not assume it was saved."); }
+      adminToast.success(memberId ? "Changes saved" : "Member added"); setOpen(false); router.push(`/admin/membership/members/${result.id}`); router.refresh();
+    } catch (failure) { setOpen(false); setError(failure instanceof Error && failure.message !== "Failed to fetch" ? failure.message : "The save could not be confirmed. Check the directory before retrying; do not assume it was saved."); adminToast.error("Couldn’t save changes"); }
     finally { setBusy(false); }
   }
   const back = memberId ? `/admin/membership/members/${memberId}` : "/admin/membership/members";
