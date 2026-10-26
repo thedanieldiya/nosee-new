@@ -1,6 +1,6 @@
 export type NewsRecord = Readonly<{
   slug: string; title: string; excerpt: string; category: string; published_at: string;
-  image: string; image_alt: string; featured: boolean;
+  image: string; image_alt: string; featured: boolean; editorial_timezone?: string;
 }>;
 
 // Literal pinned development fixtures; not approved organisational facts.

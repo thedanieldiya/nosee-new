@@ -1,5 +1,6 @@
 import type { NewsRecord } from "@/lib/content/news";
 import { Container } from "@/components/site/ui/Container";
+import { ButtonLink } from "@/components/site/ui/ButtonLink";
 import { TrendingNewsCard } from "@/components/site/cards/TrendingNewsCard";
 
 export function HomeTrendingNews({ articles }: { articles: readonly NewsRecord[] }) {
@@ -13,6 +14,7 @@ export function HomeTrendingNews({ articles }: { articles: readonly NewsRecord[]
           {articles.slice(1).map(article => <div key={article.slug} data-reveal-item><TrendingNewsCard article={article} variant="compact" /></div>)}
         </div>
       </div>
+      <div className="flex justify-end"><ButtonLink href="/news" variant="stroke" intent="secondary">View all news</ButtonLink></div>
     </div></Container>
   </section>;
 }
