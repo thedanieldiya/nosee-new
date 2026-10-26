@@ -1,4 +1,5 @@
 "use client";
+import { adminToast } from "@/components/admin/AdminToasts";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { researchDeletionPhrase } from "@/lib/research/slug";
@@ -18,10 +19,11 @@ export function DeleteResearchGroup({ id, version, name }: { id: string; version
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "The research group could not be deleted.");
       if (result.id !== id) throw new Error("Deletion could not be confirmed. Check the directory before retrying.");
-      if (result.cacheRefresh === "unconfirmed") { setError(result.message); return; }
+      if (result.cacheRefresh === "unconfirmed") adminToast.warning("Research group deleted", "Website cache refresh could not be confirmed.");
+      else adminToast.success("Research group deleted");
       setOpen(false); router.push("/admin/research"); router.refresh();
     } catch (failure) {
-      setError(failure instanceof Error && failure.message !== "Failed to fetch" ? failure.message : "Deletion could not be confirmed. Reload and check the directory before retrying.");
+      setError(failure instanceof Error && failure.message !== "Failed to fetch" ? failure.message : "Deletion could not be confirmed. Reload and check the directory before retrying."); adminToast.error("Couldn’t delete research group");
     } finally { submitting.current = false; setBusy(false); }
   }
   return <div className="border-t border-line-mild pt-6">

@@ -1,4 +1,5 @@
 "use client";
+import { adminToast } from "@/components/admin/AdminToasts";
 import { useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -20,8 +21,8 @@ export function InvitationForm({ configured }: { configured: boolean }) {
   const router = useRouter();
   async function invite(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setPending(true); setError(""); setMessage(""); const form = event.currentTarget, data = new FormData(form);
-    try { const result = await submit("/api/admin/administrators", { action: "invite", firstName: data.get("firstName"), lastName: data.get("lastName"), email: data.get("email"), role: data.get("role") }); setMessage(result.message); form.reset(); setOpen(false); router.refresh(); }
-    catch (error) { setError(error instanceof Error ? error.message : "Unable to invite."); } finally { setPending(false); }
+    try { const result = await submit("/api/admin/administrators", { action: "invite", firstName: data.get("firstName"), lastName: data.get("lastName"), email: data.get("email"), role: data.get("role") }); setMessage(result.message); adminToast.info("Invitation request processed", result.message); form.reset(); setOpen(false); router.refresh(); }
+    catch (error) { setError(error instanceof Error ? error.message : "Unable to invite."); adminToast.error("Couldn’t send invitation"); } finally { setPending(false); }
   }
   return <div><Dialog open={open} onOpenChange={setOpen}><DialogTrigger asChild><Button disabled={!configured} aria-describedby={!configured ? "email-configuration" : undefined}>Invite administrator</Button></DialogTrigger><DialogContent><DialogTitle className="text-xl font-semibold">Invite administrator</DialogTitle><DialogDescription className="mt-2 mb-6 text-secondary">The recipient will receive an account setup email. The invitation expires in 48 hours.</DialogDescription><form onSubmit={invite} aria-busy={pending} className="space-y-5"><div className="grid gap-4 sm:grid-cols-2"><Field label="First name" id="invite-first"><Input id="invite-first" name="firstName" required maxLength={80} disabled={pending} /></Field><Field label="Last name" id="invite-last"><Input id="invite-last" name="lastName" required maxLength={80} disabled={pending} /></Field></div><Field label="Email" id="invite-email"><Input id="invite-email" name="email" type="email" required maxLength={254} disabled={pending} /></Field><Field label="Access role" id="invite-role"><Select id="invite-role" name="role" defaultValue="editor" disabled={pending} aria-describedby="invite-lead"><RoleOptions /></Select></Field><p id="invite-lead" className="text-xs text-secondary">Invite Group Leads from their Research group after explicitly selecting an Active NOSEE member.</p>{error ? <p role="alert" className="text-red-800">{error}</p> : null}<div className="flex flex-wrap justify-end gap-3"><DialogClose asChild><Button variant="outline" disabled={pending}>Cancel</Button></DialogClose><Button type="submit" disabled={pending}>{pending ? "Sending invitation…" : "Send invitation"}</Button></div></form></DialogContent></Dialog><p role="status" className="mt-3 text-secondary">{message}</p></div>;
 }
@@ -31,8 +32,8 @@ export function AdministratorActions({ row, self, configured }: { row: Directory
   const label = action === "change-role" ? "Change role" : action === "deactivate" ? "Deactivate account" : action === "activate" ? "Reactivate account" : action === "revoke" ? "Revoke invitation" : "Resend invitation";
   async function confirm(event: FormEvent) {
     event.preventDefault(); setPending(true); setError(""); setMessage("");
-    try { const result = await submit("/api/admin/administrators", { action, id: row.id, ...(action === "change-role" ? { role } : {}) }); setMessage(result.message); setOpen(false); router.refresh(); }
-    catch (error) { setError(error instanceof Error ? error.message : "Unable to update."); } finally { setPending(false); }
+    try { const result = await submit("/api/admin/administrators", { action, id: row.id, ...(action === "change-role" ? { role } : {}) }); setMessage(result.message); adminToast.success("Administrator updated"); setOpen(false); router.refresh(); }
+    catch (error) { setError(error instanceof Error ? error.message : "Unable to update."); adminToast.error("Couldn’t update administrator"); } finally { setPending(false); }
   }
   const unavailable = invitation && row.status === "revoked";
   function start(value: string) { trigger.current = document.activeElement as HTMLElement; setAction(value); setError(""); setOpen(true); }
@@ -44,8 +45,8 @@ export function AcceptInvitationForm({ available }: { available: boolean }) {
     event.preventDefault(); setPending(true); setError(""); const form = event.currentTarget, data = new FormData(form);
     try {
       if (data.get("password") !== data.get("confirmation")) throw new Error("Passwords must match.");
-      const result = await submit("/api/admin/accept-invitation", { code: data.get("code"), password: data.get("password"), confirmation: data.get("confirmation") }); form.reset(); setMessage(result.message);
-    } catch (error) { setError(error instanceof Error ? error.message : "Unable to set up account."); } finally { setPending(false); }
+      const result = await submit("/api/admin/accept-invitation", { code: data.get("code"), password: data.get("password"), confirmation: data.get("confirmation") }); form.reset(); setMessage(result.message); adminToast.success("Account ready");
+    } catch (error) { setError(error instanceof Error ? error.message : "Unable to set up account."); adminToast.error("Couldn’t activate account"); } finally { setPending(false); }
   }
   if (message) return <div className="space-y-5"><p role="status">{message}</p><Button asChild><Link href="/admin/sign-in">Continue to sign in</Link></Button></div>;
   return <form onSubmit={accept} aria-busy={pending} className="space-y-5">{!available ? <p role="status">Account setup is currently unavailable. Please try again later.</p> : null}<Field label="Invitation code" id="accept-code"><Input id="accept-code" name="code" type="password" autoComplete="off" autoCapitalize="none" spellCheck={false} required minLength={43} maxLength={43} disabled={!available || pending} aria-describedby="accept-code-help" /></Field><p id="accept-code-help" className="text-xs text-secondary">Enter the one-time code from your invitation email. The code expires after 48 hours.</p><Field label="New password" id="accept-password"><Input id="accept-password" name="password" type="password" autoComplete="new-password" required minLength={15} maxLength={128} disabled={!available || pending} aria-describedby="accept-password-help" /></Field><Field label="Confirm password" id="accept-confirmation"><Input id="accept-confirmation" name="confirmation" type="password" autoComplete="new-password" required minLength={15} maxLength={128} disabled={!available || pending} /></Field><p id="accept-password-help" className="text-xs text-secondary">Use 15–128 characters. A long, unique passphrase is recommended.</p>{error ? <p role="alert" className="text-red-800">{error}</p> : null}<Button type="submit" disabled={!available || pending} className="w-full">{pending ? "Setting up account…" : "Set up account"}</Button></form>;

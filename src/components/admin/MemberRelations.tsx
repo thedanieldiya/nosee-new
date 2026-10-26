@@ -1,4 +1,5 @@
 "use client";
+import { adminToast } from "@/components/admin/AdminToasts";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -12,8 +13,8 @@ function RelationConfirmation({ endpoint, payload, title, description, children,
     try {
       const response = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...payload, confirm: true }) });
       const result = await response.json(); if (!response.ok) throw new Error(result.error || "The association could not be saved.");
-      setMessage(result.message); setOpen(false); router.refresh();
-    } catch (failure) { setError(failure instanceof Error && failure.message !== "Failed to fetch" ? failure.message : "The association could not be confirmed. Reload and check the record before retrying."); }
+      setMessage(result.message); adminToast.success("Changes saved"); setOpen(false); router.refresh();
+    } catch (failure) { setError(failure instanceof Error && failure.message !== "Failed to fetch" ? failure.message : "The association could not be confirmed. Reload and check the record before retrying."); adminToast.error("Couldn’t save changes"); }
     finally { setBusy(false); }
   }
   return <div className="space-y-3"><Button ref={trigger} variant="outline" disabled={disabled || busy} onClick={() => { setError(""); setOpen(true); }}>{title}</Button><p role="status">{message}</p><Dialog open={open} onOpenChange={value => { if (!busy) setOpen(value); }}><DialogContent onCloseAutoFocus={event => { event.preventDefault(); trigger.current?.focus(); }}><DialogTitle className="text-xl font-semibold">{title}</DialogTitle><DialogDescription className="mt-3 text-secondary">{description}</DialogDescription><div className="my-5">{children}</div>{error ? <p role="alert" className="my-4 text-red-800">{error}</p> : null}<div className="flex justify-end gap-3"><DialogClose asChild><Button variant="outline" disabled={busy}>Cancel</Button></DialogClose><Button disabled={busy} onClick={() => void save()}>{busy ? "Saving…" : "Confirm association"}</Button></div></DialogContent></Dialog></div>;

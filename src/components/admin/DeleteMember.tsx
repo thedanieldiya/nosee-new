@@ -1,4 +1,5 @@
 "use client";
+import { adminToast } from "@/components/admin/AdminToasts";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { memberDeletionPhrase } from "@/lib/membership/member-options";
@@ -18,9 +19,9 @@ export function DeleteMember({ id, version, firstName, lastName, disabled }: { i
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "The member could not be deleted.");
       if (result.id !== id) throw new Error("Deletion could not be confirmed. Check the directory before retrying.");
-      setOpen(false); router.push("/admin/membership/members"); router.refresh();
+      adminToast.success("Member deleted"); setOpen(false); router.push("/admin/membership/members"); router.refresh();
     } catch (failure) {
-      setError(failure instanceof Error && failure.message !== "Failed to fetch" ? failure.message : "Deletion could not be confirmed. Reload and check the directory before retrying.");
+      setError(failure instanceof Error && failure.message !== "Failed to fetch" ? failure.message : "Deletion could not be confirmed. Reload and check the directory before retrying."); adminToast.error("Couldn’t delete member");
     } finally { submitting.current = false; setBusy(false); }
   }
   return <div className="border-t border-line-mild pt-6">
