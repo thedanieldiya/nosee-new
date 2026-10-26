@@ -29,7 +29,7 @@ test("research SSR preserves three exact publications, authors/year/area and ext
   assert.doesNotMatch(html, /<script/);
 });
 
-test("news SSR preserves featured + three compact cards, truthful noninteractive summaries, sr-only context, dates and image attributes", () => {
+test("news SSR preserves featured + three compact cards, article links, sr-only context, dates and image attributes", () => {
   const html = render(HomeTrendingNews, {articles:source.news.selected});
   assert.match(html, /What’s Trending/);
   assert.equal([...html.matchAll(/data-variant="featured"/g)].length, 1);
@@ -39,7 +39,9 @@ test("news SSR preserves featured + three compact cards, truthful noninteractive
     assert.ok(html.toLowerCase().includes(`datetime="${record.published_at}"`.toLowerCase()));
   });
   assert.equal([...html.matchAll(/width="642" height="642"/g)].length, 4);
-  assert.doesNotMatch(html, /<a |Read more|VIEW MORE|VIEW ALL NEWS/);
+  for(const record of source.news.selected) assert.ok(html.includes(`href="/news/${record.slug}"`));
+  assert.match(html, /href="\/news"/);
+  assert.match(html, /View all news/);
   assert.equal(render(HomeTrendingNews, {articles:[]}), "");
   assert.match(html, /loading="lazy" decoding="async"/);
   assert.doesNotMatch(html, /aria-label="Read more:|<script/);

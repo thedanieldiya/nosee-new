@@ -10,7 +10,7 @@ import type { ResearchTransaction } from "../research/security.ts";
 import { descriptionText } from "../research/description.ts";
 import { automaticSlug } from "../content/slug.ts";
 import { newsCreateInput, newsUpdateInput, newsPublicationInput, newsDeletionInput, newsQuery, newsContentInput } from "./input.ts";
-import { newsDeletionPhrase, type NewsContent } from "./options.ts";
+import { newsDeletionPhrase, type NewsContent, type NewsFields } from "./options.ts";
 
 export type NewsStatus = "draft" | "published" | "unpublished" | "deleted";
 export type ArticleRecord = NewsContent & { id: string; version: number; status: NewsStatus; publishedContent: NewsContent | null; publishedAt: string | null; updatedAt: string };
@@ -48,7 +48,7 @@ function sameMutation(article: { lastMutationKey: string | null; lastMutationDig
   if (article.lastMutationDigest !== hashed) throw new ManagementError("This request key has already been used for different changes.", 409);
   return true;
 }
-function snapshot(article: { slug: string; coverImage: string; coverAlt: string }, input: z.output<typeof import("./input.ts").newsFieldsInput>) {
+function snapshot(article: { slug: string; coverImage: string; coverAlt: string }, input: NewsFields) {
   return parse(newsContentInput, { ...input, slug: article.slug, coverImage: article.coverImage, coverAlt: article.coverAlt });
 }
 async function checkPublication(tx: ResearchTransaction, value: { publicationDate: string; excerpt: string; body: NewsContent["body"] }) {

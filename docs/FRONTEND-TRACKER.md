@@ -1,6 +1,6 @@
 # Original Laravel frontend migration tracker
 
-**Updated:** 16 October 2026. **Development milestone complete:** all ten original public-port tasks plus hardening merged. Content, accessibility and production acceptance are separate; see [public-site status and deferred release checklist](PUBLIC-SITE-STATUS.md).
+**Updated:** 26 October 2026. **Development milestone complete:** all ten original public-port tasks plus hardening merged. Content, accessibility and production acceptance are separate; see [public-site status and deferred release checklist](PUBLIC-SITE-STATUS.md).
 
 | Task | Delivered scope | Traceability |
 | --- | --- | --- |
@@ -21,6 +21,6 @@ Mobile normal-motion Lighthouse LCP **3.535s** is accepted for now; ≤2.5s rema
 
 Public changes must preserve source layout, wording, routes, responsive behaviour and the [documented approved exceptions](PUBLIC-SITE-STATUS.md#implemented-scope-and-enduring-exceptions). Run appropriate source/target comparisons for future visual changes and keep generated QA outside Git. Official MingCute glyphs and adjacent-text `currentColor` apply to both public and future admin UI; admin code must stay out of public bundles.
 
-**Admin development:** A01–A07 core milestones merged (**7/13**), including [A07 PR #26](https://github.com/thedanieldiya/nosee-new/pull/26) and [A07.1 correction PR #27](https://github.com/thedanieldiya/nosee-new/pull/27). Conventional News `/news`/article layouts are approved to implement and now built, with owner visual/workflow acceptance pending. [Current scope/setup](admin/07-1-news-workflow-public-wat-toasts.md) and [follow-up branch](https://github.com/thedanieldiya/nosee-new/tree/codex/a07-1-followup-tests-toast-cleanup). Public Research design remains separate; standard DOI publication-page design is approved for A09, not yet built. Only group deletion/focus-area removal are owner-confirmed for A06; live Resend/schedules, uploads, privacy and manual AT/public launch remain pending. This repo is a production candidate; One Smart Space transfer is optional.
+**Admin development:** A01–A07 core milestones merged (**7/13**), including [A07 PR #26](https://github.com/thedanieldiya/nosee-new/pull/26) and [A07.1 correction PR #27](https://github.com/thedanieldiya/nosee-new/pull/27). Conventional News `/news`/article layouts are approved to implement and now built, with owner visual/workflow acceptance pending. [Current scope/setup](admin/07-1-news-workflow-public-wat-toasts.md) and [merged follow-up PR #28](https://github.com/thedanieldiya/nosee-new/pull/28). Completion fixes and verification are on [`codex/a07-1-completion`](https://github.com/thedanieldiya/nosee-new/tree/codex/a07-1-completion) for review. Public Research design remains separate; standard DOI publication-page design is approved for A09, not yet built. Only group deletion/focus-area removal are owner-confirmed for A06; live Resend/schedules, uploads, privacy and manual AT/public launch remain pending. This repo is a production candidate; One Smart Space transfer is optional.
 
 [PRD](PRD.md) · [requirement progress](PROGRESS.md) · [agent instructions](../AGENTS.md)

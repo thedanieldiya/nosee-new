@@ -9,13 +9,14 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogClose } fr
 
 export function DeleteArticle({ id, version, title }: { id: string; version: number; title: string }) {
   const router = useRouter(), trigger = useRef<HTMLButtonElement>(null), cancel = useRef<HTMLButtonElement>(null), submitting = useRef(false);
+  const mutationId = useRef<string>("");
   const [open, setOpen] = useState(false), [phrase, setPhrase] = useState(""), [busy, setBusy] = useState(false), [error, setError] = useState("");
   const required = newsDeletionPhrase(title);
   async function remove() {
     if (submitting.current || phrase !== required) return;
     submitting.current = true; setBusy(true); setError("");
     try {
-      const response = await fetch("/api/admin/news/" + id, { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ phrase, version, mutationId: crypto.randomUUID() }) });
+      const response = await fetch("/api/admin/news/" + id, { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ phrase, version, mutationId: mutationId.current }) });
       const result = await response.json().catch(() => null);
       if (!response.ok || result?.id !== id) throw new Error(result?.error || "Deletion could not be confirmed. Check the news directory before retrying.");
       if (result.cacheRefresh === "unconfirmed") adminToast.warning("Article deleted", "The website cache refresh could not be confirmed.");
@@ -29,7 +30,7 @@ export function DeleteArticle({ id, version, title }: { id: string; version: num
   return <section className="border-t border-line-mild pt-8" aria-labelledby="delete-article-heading">
     <h2 id="delete-article-heading" className="font-semibold">Delete article</h2>
     <p className="my-3 text-secondary">Deletion removes the article from the website. Its URL is reserved, and administrative history is retained.</p>
-    <Button ref={trigger} type="button" variant="destructive" onClick={() => { setPhrase(""); setError(""); setOpen(true); }}>Delete article</Button>
+    <Button ref={trigger} type="button" variant="destructive" onClick={() => { mutationId.current = crypto.randomUUID(); setPhrase(""); setError(""); setOpen(true); }}>Delete article</Button>
     <Dialog open={open} onOpenChange={value => { if (!submitting.current) setOpen(value); }}>
       <DialogContent onOpenAutoFocus={event => { event.preventDefault(); cancel.current?.focus(); }} onCloseAutoFocus={event => { event.preventDefault(); trigger.current?.focus(); }}>
         <DialogTitle className="text-xl font-semibold">Delete article?</DialogTitle>

@@ -61,16 +61,16 @@ test("unknown slug takes the real Next not-found path and original 404 content",
   assert.match(render(NotFoundContent), /pt-10 pb-16 lg:pt-6/);
   assert.match(render(NotFoundContent), />Page not found<\/h1>/);
 });
-test("route rewrites preserve unknown 404 and encoded/trailing meeting semantics", () => {
+test("route rewrites preserve unknown 404 and encoded/trailing meeting semantics", async () => {
   for (const method of ["GET", "HEAD"]) {
-    const response = proxy(new NextRequest("https://nosee.example/events/missing?q=original", { method }));
+    const response = await proxy(new NextRequest("https://nosee.example/events/missing?q=original", { method }));
     assert.equal(response.headers.get("x-middleware-rewrite"), "https://nosee.example/events/missing/__nosee_not_found__?q=original");
   }
   for (const slug of [...eventRecords.map(e => e.slug), "archive"]) {
-    assert.equal(proxy(new NextRequest(`https://nosee.example/events/${slug}`)).headers.get("x-middleware-next"), "1");
+    assert.equal((await proxy(new NextRequest(`https://nosee.example/events/${slug}`))).headers.get("x-middleware-next"), "1");
   }
-  assert.equal(proxy(new NextRequest("https://nosee.example/events/missing", { method: "POST" })).headers.get("x-middleware-next"), "1");
+  assert.equal((await proxy(new NextRequest("https://nosee.example/events/missing", { method: "POST" }))).headers.get("x-middleware-next"), "1");
   for (const slug of ["%69celli2026", "icelli2026/"]) {
-    assert.equal(proxy(new NextRequest(`https://nosee.example/events/${slug}?q=original`)).headers.get("x-middleware-rewrite"), "https://nosee.example/events/icelli2026?q=original");
+    assert.equal((await proxy(new NextRequest(`https://nosee.example/events/${slug}?q=original`))).headers.get("x-middleware-rewrite"), "https://nosee.example/events/icelli2026?q=original");
   }
 });

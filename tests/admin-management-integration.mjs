@@ -153,10 +153,10 @@ try{
   const legacy=await activityDirectory(actor,{action:'Signed in'});assert.ok(legacy.rows.length);assert.ok(legacy.rows.every(r=>r.targetId===null&&r.changes===null));
   const invite=await issued(actor),rows=await activityDirectory(actor,{target:invite.record.id}),dump=JSON.stringify(rows);assert.equal(dump.includes(invite.code)||dump.includes(hash(invite.code))||dump.includes(fixtures.super_admin.password),false);
  });
- await test('directory/activity search, literal wildcard handling, filters, stable pagination and UTC date boundaries',async()=>{
+ await test('directory/activity search, literal wildcard handling, filters, stable pagination and inclusive WAT date boundaries',async()=>{
   for(let i=0;i<24;i++)await db.insert(auditLog).values({id:randomUUID(),actorId:actor.id,action:'Isolated pagination check',targetType:'administrator',targetId:actor.id,targetLabel:'Pagination reviewer',createdAt:new Date('2026-10-15T12:00:00Z')});
-  for(const d of ['2026-10-14T23:59:59Z','2026-10-16T00:00:00Z'])await db.insert(auditLog).values({id:randomUUID(),actorId:actor.id,action:'Isolated pagination check',createdAt:new Date(d)});
-  const filter={action:'Isolated pagination check',from:'2026-10-15',to:'2026-10-15',actor:actor.id};const first=await activityDirectory(actor,filter),second=await activityDirectory(actor,{...filter,page:2});assert.equal(first.total,24);assert.equal(first.rows.length,20);assert.equal(second.rows.length,4);assert.equal(new Set([...first.rows,...second.rows].map(r=>r.id)).size,24);
+  for(const d of ['2026-10-14T22:59:59.999Z','2026-10-15T23:00:00Z','2026-10-14T23:00:00Z','2026-10-15T22:59:59.999Z'])await db.insert(auditLog).values({id:randomUUID(),actorId:actor.id,action:'Isolated pagination check',createdAt:new Date(d)});
+  const filter={action:'Isolated pagination check',from:'2026-10-15',to:'2026-10-15',actor:actor.id};const first=await activityDirectory(actor,filter),second=await activityDirectory(actor,{...filter,page:2});assert.equal(first.total,26);assert.equal(first.rows.length,20);assert.equal(second.rows.length,6);assert.equal(new Set([...first.rows,...second.rows].map(r=>r.id)).size,26);
   assert.equal((await administratorDirectory(actor,{q:'%_'})).total,0);assert.equal((await administratorDirectory(actor,{q:fixtures.super_admin.email,status:'active',role:'super_admin'})).total,1);
   assert.equal((await request('/api/admin/activity-log?from=2026-02-31',{cookie:cookies.super_admin})).status,400);assert.equal((await request('/api/admin/administrators?page=0',{cookie:cookies.super_admin})).status,400);
  });

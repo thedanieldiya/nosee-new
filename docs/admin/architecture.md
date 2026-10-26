@@ -126,7 +126,9 @@ Tiptap **3.32.0** free MIT extensions run only in the private research form, ini
 
 Group deletion reuses lock `4631002`, fresh Super Admin authority, current group version and exact stored-name confirmation. Lead/session/version revocation, pending invitation invalidation, participant removal markers, group timestamp and audits are one transaction. Every ordinary query and scope/activation check excludes deleted groups, while historical Member associations remain visible. Cache refresh is requested after commit and an unconfirmed refresh is reported accurately. Deleted rows and unique slugs are retained; no restore endpoint. Reuse this automatic stable slug convention for future CMS editors without changing existing public routes.
 
-## A07 News publication and public boundary
+## Historical A07 News publication and public boundary
+
+**Superseded by [A07.1](07-1-news-workflow-public-wat-toasts.md):** direct publishing, explicit Unpublished/deleted states, public reading pages, WAT and toasts are now implemented. The following records the original A07 boundary.
 
 [Current contract](07-news-publishing.md) · [review and owner steps](reviews/07-news-publishing.md). Additive `0009` introduces only the News table/snapshot/index; the established pending-migration runner/journal remain unchanged, and no fixture import, live migration or new deployment hook was run. Super Admin/Editor pages and APIs recheck active/current access-version authority under lock `4631002`, alongside existing administrator revocation. Strict mutation schemas, 128 KiB limit, 40/minute account bucket, same-origin and optimistic versions apply; no deletion/scheduler.
 

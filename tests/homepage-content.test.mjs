@@ -85,10 +85,11 @@ test("UTC midnight, not Lagos calendar day, removes a past event; strict flags, 
   assert.deepEqual(input, original);
 });
 
-test("news labels preserve the record offset date and category title case", () => {
+test("news labels use the editorial zone with WAT fallback and preserve category title case", () => {
   for (const label of source.dateLabels) assert.equal(newsDateLabel(newsRecords.find(a => a.slug === label.slug).published_at), label.date);
-  assert.equal(newsDateLabel("2026-12-31T23:30:00-08:00"), "31/12/2026");
-  assert.equal(newsDateLabel("2027-01-01T00:30:00+14:00"), "01/01/2027");
+  assert.equal(newsDateLabel("2026-12-31T23:30:00-08:00"), "01/01/2027");
+  assert.equal(newsDateLabel("2027-01-01T00:30:00+14:00"), "31/12/2026");
+  assert.equal(newsDateLabel("2026-12-31T23:30:00Z", "UTC"), "31/12/2026");
   assert.equal(newsCategoryLabel("organisation-news"), "Organisation News");
 });
 
