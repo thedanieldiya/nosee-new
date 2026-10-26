@@ -1,27 +1,180 @@
-/* eslint-disable @typescript-eslint/no-require-imports -- Isolated production-browser workflows. */
-const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{randomUUID}=require('node:crypto'),{chromium}=require('playwright'),{Pool}=require('pg');
-const[base,fixtureFile,output,axeFile]=process.argv.slice(2),url=new URL(process.env.DATABASE_URL||'');assert.equal(url.hostname,'127.0.0.1');assert.equal(url.pathname,'/nosee_admin01_test');assert.equal(new URL(base).hostname,'127.0.0.1');assert.ok(fs.realpathSync(fixtureFile).startsWith('/tmp/'));assert.equal(fs.statSync(fixtureFile).mode&0o077,0);assert.ok(path.resolve(output).startsWith('/tmp/'));
-const f=JSON.parse(fs.readFileSync(fixtureFile)),pool=new Pool({connectionString:process.env.DATABASE_URL,max:1}),axe=fs.readFileSync(axeFile,'utf8'),report={scans:[],icons:0,workflows:[],errors:[],baselineFindings:[]};fs.mkdirSync(output,{recursive:true});
-async function scan(p,state){await p.evaluate(axe);const v=await p.evaluate(async()=> (await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']}})).violations.map(v=>({id:v.id,targets:v.nodes.map(n=>n.target),heroOnly:v.id==='target-size'&&v.nodes.every(n=>n.target.length===1&&document.querySelector(n.target[0])?.matches('[data-hero-indicator]'))})));const known=v.filter(v=>v.heroOnly&&p.url()===base+'/');report.baselineFindings.push(...known.map(v=>({state,width:p.viewportSize().width,id:v.id,targets:v.targets})));assert.deepEqual(v.filter(v=>!known.includes(v)),[],state);assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),state+' overflow');const icons=await p.locator('button svg,a svg').evaluateAll(ns=>ns.filter(n=>n.getBoundingClientRect().width).map(svg=>{const text=getComputedStyle(svg.closest('button,a')).color;return{text,own:getComputedStyle(svg).color,paints:[...svg.querySelectorAll('path')].flatMap(p=>['fill','stroke'].map(k=>getComputedStyle(p)[k]).filter(c=>c!=='none'))};}));for(const icon of icons){assert.equal(icon.own,icon.text);assert.ok(icon.paints.every(c=>c===icon.text));}report.icons+=icons.length;report.scans.push({state,width:p.viewportSize().width});}
-async function login(p,person=f.editor){await pool.query('truncate admin_login_attempt,admin_rate_limit');await p.goto(base+'/admin/sign-in');await p.getByLabel('Email',{exact:true}).fill(person.email);await p.getByLabel('Password',{exact:true}).fill(person.password);await p.getByRole('button',{name:'Sign in',exact:true}).click();await p.waitForURL(base+'/admin');}
-async function save(p,title='Save changes'){await p.getByRole('button',{name:title,exact:true}).click();const d=p.getByRole('dialog',{name:'Save working copy?',exact:true});await d.waitFor();assert.ok(await d.getByRole('button',{name:'Cancel',exact:true}).evaluate(n=>n===document.activeElement));await d.getByRole('button',{name:'Confirm save',exact:true}).click();await p.waitForURL(u=>/\/news\/[0-9a-f-]{36}$/.test(u.pathname)&&u.searchParams.get('saved')==='1');await p.getByText('All changes saved',{exact:true}).waitFor();await p.waitForLoadState('networkidle');}
-async function confirm(p,title){await p.getByRole('button',{name:title,exact:true}).click();const d=p.getByRole('dialog',{name:title+'?',exact:true});await d.waitFor();assert.ok(await d.getByRole('button',{name:'Cancel',exact:true}).evaluate(n=>n===document.activeElement));await d.getByRole('button',{name:'Confirm',exact:true}).click();await d.waitFor({state:'hidden'});await p.waitForLoadState('networkidle');}
-async function shot(p,name){await p.evaluate(async()=>{scrollTo(0,0);await document.fonts.ready;await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));});await p.screenshot({path:path.join(output,name+'.png'),fullPage:true});}
-async function requestFields(p,id){const response=await p.request.get(base+'/api/admin/news/'+id);assert.equal(response.status(),200);const a=await response.json();return{title:a.title,category:a.category,excerpt:a.excerpt,body:a.body,publicationDate:a.publicationDate,featured:a.featured};}
-(async()=>{const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox']});try{
- for(const[iteration,width]of[390,768,1440].entries()){
-  const c=await browser.newContext({viewport:{width,height:1000},reducedMotion:'reduce',timezoneId:width===768?'America/New_York':'UTC'}),p=await c.newPage();p.on('pageerror',e=>report.errors.push(e.message));await login(p,iteration===0?f.super_admin:f.editor);if(width<1024)await p.getByRole('button',{name:'Open navigation',exact:true}).click();await p.getByRole('link',{name:'Publishing',exact:true}).click();await p.waitForURL(base+'/admin/publishing/news');await scan(p,'news-directory');await p.getByRole('link',{name:'Add article',exact:true}).click();await p.locator('#news-body[contenteditable=true]').waitFor();for(const selector of['input[name=slug]','#news-slug','input[type=file]','#news-cover','#news-cover-alt'])assert.equal(await p.locator(selector).count(),0);
-  const title='Browser news '+width+' '+randomUUID();await p.getByRole('button',{name:'Save draft',exact:true}).click();assert.ok(await p.locator('#news-title').evaluate(n=>n===document.activeElement));await p.locator('#news-title').fill(title);await p.keyboard.press('Tab');assert.equal(await p.locator('#news-category').evaluate(n=>getComputedStyle(n).outlineStyle),'solid');await p.locator('#news-category').selectOption('research-news');await p.locator('#news-excerpt').fill('Synthetic browser summary.');await p.locator('#news-date').fill('2026-01-01T12:30');await p.getByLabel('Featured',{exact:true}).check();const body=p.getByRole('textbox',{name:'Article body',exact:true});await body.fill('👩🏽‍🔬');assert.match(await p.locator('#news-body-count').innerText(),/^1 \/ 6,000/);await body.fill('x'.repeat(6001));assert.ok(await p.getByRole('button',{name:'Save draft',exact:true}).isDisabled());await body.fill('Formatted body <script>window.newsExecuted=true</script>');await body.press('Control+a');await p.getByRole('button',{name:'Bold',exact:true}).click();await p.getByRole('button',{name:'Italic',exact:true}).click();await p.getByRole('button',{name:'Edit link',exact:true}).click();let d=p.getByRole('dialog',{name:'Edit link',exact:true});await d.getByLabel('Link address').fill('javascript:alert(1)');await d.getByRole('button',{name:'Save link',exact:true}).click();assert.match(await d.getByRole('alert').innerText(),/complete/);await d.getByLabel('Link address').fill('https://example.invalid/news');await d.getByRole('button',{name:'Save link',exact:true}).click();await p.getByRole('button',{name:'Undo',exact:true}).click();assert.equal(await body.locator('a').count(),0);await p.getByRole('button',{name:'Redo',exact:true}).click();assert.equal(await body.locator('a').count(),1);await p.getByLabel('Text style',{exact:true}).selectOption('2');await p.getByLabel('Text style',{exact:true}).selectOption('paragraph');await p.getByRole('button',{name:'Bulleted list',exact:true}).click();await p.getByRole('button',{name:'Bulleted list',exact:true}).click();await p.getByRole('button',{name:'Numbered list',exact:true}).click();await scan(p,'rich-news-editor');if(width!==768)await shot(p,'news-editor-'+width);
-  await p.getByRole('button',{name:'Save draft',exact:true}).click();d=p.getByRole('dialog',{name:'Save working copy?',exact:true});await d.waitFor();await p.keyboard.press('Escape');assert.equal(await p.locator('#news-title').inputValue(),title);await save(p,'Save draft');const id=new URL(p.url()).pathname.split('/').at(-1),g=(await pool.query('select * from news_article where id=$1',[id])).rows[0];assert.equal(g.publication_date.toISOString(),'2026-01-01T12:30:00.000Z');assert.equal(g.cover_image,'');assert.equal(g.featured,true);assert.ok(await p.getByText('All changes saved',{exact:true}).evaluate(n=>n===document.activeElement));assert.equal(await p.getByRole('button',{name:'Save changes',exact:true}).isDisabled(),true);await scan(p,'saved-draft');await p.getByRole('link',{name:'Preview saved draft',exact:true}).click();await p.getByRole('heading',{name:'Saved working-copy preview',exact:true}).waitFor();assert.equal(await p.locator('article .research-description a').getAttribute('href'),'https://example.invalid/news');assert.equal(await p.evaluate(()=>!!window.newsExecuted),false);await scan(p,'private-news-preview');await p.getByRole('link',{name:'Back to editor',exact:true}).click();await confirm(p,'Publish');await p.getByText('Published snapshot.',{exact:false}).first().waitFor();assert.equal((await pool.query('select status from news_article where id=$1',[id])).rows[0].status,'published');await scan(p,'published-news');const home=await c.newPage();await home.goto(base,{waitUntil:'networkidle'});assert.equal(await home.locator('[data-trending-news-card]').count(),1);assert.ok((await home.locator('[data-trending-news-card]').innerText()).includes(title));assert.equal(await home.locator('[data-trending-news-section] a').count(),0);assert.equal(await home.locator('[data-trending-news-section] img').count(),0);await scan(home,'image-free-homepage-news');if(width!==768)await shot(home,'news-home-'+width);
-  await p.locator('#news-title').fill('Private revision '+width);assert.ok(await p.getByText('Unsaved changes',{exact:true}).isVisible());assert.ok(await p.getByRole('button',{name:'Publish',exact:true}).isDisabled());assert.equal(await p.getByRole('link',{name:'Preview saved draft',exact:true}).count(),0);await home.reload({waitUntil:'networkidle'});assert.equal((await home.locator('[data-trending-news-card]').innerText()).includes('Private revision'),false);await save(p);await p.getByRole('link',{name:'Published preview',exact:true}).click();await p.getByRole('heading',{name:title,exact:true}).waitFor();assert.equal(await p.getByRole('heading',{name:'Private revision '+width,exact:true}).count(),0);await scan(p,'immutable-published-preview');await p.getByRole('link',{name:'Back to editor',exact:true}).click();await confirm(p,'Publish');await home.reload({waitUntil:'networkidle'});assert.ok((await home.locator('[data-trending-news-card]').innerText()).includes('Private revision '+width));
-  if(width===768){await p.locator('#news-date').fill('2999-01-01T00:00');await save(p);await p.getByRole('button',{name:'Publish',exact:true}).click();d=p.getByRole('dialog',{name:'Publish?',exact:true});await d.getByRole('button',{name:'Confirm',exact:true}).click();assert.match(await d.getByRole('alert').innerText(),/future/);await scan(p,'future-publication-denied');await d.getByRole('button',{name:'Cancel',exact:true}).click();await p.locator('#news-date').fill('2026-01-01T12:30');await save(p);}
-  if(width===1440){await p.locator('#news-excerpt').fill('Retained failed edit');await p.route('**/api/admin/news/'+id,async route=>{if(route.request().method()==='PATCH')await route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({error:'Synthetic save unavailable. Your changes remain here.'})});else await route.continue();});await p.getByRole('button',{name:'Save changes',exact:true}).click();d=p.getByRole('dialog',{name:'Save working copy?',exact:true});await d.getByRole('button',{name:'Confirm save',exact:true}).click();assert.match(await d.getByRole('alert').innerText(),/Synthetic save unavailable/);await scan(p,'retained-save-error');await d.getByRole('button',{name:'Cancel',exact:true}).click();assert.equal(await p.locator('#news-excerpt').inputValue(),'Retained failed edit');await p.unroute('**/api/admin/news/'+id);const a=(await p.request.get(base+'/api/admin/news/'+id));const article=await a.json();const updated=await p.request.patch(base+'/api/admin/news/'+id,{headers:{origin:base},data:{fields:{...await requestFields(p,id),excerpt:'Concurrent saved summary'},version:article.version,confirm:true}});assert.equal(updated.status(),200);await p.getByRole('button',{name:'Save changes',exact:true}).click();d=p.getByRole('dialog',{name:'Save working copy?',exact:true});await d.getByRole('button',{name:'Confirm save',exact:true}).click();assert.match(await d.getByRole('alert').innerText(),/changed/);await scan(p,'stale-save-denied');await d.getByRole('button',{name:'Cancel',exact:true}).click();p.once('dialog',dialog=>dialog.accept());await p.reload({waitUntil:'networkidle'});assert.equal(await p.locator('#news-excerpt').inputValue(),'Concurrent saved summary');}
-  await confirm(p,'Unpublish');await home.reload({waitUntil:'networkidle'});assert.equal(await home.locator('[data-trending-news-section]').count(),0);assert.equal((await pool.query('select status from news_article where id=$1',[id])).rows[0].status,'draft');await scan(p,'unpublished-news');await scan(home,'empty-live-homepage');assert.equal(await p.getByRole('button',{name:'Delete article',exact:true}).count(),0);await home.close();report.workflows.push({width,actor:iteration===0?'super_admin':'editor',draftSave:true,formatPreview:true,utcDate:true,publish:true,workingPrivacy:true,republish:true,unpublish:true});await c.close();
- }
- // Real paginated fixtures, never owner records. Use the maintained API and authenticated context.
- const c=await browser.newContext({viewport:{width:768,height:1000},reducedMotion:'reduce'}),p=await c.newPage();await login(p,f.super_admin);await pool.query('truncate news_article,admin_rate_limit');const prefix='Browser pagination '+randomUUID();for(let i=0;i<25;i++){const r=await p.request.post(base+'/api/admin/news',{headers:{origin:base},data:{fields:{title:prefix+' '+i,category:'organisation-news',excerpt:'Synthetic summary',body:'Synthetic body',featured:false,publicationDate:'2026-01-01T00:00:00.000Z'},requestId:randomUUID(),confirm:true}});assert.equal(r.status(),200);}await p.goto(base+'/admin/publishing/news');await p.getByLabel('Search articles',{exact:true}).fill(prefix);await p.getByRole('button',{name:'Search',exact:true}).click();await p.waitForLoadState('networkidle');assert.equal(await p.locator('ul h2').count(),20);await scan(p,'news-filter-page-1');await p.getByRole('link',{name:'Next',exact:true}).click();await p.waitForURL(u=>u.searchParams.get('page')==='2');await p.waitForFunction(()=>document.querySelectorAll('ul h2').length===5);assert.equal(await p.locator('ul h2').count(),5);await scan(p,'news-filter-page-2');await p.getByLabel('Status',{exact:true}).selectOption('published');await p.getByRole('button',{name:'Search',exact:true}).click();await p.getByText('No articles match these filters.',{exact:true}).waitFor();await scan(p,'empty-filtered-directory');await c.close();
- const leadContext=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'}),q=await leadContext.newPage();await login(q,f.research_group_lead);assert.equal(await q.getByRole('link',{name:'Publishing',exact:true}).count(),0);assert.equal((await q.goto(base+'/admin/publishing/news')).status(),403);await scan(q,'lead-news-denied');assert.equal((await q.request.get(base+'/api/admin/news')).status(),403);await leadContext.close();
- // Preserve source images/content only in disposable visual fixtures, never app migrations or live fallback.
- const fixtureContext=await browser.newContext(),r=await fixtureContext.newPage();await login(r,f.super_admin);await pool.query('truncate news_article,admin_rate_limit');const source=[...require('../src/lib/content/news.ts').newsRecords].sort((a,b)=>Number(b.featured)-Number(a.featured)||b.published_at.localeCompare(a.published_at)||a.slug.localeCompare(b.slug)).slice(0,4);for(const article of source){const created=await r.request.post(base+'/api/admin/news',{headers:{origin:base},data:{fields:{title:article.title,category:article.category,excerpt:article.excerpt,body:'Synthetic visual test fixture only.',featured:article.featured,publicationDate:article.published_at},requestId:randomUUID(),confirm:true}});assert.equal(created.status(),200);const{id}=await created.json();await pool.query('update news_article set cover_image=$1,cover_alt=$2 where id=$3',[article.image,article.image_alt,id]);assert.equal((await r.request.post(base+'/api/admin/news/'+id+'/publication',{headers:{origin:base},data:{action:'publish',version:1,confirm:true}})).status(),200);}await fixtureContext.close();
- const small=await browser.newContext({viewport:{width:320,height:800},hasTouch:true,isMobile:true,forcedColors:'active'}),t=await small.newPage();await login(t);await t.goto(base+'/admin/publishing/news/new');await t.locator('#news-body[contenteditable=true]').waitFor();await scan(t,'320-touch-forced-colors-editor');await small.close();assert.deepEqual(report.errors,[]);fs.writeFileSync(path.join(output,'results.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({scans:report.scans.length,icons:report.icons,workflows:report.workflows,errors:report.errors,baselineFindings:report.baselineFindings}));
- }finally{await browser.close();await pool.end();}})().catch(e=>{console.error(String(e.stack||e).slice(0,1900));process.exitCode=1;});
+/* eslint-disable @typescript-eslint/no-require-imports -- Disposable local production-browser checks. */
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { randomUUID } = require('node:crypto');
+const { chromium } = require('playwright');
+const { Pool } = require('pg');
+
+const [base, fixtureFile, output, axeFile] = process.argv.slice(2);
+const database = new URL(process.env.DATABASE_URL || '');
+assert.equal(database.hostname, '127.0.0.1');
+assert.equal(database.pathname, '/nosee_admin01_test');
+assert.equal(new URL(base).hostname, '127.0.0.1');
+assert.ok(fs.realpathSync(fixtureFile).startsWith('/tmp/'));
+assert.equal(fs.statSync(fixtureFile).mode & 0o077, 0);
+assert.ok(path.resolve(output).startsWith('/tmp/'));
+const fixtures = JSON.parse(fs.readFileSync(fixtureFile));
+const pool = new Pool({ connectionString: process.env.DATABASE_URL, max: 1 });
+const axe = fs.readFileSync(axeFile, 'utf8');
+const report = { scans: [], icons: 0, workflows: [], errors: [], baselineFindings: [] };
+fs.mkdirSync(output, { recursive: true });
+
+async function scan(page, label) {
+  await page.evaluate(axe);
+  const violations = await page.evaluate(async () => (
+    await axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] } })
+  ).violations.map(v => ({ id: v.id, targets: v.nodes.map(n => n.target),
+    heroOnly: v.id === 'target-size' && v.nodes.every(n => n.target.length === 1 && document.querySelector(n.target[0])?.matches('[data-hero-indicator]')) })));
+  const known = violations.filter(v => v.heroOnly && new URL(page.url()).pathname === '/');
+  report.baselineFindings.push(...known.map(v => ({ label, id: v.id })));
+  assert.deepEqual(violations.filter(v => !known.includes(v)), [], label);
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), label + ' horizontal overflow');
+  const paints = await page.locator('button svg,a svg').evaluateAll(nodes => nodes.filter(n => n.getBoundingClientRect().width).map(svg => {
+    const anchor = svg.closest('button,a'), text = getComputedStyle(anchor).color;
+    return { text, own: getComputedStyle(svg).color, paints: [...svg.querySelectorAll('path')].flatMap(p => ['fill', 'stroke'].map(k => getComputedStyle(p)[k]).filter(c => c !== 'none')) };
+  }));
+  for (const icon of paints) {
+    assert.equal(icon.own, icon.text);
+    assert.ok(icon.paints.every(color => color === icon.text), label + ' icon/text mismatch');
+  }
+  report.icons += paints.length;
+  report.scans.push({ label, width: page.viewportSize().width });
+}
+async function login(page, person = fixtures.editor) {
+  await pool.query('truncate admin_login_attempt,admin_rate_limit');
+  await page.goto(base + '/admin/sign-in');
+  await page.getByLabel('Email', { exact: true }).fill(person.email);
+  await page.getByLabel('Password', { exact: true }).fill(person.password);
+  await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+  await page.waitForURL(base + '/admin');
+}
+async function record(title) {
+  const result = await pool.query('select * from news_article where title=$1', [title]);
+  return result.rows[0];
+}
+async function saved(page, label) {
+  await page.getByRole('button', { name: label, exact: true }).click();
+  await page.waitForURL(url => /^\/admin\/publishing\/news\/[0-9a-f-]{36}$/.test(url.pathname) && url.searchParams.get('saved') === '1');
+}
+async function editFields(page, title) {
+  await page.locator('#news-title').fill(title);
+  await page.locator('#news-category').selectOption('research-news');
+  await page.locator('#news-excerpt').fill('Synthetic summary for the private review.');
+  await page.locator('#news-date').fill('2026-01-01');
+  await page.locator('#news-time').fill('12:30:00');
+  await page.locator('#news-time-zone').selectOption('Africa/Lagos');
+  await page.getByRole('textbox', { name: 'Article body' }).fill('Synthetic article body, not approved organisation content.');
+}
+async function shot(page, name) {
+  await page.evaluate(async () => {
+    scrollTo(0, 0);
+    await document.fonts.ready;
+    await Promise.all([...document.images].map(image => image.decode().catch(() => {})));
+  });
+  await page.screenshot({ path: path.join(output, name + '.png'), fullPage: true });
+}
+
+(async () => {
+  const browser = await chromium.launch({ executablePath: '/usr/bin/chromium', args: ['--no-sandbox'] });
+  try {
+    for (const width of [390, 768, 1440]) {
+      await pool.query('truncate news_article,admin_rate_limit');
+      const context = await browser.newContext({ viewport: { width, height: 940 }, reducedMotion: 'reduce', timezoneId: width === 768 ? 'America/New_York' : 'UTC' });
+      const page = await context.newPage();
+      page.on('pageerror', error => report.errors.push(error.message));
+      await login(page, width === 390 ? fixtures.super_admin : fixtures.editor);
+      await page.goto(base + '/admin/publishing/news/new');
+      await page.locator('#news-body[contenteditable=true]').waitFor();
+      assert.equal(await page.locator('#news-time-zone').inputValue(), 'Africa/Lagos');
+      assert.match(await page.getByLabel('Time zone').innerText(), /WAT \(UTC\+01:00\)/);
+      await scan(page, 'new-WAT-editor');
+      // Unsaved new articles must not create records when discarded.
+      const abandoned = 'Abandoned ' + width + ' ' + randomUUID();
+      await page.locator('#news-title').fill(abandoned);
+      await page.getByRole('link', { name: 'All news', exact: true }).click();
+      let dialog = page.getByRole('dialog', { name: 'Save your changes?' });
+      await dialog.waitFor();
+      assert.ok(await dialog.getByRole('button', { name: 'Keep editing' }).evaluate(node => node === document.activeElement));
+      await dialog.getByRole('button', { name: 'Keep editing' }).click();
+      assert.equal(await page.locator('#news-title').inputValue(), abandoned);
+      await page.getByRole('link', { name: 'All news', exact: true }).click();
+      dialog = page.getByRole('dialog', { name: 'Save your changes?' });
+      await dialog.getByRole('button', { name: 'Discard changes' }).click();
+      await page.waitForURL(base + '/admin/publishing/news');
+      assert.equal(await record(abandoned), undefined);
+
+      // Exit-dialog Save as draft commits first and then completes navigation.
+      await page.goto(base + '/admin/publishing/news/new');
+      const title = 'Browser A07.1 ' + width + ' ' + randomUUID();
+      await editFields(page, title);
+      await page.getByRole('link', { name: 'All news', exact: true }).click();
+      dialog = page.getByRole('dialog', { name: 'Save your changes?' });
+      await dialog.getByRole('button', { name: 'Save as draft' }).click();
+      await page.waitForURL(base + '/admin/publishing/news');
+      let row = await record(title);
+      assert.equal(row.status, 'draft');
+      assert.equal(row.publication_timezone, 'Africa/Lagos');
+      assert.equal(row.publication_date.toISOString(), '2026-01-01T11:30:00.000Z');
+      await page.goto(base + '/admin/publishing/news/' + row.id);
+      await scan(page, 'saved-draft');
+      await saved(page, 'Publish');
+      row = await record(title);
+      assert.equal(row.status, 'published');
+      const publicPage = await context.newPage();
+      await publicPage.goto(base + '/news/' + row.slug);
+      await publicPage.getByRole('heading', { name: title, exact: true }).waitFor();
+      await scan(publicPage, 'published-public-article');
+      await publicPage.goto(base + '/news');
+      assert.ok((await publicPage.content()).includes('/news/' + row.slug));
+      await scan(publicPage, 'published-news-listing');
+
+      // A saved working-copy revision leaves its public snapshot unchanged.
+      await page.locator('#news-title').fill('Working revision ' + width);
+      await saved(page, 'Save as draft');
+      assert.ok((await page.getByText('Unpublished changes', { exact: true }).count()) > 0);
+      await publicPage.goto(base + '/news/' + row.slug);
+      assert.ok((await publicPage.content()).includes(title));
+      assert.ok(!(await publicPage.content()).includes('Working revision ' + width));
+      await saved(page, 'Publish changes');
+      await publicPage.reload();
+      assert.ok((await publicPage.content()).includes('Working revision ' + width));
+
+      // Unpublishing hides the article, without making it a never-published Draft.
+      await page.getByRole('button', { name: 'Unpublish', exact: true }).click();
+      dialog = page.getByRole('dialog', { name: 'Unpublish?' });
+      await dialog.getByRole('button', { name: 'Confirm', exact: true }).click();
+      await dialog.waitFor({ state: 'hidden' });
+      await page.waitForLoadState('networkidle');
+      row = (await pool.query('select * from news_article where id=$1', [row.id])).rows[0];
+      assert.equal(row.status, 'unpublished');
+      assert.equal((await publicPage.goto(base + '/news/' + row.slug)).status(), 404);
+
+      // Typed deletion revokes eligibility but retains an audit marker and reserved slug.
+      await page.getByRole('button', { name: 'Delete article', exact: true }).click();
+      dialog = page.getByRole('dialog', { name: 'Delete article?' });
+      const currentTitle = 'Working revision ' + width;
+      const phrase = 'Delete ' + currentTitle;
+      await dialog.getByLabel(/To confirm, type/).fill(phrase);
+      await dialog.getByRole('button', { name: 'Delete article', exact: true }).click();
+      await page.waitForURL(base + '/admin/publishing/news');
+      const deleted = (await pool.query('select status,deleted_at,slug from news_article where id=$1', [row.id])).rows[0];
+      assert.equal(deleted.status, 'deleted');
+      assert.ok(deleted.deleted_at);
+      assert.equal(deleted.slug, row.slug);
+      report.workflows.push({ width, draftExitSave: true, publishedPublicSnapshot: true, retainedWorkingRevision: true, unpublish: true, typedDelete: true, watDate: true });
+      if (width === 390) await shot(publicPage, 'public-news-mobile');
+      await context.close();
+    }
+    // A real scoped Lead cannot gain News access by opening a direct URL.
+    const context = await browser.newContext({ viewport: { width: 390, height: 800 }, reducedMotion: 'reduce' });
+    const page = await context.newPage();
+    await login(page, fixtures.research_group_lead);
+    assert.equal((await page.goto(base + '/admin/publishing/news')).status(), 403);
+    assert.equal((await page.request.get(base + '/api/admin/news')).status(), 403);
+    await context.close();
+    assert.deepEqual(report.errors, []);
+    fs.writeFileSync(path.join(output, 'results.json'), JSON.stringify(report, null, 2));
+    console.log(JSON.stringify({ scans: report.scans.length, icons: report.icons, workflows: report.workflows, errors: report.errors, baselineFindings: report.baselineFindings }));
+  } finally { await browser.close(); await pool.end(); }
+})().catch(error => { console.error(String(error.stack || error).slice(0, 1900)); process.exitCode = 1; });
