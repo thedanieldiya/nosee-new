@@ -1,5 +1,6 @@
 import { publicationRecords, type PublicationRecord } from "./publications";
 import { type NewsRecord } from "./news";
+import { newsShortDate } from "../timezones";
 import { eventRecords, type EventRecord } from "./events";
 
 // Source strcmp ordering for the ASCII dates/slugs, independent of host locale.
@@ -26,7 +27,7 @@ export function selectFeaturedUpcoming(records: readonly EventRecord[] = eventRe
 }
 
 // Preserve the calendar date carried by the ISO offset, as PHP DateTimeImmutable does.
-export const newsDateLabel = (publishedAt: string) => publishedAt.slice(0, 10).split("-").reverse().join("/");
+export const newsDateLabel = (publishedAt: string, editorialZone = "Africa/Lagos") => newsShortDate(publishedAt, editorialZone);
 export const newsCategoryLabel = (category: string) => category.replaceAll("-", " ").toLowerCase().replace(/\b[a-z]/g, letter => letter.toUpperCase());
 
 export function eventCardValues(event: EventRecord) {
