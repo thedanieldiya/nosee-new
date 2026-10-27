@@ -11,6 +11,7 @@ import { descriptionText } from "../research/description.ts";
 import { automaticSlug } from "../content/slug.ts";
 import { newsCreateInput, newsUpdateInput, newsPublicationInput, newsDeletionInput, newsQuery, newsContentInput } from "./input.ts";
 import { newsDeletionPhrase, type NewsContent, type NewsFields } from "./options.ts";
+import { hasUnpublishedNewsChanges } from "./draft-state.ts";
 
 export type NewsStatus = "draft" | "published" | "unpublished" | "deleted";
 export type ArticleRecord = NewsContent & { id: string; version: number; status: NewsStatus; publishedContent: NewsContent | null; publishedAt: string | null; updatedAt: string };
@@ -61,8 +62,10 @@ export async function newsDirectory(actor: Principal, raw: unknown) {
   return authorized(actor, async tx => {
     const where = sql`${newsArticle.deletedAt} is null and (${newsArticle.title} ilike ${pattern} or ${newsArticle.excerpt} ilike ${pattern}) and (${query.status}='' or ${newsArticle.status}=${query.status})`;
     const total = Number((await tx.select({ n: sql`count(*)::int` }).from(newsArticle).where(where))[0].n), pages = Math.max(1, Math.ceil(total / 20)), page = Math.min(query.page, pages);
-    const rows = await tx.select({ id: newsArticle.id, title: newsArticle.title, category: newsArticle.category, slug: newsArticle.slug, status: newsArticle.status, version: newsArticle.version, updatedAt: newsArticle.updatedAt }).from(newsArticle).where(where).orderBy(desc(newsArticle.updatedAt), asc(newsArticle.id)).limit(20).offset((page - 1) * 20);
-    return { rows: serialize<Array<{ id: string; title: string; category: string; slug: string; status: NewsStatus; version: number; updatedAt: string }>>(rows), total, page, pages };
+    // Compare this bounded page on the server; bodies and snapshots never enter the directory DTO.
+    const rows = await tx.select({ ...fields, id: newsArticle.id, status: newsArticle.status, version: newsArticle.version, updatedAt: newsArticle.updatedAt, publishedContent: newsArticle.publishedContent }).from(newsArticle).where(where).orderBy(desc(newsArticle.updatedAt), asc(newsArticle.id)).limit(20).offset((page - 1) * 20);
+    const records = serialize<Array<NewsContent & Pick<ArticleRecord, "id" | "status" | "version" | "updatedAt" | "publishedContent">>>(rows);
+    return { rows: records.map(article => ({ id: article.id, title: article.title, category: article.category, slug: article.slug, status: article.status, version: article.version, updatedAt: article.updatedAt, hasUnpublishedChanges: article.status === "published" && hasUnpublishedNewsChanges(article, article.publishedContent) })), total, page, pages };
   });
 }
 export async function getNewsArticle(actor: Principal, id: string) { return authorized(actor, async tx => serialize<ArticleRecord>(await row(tx, id))); }

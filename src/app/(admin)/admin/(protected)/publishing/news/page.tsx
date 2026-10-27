@@ -28,7 +28,7 @@ export default async function NewsDirectory({ searchParams }: { searchParams: Pr
           <div className="min-w-0 flex-1">
             <h2 className="break-words font-semibold"><Link href={"/admin/publishing/news/" + article.id} className="underline underline-offset-4">{article.title}</Link></h2>
             <p className="mt-2 text-sm text-secondary">Updated {dateTime(article.updatedAt)}</p>
-            <p className="mt-2 text-sm font-medium">{article.status === "published" ? "Published" : article.status === "unpublished" ? "Unpublished" : "Draft"}</p>
+            <p className="mt-2 flex flex-wrap items-center gap-2 text-sm font-medium"><span>{article.status === "published" ? "Published" : article.status === "unpublished" ? "Unpublished" : "Draft"}</span>{article.hasUnpublishedChanges ? <span className="rounded-md border border-line-mild px-2 py-0.5 text-xs text-secondary">Unpublished changes</span> : null}</p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <ResearchAction endpoint={"/api/admin/news/" + article.id + "/publication"} payload={{ action: article.status === "published" ? "unpublish" : "publish", version: article.version }} title={article.status === "published" ? "Unpublish" : "Publish"} description={article.status === "published" ? "Remove the public article while retaining its working copy and snapshot." : "Publish the latest saved working copy to the website."} />

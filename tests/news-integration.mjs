@@ -67,6 +67,27 @@ try{
  await test('directory search, literal wildcards, statuses and stable bounded pagination work across real rows',async()=>{
   const prefix='Directory '+randomUUID();for(let i=0;i<25;i++){const id=await add(fields({title:prefix+' '+String(i).padStart(2,'0')}));if(i<3)await publish(id);}const first=await newsDirectory(editor,{q:prefix}),second=await newsDirectory(actor,{q:prefix,page:2});assert.equal(first.total,25);assert.equal(first.rows.length,20);assert.equal(second.rows.length,5);assert.equal(new Set([...first.rows,...second.rows].map(r=>r.id)).size,25);assert.equal((await newsDirectory(editor,{q:prefix,status:'published'})).total,3);assert.equal((await newsDirectory(editor,{q:prefix,status:'draft'})).total,22);assert.equal((await newsDirectory(actor,{q:prefix,page:999})).page,2);const literal=await add(fields({title:'Literal_%_'+randomUUID()}));assert.deepEqual((await newsDirectory(actor,{q:'Literal_%_'})).rows.map(r=>r.id),[literal]);assert.equal((await newsDirectory(actor,{q:"' or 1=1 --"})).total,0);assert.equal((await request('/api/admin/news?status=scheduled',{cookie:editorCookie})).status,400);
  });
+ await test('directory revision flags follow saved content, revert, republish and unpublish without exposing bodies',async()=>{
+  const original=fields({title:'Revision indicator '+randomUUID()}),id=await add(original);
+  const indicator=async()=>(await newsDirectory(editor,{q:'Revision indicator'})).rows.find(r=>r.id===id);
+  assert.equal((await indicator()).hasUnpublishedChanges,false);await publish(id);
+  const live=await publishedNewsArticle((await row(id)).slug);assert.equal((await indicator()).hasUnpublishedChanges,false);
+  let current=await row(id);await updateNewsArticle(editor,id,{fields:working(current),version:current.version,confirm:true});
+  assert.equal((await indicator()).hasUnpublishedChanges,false);
+  await db.update(newsArticle).set({updatedAt:new Date('2027-01-01'),publishedAt:new Date('2027-01-01'),lastMutationKey:randomUUID(),lastMutationDigest:'bookkeeping',version:sql`${newsArticle.version}+1`}).where(eq(newsArticle.id,id));
+  assert.equal((await indicator()).hasUnpublishedChanges,false);
+  current=await row(id);await updateNewsArticle(editor,id,{fields:{...working(current),excerpt:'Private excerpt marker',body:'Private body marker'},version:current.version,confirm:true});
+  assert.equal((await indicator()).hasUnpublishedChanges,true);assert.deepEqual(await publishedNewsArticle(current.slug),live);
+  const response=await request('/api/admin/news?q=Revision%20indicator',{cookie:editorCookie}),dto=response.json().rows.find(r=>r.id===id);
+  assert.equal(dto.hasUnpublishedChanges,true);assert.deepEqual(Object.keys(dto).sort(),['id','title','category','slug','status','version','updatedAt','hasUnpublishedChanges'].sort());
+  assert.doesNotMatch(JSON.stringify(dto),/Private body marker|Private excerpt marker/);
+  const html=await request('/admin/publishing/news?q=Revision%20indicator',{cookie:editorCookie});assert.ok(html.text.includes('Unpublished changes'));
+  current=await row(id);await updateNewsArticle(editor,id,{fields:original,version:current.version,confirm:true});assert.equal((await indicator()).hasUnpublishedChanges,false);
+  current=await row(id);await updateNewsArticle(editor,id,{fields:{...original,featured:true},version:current.version,confirm:true});assert.equal((await indicator()).hasUnpublishedChanges,true);
+  await publish(id);assert.equal((await indicator()).hasUnpublishedChanges,false);
+  current=await row(id);await updateNewsArticle(editor,id,{fields:{...working(current),body:'Different saved body'},version:current.version,confirm:true});
+  await unpublish(id);assert.equal((await indicator()).status,'unpublished');assert.equal((await indicator()).hasUnpublishedChanges,false);
+ });
  await test('rich JSON, legacy plain text and blank lines persist and render escaped in authorized private previews',async()=>{
   const rich={type:'doc',content:[{type:'heading',attrs:{level:2},content:[{type:'text',text:'Synthetic heading'}]},{type:'paragraph',content:[{type:'text',text:'<script>window.newsUnsafe=true</script>',marks:[{type:'bold'},{type:'italic'}]},{type:'hardBreak'},{type:'text',text:'Safe source',marks:[{type:'link',attrs:{href:'https://example.invalid/news'}}]}]},{type:'bulletList',content:[{type:'listItem',content:[{type:'paragraph',content:[{type:'text',text:'Synthetic item'}]}]}]}]};const id=await add(fields({body:rich}));assert.deepEqual((await getNewsArticle(editor,id)).body,rich);const r=await request('/admin/publishing/news/'+id+'?preview=1',{cookie:editorCookie});assert.equal(r.status,200);assert.ok(r.text.includes('&lt;script&gt;window.newsUnsafe'));assert.ok(r.text.includes('href="https://example.invalid/news"'));assert.match(r.text,/<(?:strong|em)><(?:strong|em)>/);assert.equal(r.text.includes('<script>window.newsUnsafe'),false);await publish(id);assert.deepEqual((await publishedNewsArticle((await row(id)).slug)).body,rich);const plain='Literal <b>text</b>\n\nBlank line preserved';await updateNewsArticle(editor,id,{fields:fields({body:plain}),version:2,confirm:true});assert.equal((await getNewsArticle(editor,id)).body,plain);assert.deepEqual((await publishedNewsArticle((await row(id)).slug)).body,rich);
  });

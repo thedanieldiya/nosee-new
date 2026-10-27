@@ -1,5 +1,6 @@
 import { descriptionDocument, validateDescription, type Description } from "../research/description.ts";
-import type { NewsFields } from "./options.ts";
+import { editableNewsFields, type NewsFields, type NewsContent } from "./options.ts";
+import { editorialZone } from "../timezones.ts";
 export function draftFingerprint(fields: NewsFields) {
   const instant = new Date(/Z$|[+-]\d\d:\d\d$/.test(fields.publicationDate) ? fields.publicationDate : fields.publicationDate + "Z");
   let body: Description = descriptionDocument(fields.body);
@@ -17,4 +18,14 @@ export function draftFingerprint(fields: NewsFields) {
     }
     return item;
   });
+}
+
+type PublicationFields = NewsFields & Partial<Pick<NewsContent, "slug" | "coverImage" | "coverAlt">>;
+export function hasUnpublishedNewsChanges(working: PublicationFields, published: PublicationFields | null) {
+  if (!published) return false;
+  const fingerprint = (value: PublicationFields) => {
+    const content = { ...editableNewsFields(value), publicationTimezone: editorialZone(value.publicationTimezone), slug: value.slug ?? "", coverImage: value.coverImage ?? "", coverAlt: value.coverAlt ?? "" };
+    return draftFingerprint(content);
+  };
+  return fingerprint(working) !== fingerprint(published);
 }
