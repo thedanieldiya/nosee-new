@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { newsCategories, editableNewsFields, type NewsFields } from "@/lib/news/options";
 import { editorialZones } from "@/lib/news/input";
-import { draftFingerprint } from "@/lib/news/draft-state";
+import { draftFingerprint, hasUnpublishedNewsChanges } from "@/lib/news/draft-state";
 import { editorialInstant, editorialLocal, editorialZone } from "@/lib/timezones";
 import { descriptionCount, descriptionLimit } from "@/lib/research/description";
 import { newsCategoryLabel } from "@/lib/content/homepage-selections";
@@ -44,11 +44,7 @@ export function NewsEditor({ initial, id, version, status = "draft", requestId, 
   const candidate = { ...fields, publicationDate: instant, publicationTimezone: zone };
   const candidateKey = draftFingerprint(candidate);
   const dirty = candidateKey !== savedKey;
-  const publishedKey = published ? draftFingerprint({
-    title: published.title, category: published.category, excerpt: published.excerpt, body: published.body,
-    publicationDate: published.publicationDate, publicationTimezone: editorialZone(published.publicationTimezone), featured: published.featured,
-  }) : null;
-  const hasUnpublishedChanges = publishedKey !== null && savedKey !== publishedKey;
+  const hasUnpublishedChanges = status === "published" && hasUnpublishedNewsChanges(initial, published);
   const overLimit = descriptionCount(fields.body) > descriptionLimit;
 
   useEffect(() => {
