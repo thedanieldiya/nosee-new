@@ -1,3 +1,4 @@
+import { homepageEvents } from "@/lib/events/homepage";
 import { homepageNews } from "@/lib/news/homepage";
 import type { Metadata } from "next";
 import { HomeHero } from "@/components/site/sections/HomeHero";
@@ -16,6 +17,6 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const articles = await homepageNews();
-  return <><HomeHero /><HomeMonitoringDashboard /><HomeResearchOutputs /><HomeTrendingNews articles={articles} /><HomeUpcomingEvents /></>;
+  const [articles, events] = await Promise.all([homepageNews(), homepageEvents()]);
+  return <><HomeHero /><HomeMonitoringDashboard /><HomeResearchOutputs /><HomeTrendingNews articles={articles} /><HomeUpcomingEvents events={events} /></>;
 }

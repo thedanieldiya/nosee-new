@@ -7,6 +7,9 @@ import { FeaturedEvent } from "@/components/site/events/FeaturedEvent";
 import { ListingEventCard } from "@/components/site/events/ListingEventCard";
 import { EventMonthHeading } from "@/components/site/events/EventMonthHeading";
 import { EventDayGroup } from "@/components/site/events/EventDayGroup";
+import { publishedEvents } from "@/lib/events/public";
+import { PublicEventFilters } from "@/components/site/events/PublicEventFilters";
+import { PublicEventPagination } from "@/components/site/events/PublicEventPagination";
 import { buildEvents } from "@/lib/content/events-listing";
 
 export const dynamic = "force-dynamic";
@@ -15,7 +18,12 @@ export const metadata: Metadata = { title: "Events | NOSEE", robots: { index: fa
 export default async function EventsPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const params = await searchParams;
   // PHP keeps the last repeated scalar q; bracketed q[] has no scalar q here.
-  const { featured, ongoing, upcoming_groups, query } = buildEvents(Array.isArray(params.q) ? params.q.at(-1) : params.q);
+  const q = Array.isArray(params.q) ? params.q.at(-1) ?? "" : params.q ?? "";
+  const page = Number(typeof params.page === "string" ? params.page : 1), type = typeof params.type === "string" ? params.type : "";
+  const [upcomingPage, ongoingPage, featuredPage] = await Promise.all([publishedEvents({ q, type, page }), publishedEvents({ timing: "ongoing", page: Number(typeof params.ongoingPage === "string" ? params.ongoingPage : 1) }), publishedEvents()]);
+  const { upcoming_groups, query } = buildEvents(q, new Date(), upcomingPage.rows);
+  const { ongoing } = buildEvents(null, new Date(), ongoingPage.rows);
+  const featured = buildEvents(null, new Date(), featuredPage.rows).featured;
   return <div className="pt-[var(--expanded-navbar-offset)]">
     <div className="events-listing pb-20" data-events-page="">
       <Container className="flex flex-col gap-10 pt-10 lg:gap-16 lg:pt-6">
@@ -28,12 +36,13 @@ export default async function EventsPage({ searchParams }: { searchParams: Promi
             <label htmlFor="event-search" className="sr-only">Search upcoming events</label>
             <input id="event-search" name="q" type="search" defaultValue={query ?? ""} placeholder="Search events..." className="min-w-0 flex-1 bg-transparent text-base text-primary outline-none placeholder:text-secondary focus-visible:outline-2 focus-visible:outline-solid focus-visible:-outline-offset-2 focus-visible:outline-accent" />
             <button type="submit" className="inline-flex h-10 items-center justify-center gap-1.5 bg-brand px-4 text-sm font-medium text-inverse focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">Search<SearchRegular size={16} className="size-4 max-w-full" aria-hidden="true" focusable="false" data-ui-icon="search" /></button>
-          </form>
+          <input type="hidden" name="type" value={type} /></form>
         </header>
+        <PublicEventFilters path="/events" q={q} type={type} />
         {featured && <FeaturedEvent event={featured} />}
         {ongoing.length > 0 && <section aria-labelledby="ongoing-events-heading" data-ongoing-events="">
           <header className="border-b border-line-soft py-4 lg:pt-6"><h2 id="ongoing-events-heading" className="font-heading text-[28px] leading-8 font-medium lg:text-[32px] lg:leading-9">Ongoing Events</h2></header>
-          <div className="mt-5 flex flex-col gap-4 lg:mt-8 lg:gap-8 lg:pl-[336px]">{ongoing.map(e => <ListingEventCard key={e.slug} event={e} />)}</div>
+          <div className="mt-5 flex flex-col gap-4 lg:mt-8 lg:gap-8 lg:pl-[336px]">{ongoing.map(e => <ListingEventCard key={e.slug} event={e} />)}</div><PublicEventPagination path="/events" q={q} type={type} page={ongoingPage.page} pages={ongoingPage.pages} pageParam="ongoingPage" otherPage={upcomingPage.page} />
         </section>}
         <section aria-labelledby="upcoming-events-heading" data-upcoming-events="">
           <header className="flex items-center justify-between gap-4 border-b border-line-soft py-4 lg:pt-6">
@@ -47,6 +56,7 @@ export default async function EventsPage({ searchParams }: { searchParams: Promi
             <EventMonthHeading label={group.label} id={`event-month-${group.key}`} />
             <div className="mt-5 flex flex-col gap-10 lg:mt-8 lg:gap-8">{group.days.map(day => <EventDayGroup key={day.date} day={day} />)}</div>
           </section>)}</div>}
+          <PublicEventPagination path="/events" q={q ?? ""} type={type} page={upcomingPage.page} pages={upcomingPage.pages} otherPage={ongoingPage.page} />
         </section>
       </Container>
     </div>

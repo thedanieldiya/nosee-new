@@ -1,10 +1,9 @@
 import type { EventRecord } from "@/lib/content/events";
-import { selectFeaturedUpcoming } from "@/lib/content/homepage-selections";
 import { Container } from "@/components/site/ui/Container";
 import { ButtonLink } from "@/components/site/ui/ButtonLink";
 import { EventCard } from "@/components/site/cards/EventCard";
 
-export function HomeUpcomingEvents({ events = selectFeaturedUpcoming() }: { events?: readonly EventRecord[] }) {
+export function HomeUpcomingEvents({ events = [] }: { events?: readonly EventRecord[] }) {
   return <section className="bg-default py-8 lg:py-16" aria-labelledby="upcoming-events-heading" data-upcoming-events-section data-reveal-section>
     <Container><div className="flex flex-col gap-8 lg:gap-12">
       <header className="flex items-center justify-center lg:justify-between">

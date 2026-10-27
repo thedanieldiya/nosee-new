@@ -61,11 +61,12 @@ test("event SSR preserves card summaries/date ranges/locations and same-tab link
   assert.doesNotMatch(render(HomeUpcomingEvents, { events: [] }), /data-event-card/);
 });
 
-test("homepage remains server-rendered per request with noindex and hides empty live news", async () => {
+test("homepage remains server-rendered per request with noindex and hides empty live news and never restores event fixtures", async () => {
   const original = process.env.DATABASE_URL; delete process.env.DATABASE_URL;
   let element; try { element = await HomePage(); } finally { if (original !== undefined) process.env.DATABASE_URL = original; }
   const html = render(() => element);
   assert.equal(html.includes("data-trending-news-section"), false);
+  assert.equal(html.includes("data-event-card"), false);
   const hooks = ["data-home-hero", "data-monitoring-dashboard-section", "data-research-outputs-section", "data-upcoming-events-section"];
   const positions = hooks.map(hook => html.indexOf(hook));
   assert.ok(positions.every(position => position >= 0));

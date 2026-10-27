@@ -1,3 +1,5 @@
+import { eventZoneLabel } from "@/lib/events/presentation";
+import { editorialLocal } from "@/lib/timezones";
 import type { PresentedEvent } from "@/lib/content/events-listing";
 import { ButtonLink } from "@/components/site/ui/ButtonLink";
 import Calendar2Regular from "@mingcute/react/core-regular/calendar-2";
@@ -29,6 +31,7 @@ export function ListingEventCard({ event }: { event: PresentedEvent }) {
           <time dateTime={event.schedule.start_time!} className="text-xl leading-7 font-medium">{event.presentation.start_time}</time>
           {event.presentation.end_time && <><span className="text-secondary" aria-hidden="true">–</span><time dateTime={event.schedule.end_time!} className="text-xl leading-7 font-medium">{event.presentation.end_time}</time></>}
         </div>}
+        {event.start_at && <p className="text-center text-xs">{usesDates ? editorialLocal(event.start_at, event.timezone).time.slice(0,5) + " · " : ""}{eventZoneLabel(event.timezone, event.start_at)}</p>}
       </div>
       <div className="flex min-w-0 flex-col justify-center gap-3 p-4 lg:min-h-[184px]">
         <p className={`w-fit px-2 py-0.5 text-xs leading-5 font-medium uppercase ${type.tag_classes}`}>{event.type.replaceAll("-", " ")}</p>

@@ -3,6 +3,9 @@ import { Container } from "@/components/site/ui/Container";
 import { ButtonLink } from "@/components/site/ui/ButtonLink";
 import ArrowRightUpRegular from "@mingcute/react/core-regular/arrow-right-up";
 
+import { RichDescription } from "@/components/site/ui/RichDescription";
+import { eventScheduleZoneLabel } from "@/lib/events/presentation";
+
 export function EventDetail({ event }: { event: PresentedEvent }) {
   const p = event.presentation;
   return <div className="pt-[var(--expanded-navbar-offset)]">
@@ -21,7 +24,7 @@ export function EventDetail({ event }: { event: PresentedEvent }) {
           {p.start_time && <div className="border-b border-line-soft py-6 sm:pl-6 lg:border-r lg:border-b-0 lg:px-6">
             <h2 className="text-sm leading-5 font-medium text-secondary uppercase">Time</h2>
             <p className="mt-2 font-heading text-xl leading-7 font-medium text-primary">{p.start_time}{p.end_time && ` – ${p.end_time}`}</p>
-            <p className="mt-1 text-sm leading-5 text-secondary">{event.timezone}</p>
+            <p className="mt-1 text-sm leading-5 text-secondary">{event.start_at ? eventScheduleZoneLabel(event.timezone, event.start_at, event.end_at!) : event.timezone}</p>
           </div>}
           <div className="border-b border-line-soft py-6 sm:border-r sm:pr-6 lg:border-b-0 lg:px-6">
             <h2 className="text-sm leading-5 font-medium text-secondary uppercase">Location</h2>
@@ -41,14 +44,14 @@ export function EventDetail({ event }: { event: PresentedEvent }) {
           <div className="flex min-w-0 flex-col gap-14">
             <section aria-labelledby="event-description-heading">
               <h2 id="event-description-heading" className="font-heading text-[32px] leading-9 font-medium text-primary">About this event</h2>
-              <p className="mt-5 whitespace-pre-line text-base leading-7 text-secondary">{event.body}</p>
+              {typeof event.body === "string" ? <p className="mt-5 whitespace-pre-line text-base leading-7 text-secondary">{event.body}</p> : <div className="mt-5 text-base leading-7 text-secondary"><RichDescription value={event.body} /></div>}
             </section>
-            {event.schedule.mode === "multi_day" && p.itinerary.length > 0 && <section aria-labelledby="event-itinerary-heading" data-event-itinerary="">
+            {p.itinerary.length > 0 && <section aria-labelledby="event-itinerary-heading" data-event-itinerary="">
               <h2 id="event-itinerary-heading" className="border-b border-line-soft pb-4 font-heading text-[32px] leading-9 font-medium text-primary">Itinerary</h2>
-              <ol>{p.itinerary.map(day => <li key={day.date} className="grid gap-4 border-b border-line-soft py-6 sm:grid-cols-[12rem_minmax(0,1fr)]" data-itinerary-day="">
+              <ol>{p.itinerary.map((day, index) => <li key={index} className="grid gap-4 border-b border-line-soft py-6 sm:grid-cols-[12rem_minmax(0,1fr)]" data-itinerary-day="">
                 <div>
                   <time dateTime={day.date} className="font-heading text-lg leading-7 font-medium text-primary">{day.presentation.date}</time>
-                  <p className="mt-1 text-sm leading-5 text-secondary"><time dateTime={day.start_time}>{day.presentation.start_time}</time>{day.presentation.end_time && <> – <time dateTime={day.end_time!}>{day.presentation.end_time}</time></>}</p>
+                  <p className="mt-1 text-sm leading-5 text-secondary"><time dateTime={day.start_time}>{day.presentation.start_time}</time>{day.presentation.end_time && <> – <time dateTime={day.end_time!}>{day.presentation.end_time}{day.end_date ? ` (${day.end_date})` : ""}</time></>}</p>
                 </div>
                 {(day.title || day.description) && <div>
                   {day.title && <h3 className="font-heading text-xl leading-7 font-medium text-primary">{day.title}</h3>}
@@ -58,7 +61,7 @@ export function EventDetail({ event }: { event: PresentedEvent }) {
             </section>}
             {event.resources.length > 0 && <section aria-labelledby="event-resources-heading">
               <h2 id="event-resources-heading" className="font-heading text-[32px] leading-9 font-medium text-primary">Resources</h2>
-              <ul className="mt-5 divide-y divide-line-soft border-y border-line-soft">{event.resources.map(resource => <li key={resource.url}>
+              <ul className="mt-5 divide-y divide-line-soft border-y border-line-soft">{event.resources.map((resource, index) => <li key={index}>
                 <a href={resource.url} target="_blank" rel="noopener noreferrer" className="flex min-h-14 items-center justify-between gap-4 py-3 font-medium text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">{resource.label}<ArrowRightUpRegular size={16} className="size-4 max-w-full shrink-0" aria-hidden="true" focusable="false" data-ui-icon="arrow-up-right" /></a>
               </li>)}</ul>
             </section>}
