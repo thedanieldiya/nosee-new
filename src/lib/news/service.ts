@@ -1,10 +1,10 @@
+import { authorizedPublishing } from "../admin/publishing.ts";
 import "server-only";
 import { createHash, randomUUID } from "node:crypto";
 import { eq, sql, desc, asc } from "drizzle-orm";
 import { z } from "zod";
-import { adminDatabase } from "../admin/database.ts";
 import { ManagementError } from "../admin/errors.ts";
-import { user, newsArticle, auditLog } from "../admin/schema.ts";
+import { newsArticle, auditLog } from "../admin/schema.ts";
 import type { Principal } from "../admin/policy.ts";
 import type { ResearchTransaction } from "../research/security.ts";
 import { descriptionText } from "../research/description.ts";
@@ -22,14 +22,6 @@ function parse<T>(schema: z.ZodType<T>, raw: unknown): T {
   const result = schema.safeParse(raw);
   if (!result.success) throw new ManagementError(result.error.issues.some(issue => issue.path.includes("body")) ? "Use supported body formatting and safe links, within 6,000 visible characters." : "Check the title, category, date, time zone and saved version before retrying.");
   return result.data;
-}
-async function authorized<T>(actor: Principal, work: (tx: ResearchTransaction) => Promise<T>) {
-  return adminDatabase().db.transaction(async tx => {
-    await tx.execute(sql`select pg_advisory_xact_lock(4631002)`);
-    const [current] = await tx.select().from(user).where(eq(user.id, actor.id));
-    if (!current?.active || current.accessVersion !== actor.accessVersion || !["super_admin", "editor"].includes(current.role)) throw new ManagementError("Current publishing access is required.", 403);
-    return work(tx);
-  });
 }
 async function row(tx: ResearchTransaction, id: string, includeDeleted = false) {
   if (!z.uuid().safeParse(id).success) throw new ManagementError("Article not found.", 404);
@@ -59,7 +51,7 @@ async function checkPublication(tx: ResearchTransaction, value: { publicationDat
 }
 export async function newsDirectory(actor: Principal, raw: unknown) {
   const query = parse(newsQuery, raw), pattern = `%${query.q.replace(/[\\%_]/g, "\\$&")}%`;
-  return authorized(actor, async tx => {
+  return authorizedPublishing(actor, async tx => {
     const where = sql`${newsArticle.deletedAt} is null and (${newsArticle.title} ilike ${pattern} or ${newsArticle.excerpt} ilike ${pattern}) and (${query.status}='' or ${newsArticle.status}=${query.status})`;
     const total = Number((await tx.select({ n: sql`count(*)::int` }).from(newsArticle).where(where))[0].n), pages = Math.max(1, Math.ceil(total / 20)), page = Math.min(query.page, pages);
     // Compare this bounded page on the server; bodies and snapshots never enter the directory DTO.
@@ -68,10 +60,10 @@ export async function newsDirectory(actor: Principal, raw: unknown) {
     return { rows: records.map(article => ({ id: article.id, title: article.title, category: article.category, slug: article.slug, status: article.status, version: article.version, updatedAt: article.updatedAt, hasUnpublishedChanges: article.status === "published" && hasUnpublishedNewsChanges(article, article.publishedContent) })), total, page, pages };
   });
 }
-export async function getNewsArticle(actor: Principal, id: string) { return authorized(actor, async tx => serialize<ArticleRecord>(await row(tx, id))); }
+export async function getNewsArticle(actor: Principal, id: string) { return authorizedPublishing(actor, async tx => serialize<ArticleRecord>(await row(tx, id))); }
 export async function createNewsArticle(actor: Principal, raw: unknown) {
   const input = parse(newsCreateInput, raw), fingerprint = digest({ fields: input.fields, mode: input.mode });
-  return authorized(actor, async tx => {
+  return authorizedPublishing(actor, async tx => {
     const [prior] = await tx.select({ id: newsArticle.id, digest: newsArticle.creationDigest }).from(newsArticle).where(eq(newsArticle.creationKey, input.requestId));
     if (prior) {
       if (prior.digest !== fingerprint) throw new ManagementError("This creation request already saved different content. Reload before adding another article.", 409);
@@ -88,7 +80,7 @@ export async function createNewsArticle(actor: Principal, raw: unknown) {
 }
 export async function updateNewsArticle(actor: Principal, id: string, raw: unknown) {
   const input = parse(newsUpdateInput, raw), fingerprint = digest({ action: "update", mode: input.mode, fields: input.fields, version: input.version });
-  return authorized(actor, async tx => {
+  return authorizedPublishing(actor, async tx => {
     const article = await row(tx, id);
     if (sameMutation(article, input.mutationId, fingerprint)) return { id, message: "These changes were already saved." };
     checkVersion(article, input.version);
@@ -102,7 +94,7 @@ export async function updateNewsArticle(actor: Principal, id: string, raw: unkno
 }
 export async function publishNewsArticle(actor: Principal, id: string, raw: unknown) {
   const input = parse(newsPublicationInput, raw), fingerprint = digest(input);
-  return authorized(actor, async tx => {
+  return authorizedPublishing(actor, async tx => {
     const article = await row(tx, id);
     if (sameMutation(article, input.mutationId, fingerprint)) return { id, message: "Publication state already saved." };
     checkVersion(article, input.version);
@@ -120,7 +112,7 @@ export async function publishNewsArticle(actor: Principal, id: string, raw: unkn
 }
 export async function deleteNewsArticle(actor: Principal, id: string, raw: unknown) {
   const input = parse(newsDeletionInput, raw), fingerprint = digest({ action: "delete", version: input.version, phrase: input.phrase });
-  return authorized(actor, async tx => {
+  return authorizedPublishing(actor, async tx => {
     const article = await row(tx, id, true);
     if (article.status === "deleted" && sameMutation(article, input.mutationId, fingerprint)) return { id, slug: article.slug, message: "Article already deleted." };
     if (article.status === "deleted") throw new ManagementError("Article not found.", 404);

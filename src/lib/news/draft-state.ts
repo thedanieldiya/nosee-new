@@ -8,6 +8,10 @@ export function draftFingerprint(fields: NewsFields) {
   // still needs an unsaved indicator, rather than an exception while typing.
   try { body = validateDescription(body); } catch { /* Save validation reports unsupported or over-limit content. */ }
   const value = { ...fields, publicationDate: Number.isFinite(instant.getTime()) ? instant.toISOString() : fields.publicationDate, body };
+  return canonicalContentFingerprint(value);
+}
+
+export function canonicalContentFingerprint(value: unknown) {
   return JSON.stringify(value, (key, item) => {
     // Marks commute; content/list order does not. Tiptap also supplies default
     // ordered-list attributes that can be absent in a valid stored document.

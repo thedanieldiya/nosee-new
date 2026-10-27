@@ -78,6 +78,13 @@
       "when": 1793000000000,
       "tag": "0010_news_workflow",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1793090000000,
+      "tag": "0011_events_publishing",
+      "breakpoints": true
     }
   ]
 }

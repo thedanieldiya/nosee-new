@@ -1,13 +1,15 @@
+import type { Description } from "../research/description";
+
 export type EventRecord = Readonly<{
-  slug: string; title: string; type: string; summary: string; featured: boolean;
+  start_at?: string; end_at?: string; slug: string; title: string; type: string; summary: string; featured: boolean;
   image: string | null; image_alt: string | null; timezone: string; start_date: string; end_date: string | null;
   schedule: Readonly<{
     mode: string; start_time: string | null; end_time: string | null;
-    itinerary: readonly Readonly<{date: string; start_time: string; end_time: string | null; title: string | null; description: string | null}>[];
+    itinerary: readonly Readonly<{end_date?: string; date: string; start_time: string; end_time: string | null; title: string | null; description: string | null}>[];
   }>;
   location: Readonly<{type: string; venue: string | null; address: string | null; city: string | null; country: string | null; platform: string | null}>;
   application_deadline: string | null; meeting_site_url: string | null; organiser: string; speakers: readonly string[];
-  registration_url: string | null; body: string; resources: readonly Readonly<{label: string; url: string}>[];
+  registration_url: string | null; body: Description; resources: readonly Readonly<{label: string; url: string}>[];
 }>;
 
 // Literal pinned development fixtures; not approved organisational facts.

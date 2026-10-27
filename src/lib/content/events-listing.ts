@@ -1,4 +1,4 @@
-import { eventRecords, type EventRecord } from "./events";
+import { eventRecords, type EventRecord } from "./events.ts";
 
 export const eventTypes: Record<string, { tag_classes: string; duration_classes: string }> = {
   meeting: { tag_classes: "bg-brand/10 text-[#0b5025]", duration_classes: "bg-brand text-inverse" },
@@ -39,6 +39,7 @@ function localInstant(date: string, time: string, timezone: string) {
 }
 
 export function eventState(event: EventRecord, now: Date): "upcoming" | "ongoing" | "past" {
+  if (event.start_at && event.end_at) return now.getTime() < Date.parse(event.start_at) ? "upcoming" : now.getTime() < Date.parse(event.end_at) ? "ongoing" : "past";
   if (event.type === "meeting" || event.schedule.mode === "multi_day") {
     const today = localParts(now, event.timezone).slice(0, 10);
     return today < event.start_date ? "upcoming" : today > (event.end_date ?? event.start_date) ? "past" : "ongoing";
@@ -94,7 +95,7 @@ export type EventDay = { date: string; label: string; events: PresentedEvent[] }
 type EventMonth = { key: string; label: string; days: EventDay[] };
 
 const compareString = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
-const sortKey = (event: EventRecord) => `${event.start_date} ${event.type !== "meeting" && event.schedule.mode === "single_day" ? event.schedule.start_time : "00:00"}`;
+const sortKey = (event: EventRecord) => event.start_at ?? `${event.start_date} ${event.type !== "meeting" && event.schedule.mode === "single_day" ? event.schedule.start_time : "00:00"}`;
 const compare = (a: EventRecord, b: EventRecord) => compareString(sortKey(a), sortKey(b)) || compareString(a.slug, b.slug);
 // PHP trim/stripos use ASCII whitespace/case; Unicode normalization would change search.
 export const normalizeEventQuery = (query: unknown): string | null => typeof query === "string" ? query.replace(/^[\x00\x09-\x0b\x0d ]+|[\x00\x09-\x0b\x0d ]+$/g, "") || null : null;

@@ -28,13 +28,13 @@ import { Select } from "@/components/admin/ManagementShared";
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
 
 const SafeLink = Link.extend({ addAttributes() { return { href: { default: null, parseHTML: element => element.getAttribute("href") } }; } });
-export function DescriptionEditor({ initial, onChange, disabled, label = "Full description", id = "research-description" }: { initial: Description; onChange: (value: DescriptionDocument) => void; disabled: boolean; label?: string; id?: string }) {
+export function DescriptionEditor({ initial, onChange, disabled, label = "Full description", id = "research-description", validationError }: { initial: Description; onChange: (value: DescriptionDocument) => void; disabled: boolean; label?: string; id?: string; validationError?: string }) {
   const [count, setCount] = useState(descriptionCount(initial)), [linkOpen, setLinkOpen] = useState(false), [href, setHref] = useState(""), [linkError, setLinkError] = useState("");
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [Document, Paragraph, Text, HardBreak, Heading.configure({ levels: [2, 3] }), Bold, Italic, BulletList, OrderedList, ListItem, UndoRedo, SafeLink.configure({ autolink: false, linkOnPaste: false, openOnClick: false, isAllowedUri: safeResearchLink, HTMLAttributes: { target: null, rel: "noopener noreferrer" } })],
     content: descriptionDocument(initial), editable: !disabled,
-    editorProps: { attributes: { id, role: "textbox", "aria-multiline": "true", "aria-labelledby": `${id}-label`, "aria-describedby": `${id}-count`, class: "research-description min-h-56 p-3 focus-visible:outline-2 focus-visible:outline-accent focus-visible:-outline-offset-2" } },
+    editorProps: { attributes: { id, role: "textbox", "aria-multiline": "true", "aria-labelledby": `${id}-label`, "aria-invalid": validationError ? "true" : "false", "aria-describedby": `${id}-count` + (validationError ? ` ${id}-error` : ""), class: "research-description min-h-56 p-3 focus-visible:outline-2 focus-visible:outline-accent focus-visible:-outline-offset-2" } },
     onUpdate: ({ editor }) => { const doc = editor.getJSON() as DescriptionDocument; setCount(descriptionCount(doc)); onChange(doc); },
   });
   useEffect(() => { editor?.setEditable(!disabled); }, [editor, disabled]);
@@ -57,6 +57,7 @@ export function DescriptionEditor({ initial, onChange, disabled, label = "Full d
         { label: "Redo", Icon: RedoIcon, unavailable: !state?.redo, action: () => editor?.chain().focus().redo().run() },
       ].map(({ label, Icon, pressed, action, unavailable }) => <Button key={label} type="button" variant="ghost" className="size-11 p-0 aria-pressed:bg-black/10" aria-label={label} title={label} aria-pressed={pressed} disabled={!editor || disabled || unavailable} onClick={action}><Icon size={20} color="currentColor" aria-hidden="true" /></Button>)}
     </div><EditorContent editor={editor} /></div><p id={`${id}-count`} className={count > descriptionLimit ? "text-sm text-red-800" : "text-xs text-secondary"}>{count.toLocaleString("en")} / 6,000 visible characters{count > descriptionLimit ? ". Shorten the description before saving." : ". Line breaks count; formatting does not."}</p>
+    {validationError && <p id={`${id}-error`} className="text-sm text-red-800">{validationError}</p>}
     <Dialog open={linkOpen} onOpenChange={setLinkOpen}><DialogContent onCloseAutoFocus={event => { event.preventDefault(); editor?.commands.focus(); }}><DialogTitle className="text-xl font-semibold">Edit link</DialogTitle><DialogDescription className="mt-2 text-secondary">Link selected text to a web or email address.</DialogDescription><label htmlFor={`${id}-link`} className="mt-5 block font-medium">Link address</label><Input id={`${id}-link`} className="mt-2" value={href} onChange={event => setHref(event.target.value)} aria-describedby={linkError ? `${id}-link-error` : undefined} onKeyDown={event => { if (event.key === "Enter") { event.preventDefault(); saveLink(); } }} />{linkError ? <p role="alert" id={`${id}-link-error`} className="mt-3 text-red-800">{linkError}</p> : null}<div className="mt-5 flex justify-end gap-3"><DialogClose asChild><Button variant="outline" type="button">Cancel</Button></DialogClose><Button type="button" onClick={saveLink}>Save link</Button></div></DialogContent></Dialog>
   </div>;
 }

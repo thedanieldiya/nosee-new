@@ -3,24 +3,16 @@ import assert from "node:assert/strict";
 import { registerHooks } from "node:module";
 import { render } from "./helpers/render-site.mjs";
 registerHooks({ resolve: (specifier, context, nextResolve) => nextResolve(specifier === "next/server" ? "next/server.js" : specifier, context) });
-const { NextRequest } = await import("next/server.js");
-const { proxy } = await import("../src/proxy.ts");
 const { eventRecords } = await import("../src/lib/content/events.ts");
 const { findEvent } = await import("../src/lib/content/events-detail.ts");
 const { presentEvent } = await import("../src/lib/content/events-listing.ts");
 const { EventDetail } = await import("../src/components/site/events/EventDetail.tsx");
 const { NotFoundContent } = await import("../src/components/site/layout/NotFoundContent.tsx");
-const { default: EventPage, generateMetadata, dynamic } = await import("../src/app/(public)/events/[slug]/page.tsx");
-const { GET } = await import("../src/app/(public)/events/icelli2026/route.ts");
 const now = new Date("2026-10-14T12:00:00Z");
 
-test("exact slug lookup, dynamic detail titles and fixture indexing protection", async () => {
-  assert.equal(dynamic, "force-dynamic");
-  for (const e of eventRecords) {
-    assert.deepEqual(findEvent(e.slug), e);
-    assert.deepEqual(await generateMetadata({ params: Promise.resolve({ slug: e.slug }) }), { title: `${e.title} | NOSEE`, robots: { index: false, follow: false } });
-  }
-  for (const slug of ["missing", "nosee-annual-general-meeting", "ICELLI2026", " icelli2026"]) assert.equal(findEvent(slug), null);
+test("legacy inventory retains exact slugs for the explicit import mapping", () => {
+  for (const e of eventRecords) assert.deepEqual(findEvent(e.slug), e);
+  for (const slug of ["missing", "ICELLI2026", " icelli2026"]) assert.equal(findEvent(slug), null);
 });
 test("every regular fixture renders original content with optional sections and no banner", () => {
   for (const e of eventRecords.filter(e => e.type !== "meeting")) {
@@ -49,28 +41,8 @@ test("optional itinerary title/end/description and unsafe body remain source-equ
   assert.equal((html.match(/target="_blank" rel="noopener noreferrer"/g) ?? []).length, 2);
   assert.ok(html.indexOf('>First<') < html.indexOf('>Second<'));
 });
-test("meeting route returns exact 302 without forwarding query or detail content", async () => {
-  for (const query of ["", "?q=test"]) {
-    const response = GET(new Request(`https://nosee.example/events/icelli2026${query}`));
-    assert.equal(response.status, 302); assert.equal(response.headers.get("location"), "https://icelli.nosee.org");
-    assert.equal(await response.text(), "");
-  }
-});
-test("unknown slug takes the real Next not-found path and original 404 content", async () => {
-  await assert.rejects(EventPage({ params: Promise.resolve({ slug: "missing" }) }), e => e.digest === "NEXT_HTTP_ERROR_FALLBACK;404");
-  assert.match(render(NotFoundContent), /pt-10 pb-16 lg:pt-6/);
+test("shared complete 404 content remains available", () => {
   assert.match(render(NotFoundContent), />Page not found<\/h1>/);
 });
-test("route rewrites preserve unknown 404 and encoded/trailing meeting semantics", async () => {
-  for (const method of ["GET", "HEAD"]) {
-    const response = await proxy(new NextRequest("https://nosee.example/events/missing?q=original", { method }));
-    assert.equal(response.headers.get("x-middleware-rewrite"), "https://nosee.example/events/missing/__nosee_not_found__?q=original");
-  }
-  for (const slug of [...eventRecords.map(e => e.slug), "archive"]) {
-    assert.equal((await proxy(new NextRequest(`https://nosee.example/events/${slug}`))).headers.get("x-middleware-next"), "1");
-  }
-  assert.equal((await proxy(new NextRequest("https://nosee.example/events/missing", { method: "POST" }))).headers.get("x-middleware-next"), "1");
-  for (const slug of ["%69celli2026", "icelli2026/"]) {
-    assert.equal((await proxy(new NextRequest(`https://nosee.example/events/${slug}?q=original`))).headers.get("x-middleware-rewrite"), "https://nosee.example/events/icelli2026?q=original");
-  }
-});
+// Live metadata, GET/HEAD redirects, encoded/trailing paths and unpublished 404s
+// are verified against explicitly imported isolated records in events-integration.mjs.

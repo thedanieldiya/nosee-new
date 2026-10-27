@@ -1,3 +1,5 @@
+import { eventZoneLabel } from "@/lib/events/presentation";
+import { editorialLocal } from "@/lib/timezones";
 /* eslint-disable @next/next/no-img-element -- Preserve original editorial images. */
 import type { PresentedEvent } from "@/lib/content/events-listing";
 import { ButtonLink } from "@/components/site/ui/ButtonLink";
@@ -36,6 +38,7 @@ export function FeaturedEvent({ event }: { event: PresentedEvent }) {
             <span className="block text-sm leading-5 text-secondary">{event.presentation.end_date.month}</span>
           </time></>}
         </div>
+        {event.start_at && <p className="text-sm text-secondary lg:text-center">{editorialLocal(event.start_at, event.timezone).time.slice(0,5)} · {eventZoneLabel(event.timezone, event.start_at)}</p>}
         <p className="flex min-w-0 items-start gap-1 text-sm leading-5 text-secondary lg:text-center">
           <LocationRegular size={20} className="mt-0.5 size-5 max-w-full shrink-0" aria-hidden="true" focusable="false" data-ui-icon="location" /><span>{event.presentation.location}</span>
         </p>

@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { findEvent } from "@/lib/content/events-detail";
+import { publishedEvent } from "@/lib/events/public";
+import { safeEventUrl } from "@/lib/events/input";
 
 export async function proxy(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith("/admin") || request.nextUrl.pathname.startsWith("/api/admin/") || request.nextUrl.pathname.startsWith("/join") || ["/api/internal/membership-expiry", "/api/internal/membership-emails"].includes(request.nextUrl.pathname)) {
@@ -27,13 +28,12 @@ export async function proxy(request: NextRequest) {
   let slug: string;
   try { slug = decodeURIComponent(request.nextUrl.pathname.slice("/events/".length).replace(/\/$/, "")); }
   catch { return NextResponse.next(); }
-  const event = findEvent(slug);
-  if (event?.type === "meeting" && request.nextUrl.pathname !== `/events/${slug}`) {
-    const meeting = new URL(request.url);
-    meeting.pathname = `/events/${slug}`;
-    return NextResponse.rewrite(meeting);
+  if (slug === "archive") return NextResponse.next();
+  const event = await publishedEvent(slug);
+  if (event?.type === "meeting" && event.meetingSiteUrl && safeEventUrl(event.meetingSiteUrl)) {
+    return NextResponse.rewrite(new URL("/api/events/" + encodeURIComponent(slug) + "/redirect", request.url));
   }
-  if (slug === "archive" || event) return NextResponse.next();
+  if (event) return NextResponse.next();
   // Next 16's matched-segment fallback omits JS-off HTML; use its global 404 route.
   const missing = new URL(request.url);
   missing.pathname = missing.pathname.replace(/\/$/, "") + "/__nosee_not_found__";

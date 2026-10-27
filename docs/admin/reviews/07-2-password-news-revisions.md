@@ -1,6 +1,6 @@
 # A07.2 — Password visibility and News revision indicators
 
-**27 October 2026 · Code ready for owner review.** Branch `codex/a07-2-password-news-revisions` starts at main `c32939d`, containing [A07.1 completion PR #29](https://github.com/thedanieldiya/nosee-new/pull/29). This is a correction within A07; progress remains **7/13 core milestones merged**. A07.1 owner/hosted interaction checks remain unverified, as recorded in its [handoff](../07-1-news-workflow-public-wat-toasts.md).
+**27 October 2026 · Merged in [PR #30](https://github.com/thedanieldiya/nosee-new/pull/30), owner-tested per the explicit A08 brief.** Branch `codex/a07-2-password-news-revisions` starts at main `c32939d`, containing [A07.1 completion PR #29](https://github.com/thedanieldiya/nosee-new/pull/29). This is a correction within A07; progress remains **7/13 core milestones merged**. A07.1 owner/hosted interaction checks remain unverified, as recorded in its [handoff](../07-1-news-workflow-public-wat-toasts.md).
 
 ## Changes
 
@@ -25,3 +25,5 @@ All database/browser tests used synthetic records in disposable loopback `nosee_
 2. **News revisions:** as Editor, publish an article, save a changed working body, then return to News. It should read Published with an Unpublished changes badge while the public article stays unchanged. Revert and save to clear the badge, then make another revision, save and republish; the badge disappears and the public snapshot updates. Draft and Unpublished retain their ordinary labels.
 
 Hosted preview and owner acceptance are independent of code checks. Vercel reports a successful [implementation deployment](https://vercel.com/thedanieldiyas-projects/nosee-new/7w6rwsyjUuMEmh9ALNUbCnnJa4Z7) for `326badc`. Its check-run output supplies the actual [sign-in preview](https://nosee-new-git-codex-a07-2-passwo-3f942c-thedanieldiyas-projects.vercel.app/admin/sign-in). The available page-read tool could not access it or `/news`, so live interaction remains **unverified/Preview blocked**; secure isolated Preview schema/origin/auth/role setup remains necessary. No PR, merge, manual deployment, live migration or external configuration was performed.
+
+**Owner status update (A08 brief):** A07.2 is merged and owner-tested. The earlier hosted/owner status above records the original handoff; it does not override this later owner confirmation or complete unrelated A07.1 checks.

@@ -1,3 +1,5 @@
+import { eventZoneLabel } from "@/lib/events/presentation";
+import { editorialLocal } from "@/lib/timezones";
 import type { EventRecord } from "@/lib/content/events";
 import { eventCardValues } from "@/lib/content/homepage-selections";
 
@@ -16,6 +18,7 @@ export function EventCard({ event }: { event: EventRecord }) {
       </div>
       <footer className="flex flex-col gap-3 border-t border-line-soft pt-5 font-body">
         <time dateTime={event.start_date} className="text-sm leading-5 italic text-secondary lg:text-base lg:leading-6">{values.dateLabel}</time>
+        {event.start_at && <p className="text-sm leading-5 text-secondary">{editorialLocal(event.start_at, event.timezone).time.slice(0,5)} · {eventZoneLabel(event.timezone, event.start_at)}</p>}
         <p className="text-sm leading-5 text-primary lg:text-base lg:leading-6">{values.locationLabel}</p>
       </footer>
     </a>
