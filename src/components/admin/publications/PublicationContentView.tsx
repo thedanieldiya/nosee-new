@@ -1,0 +1,4 @@
+import type { PublicationContent } from "@/lib/publications/input";
+import { publicationDateLabel } from "@/lib/publications/content";
+import { researchInterests } from "@/lib/membership/options";
+export function PublicationContentView({content:c}:{content:PublicationContent}){return <article className="space-y-5"><h2 className="text-2xl font-semibold">{c.title}</h2><p>{c.authors.join("; ")}</p><p>{publicationDateLabel(c.publicationDate)} · {c.type.replaceAll("-"," ")}</p>{c.source&&<p>{c.source}</p>}{c.doi&&<p className="break-words">DOI: {c.doi}</p>}{c.referenceUrl&&<p><a className="underline" href={c.referenceUrl} rel="noopener noreferrer">View publication</a></p>}{c.abstract&&<p className="whitespace-pre-line">{c.abstract}</p>}<p>{c.researchAreas.map(k=>researchInterests[k]).join(" · ")}</p>{c.publicGroup&&<p>{c.publicGroup.name}</p>}</article>;}

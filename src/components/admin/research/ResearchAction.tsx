@@ -11,11 +11,11 @@ export function ResearchAction({ endpoint, payload, title, description, disabled
   async function save() {
     if (submitting.current) return; submitting.current = true; setBusy(true); setError(""); setMessage("");
     try {
-      const response = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...payload, ...((endpoint.includes("/news/") || endpoint.includes("/events/")) ? { mutationId: mutationId.current } : {}), confirm: true }) });
+      const response = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...payload, ...((endpoint.includes("/news/") || endpoint.includes("/events/") || endpoint.includes("/publications/")) ? { mutationId: mutationId.current } : {}), confirm: true }) });
       const result = await response.json().catch(() => null);
       if (!response.ok || !result?.message) throw new Error(result?.error || "This change could not be confirmed. Refresh and review before retrying.");
       setMessage(result.message);
-      const label = endpoint.includes("/news/") ? (title === "Unpublish" ? "Article unpublished" : "Article published") : endpoint.includes("/events/") ? (title === "Unpublish" ? "Event unpublished" : "Event published") : "Changes saved";
+      const label = endpoint.includes("/news/") ? (title === "Unpublish" ? "Article unpublished" : "Article published") : endpoint.includes("/events/") ? (title === "Unpublish" ? "Event unpublished" : "Event published") : endpoint.includes("/publications/") ? (title === "Unpublish" ? "Publication unpublished" : "Publication published") : "Changes saved";
       if (result.cacheRefresh === "unconfirmed") adminToast.warning(label, "The public cache refresh could not be confirmed."); else adminToast.success(label);
       setOpen(false); onSuccess?.(); router.refresh();
     } catch (failure) { setError(failure instanceof Error && failure.message !== "Failed to fetch" ? failure.message : "This change could not be confirmed. Refresh and review before retrying."); adminToast.error("Couldn’t save changes"); }

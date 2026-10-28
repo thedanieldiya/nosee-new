@@ -115,5 +115,5 @@ try{
  });
  // Isolated browser fixture; only random synthetic access leaves this process.
  const id=await add(fields({title:'Browser event'}),'publish');fixtures.event={id,slug:(await get(id)).slug,fields:(await get(id)).fields};
- writeFileSync('/tmp/nosee-a08-private/fixtures.json',JSON.stringify(fixtures));chmodSync('/tmp/nosee-a08-private/fixtures.json',0o600);
+ const fixturePath=process.env.NOSEE_EVENT_FIXTURE_FILE||'/tmp/nosee-a08-private/fixtures.json';assert.ok(fixturePath.startsWith('/tmp/'));writeFileSync(fixturePath,JSON.stringify(fixtures),{mode:0o600});chmodSync(fixturePath,0o600);
 }finally{await pool.end();}

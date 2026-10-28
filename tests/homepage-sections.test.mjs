@@ -18,14 +18,14 @@ const source = {
   events: { all: eventRecords, selected: fixtures.homepage.events.map(slug => eventRecords.find(record => record.slug === slug)), presentation: fixtures.homepage.presentation },
 };
 
-test("research SSR preserves three exact publications, authors/year/area and external DOI controls", () => {
-  const html = render(HomeResearchOutputs);
+test("research SSR preserves the card design and metadata with internal publication links", () => {
+  const html = render(HomeResearchOutputs, {records:source.publications.selected});
   assert.equal([...html.matchAll(/<article[^>]*data-research-output-card\b/g)].length, 3);
   assert.equal([...html.matchAll(/href="\/publications"/g)].length, 2);
   source.publications.selected.forEach(record => {
-    for (const value of [record.title, record.authors.join(", "), `${record.publication_date.slice(0, 4)}, ${record.publication_source}`, record.research_area.replaceAll("-", " ").toUpperCase(), `href="https://doi.org/${record.doi}"`, `aria-label="Read Here: ${record.title}"`]) assert.ok(html.includes(value), value);
+    for (const value of [record.title, record.authors.join(", "), `${record.publication_date.slice(0, 4)}, ${record.publication_source}`, record.research_area.replaceAll("-", " ").toUpperCase(), `href="/publications/${record.slug}"`, `aria-label="View publication: ${record.title}"`]) assert.ok(html.includes(value), value);
   });
-  assert.equal([...html.matchAll(/target="_blank" rel="noopener noreferrer"/g)].length, 3);
+  assert.doesNotMatch(html, /target="_blank"/);
   assert.doesNotMatch(html, /<script/);
 });
 
@@ -67,6 +67,7 @@ test("homepage remains server-rendered per request with noindex and hides empty 
   const html = render(() => element);
   assert.equal(html.includes("data-trending-news-section"), false);
   assert.equal(html.includes("data-event-card"), false);
+  assert.doesNotMatch(html, /<article[^>]*data-research-output-card\b/);
   const hooks = ["data-home-hero", "data-monitoring-dashboard-section", "data-research-outputs-section", "data-upcoming-events-section"];
   const positions = hooks.map(hook => html.indexOf(hook));
   assert.ok(positions.every(position => position >= 0));

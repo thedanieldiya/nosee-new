@@ -25,6 +25,13 @@ export async function proxy(request: NextRequest) {
     missing.pathname = missing.pathname.replace(/\/$/, "") + "/__nosee_not_found__";
     return NextResponse.rewrite(missing);
   }
+  if(request.nextUrl.pathname.startsWith("/publications/")) {
+    let publication;
+    try { publication=await (await import("@/lib/publications/public")).publishedPublication(decodeURIComponent(request.nextUrl.pathname.slice("/publications/".length).replace(/\/$/,""))); }
+    catch { return NextResponse.next(); }
+    if(publication)return NextResponse.next();
+    const missing=new URL(request.url);missing.pathname=missing.pathname.replace(/\/$/,"")+"/__nosee_not_found__";return NextResponse.rewrite(missing);
+  }
   let slug: string;
   try { slug = decodeURIComponent(request.nextUrl.pathname.slice("/events/".length).replace(/\/$/, "")); }
   catch { return NextResponse.next(); }
@@ -40,4 +47,4 @@ export async function proxy(request: NextRequest) {
   return NextResponse.rewrite(missing);
 }
 
-export const config = { matcher: ["/events/:slug", "/news/:slug", "/admin/:path*", "/api/admin/:path*", "/join/:path*", "/api/internal/membership-expiry", "/api/internal/membership-emails"] };
+export const config = { matcher: ["/events/:slug", "/news/:slug", "/publications/:slug", "/admin/:path*", "/api/admin/:path*", "/join/:path*", "/api/internal/membership-expiry", "/api/internal/membership-emails"] };

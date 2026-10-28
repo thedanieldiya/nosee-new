@@ -1,10 +1,9 @@
 import type { PublicationRecord } from "@/lib/content/publications";
-import { selectFeaturedPublications } from "@/lib/content/homepage-selections";
 import { Container } from "@/components/site/ui/Container";
 import { ButtonLink } from "@/components/site/ui/ButtonLink";
 import { ResearchOutputCard } from "@/components/site/cards/ResearchOutputCard";
 
-export function HomeResearchOutputs({ records = selectFeaturedPublications() }: { records?: readonly PublicationRecord[] }) {
+export function HomeResearchOutputs({ records = [] }: { records?: readonly PublicationRecord[] }) {
   return <section className="bg-default py-8 lg:py-16" aria-labelledby="research-outputs-heading" data-research-outputs-section data-reveal-section>
     <Container><div className="flex flex-col gap-8 lg:gap-12">
       <header className="flex items-center justify-center lg:justify-between">
