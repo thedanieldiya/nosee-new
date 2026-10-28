@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element -- Preserve original picture candidates, crops and native links. */
-import { about } from "@/lib/content/about";
+import { about, type AboutProfile } from "@/lib/content/about";
 import { Container } from "@/components/site/ui/Container";
 import { ProfileCarousel } from "./ProfileCarousel";
 
-export function AboutPageContent() {
+export function AboutPageContent({leadership=about.leadership}:{leadership?:{title:string;intro:string;people:readonly AboutProfile[];unavailable?:boolean}}) {
   return (
 <article className="pb-24 lg:pb-32" data-about-page="">
         <Container className="pt-[84px] lg:pt-20">
@@ -126,7 +126,7 @@ export function AboutPageContent() {
                 </div>
             </section>
 
-            <ProfileCarousel leadership={about.leadership} />
+            <ProfileCarousel leadership={leadership} />
 
             <section id="collaborations" className="mt-24 scroll-mt-32 border-t border-line-strong pt-8 xl:mt-36 xl:grid xl:grid-cols-12 xl:gap-x-8 xl:pt-10" aria-labelledby="collaboration-heading">
                 <p className="text-sm leading-[18px] font-medium text-brand uppercase xl:col-span-3">
