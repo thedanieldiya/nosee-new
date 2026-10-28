@@ -46,8 +46,9 @@ export function initializeHeroCarousel(carousel: HTMLElement, windowObject: Wind
     indicators.forEach((indicator, index) => {
       const active = index === currentIndex;
       indicator.setAttribute("aria-current", String(active));
-      indicator.classList.toggle("bg-inverse", active);
-      indicator.classList.toggle("bg-transparent", !active);
+      const dot = indicator.querySelector<HTMLElement>("[data-hero-indicator-dot]") ?? indicator;
+      dot.classList.toggle("bg-inverse", active);
+      dot.classList.toggle("bg-transparent", !active);
     });
   };
   const scheduleAutoplay = () => {

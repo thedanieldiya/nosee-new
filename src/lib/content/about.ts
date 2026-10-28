@@ -124,4 +124,4 @@ export const about = {
 } as const;
 
 export type AboutContent = typeof about;
-export type AboutProfile = AboutContent["leadership"]["people"][number];
+export type AboutProfile = {id?:string;name:string;title:string;image:string;image_alt:string;category?:string;affiliation?:string;researchInterests?:string;biography?:import("../research/description.ts").Description};

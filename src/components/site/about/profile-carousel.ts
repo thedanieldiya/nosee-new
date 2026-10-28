@@ -27,7 +27,7 @@ export function initializeProfileCarousel(carousel: HTMLElement, windowObject: W
     const totalPages = pageCount();
     const activePage = Math.floor(currentIndex / profilesPerPage);
     const lastVisibleProfile = Math.min(currentIndex + profilesPerPage, slides.length);
-    track.style.transform = `translateX(-${slides[currentIndex].offsetLeft}px)`;
+    track.style.transform = `translateX(-${slides[currentIndex].offsetLeft - slides[0].offsetLeft}px)`;
     slides.forEach((slide, index) => {
       const visible = index >= currentIndex && index < lastVisibleProfile;
       slide.setAttribute("aria-hidden", String(!visible));
@@ -40,8 +40,9 @@ export function initializeProfileCarousel(carousel: HTMLElement, windowObject: W
       indicator.hidden = index >= totalPages;
       indicator.setAttribute("aria-current", String(active));
       indicator.setAttribute("aria-label", firstProfile === lastProfile ? `Show profile ${firstProfile}` : `Show profiles ${firstProfile} to ${lastProfile}`);
-      indicator.classList.toggle("bg-brand", active);
-      indicator.classList.toggle("bg-disabled", !active);
+      const dot = indicator.querySelector<HTMLElement>("[data-profile-indicator-dot]") ?? indicator;
+      dot.classList.toggle("bg-brand", active);
+      dot.classList.toggle("bg-disabled", !active);
     });
     if (indicatorGroup) indicatorGroup.hidden = totalPages <= 1;
     if (arrowGroup) arrowGroup.hidden = totalPages <= 1;

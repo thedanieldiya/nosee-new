@@ -1,3 +1,4 @@
+import { homepageHero } from "@/lib/site-content/rendering";
 import { homepagePublications } from "@/lib/publications/homepage";
 import { homepageEvents } from "@/lib/events/homepage";
 import { homepageNews } from "@/lib/news/homepage";
@@ -19,5 +20,5 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const [articles, events, publications] = await Promise.all([homepageNews(), homepageEvents(), homepagePublications()]);
-  return <><HomeHero /><HomeMonitoringDashboard /><HomeResearchOutputs records={publications} /><HomeTrendingNews articles={articles} /><HomeUpcomingEvents events={events} /></>;
+  return <><HomeHero items={await homepageHero()} /><HomeMonitoringDashboard /><HomeResearchOutputs records={publications} /><HomeTrendingNews articles={articles} /><HomeUpcomingEvents events={events} /></>;
 }

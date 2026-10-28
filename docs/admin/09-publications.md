@@ -1,6 +1,6 @@
 # A09 — DOI-first Publications
 
-**28 October 2026 · Production candidate, in review.** Branch `codex/a09-publications` starts from main `abe9457`, containing A08 PR #31. **A08 is merged, with owner walkthroughs pending; core merged progress is 8/13.** A09 has not merged or passed owner acceptance. Earlier A07.1/A06/A04/cross-role/provider/release gates retain their previous status.
+**28 October 2026 · Merged in PR #32, owner acceptance pending.** Branch `codex/a09-publications` starts from main `abe9457`, containing A08 PR #31. **A08 is merged, with owner walkthroughs pending; core merged progress is now 9/13 after A09 PR #32.** A09 is merged; owner walkthroughs and live DOI verification remain pending. Earlier A07.1/A06/A04/cross-role/provider/release gates retain their previous status.
 
 ## Code and editorial contract
 

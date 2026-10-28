@@ -8,13 +8,15 @@ import { render } from "./helpers/render-site.mjs";
 import { about } from "../src/lib/content/about.ts";
 import { fixtures, assertPinned } from "./helpers/pinned-content.mjs";
 
-const { default: AboutPage, metadata } = await import("../src/app/(public)/about/page.tsx");
+const { metadata } = await import("../src/app/(public)/about/page.tsx");
 const { buttonClasses } = await import("../src/components/site/ui/ButtonLink.tsx");
 const { ArrowRight } = await import("../src/components/site/ui/ArrowRight.tsx");
 const { SiteNavigation } = await import("../src/components/site/layout/SiteNavigation.tsx");
 const { navigation, getNavigationState } = await import("../src/lib/content/navigation.ts");
 const assets = fixtures.about.assets;
-const html = render(AboutPage);
+// Assert the unchanged legacy presentation explicitly; A10 integration verifies the async route/cutover.
+const {AboutPageContent}=await import('../src/components/site/about/AboutPageContent.tsx');
+const html=render(()=>createElement('div',{className:'pt-[var(--expanded-navbar-offset)]'},createElement(AboutPageContent)));
 
 test("complete literal About record matches pinned PHP, including all responsive/development copy", () => {
   assertPinned(about, fixtures.about.recordHash);

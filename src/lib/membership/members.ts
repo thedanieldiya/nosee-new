@@ -169,11 +169,12 @@ export async function convertApplication(actor: Principal, id: string, raw: unkn
     return { ...saved, message: "Member associated with the approved application. No approval email, administrator access or public profile was created." };
   });
 }
-export async function profileLinkOptions(actor: Principal, id: string) {
+export async function profileLinkOptions(actor: Principal, id: string, q = "") {
   return authorized(actor, async tx => {
     const current = await memberRow(tx, id);
-    const profiles = await tx.select(profileProjection).from(leadershipProfileIdentity).where(sql`not exists(select 1 from member m where m.leadership_profile_id=${leadershipProfileIdentity.id} and m.id<>${id}::uuid)`).orderBy(leadershipProfileIdentity.displayName, leadershipProfileIdentity.id).limit(100);
-    const available = Number((await tx.select({ n: sql<number>`count(*)::int` }).from(leadershipProfileIdentity))[0].n) > 0;
+    if(q.length>120)throw new ManagementError("Use a shorter profile search.");
+    const profiles = await tx.select(profileProjection).from(leadershipProfileIdentity).where(sql`${leadershipProfileIdentity.deletedAt} is null and (${leadershipProfileIdentity.displayName} ilike ${pattern(q)} or ${leadershipProfileIdentity.roleTitle} ilike ${pattern(q)} or ${leadershipProfileIdentity.affiliation} ilike ${pattern(q)}) and not exists(select 1 from member m where m.leadership_profile_id=${leadershipProfileIdentity.id} and m.id<>${id}::uuid)`).orderBy(leadershipProfileIdentity.displayName, leadershipProfileIdentity.id).limit(100);
+    const available = true;
     return { profiles, available, version: current.version };
   });
 }
@@ -185,7 +186,7 @@ export async function linkMemberProfile(actor: Principal, id: string, raw: unkno
     if (current.leadershipProfileId === input.profileId) return { id, version: current.version, message: "The profile association is already in this state. Nothing was changed." };
     if (current.leadershipProfileId && input.profileId) throw new ManagementError("Unlink the current profile explicitly before choosing another identity.", 409);
     if (input.profileId) {
-      if (!(await tx.select({ id: leadershipProfileIdentity.id }).from(leadershipProfileIdentity).where(eq(leadershipProfileIdentity.id, input.profileId))).length) throw new ManagementError("Leadership profile not found. A10 must provide a real persistent identity.", 404);
+      if (!(await tx.select({ id: leadershipProfileIdentity.id }).from(leadershipProfileIdentity).where(sql`${leadershipProfileIdentity.id}=${input.profileId}::uuid and ${leadershipProfileIdentity.deletedAt} is null`)).length) throw new ManagementError("Leadership profile not found.", 404);
       if ((await tx.select({ id: member.id }).from(member).where(eq(member.leadershipProfileId, input.profileId))).length) throw new ManagementError("That profile is already linked to another member. Review both identities; nothing was changed.", 409);
     }
     const [saved] = await tx.update(member).set({ leadershipProfileId: input.profileId, version: current.version + 1, updatedAt: sql`clock_timestamp()` }).where(sql`${member.id}=${id}::uuid and ${member.version}=${input.version}`).returning({ id: member.id, version: member.version });

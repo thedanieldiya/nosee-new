@@ -11,6 +11,7 @@ function createElement(classes = []) {
     const classNames = new Set(classes);
 
     return {
+        querySelector: () => null,
         hidden: false,
         inert: false,
         style: {},
@@ -265,3 +266,5 @@ test('single profile has no group controls and an empty carousel does not regist
     assert.equal(empty.controller, null);
     assert.equal(empty.windowObject.listenerCount(), 0);
 });
+
+test('container offsets do not clip the first card or shift subsequent profile destinations',()=>{const h=createHarness();for(const slide of h.slides)slide.offsetLeft+=64;h.windowObject.dispatch('resize');assert.equal(h.track.style.transform,'translateX(-0px)');h.controller.showProfile(1);assert.equal(h.track.style.transform,'translateX(-100px)');h.controller.dispose();});

@@ -26,7 +26,7 @@ export function adminNavigation(principal: Principal) {
     { label: "Membership", href: "/admin/membership/applications", permission: "membership" as Permission, icon: "members", available: true },
     { label: "Research", href: principal.role === "research_group_lead" ? `/admin/research/${principal.researchGroupId}` : "/admin/research", permission: "research" as Permission, icon: "research", available: true },
     { label: "Publishing", href: "/admin/publishing/news", permission: "publishing" as Permission, icon: "publishing", available: true },
-    { label: "Website", href: "/admin/website/site-content", permission: "website" as Permission, icon: "website", available: false },
+    { label: "Website", href: "/admin/website/site-content", permission: "website" as Permission, icon: "website", available: true },
     { label: "General", href: "/admin/settings/general", permission: "account" as Permission, icon: "settings", available: true },
     { label: "Administrators", href: "/admin/settings/administrators", permission: "administrators" as Permission, available: true },
     { label: "Activity log", href: "/admin/settings/activity-log", permission: "activity" as Permission, available: true },
