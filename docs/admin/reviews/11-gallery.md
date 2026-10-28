@@ -1,6 +1,6 @@
 # A11 review — Gallery
 
-**28 October 2026 · In review.** `codex/a11-gallery` starts from main `5db398a`, containing merged A10 PR #33. Core merged progress remains **10/13**; A10 owner walkthroughs are pending. [Implementation, storage contract and setup register](../11-gallery.md).
+**28 October 2026 · Merged in [PR #34](https://github.com/thedanieldiya/nosee-new/pull/34); owner walkthroughs/layout/hosted storage acceptance pending.** `codex/a11-gallery` starts from main `5db398a`, containing merged A10 PR #33. Main `9ae00c6` contains A11; core merged progress is **11/13**; A10 owner walkthroughs are pending. [Implementation, storage contract and setup register](../11-gallery.md).
 
 Gallery now supports standalone caption-required photos and albums, private metadata drafts/previews, validated contextual uploads, working/live snapshots, canonical revision badges, typed deletion and reference-safe retention. The existing `/multimedia` navigation now opens a restrained paginated public grid with album/photo details and a keyboard viewer. No legacy Gallery renderer existed; this new layout needs owner visual approval.
 
@@ -50,4 +50,4 @@ Implementation [`4367ee8`](https://github.com/thedanieldiya/nosee-new/commit/436
 
 **Hosted interaction unverified / Preview blocked:** the available page-read tool cannot access either preview route. Owner must verify automatic migration 0014 on the intended isolated Preview database, exact origin/auth setup and secure existing Super Admin/Editor/Lead access before the current walkthroughs. Durable storage remains unselected, so hosted uploads intentionally fail closed; do not treat a successful build as real-provider acceptance. Approve the new layout/content/rights and manual AT/device behavior separately. A10 walkthroughs and earlier unverified checks remain pending.
 
-Task servers, disposable PostgreSQL container/anonymous volume, private generated credentials/storage and temporary dependency symlinks were removed; the checkout was clean after implementation. This documentation-only follow-up records the build/preview handoff. No PR, merge, manual deployment, live migration/import command, provider configuration, email or destructive media cleanup was performed.
+Task servers, disposable PostgreSQL container/anonymous volume, private generated credentials/storage and temporary dependency symlinks were removed; the checkout was clean after implementation. This documentation-only follow-up records the build/preview handoff. No PR, merge, manual deployment, live migration/import command, provider configuration, email or destructive media cleanup was performed by the A11 agent. PR #34 subsequently merged; the owner walkthroughs/layout/hosted storage acceptance remain pending.

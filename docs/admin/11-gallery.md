@@ -1,6 +1,6 @@
 # A11 — Gallery, standalone photos and albums
 
-**28 October 2026 · Production candidate, in review.** Branch `codex/a11-gallery` starts from main `5db398a`, containing merged [A10 PR #33](https://github.com/thedanieldiya/nosee-new/pull/33). Core progress is **10/13 merged** before A11. A10 owner walkthroughs remain pending. A11 is a separate review milestone; durable hosted uploads are **not operational**.
+**28 October 2026 · Merged in [PR #34](https://github.com/thedanieldiya/nosee-new/pull/34); owner walkthroughs, layout approval and hosted storage acceptance pending.** Branch `codex/a11-gallery` starts from main `5db398a`, containing merged [A10 PR #33](https://github.com/thedanieldiya/nosee-new/pull/33). Core progress is **11/13 merged** after A11 (main `9ae00c6`). A10 owner walkthroughs remain pending. A12 is separate review work; durable hosted uploads are **not operational**.
 
 ## Authoring and publication
 
