@@ -1,6 +1,6 @@
 export type PublicationRecord = Readonly<{
   slug: string; title: string; type: string; authors: readonly string[];
-  publication_date: string; publication_source: string; research_area: string; doi: string; featured: boolean;
+  publication_date: string; publication_source: string; research_area: string; doi: string; featured?: boolean;
 }>;
 
 // Literal pinned development fixtures; not approved organisational facts.

@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import{render}from'./helpers/render-site.mjs';
+const{PublicationDate}=await import('../src/components/site/publications/PublicationDate.tsx');
+test('public citation dates use valid month/full-date semantics and plain year text without padding',()=>{assert.equal(render(PublicationDate,{value:'2026'}),'<span>2026</span>');assert.equal(render(PublicationDate,{value:'2026-05'}),'<time dateTime="2026-05">May 2026</time>');assert.equal(render(PublicationDate,{value:'2026-05-09'}),'<time dateTime="2026-05-09">9 May 2026</time>');});

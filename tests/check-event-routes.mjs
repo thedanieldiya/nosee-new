@@ -80,7 +80,7 @@ try {
   assert.deepEqual(targetHead, { status: 302, location: "https://icelli.nosee.org", html: "" });
   report.requests++;
   if (reference) { assert.deepEqual(await requestHttp(reference + "/events/icelli2026", "HEAD"), targetHead); report.comparisons++; }
-  for (const path of ["/events/missing-event", "/events/nosee-annual-general-meeting", "/nonexistent-public-url", "/publications", "/news/missing"]) await request(path, 404);
+  for (const path of ["/events/missing-event", "/events/nosee-annual-general-meeting", "/nonexistent-public-url", "/news/missing"]) await request(path, 404);
   const invalid = await requestHttp(base + "/events/ICELLI2026");
   assert.equal(invalid.status, 404);
   assert.ok(invalid.html.includes(">Page not found</h1>"));
@@ -90,6 +90,7 @@ try {
     assert.equal(source.status, 500);
     report.deviations.push({ path: "/events/ICELLI2026", sourceStatus: 500, targetStatus: 404, reason: "Task requires unknown-slug 404; source rejects non-kebab-case filenames with a loader error." });
   }
+  await request("/publications", 200);
   await request("/events/archive", 200);
   await request("/events/archive/", 200);
   await request("/events/environmental-data-training/", 200);
