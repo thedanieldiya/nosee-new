@@ -106,6 +106,13 @@
       "when": 1793263800000,
       "tag": "0014_gallery_media",
       "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1793267400000,
+      "tag": "0015_privacy_policy",
+      "breakpoints": true
     }
   ]
 }

@@ -8,16 +8,17 @@ import { adminDatabase } from "../admin/database.ts";
 import { adminConfig } from "../admin/config.ts";
 import { takeBucket } from "../admin/http.ts";
 import { ManagementError, requireManagerTransaction } from "../admin/management.ts";
-import { auditLog, membershipApplication, applicationMember, member } from "../admin/schema.ts";
+import { auditLog, membershipApplication, applicationMember, member, privacyPolicy } from "../admin/schema.ts";
 import type { Principal } from "../admin/policy.ts";
 import { applicationInput, submissionInput, applicationQuery, decisionInput } from "./input.ts";
-import { validApplicationToken, tokenDigest, applicationFingerprint } from "./form-guard.ts";
+import { applicationTokenContext, tokenDigest, applicationFingerprint } from "./form-guard.ts";
 import { membershipConsent, type ApplicationStatus } from "./options.ts";
 type Transaction = Parameters<Parameters<ReturnType<typeof adminDatabase>["db"]["transaction"]>[0]>[0];
 export class ApplicationError extends ManagementError {
   errors: Record<string, string>;
   constructor(message: string, status = 400, errors: Record<string, string> = {}) { super(message, status); this.errors = errors; }
 }
+export class PolicyChangedError extends ApplicationError { constructor() { super("The privacy policy changed. Review the updated policy and confirm consent again. Your application has not been submitted.",409,{consent:"Review the updated privacy policy and confirm consent again."}); } }
 export type ApplicationRecord = { id: string; firstName: string; lastName: string; email: string; careerStage: string; researchInterests: string[]; why: string; consentedAt: string; consentVersion: string; privacyVersion: string; status: ApplicationStatus; createdAt: string; expiresAt: string; reviewedAt: string | null; reviewer: string | null; reviewNote: string | null };
 async function lock(tx: Transaction) { await tx.execute(sql`select pg_advisory_xact_lock(4631003)`); }
 async function recordEvent(tx: Transaction, id: string, action: string, before?: ApplicationStatus, after?: ApplicationStatus, actorId: string | null = null) {
@@ -52,7 +53,8 @@ export async function submitMembershipApplication(raw: unknown, requestHeaders: 
   }
   const { formToken } = parsed.data;
   const values = applicationInput.parse(Object.fromEntries(Object.entries(parsed.data).filter(([key]) => key !== "formToken" && key !== "website")));
-  if (!validApplicationToken(formToken)) throw new ApplicationError("Your form has expired or is invalid. Reload the form and try again.", 400);
+  const presented = applicationTokenContext(formToken);
+  if (!presented) throw new ApplicationError("Your form has expired or is invalid. Reload the form and try again.", 400);
   const emailKey = tokenDigest(values.email), ip = process.env.VERCEL ? requestHeaders.get("x-vercel-forwarded-for") : null;
   if (!(await takeBucket(`membership:email:${emailKey}`, 3600, 5)) || (ip && isIP(ip) && !(await takeBucket(`membership:ip:${tokenDigest(ip)}`, 3600, 20)))) throw new ApplicationError("Too many attempts. Please try again in an hour.", 429);
   values.researchInterests.sort();
@@ -62,10 +64,13 @@ export async function submitMembershipApplication(raw: unknown, requestHeaders: 
     await persistExpiry(tx, sql`lower(email)=${values.email}`);
     const [replay] = await tx.select({ requestDigest: membershipApplication.requestDigest }).from(membershipApplication).where(eq(membershipApplication.formDigest, formDigest));
     if (replay) return replay.requestDigest === requestDigest ? { received: true } : { received: false };
+    const [policy] = await tx.select({ version: privacyPolicy.publishedVersion }).from(privacyPolicy).where(eq(privacyPolicy.id,"privacy"));
+    if (!policy) throw new ApplicationError("The privacy policy is temporarily unavailable. Your application has not been submitted.",503);
+    if (policy.version !== presented.privacyVersion || presented.consentVersion !== membershipConsent.version) throw new PolicyChangedError();
     const [active] = await tx.select({ id: membershipApplication.id }).from(membershipApplication).where(and(sql`lower(${membershipApplication.email})=${values.email}`, sql`${membershipApplication.status} in ('pending','approved')`));
     if (active) return { received: false };
     const id = randomUUID();
-    await tx.insert(membershipApplication).values({ firstName: values.firstName, lastName: values.lastName, email: values.email, careerStage: values.careerStage, researchInterests: values.researchInterests, why: values.why, id, formDigest, requestDigest, consentedAt: sql`statement_timestamp()`, consentVersion: membershipConsent.version, privacyVersion: membershipConsent.privacyVersion, createdAt: sql`statement_timestamp()`, updatedAt: sql`statement_timestamp()`, expiresAt: sql`statement_timestamp() + interval '720 hours'` });
+    await tx.insert(membershipApplication).values({ firstName: values.firstName, lastName: values.lastName, email: values.email, careerStage: values.careerStage, researchInterests: values.researchInterests, why: values.why, id, formDigest, requestDigest, consentedAt: sql`statement_timestamp()`, consentVersion: presented.consentVersion, privacyVersion: presented.privacyVersion, createdAt: sql`statement_timestamp()`, updatedAt: sql`statement_timestamp()`, expiresAt: sql`statement_timestamp() + interval '720 hours'` });
     await recordEvent(tx, id, "Received membership application");
     await recordMembershipEmails(tx, id, "received");
     return { received: true };

@@ -2,6 +2,8 @@
 
 **16 October 2026 · A01–A05 core merged; A05.5 PR #22 and A05.5.1 PR #23 (`5712d32`) merged/owner-tested successfully; A06 merged in PR #24; A06.5 merged in PR #25; A07 News prepared for review. Owner confirmed research deletion/focus removal only.** PostgreSQL-backed administration lives inside the existing Next.js app. Research has private working copies, published-only snapshots and explicit Member-bound Lead scope. The public research renderer and new upload integration are blocked on separately approved design/storage; A07 homepage News reads published snapshots; unrelated public content services remain unchanged. Branch-preview and live Resend acceptance remain outstanding.
 
+**Current A12 addition (28 October):** A11 PR #34 is merged (11/13); owner walkthroughs/layout/hosted storage remain pending. [A12](12-privacy-monitoring.md) adds shared published policy history and presented-version consent without rewriting receipts or 30-day expiry. [The consolidated setup register](EXTERNAL-SETUP.md) records current connection/adapter/acceptance distinctions; historical architecture entries below retain their original scope. Existing migration runner/journal are unchanged; no A12 build/start or live migration hook is added.
+
 ## Selected stack and boundaries
 
 | Selection | Reason / compatibility |

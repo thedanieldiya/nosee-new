@@ -19,5 +19,5 @@ export const applicationStatuses = { pending: "Pending", approved: "Approved", r
 export type ApplicationStatus = keyof typeof applicationStatuses;
 export const membershipConsent = { text: "I agree to NOSEE using the information I provide to review my membership application.", version: "membership-review-v1", privacyVersion: "development-placeholder-v1" } as const;
 export type ApplicationValues = { firstName: string; lastName: string; email: string; careerStage: string; researchInterests: string[]; why: string; consent: boolean };
-export type ApplicationFormState = { success?: boolean; formToken: string; values: ApplicationValues; errors: Record<string, string>; message?: string };
+export type ApplicationFormState = { success?: boolean; formToken: string; values: ApplicationValues; errors: Record<string, string>; message?: string; policy?: import("../privacy/content.ts").PublishedPolicy | null };
 export const emptyApplicationValues: ApplicationValues = { firstName: "", lastName: "", email: "", careerStage: "", researchInterests: [], why: "", consent: false };
