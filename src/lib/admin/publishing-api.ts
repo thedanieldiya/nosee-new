@@ -3,7 +3,7 @@ import { administrator } from "./session.ts";
 import { privateJson, sameOrigin, readJson, takeBucket } from "./http.ts";
 import { ManagementError } from "./errors.ts";
 import type { Principal } from "./policy.ts";
-export async function publishingApi(request: Request, scope: "news" | "events" | "publications" | "site-content", work: (actor: Principal, body: unknown) => Promise<unknown>) {
+export async function publishingApi(request: Request, scope: "news" | "events" | "publications" | "site-content" | "gallery", work: (actor: Principal, body: unknown) => Promise<unknown>) {
   if (request.method !== "GET" && !sameOrigin(request)) return privateJson({ error: "Request not permitted." }, 403);
   try {
     const actor = await administrator(request.headers);

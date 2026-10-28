@@ -99,6 +99,13 @@
       "when": 1793177400000,
       "tag": "0013_site_content",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1793263800000,
+      "tag": "0014_gallery_media",
+      "breakpoints": true
     }
   ]
 }

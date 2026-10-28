@@ -1,10 +1,10 @@
 # A10 — Homepage hero and Leadership profiles
 
-**28 October 2026 · Production candidate, in review.** Branch `codex/a10-site-content` starts from main `2d22934`, containing A09 PR #32. A09 is merged; **core merged progress is 9/13**. A08/A09 owner walkthroughs and live DOI verification remain pending. No A10 merge or owner acceptance is inferred.
+**28 October 2026 · Merged in [PR #33](https://github.com/thedanieldiya/nosee-new/pull/33); owner walkthroughs pending.** Branch `codex/a10-site-content` starts from main `2d22934`, containing A09 PR #32. A10 is merged into main `5db398a`; **core merged progress is 10/13**. A08/A09 owner walkthroughs and live DOI verification remain pending. Merge does not establish A10 owner acceptance. A11 is separate review work.
 
 ## Scope and model
 
-Website → Site content redirects to Homepage, with contextual Homepage/Leadership navigation and Gallery/Privacy explicitly planned. Super Admin and Editor manage content; Leads and anonymous callers are denied at pages, APIs and current-authority transactions. There is no general About, Contact, shared-content or Monitoring editor. News, Events and Publications keep their automatic homepage rules.
+Website → Site content redirects to Homepage, with contextual Homepage/Leadership navigation and Gallery added separately by A11; Privacy remains planned. Super Admin and Editor manage content; Leads and anonymous callers are denied at pages, APIs and current-authority transactions. There is no general About, Contact, shared-content or Monitoring editor. News, Events and Publications keep their automatic homepage rules.
 
 The hero is one ordered working collection plus one published snapshot. Saving initializes an editable collection from the **two exact current slides**, preserving copy, IDs, image references, credit and existing CTA destinations. The first draft save retains the exact legacy published hero. Subsequent working edits, reorder and confirmed removal affect only the working collection. Publication atomically replaces the whole collection and requires 1–12 valid slides. A single slide has no indicators; multiple slides reuse the existing carousel/autoplay/reduced-motion/image-decode behavior. Image-free new slides use the hero's green background beneath its existing dark overlay.
 
