@@ -8,7 +8,7 @@ Gallery now supports standalone caption-required photos and albums, private meta
 
 ## Verification
 
-Local checks use synthetic images, random private fixture accounts and a disposable PostgreSQL database. Upload and browser suites mutate only guarded loopback test data and must run sequentially. Credentials, image objects, screenshots and logs stay outside Git. The schema is additive; no hosted migration, import, service configuration or destructive cleanup was run.
+Local checks use synthetic images, random private fixture accounts and a disposable PostgreSQL database. Upload and browser suites mutate only guarded loopback test data and must run sequentially. Credentials, image objects, screenshots and logs stay outside Git. The schema is additive; no agent-run hosted migration, import, service configuration or destructive cleanup was run.
 
 Local verification passed on 28 October:
 
@@ -42,3 +42,12 @@ After a separate approved provider implementation/configuration task, verify pri
 - Use `/multimedia` and album/photo details on mobile/desktop, search/filter/page a larger collection, and exercise viewer arrows/Escape/focus return. Event links appear only while that Event is currently published. Unpublish/delete the Event without losing the album. Delete the album with exact text: public eligibility ends while stored/history references remain protected. Run no cleanup as part of this walkthrough.
 
 Earlier A07.1/A06/A04/A08/A09/A10 owner checks, live DOI/mail/scheduling, privacy/content/rights and broader public-launch/manual AT gates retain their previous states. No PR, merge, manual deployment, live migration or provider provisioning is authorized by this handoff.
+
+
+## Publication and hosted review
+
+Implementation [`4367ee8`](https://github.com/thedanieldiya/nosee-new/commit/4367ee88aa8648bf5be4da9acaeab7447bef9b4f) is pushed to [`codex/a11-gallery`](https://github.com/thedanieldiya/nosee-new/tree/codex/a11-gallery), with local/remote SHA match. Vercel reports a [successful implementation build](https://vercel.com/thedanieldiyas-projects/nosee-new/9fnK5in5x9D2s93fSJeaMuUhUzGw). Its check-run output supplies the actual [Gallery editor preview](https://nosee-new-git-codex-a11-gallery-thedanieldiyas-projects.vercel.app/admin/website/site-content/gallery) and [public Gallery preview](https://nosee-new-git-codex-a11-gallery-thedanieldiyas-projects.vercel.app/multimedia).
+
+**Hosted interaction unverified / Preview blocked:** the available page-read tool cannot access either preview route. Owner must verify automatic migration 0014 on the intended isolated Preview database, exact origin/auth setup and secure existing Super Admin/Editor/Lead access before the current walkthroughs. Durable storage remains unselected, so hosted uploads intentionally fail closed; do not treat a successful build as real-provider acceptance. Approve the new layout/content/rights and manual AT/device behavior separately. A10 walkthroughs and earlier unverified checks remain pending.
+
+Task servers, disposable PostgreSQL container/anonymous volume, private generated credentials/storage and temporary dependency symlinks were removed; the checkout was clean after implementation. This documentation-only follow-up records the build/preview handoff. No PR, merge, manual deployment, live migration/import command, provider configuration, email or destructive media cleanup was performed.
